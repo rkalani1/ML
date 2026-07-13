@@ -1,0 +1,369 @@
+# Chapter 5. Frequent Itemset Mining, Sequence Mining, and Information Retrieval
+
+<div class="disclaimer-banner" markdown="1">
+**Web Edition — original teaching text.** Educational only; not medical advice. No commercial handbook prose, paper abstracts, or publisher figures.
+</div>
+
+## Web Edition clinical frame
+
+A claims-analysis team wants frequent co-prescription patterns after TIA and a simple retrieval system for similar prior cases. Itemsets and sequences are powerful; they are also experts at encoding practice fashion as ‘knowledge.’
+
+## Learning Objectives
+
+Define market-basket transactions and compute support, confidence, and lift for association rules with a full numerical example.
+
+Explain information-retrieval concepts: documents, queries, relevance, inverted indexes, and TF–IDF ranking with cosine similarity.
+
+Describe hash tables and MinHash for large-scale set similarity, and justify their use for near-duplicate clinical notes or phenotypes.
+
+Compare tree structures (binary, 2-3, B/B+, red-black, trie/radix) and tree-search methods (BFS, DFS, beam search, MCTS) for indexing and planning.
+
+Explain Bloom filters, sliding windows, and skip lists as memory-efficient structures for streams and approximate membership.
+
+Run and contrast Apriori, FP-Growth, and ECLAT for frequent itemsets; explain GSP, SPADE, FreeSpan, and PrefixSpan for sequences.
+
+Formulate HMMs on care sequences: forward likelihood, Viterbi decoding, and Baum–Welch training; place HMMs in a brief PGM context.
+
+Apply co-occurrence, sequence, and retrieval methods to stroke pathways and evidence search without confusing support with causation.
+
+## From Co-occurrence to Knowledge
+
+Unsupervised learning is not only about partitioning continuous points. Many datasets are discrete collections: items purchased together, events ordered in time, or words appearing in documents. Frequent itemset mining, sequence mining, and information retrieval (IR) extract structure from such collections without requiring class labels. They answer: Which items tend to appear together? Which ordered patterns repeat? Which documents are relevant to a query?
+
+These topics share a combinatorial flavor. The space of possible subsets, subsequences, or term combinations grows explosively with vocabulary size. Effective algorithms combine clever counting with monotonicity properties that allow aggressive pruning, and they rely on classical data structures—hashes, trees, filters, and indexes—to make counting and search feasible at scale. They also share evaluation challenges: a statistically frequent pattern need not be actionable, and a high cosine score need not match a clinician’s true information need.
+
+This chapter builds the mathematical and algorithmic vocabulary needed to apply these methods carefully, with worked examples and clinical–epidemiologic notes throughout. We begin with basic transactional concepts, then cover IR systems and the supporting data structures, then frequent-pattern and sequence algorithms, and finally Hidden Markov Models for sequential prediction under partial observability.
+
+## Basic Concepts: Transactions, Support, Confidence, and Lift
+
+A market-basket (or transactional) dataset is a multiset of transactions. Each transaction t is a subset of a finite item universe I = {i₁, i₂, …, iₘ}. In retail, a transaction is a receipt; items are stock-keeping units. In web logs, a transaction may be the set of pages visited in a session. In clinical informatics, items might be ICD-coded diagnoses, medications, imaging orders, or procedures co-documented on an encounter. Order within a classical basket is ignored: {bread, milk} is the same as {milk, bread}. When order matters, we move to sequence mining later in the chapter.
+
+Let D be a database of n transactions. The support count of an itemset X ⊆ I is the number of transactions that contain X as a subset: count(X) = |{t ∈ D : X ⊆ t}|. Relative support is s(X) = count(X) / n. An itemset is frequent if s(X) ≥ minsup for a user-chosen threshold minsup ∈ (0, 1]. The threshold is a modeling choice: too low yields an explosion of patterns; too high yields only trivial singletons. Domain experts often start near 1%–5% for large retail data and adjust.
+
+Item universe I: all distinct products, tokens, codes, or symbols under study.
+
+Transaction t ⊆ I: one co-occurrence bag (order ignored for itemset mining).
+
+Support s(X): fraction of transactions containing every item in X.
+
+Frequent itemset: s(X) ≥ minsup; the primary output of frequent pattern mining.
+
+Association rules turn frequent itemsets into predictive statements. A rule is X → Y where X and Y are disjoint nonempty itemsets. Confidence of the rule is conf(X → Y) = s(X ∪ Y) / s(X), the empirical conditional probability that Y appears given X. Lift is lift(X → Y) = conf(X → Y) / s(Y) = s(X ∪ Y) / (s(X) s(Y)). Lift equals 1 under independence of X and Y; lift > 1 indicates positive association; lift < 1 indicates negative association. High confidence with lift near 1 can be misleading: if Y is almost always present, any antecedent may appear to “predict” Y.
+
+### Worked Example: Support, Confidence, and Lift
+
+Consider a tiny store with n = 5 transactions over items {A, B, C, D}:
+T1: {A, B, C}
+T2: {A, B}
+T3: {A, C, D}
+T4: {B, C}
+T5: {A, B, C, D}
+
+Figure 5.1. Support, confidence, and lift for three association rules mined from the five-transaction basket over items {A, B, C, D}. Confidence climbs from A→B (0.75) to D→A (1.00), yet A→D and D→A share the same lift (1.25) while A→B sits just below the lift = 1 independence line (0.94): lift is symmetric and base-rate–adjusted, confidence is not.
+
+Compute support for selected itemsets. count({A}) = 4 (T1–T3, T5), so s(A) = 4/5 = 0.80. count({B}) = 4, s(B) = 0.80. count({C}) = 4, s(C) = 0.80. count({D}) = 2, s(D) = 0.40. For pairs: count({A,B}) = 3, s(A,B) = 0.60; count({A,C}) = 3, s(A,C) = 0.60; count({B,C}) = 3, s(B,C) = 0.60; count({A,B,C}) = 2, s(A,B,C) = 0.40.
+
+Rule A → B has conf(A → B) = s(A,B)/s(A) = 0.60/0.80 = 0.75. Lift(A → B) = 0.75/0.80 = 0.9375 ≈ 0.94. Because lift is slightly below 1, co-occurrence of A and B is slightly less than independence would predict, even though confidence looks decent. For A → D: s(A,D) = 0.40; conf(A → D) = 0.40/0.80 = 0.50; lift = 0.50/0.40 = 1.25. Confidence is lower than A → B, yet lift > 1 indicates a genuine positive association relative to the base rate of D.
+
+Three teaching points follow. First, with small n, one transaction swings support sharply. Second, confidence alone is not enough: popular consequents inflate confidence. Third, lift normalizes by the consequent’s base rate and can reverse the ranking of “interesting” rules. In practice one filters by minsup, minconf, and often minlift simultaneously, then still applies domain judgment.
+
+## Information Retrieval: Concepts
+
+Information retrieval systems accept a query q and return a ranked list of documents from a corpus C = {d₁, …, d_N}. Classical vector-space IR represents each document as a vector in a high-dimensional term space. Let V be the vocabulary of terms after tokenization, lowercasing, stopword removal, and optionally stemming or lemmatization. The term–document matrix A is |V| × N (or its transpose), with entry A_{t,d} equal to a weight for term t in document d.
+
+Figure 5.2. Cosine similarity of two document vectors in a two-term space. For d1 = (4, 2) and d2 = (1, 3), cos θ = (d1·d2) / (||d1|| ||d2||) = 10 / (√20·√10) = 0.707, so θ = 45°. Cosine depends only on vector direction, which makes the score invariant to document length.
+
+Relevance is the ideal binary (or graded) judgment that a document satisfies an information need. Systems approximate relevance with scoring functions. Boolean retrieval returns documents that match logical combinations of terms. Ranked retrieval orders all documents by a score s(q, d). Evaluation against human judgments uses precision, recall, average precision (AP), mean average precision (MAP), and graded metrics such as nDCG.
+
+Raw term frequency tf(t, d) counts occurrences of t in d. Rare terms that appear in few documents are more discriminative. Inverse document frequency is idf(t) = log(N / df(t)) (variants add smoothing), where df(t) is the number of documents containing t. The TF–IDF weight is typically w(t, d) = tf(t, d) · idf(t), sometimes with sublinear tf such as 1 + log tf(t, d). Documents and queries become vectors in R^{|V|}; similarity is often cosine similarity: cos(q, d) = (q · d) / (‖q‖ ‖d‖). Cosine is invariant to document length scaling, which helps long documents not dominate purely by having more terms.
+
+### Worked Example: TF–IDF on a Tiny Corpus
+
+Corpus of N = 3 documents (already tokenized):
+d1: machine learning models
+d2: machine learning data
+d3: data mining models
+Vocabulary (sorted): data, learning, machine, mining, models. Document frequencies: df(data)=2, df(learning)=2, df(machine)=2, df(mining)=1, df(models)=2. Using natural idf(t) = ln(N/df(t)): idf(data)=ln(3/2)≈0.405, idf(learning)≈0.405, idf(machine)≈0.405, idf(mining)=ln(3/1)≈1.099, idf(models)≈0.405.
+
+Each document has term frequency 1 for its terms. TF–IDF vectors (order: data, learning, machine, mining, models):
+d1: (0, 0.405, 0.405, 0, 0.405)
+d2: (0.405, 0.405, 0.405, 0, 0)
+d3: (0.405, 0, 0, 1.099, 0.405)
+Query q = “machine learning” as TF–IDF: q = (0, 0.405, 0.405, 0, 0). ‖q‖ ≈ 0.573. ‖d1‖ ≈ 0.701; q·d1 ≈ 0.328; cos(q,d1) ≈ 0.816. Similarly cos(q,d2) ≈ 0.816; cos(q,d3) = 0. Ranking for q: d1 and d2 tie first, d3 last. The rare term mining in d3 does not help this query; it would dominate a query containing “mining.”
+
+Precision at rank k is the fraction of the top-k returned documents that are relevant. Recall at rank k is the fraction of all relevant documents that appear in the top k. Average precision (AP) for one query integrates precision at each rank where a relevant document is retrieved; MAP averages AP across a query set. Offline IR evaluation requires a labeled test collection; online systems also use click models and A/B tests, which introduce position bias.
+
+### The Inverted Index
+
+Scanning every document for every query is impossible at web or enterprise scale. An inverted index maps each term t to a postings list of document identifiers (and often positions, fields, and payloads) where t occurs. Boolean queries intersect or union postings; ranked retrieval accumulates partial scores while traversing postings, using heuristics such as WAND and block-max indexes to skip low-scoring documents. Compression of postings (gap encoding, variable-byte or SIMD codecs) is essential.
+
+Figure 5.3. Constructing an inverted index from three tokenized documents: each term points to a postings list of document ids, and each term carries a TF–IDF weight through idf(t) = ln(N/df(t)) with N = 3. The rare term 'mining' (df = 1) earns the largest idf (1.10) and is therefore the most discriminative term for retrieval.
+
+Dictionary: term → metadata and pointer to postings.
+
+Postings: sorted doc-ids, optional term frequencies and positions.
+
+Query processing: boolean algebra on lists or ranked accumulation of scores.
+
+Skipping and compression: enable sublinear average query time on huge corpora.
+
+## Hash Structures: Hash Tables and MinHash
+
+A hash table maps keys to values using a hash function h that maps keys into a finite array of buckets. Ideal expected lookup, insert, and delete are O(1) when load factors are controlled and collisions are handled by chaining or open addressing. In IR and data mining, hash tables store the term dictionary, accumulate counts for itemsets, implement in-memory inverted indexes for moderate corpora, and back join maps for vertical mining algorithms.
+
+Perfect hashing is rare for dynamic sets; collisions are inevitable. Cryptographic hashes (SHA-family) are overkill for bucket placement but useful for content-addressable storage of documents. Universal hashing families guarantee low expected collision rates independent of adversarial key patterns. In clinical pipelines, patient identifiers and code strings are often hashed for de-identified joins—never use reversible encodings of medical record numbers as “features.”
+
+### Minwise Independent Permutations Hashing (MinHash)
+
+Jaccard similarity between sets A and B is J(A,B) = |A ∩ B| / |A ∪ B|. Exact computation is expensive for large vocabularies or many document pairs. MinHash estimates Jaccard by applying random permutations π of the universe and recording min{π(x) : x ∈ A}. For a family of minwise independent permutations, P(min π(A) = min π(B)) = J(A,B). Repeating k independent hashes yields a signature; the fraction of equal signature coordinates estimates Jaccard.
+
+In practice one uses k hash functions h₁, …, h_k from integers to integers and stores min_{x∈A} h_i(x) for each i. Locality-sensitive hashing (LSH) then buckets signatures so that similar sets collide more often, enabling subquadratic near-duplicate detection. Applications include near-duplicate web pages, plagiarism detection, and finding highly similar problem lists or medication sets across encounters without pairwise O(n²) Jaccard on full sets.
+
+Clinical and epidemiologic note: MinHash and LSH can cluster near-duplicate discharge summaries or flag copy-forward notes, but similarity is not clinical correctness. Two notes with high Jaccard may both omit a critical negation (“no hemorrhage”). Always combine set-similarity retrieval with section-aware and negation-aware NLP when the use case is safety-critical case finding.
+
+## Tree Data Structures for Search and Indexing
+
+Trees organize ordered keys and hierarchical prefixes so that search, insert, and range queries are efficient. They underpin databases, file systems, and IR dictionaries. Understanding them clarifies why certain mining algorithms and indexes scale, and why others thrash memory.
+
+### Binary Search Trees
+
+A binary search tree (BST) stores keys so that every node’s left subtree holds smaller keys and the right subtree larger keys. Average search is O(log n) for random insertions; worst case degrades to O(n) if keys arrive sorted. Self-balancing variants keep height logarithmic. BSTs support ordered iteration and predecessor/successor queries that hash tables do not—for example, retrieving every lab result recorded between two timestamps from an in-memory ordered index of an encounter’s events.
+
+### 2-3 Search Trees
+
+A 2-3 tree is a balanced search tree where internal nodes have either one key and two children (2-node) or two keys and three children (3-node). All leaves sit at the same depth. Insertions may temporarily create 4-nodes that split and push a middle key upward, preserving balance, so search, insert, and delete all stay O(log n) with no worst-case degradation to a linear chain. 2-3 trees motivate the B-trees used in external storage—for instance, the on-disk index of an ICD-code dictionary that must remain balanced as new codes are added each fiscal year.
+
+### B-Trees and B+ Trees
+
+B-trees generalize multiway balanced trees for disk blocks: each node holds many keys so that tree height—and therefore the number of block reads per lookup—is O(log_b n) for branching factor b, tiny even for huge dictionaries, minimizing disk I/O. A B+ tree stores all records (or postings pointers) at the leaf level and links leaves for efficient range scans. Relational indexes and many inverted-index implementations use B+ trees or LSM-tree variants for on-disk durability. For IR, the dictionary may live in a B+ tree or finite-state transducer while postings sit in compressed contiguous files.
+
+### Red-Black Trees
+
+Red-black trees are binary trees with color invariants that keep the longest path at most twice the shortest, guaranteeing O(log n) operations. They are common in language standard libraries (ordered maps/sets). Relative to AVL trees they rebalance with fewer rotations on average, trading a slightly looser height bound for cheaper updates.
+
+### Tries and Radix Trees
+
+A trie (prefix tree) stores strings by sharing common prefixes: each edge is labeled by a character (or byte), and a path from the root spells a key. Search time is proportional to key length, independent of the number of keys when branching is dense. Radix trees (Patricia tries) compress unary paths into single edges labeled by substrings, reducing memory. Tries excel for autocomplete, IP routing, and token dictionaries. In clinical coding, a trie over ICD or medication strings supports fast prefix lookup during charting or phenotype queries.
+
+Figure 5.4. A trie (prefix tree) over the keys car, care, cart, cat, and dog. Shared prefixes collapse onto shared paths—car, care, and cart all descend through c–a–r—edges are labeled by characters, and green nodes mark where a stored key terminates. Lookup cost grows with key length, not with the number of keys.
+
+## Tree Search Methods: BFS, DFS, Beam Search, and MCTS
+
+Once a problem is cast as a tree or graph of states—candidate itemset lattice, parse tree, treatment plan, or game tree—search algorithms decide which nodes to expand. Breadth-first search (BFS) expands level by level using a queue; it finds shortest paths in unweighted graphs and enumerates itemsets by increasing size in level-wise mining. Depth-first search (DFS) uses a stack (or recursion), exploring a path to a leaf before backtracking; it uses less memory than BFS on deep sparse trees and is natural for recursive pattern-growth methods.
+
+Beam search keeps only the top-b partial hypotheses at each expansion depth according to a scoring heuristic. It is a breadth-limited, greedy compromise: more efficient than full BFS, riskier than exact search. Beam search is ubiquitous in speech recognition, machine translation, and constrained generation; in pathway mining it can prune low-support prefixes early when an approximate ranking of patterns is acceptable.
+
+Monte Carlo Tree Search (MCTS) builds a search tree by repeated simulations. Each iteration selects a leaf using a tree policy (often UCB1 balancing exploitation and exploration), expands a child, simulates a rollout to a terminal reward, and backpropagates the result. MCTS shines in large combinatorial spaces with cheap simulators—games, planning, and some experimental design settings—where exhaustive search is impossible. In clinical decision support research, MCTS-like planning appears in sequential treatment policies when a simulator of outcomes exists; it is not a substitute for trial evidence.
+
+BFS: complete for shortest paths; memory-heavy on wide levels.
+
+DFS: low memory; may dive deep into unproductive branches without heuristics.
+
+Beam search: fixed beam width b; approximate; sensitive to scoring function.
+
+MCTS: simulation-driven; needs a reward model; asymptotically improves with more rollouts.
+
+## Bloom Filters, Sliding Windows, and Skip Lists
+
+### Bloom Filters
+
+A Bloom filter is a probabilistic set-membership structure: it can say “definitely not present” or “possibly present,” never “definitely present” without false positives. It uses a bit array of size m and k independent hash functions. To insert x, set bits h₁(x), …, h_k(x). To query x, check those bits; if any is zero, x is absent; if all are one, x may be present (or a false positive). There are no false negatives for standard Bloom filters. Each insert or query touches exactly k bits, so both run in O(k) time regardless of how many elements have been stored, and space is sublinear in the number of elements for a target false-positive rate.
+
+Applications include web caches (avoid looking up missing keys), distributed databases (skip empty partitions), and streaming analytics. Counting Bloom filters and scalable variants handle deletions and growth. Clinical systems can use Bloom filters to screen whether a hashed patient token might belong to a registry before a privacy-preserving join—still requiring careful privacy review because false positives and side channels matter.
+
+### Sliding Windows
+
+Sliding windows restrict attention to recent data in a stream: the last W events, the last T time units, or a count-based window of the last n items. Fixed-size windows drop the oldest element when a new one arrives. Landmark windows grow from a fixed origin. Tilted or hierarchical time windows keep finer granularity for recent history and coarser aggregates for the past—useful for multi-scale monitoring.
+
+Window aggregates (counts, sums, frequent items in the window) support real-time dashboards: door-to-needle times in the last 24 hours, medication administrations in a sliding shift, or streaming EEG features over a 10-second window. Choice of window width is a bias–variance decision: too short is noisy; too long dilutes acute changes. Align windows with clinical decision cycles (code stroke clock, nursing shift, billing day).
+
+### Skip Lists
+
+A SkipList (skip list) is a probabilistic layered linked list. The bottom layer holds all keys in sorted order; higher layers hold progressively sparser shortcuts. Search starts at the top layer and drops down when the next key would overshoot, achieving expected O(log n) search and update without complex rebalancing rotations. Skip lists are used in some in-memory databases and concurrent data structures because inserts are local. A concrete use is an ordered, concurrently updated in-memory index of streaming timestamped events—live medication-administration records that many writer threads append while dashboards issue range queries over the last shift—where expected O(log n) search and insert are achieved without lock-heavy tree rotations. Conceptually they offer an alternative to balanced trees for ordered dictionaries when simplicity and concurrency matter.
+
+## Frequent Pattern Mining Algorithms: Apriori, FP-Growth, and ECLAT
+
+Enumerating all 2^|I| − 1 nonempty itemsets is impossible for realistic inventories. The Apriori principle (monotonicity of support) states: if X ⊆ Y, then s(X) ≥ s(Y). Equivalently, if an itemset is infrequent, every superset is infrequent. This anti-monotonicity enables level-wise search and pruning across all major frequent-itemset algorithms.
+
+### Apriori
+
+Apriori generates candidates of size k from frequent itemsets of size k−1, prunes any candidate with an infrequent (k−1)-subset, then scans the database to count survivors. Pseudocode sketch:
+
+Figure 5.5. The subset lattice of itemsets over {A, B, C, D}. At minsup = 0.6 on the five-transaction basket, six itemsets are frequent (indigo). Because support is anti-monotone, every superset of the infrequent single item D—and of the infrequent triple ABC—is pruned (grey) without further counting. Node labels give relative support.
+
+```
+Apriori(D, minsup):
+ L1 ← frequent 1-itemsets in D
+ k ← 2
+ while L_{k−1} is nonempty:
+ Ck ← join pairs of L_{k−1} that share first k−2 items
+ prune c in Ck if any (k−1)-subset of c ∉ L_{k−1}
+ for each transaction t in D: count candidates ⊆ t
+ Lk ← {c in Ck : s(c) ≥ minsup}
+ k ← k + 1
+ return union of all Lk
+```
+
+The expensive phase is counting: each pass over D is costly when both |D| and |Ck| are large. Hash trees, bitmaps, and transaction projection reduce constant factors, but multi-scan design remains a bottleneck for dense data with low minsup. After frequent itemsets are known, rules are generated by splitting each frequent Z into X and Y = Z \ X and retaining rules with conf ≥ minconf.
+
+### FP-Growth
+
+Frequent-pattern growth (FP-growth) avoids explicit candidate generation. It compresses the database into a prefix tree (FP-tree) in which common prefixes of frequent items share nodes. Items are ordered by decreasing global frequency so that popular items appear near the root and maximize prefix sharing. Each node stores an item label and a count; header links chain all nodes of the same item.
+
+Mining proceeds recursively by conditional pattern bases. For the least frequent remaining item i, collect all prefix paths ending at nodes labeled i, reweight them by those node counts, build a conditional FP-tree, and recurse. When a conditional tree is a single path, all combinations on that path can be enumerated directly. FP-growth shines when the tree fits in memory and transactions share structure; it struggles when the tree is bushy and dense.
+
+### ECLAT
+
+ECLAT (Equivalence Class Transformation) uses a vertical data layout: for each item (and later each itemset), store the tid-list of transaction identifiers containing it. Support equals the length of the tid-list (or the cardinality of its intersection for multi-item sets). Longer itemsets are formed by intersecting tid-lists of shorter ones within equivalence classes that share a common prefix. Diffsets (differences of tid-lists) can further reduce memory when lists are dense.
+
+Vertical methods often reduce full database scans to a single initial pass plus combinatorial intersections. They are especially effective when transactions are sparse and tid-lists are short. Hybrid systems may use Apriori-style counting for sparse regimes and pattern growth or vertical joins for denser ones. Parallel variants partition transactions or equivalence classes across machines while preserving the same definitions of support and confidence.
+
+## Sequence Mining Algorithms: GSP, SPADE, FreeSpan, and PrefixSpan
+
+A sequence is an ordered list of itemsets (or of atomic events). Customer purchase histories, DNA base pairs, clickstreams, and care pathways are sequences. A sequence α is a subsequence of β if the elements of α appear in order (not necessarily contiguously) inside β. Support of a sequence pattern is the fraction of data sequences that contain it as a subsequence. Sequence mining seeks all patterns with support at least minsup, sometimes with constraints on gaps, windows, or shapes.
+
+### Generalized Sequential Pattern (GSP)
+
+GSP generalizes Apriori to sequences. It performs level-wise candidate generation of k-sequences from frequent (k−1)-sequences, then scans the sequence database to count candidates that occur as subsequences (respecting optional time constraints such as max-gap and min-gap). The Apriori principle still holds for subsequence support: any subsequence of a frequent sequence is frequent. GSP is conceptually clear but can generate many candidates and requires multiple scans.
+
+### SPADE
+
+SPADE (Sequential Pattern Discovery using Equivalence classes) represents data with vertical id-lists: for each event (or itemset), store the list of (sequence-id, timestamp) pairs where it occurs. Longer patterns are formed by joining id-lists of shorter patterns that share a common prefix equivalence class, carefully intersecting temporal order conditions. Vertical joins often reduce database scans to an initial pass plus operations on compact lists.
+
+### FreeSpan
+
+FreeSpan (Frequent pattern-projected Sequential pattern mining) projects the sequence database using frequent items as partitioning keys and grows patterns within projected databases. It reduces candidate testing relative to pure GSP by restricting search to projected subsets. FreeSpan still may generate projected databases that are large; it is an important conceptual bridge to more refined projection methods.
+
+### PrefixSpan
+
+PrefixSpan grows patterns in a horizontal projected-database fashion. Given a frequent prefix α, project the database to the suffixes that follow the first occurrence of α in each sequence. Mine frequent items (or itemsets) in that projected database; each becomes an extension of α. Recurse on the new prefixes. Like FP-growth, PrefixSpan avoids candidate explosion by only exploring extensions that appear in projected data. Pseudo-projection techniques store indices rather than copying suffixes to save memory.
+
+Sequence rules and episode mining add predictive or temporal-window structure. Practitioners must choose whether gaps matter, whether items within the same basket are simultaneous events, and whether closed or maximal patterns should replace the full frequent set to reduce redundancy. Closed sequential patterns preserve support information for all subsequences while emitting fewer results.
+
+## Sequential Prediction with Hidden Markov Models and a PGM Primer
+
+### Probabilistic Graphical Models (Brief Introduction)
+
+Probabilistic graphical models (PGMs) represent joint distributions with graphs: nodes are random variables; edges encode conditional dependence structure. Bayesian networks are directed acyclic graphs factorizing P(X₁,…,Xₙ) = ∏ P(Xᵢ | Pa(Xᵢ)). Markov random fields use undirected graphs. PGMs unify many classical models: naive Bayes, mixture models, Kalman filters, and Hidden Markov Models. Inference (computing marginals or conditionals) and learning (estimating parameters or structure) are the two core computational problems.
+
+### Markov Models and Hidden Markov Models
+
+A first-order Markov chain on discrete states S assumes P(s_t | s_{1:t−1}) = P(s_t | s_{t−1}). Transition matrix A with A_{ij} = P(s_t = j | s_{t−1} = i) and initial distribution π fully specify the process. In an HMM, states are latent; we observe emissions o_t with emission probabilities B_{j}(o) = P(o_t = o | s_t = j). The joint probability of a state path and observation sequence factors as π_{s₁} B_{s₁}(o₁) ∏_{t=2}^T A_{s_{t−1}s_t} B_{s_t}(o_t).
+
+Three canonical HMM problems: (1) Likelihood—compute P(O | θ) for observations O and parameters θ = (π, A, B). (2) Decoding—find the most likely state path argmax_S P(S | O, θ). (3) Learning—estimate θ from data, usually with EM (Baum–Welch) when states are unobserved.
+
+### Forward Algorithm (Likelihood)
+
+Naive summation over all |S|^T paths is exponential. The forward algorithm defines α_t(j) = P(o₁,…,o_t, s_t = j | θ) and recurses: α₁(j) = π_j B_j(o₁), α_{t+1}(j) = [∑_i α_t(i) A_{ij}] B_j(o_{t+1}). Then P(O | θ) = ∑_j α_T(j). Time complexity is O(|S|² T). In practice one works in log-space or uses scaling to avoid underflow.
+
+### Viterbi Algorithm (Decoding)
+
+Viterbi replaces the sum in the forward recursion with a max and stores argmax backpointers: δ₁(j) = π_j B_j(o₁); δ_{t+1}(j) = [max_i δ_t(i) A_{ij}] B_j(o_{t+1}). The best path is recovered by tracing backpointers from argmax_j δ_T(j). Viterbi is dynamic programming for the maximum a posteriori path under the HMM factorization.
+
+### Worked Example: Forward Likelihood and a Viterbi Trace
+
+A tiny two-state HMM makes both algorithms concrete. Hidden states model EEG background: N (interictal/normal) and S (ictal/seizure). Each second a detector emits one symbol, q (quiet) or k (spike). Parameters θ = (π, A, B):
+
+Figure 5.6. Viterbi decoding of the two-state EEG HMM (N = normal, S = seizure) for the observation sequence O = (q, k, k). Each node is annotated with its best-path score δ_t(state); the amber path N→S→S is the maximum-a-posteriori state sequence, terminating at δ3(S) = 0.0635. Viterbi maximizes the joint probability of the entire path rather than concatenating per-step argmaxes.
+
+Initial: π_N = 0.8, π_S = 0.2.
+
+Transitions: A_NN = 0.7, A_NS = 0.3, A_SN = 0.4, A_SS = 0.6.
+
+Emissions: B_N(q) = 0.9, B_N(k) = 0.1; B_S(q) = 0.3, B_S(k) = 0.7.
+
+Observe O = (q, k, k): one quiet second, then two spikes. The forward pass sums over all paths; α_t(j) is the joint probability of the observations through t and being in state j at t:
+
+```
+N (normal) S (seizure)
+t=1 (q) α1(N) = 0.8·0.9 = 0.7200 α1(S) = 0.2·0.3 = 0.0600
+t=2 (k) α2(N) = (0.72·0.7 + 0.06·0.4)·0.1 α2(S) = (0.72·0.3 + 0.06·0.6)·0.7
+ = 0.528·0.1 = 0.0528 = 0.252·0.7 = 0.1764
+t=3 (k) α3(N) = (0.0528·0.7 + 0.1764·0.4)·0.1 α3(S) = (0.0528·0.3 + 0.1764·0.6)·0.7
+ = 0.10752·0.1 = 0.010752 = 0.12168·0.7 = 0.085176
+
+P(O | θ) = α3(N) + α3(S) = 0.010752 + 0.085176 = 0.095928
+```
+
+Viterbi keeps the same recursion but replaces each sum with a max and records which predecessor won (the backpointer); δ_t(j) is the probability of the single best path ending in state j at t:
+
+```
+N (normal) S (seizure) argmax pred.
+t=1 (q) δ1(N) = 0.8·0.9 = 0.7200 δ1(S) = 0.2·0.3 = 0.0600 — —
+t=2 (k) δ2(N) = max(0.72·0.7, 0.06·0.4)·0.1 δ2(S) = max(0.72·0.3, 0.06·0.6)·0.7
+ = 0.504·0.1 = 0.0504 = 0.216·0.7 = 0.1512 N→N N→S
+t=3 (k) δ3(N) = max(0.0504·0.7, 0.1512·0.4)·0.1 δ3(S) = max(0.0504·0.3, 0.1512·0.6)·0.7
+ = 0.06048·0.1 = 0.006048 = 0.09072·0.7 = 0.063504 S→N S→S
+
+Termination: max(δ3(N)=0.006048, δ3(S)=0.063504) = 0.063504 → best final state S
+Backtrace: t3 = S ←(S came from S)← t2 = S ←(S came from N)← t1 = N
+Best path: (N, S, S)
+```
+
+The decoded path is (N, S, S): a normal second, seizure onset at t = 2, seizure sustained at t = 3—the trajectory intuition expects once spikes persist. Two lessons close the example. First, forward and Viterbi answer different questions from the same numbers: forward reports how probable the whole recording is under the model, P(O | θ) ≈ 0.0959, summing all 2³ = 8 paths; Viterbi reports the probability of the single best explanation, 0.063504. Their ratio, 0.063504 / 0.095928 ≈ 0.66, is the posterior probability of the Viterbi path—here the winner carries about two-thirds of the mass, so alternative stagings are not negligible. Second, Viterbi maximizes the joint probability of the entire path; naively concatenating the per-second most-probable state (marginal decoding from forward–backward) can produce a different or even transition-inconsistent sequence. When a coherent trajectory matters—staging a seizure, reconstructing a care pathway—decode with Viterbi, not with independent per-step argmaxes.
+
+### Baum–Welch (Training)
+
+Baum–Welch is EM for HMMs. The E-step uses forward–backward messages to compute expected transition and emission counts under the current parameters. The M-step re-estimates π, A, and B by normalizing those expected counts (with optional Dirichlet-style smoothing). The observed-data likelihood is nondecreasing each iteration but can converge to local maxima; multiple random initializations help. Supervised training with labeled state sequences reduces to counting transitions and emissions.
+
+HMMs model care stages (ED → imaging → treatment → ward) when stages are imperfectly observed from sparse EHR events, or neurologic sequences such as seizure staging from EEG features. Limitations include the strong Markov assumption, sensitivity to emission design, and difficulty with long-range dependencies—motivating later RNN/transformer models while HMMs remain interpretable baselines.
+
+## Clinical and Epidemiologic Notes
+
+Itemset mining, sequence mining, and information retrieval appear throughout clinical informatics and stroke systems research, but they are easy to misinterpret if one confuses co-occurrence with causation or relevance ranking with evidence quality.
+
+A hospital encounter can be treated as a transaction whose items are ICD-coded diagnoses, CPT procedures, administered medications, and imaging orders. Frequent itemsets surface combinations such as {atrial fibrillation, anticoagulation, ischemic stroke}. Support answers how common a combination is; confidence of AF → anticoagulation estimates how often anticoagulation accompanies AF documentation—not whether anticoagulation prevents stroke. Lift adjusts for base rates: a rule predicting “ischemic stroke” as the consequent looks confident in a stroke-service extract simply because stroke is nearly universal there.
+
+If the basket is built from discharge codes finalized after the acute stay, patterns may reflect coding optimization or secondary complications rather than presenting phenotype. Define whether items are restricted to the first 24 hours (hyperacute pathway) or the full admission. Site-specific order sets create artifactual itemsets: a protocol that always co-orders CTA and CTP yields perfect co-occurrence without revealing biology.
+
+Stroke care is sequential: last known well → ED arrival → imaging → thrombolysis or thrombectomy decision → ICU or ward → secondary prevention → rehabilitation. Sequence mining can discover frequent event orders. Patients who die early contribute shorter sequences; mining only survivors invents immortal-time-like bias. Transfer patients may have incomplete pre-arrival sequences. Align sequences on a clinically meaningful origin and report support conditional on still being observable. A further caution: the most frequent pathway describes habit, not quality. A high-support event order—or a high-confidence rule such as {admission} → {specific order set}—reflects what clinicians commonly do at that site, which may encode local convention, workflow constraints, or even guideline-discordant practice. Frequency and confidence quantify how prevalent a pattern is, not how concordant it is with evidence or how it affects outcomes; association is not protocol quality. Benchmark mined pathways against guideline-defined ideal paths and against outcomes before treating any discovered order as a standard.
+
+Computable phenotypes refined by association rules must avoid leakage: do not use phenotype-defining codes as predictors of that same phenotype in prospective models. Multiple testing is severe; require minsup/lift, pre-specify families of interest, and validate on held-out time or external sites. TF–IDF and inverted indexes underwrite literature and note search; evaluate with precision@k and MAP, and apply negation detection so “no hemorrhage” is not retrieved as hemorrhage.
+
+Support/confidence/lift describe co-occurrence, not causal treatment effects.
+
+A frequent or high-confidence pathway reflects common practice, not validated protocol quality; benchmark against guidelines and outcomes.
+
+Align baskets and sequences to index time; avoid post-outcome codes in pathway features.
+
+Do not use phenotype-defining codes as predictors of that same phenotype.
+
+Evaluate clinical search with precision/recall against expert relevance, including negation.
+
+Re-validate frequent patterns and retrieval configurations across sites and eras.
+
+## Putting the Pieces Together
+
+Frequent itemset mining discovers co-occurrence structure in baskets; sequence mining extends that idea to ordered events; IR ranks textual objects by estimated relevance; HMMs add probabilistic prediction under latent states. All depend on counting, sparsity, and clever data structures—hashes, trees, filters, indexes, and dynamic programming tables. All can surface spurious patterns without careful thresholding and evaluation. In clinical and epidemiologic settings, the same tools illuminate care pathways, phenotype candidates, and evidence search—provided index time, base rates, and validation discipline are respected.
+
+## Chapter Summary
+
+Transactional data model co-occurrence. Support measures how often an itemset appears; confidence estimates conditional probability for association rules; lift compares that probability to independence. IR represents documents and queries with TF–IDF (and related) weights, ranks by cosine or BM25-style scores, and evaluates with precision, recall, and MAP; inverted indexes make large-scale search feasible. Hash tables and MinHash support counting and approximate set similarity; trees (binary, 2-3, B/B+, red-black, trie/radix) organize ordered keys and prefixes; BFS, DFS, beam search, and MCTS explore combinatorial trees; Bloom filters, sliding windows, and skip lists handle membership, streams, and ordered maps efficiently. Apriori, FP-Growth, and ECLAT mine frequent itemsets under the Apriori principle; GSP, SPADE, FreeSpan, and PrefixSpan mine sequences. HMMs, as simple PGMs, use the forward algorithm for likelihood, Viterbi for decoding, and Baum–Welch for unsupervised training. Clinically, baskets and sequences describe encounters and pathways; rules must not be read as causal; phenotype mining must avoid label leakage; retrieval supports literature and note search with explicit evaluation. The central engineering tension is combinatorial explosion versus sparsity: good algorithms and good thresholds keep the useful patterns and leave the noise behind.
+
+## Practice and Reflection
+
+(1) Using the five-transaction example, list all frequent itemsets for minsup = 0.6 and generate all rules with minconf = 0.7. Report support, confidence, and lift for each rule.
+
+(2) Prove formally that if X ⊆ Y then s(X) ≥ s(Y). Explain how this justifies discarding a candidate whose subset is infrequent.
+
+(3) Contrast Apriori, FP-Growth, and ECLAT in terms of data layout (horizontal vs vertical), candidate generation, and number of database scans.
+
+(4) Give a sequence database of four short sequences over {a,b,c}. Find all sequential patterns with minsup = 0.5 under the subsequence definition. Outline how PrefixSpan would project after prefix ⟨a⟩.
+
+(5) For the three-document TF–IDF example, recompute rankings for the query “data models” using cosine similarity. How does the rare term mining affect scores if added to the query?
+
+(6) A system returns 10 documents for a query; 4 of the top 10 are relevant, and there are 8 relevant documents in the collection. Compute precision@10 and recall@10. Sketch how AP would use the ranks of the relevant hits.
+
+(7) Explain how MinHash estimates Jaccard similarity and why LSH enables subquadratic near-duplicate detection of clinical notes.
+
+(8) Compare Bloom filters and hash tables for the task “is this ICD code in yesterday’s order set?” Include false-positive behavior and memory.
+
+(9) Map a hyperacute ischemic stroke pathway to a sequence alphabet (at least six event types). Explain how early death or inter-facility transfer would bias naive support estimates of late-pathway patterns.
+
+(10) For a two-state HMM of “pre-treatment” vs “post-treatment” with binary emission “imaging ordered,” write the forward recursion update and state what Viterbi would return that forward likelihood alone does not.
+
+(11) You mine the rule {IV tPA} → {follow-up CT head} with high confidence in a stroke-center EHR. Give one causal interpretation that is unjustified and one process-of-care interpretation that might be justified after temporal checks.
+
+(12) Design postings lists (doc-id only) for the three-document corpus and show how to answer the boolean query machine AND learning via list intersection.
+
+(13) In the two-state EEG HMM of the worked example (states N, S; emissions q, k), extend the observation sequence to O = (q, k, k, q). Continue the Viterbi trellis one step to t = 4, report δ₄(N) and δ₄(S), and give the most probable state at t = 4 and the updated best path. Explain in one sentence why a quiet fourth second can flip the decoded state back to N.

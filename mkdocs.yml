@@ -1,0 +1,94 @@
+site_name: Machine Learning & AI for Neurologists — Web Edition
+site_description: Free original curriculum for ML/AI literacy in neurology and stroke. Not a reprint of commercial textbooks.
+site_url: https://rkalani1.github.io/ML/
+repo_url: https://github.com/rkalani1/ML
+repo_name: rkalani1/ML
+edit_uri: edit/main/docs/
+copyright: >
+  Content © 2026 Rizwan Kalani / contributors · CC BY 4.0 · Site code ISC ·
+  Educational only — not medical advice or institutional policy.
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Dark mode
+    - scheme: slate
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - toc.follow
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.arithmatex:
+      generic: true
+  - tables
+  - toc:
+      permalink: true
+  - attr_list
+  - md_in_html
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/rkalani1/ML
+  version:
+    provider: mike
+    default: web-edition
+
+nav:
+  - Home: index.md
+  - About & originality: about.md
+  - How to use: how-to-use.md
+  - Update protocol: update-protocol.md
+  - Curriculum:
+    - Overview: curriculum/index.md
+    - "Preface": curriculum/00a-preface.md
+    - "How to Use This Textbook": curriculum/00b-how-to-use-this-textbook.md
+    - "Chapter 0. Mathematical Foundations for Machine…": curriculum/00-mathematical-foundations-for-machine-learning.md
+    - "Chapter 1. Basic Concepts of Machine Learning a…": curriculum/01-basic-concepts-of-machine-learning-and-artificial-intelligence.md
+    - "Chapter 2. Visualization": curriculum/02-visualization.md
+    - "Chapter 3. Probability and Statistics": curriculum/03-probability-and-statistics.md
+    - "Chapter 4. Clustering": curriculum/04-clustering.md
+    - "Chapter 5. Frequent Itemset Mining, Sequence Mi…": curriculum/05-frequent-itemset-mining-sequence-mining-and-information-retrieval.md
+    - "Chapter 6. Feature Engineering": curriculum/06-feature-engineering.md
+    - "Chapter 7. Dimensionality Reduction and Data De…": curriculum/07-dimensionality-reduction-and-data-decomposition.md
+    - "Chapter 8. Regression Analysis": curriculum/08-regression-analysis.md
+    - "Chapter 9. Classification": curriculum/09-classification.md
+    - "Chapter 10. Neural Networks and Deep Learning": curriculum/10-neural-networks-and-deep-learning.md
+    - "Chapter 11. Self-Supervised Deep Learning": curriculum/11-self-supervised-deep-learning.md
+    - "Chapter 12. Deep Learning Models and Applicatio…": curriculum/12-deep-learning-models-and-applications-for-text-vision-and-audio.md
+    - "Chapter 13. Reinforcement Learning": curriculum/13-reinforcement-learning.md
+    - "Chapter 14. Making Lighter Neural Network and M…": curriculum/14-making-lighter-neural-network-and-machine-learning-models.md
+    - "Chapter 15. Graph Mining Algorithms": curriculum/15-graph-mining-algorithms.md
+    - "Chapter 16. Concepts and Challenges of Working …": curriculum/16-concepts-and-challenges-of-working-with-data.md
+    - "Closing Synthesis: Senior Practice in Clinical …": curriculum/17-closing-synthesis-senior-practice.md
+    - "Selected Glossary": curriculum/18-selected-glossary.md

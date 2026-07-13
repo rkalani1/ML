@@ -1,0 +1,323 @@
+# Chapter 6. Feature Engineering
+
+<div class="disclaimer-banner" markdown="1">
+**Web Edition — original teaching text.** Educational only; not medical advice. No commercial handbook prose, paper abstracts, or publisher figures.
+</div>
+
+## Web Edition clinical frame
+
+Two sites train the same classifier for early neurologic deterioration. One encodes time-to-CT as minutes; the other as free-text. Feature engineering is where most ‘AI magic’ quietly lives—and where leakage hides.
+
+## Learning Objectives
+
+Classify feature types and state their modeling implications for neurologic and epidemiologic data.
+
+Apply filter, wrapper (SFS/SBS, genetic algorithms), and embedded feature selection with honest nested validation.
+
+Scale numerical features (min–max, z-score, L1/L2 norms) and transform with log and Box–Cox under fit-on-train discipline.
+
+Encode categoricals with one-hot, dummy, effect, hashing, bin counting, and target encoding without leakage.
+
+Engineer text features (BoW, subword, n-grams, POS, Word2Vec/GloVe/FastText, TF–IDF/TextRank/RAKE/YAKE).
+
+Extract image and video features (HS corners, MSER, HOG, SIFT, watershed; motion vectors, optical flow, 3D CNN, GCN pointer).
+
+Describe time-series and signal features: stationarity, seasonality, trend, motifs, lags, change points, and smoothing.
+
+Distinguish MCAR, MAR, and MNAR missingness and translate each into legitimate imputation and missingness-indicator features that stay legal at index time.
+
+Audit clinical pipelines for leakage and document feature availability at inference time.
+
+## Basic Concepts of Feature Engineering
+
+A learning algorithm never sees the patient, the stroke code, or the cohort protocol; it sees a matrix of features X and, in supervised settings, a target y. Feature engineering is the craft of transforming raw measurements—vital signs, NIH Stroke Scale (NIHSS) items, door-to-needle timestamps, imaging scores, comorbidity codes, laboratory panels, free-text notes, pixels, and waveforms—into representations that make the predictive or descriptive relationship easier to approximate.
+
+Figure 6.1. A feature-engineering pipeline: raw data flows through impute, encode, scale, and select stages into the model. Every transform is fit on the training fold only and then applied unchanged to validation and test data, so no test information leaks backward into feature construction.
+
+In classical machine learning for clinical prediction, feature engineering is often the highest-leverage step. Deep learning can learn representations from images and text, yet tabular stroke registries, administrative claims, and multi-center epidemiologic cohorts still depend on deliberate design of covariates, careful handling of missingness, and honest separation of what is known at decision time from what is known only in retrospect. This chapter treats features as design decisions with clinical, statistical, and ethical consequences.
+
+Feature generation creates new variables from raw inputs (ratios, encodings, embeddings). Feature selection chooses a subset of candidate variables. Both must sit inside validation loops so that choices are not tuned on the test set. Throughout, examples draw from acute ischemic stroke (AIS), intracerebral hemorrhage (ICH), TIA workups, and population surveillance—dense illustrations of time-critical features, ordinal scales, and leakage risk.
+
+## Feature Selection: Filter, Wrapper, and Embedded Methods
+
+Feature selection reduces dimensionality, lowers overfitting risk, speeds training and inference, and can improve interpretability. It is complementary to—but distinct from—dimensionality reduction (Chapter 7), which typically creates new coordinates rather than choosing original variables. Three classical families structure the literature: filters, wrappers, and embedded methods.
+
+### Filtering Methods
+
+Filters score each feature (or small groups) independently of a specific downstream model using statistical or information-theoretic criteria: variance thresholds, Pearson or Spearman correlation with y, mutual information, chi-square tests for categorical associations, ANOVA F-scores, and relief-style neighbor methods. Filters are fast and model-agnostic, making them good first screens on wide EHR or omics tables.
+
+Limitations are real. Univariate filters miss synergistic pairs (two weak features that jointly predict). Correlation with y is not causation and can select mediators or colliders inappropriately for etiologic models. Highly redundant features may all pass a univariate threshold. Always re-evaluate selected sets inside cross-validation; selecting on the full sample before splitting leaks selection decisions into every fold.
+
+### Wrapper Methods: SFS, SBS, and Genetic Algorithms
+
+Wrappers treat the learning algorithm as a black box and search subsets to optimize a validation score (AUC, RMSE, log loss). Sequential Forward Selection (SFS) starts from the empty set and greedily adds the feature that most improves the score. Sequential Backward Selection (SBS) starts from all features and greedily removes the least harmful. Floating variants (SFFS/SBFS) allow limited backtracking. Wrappers capture model-specific interactions but are computationally expensive: each candidate subset requires training and evaluation.
+
+Genetic algorithms (GAs) represent subsets as binary chromosomes and evolve populations with selection, crossover, and mutation under a fitness function equal to (or regularized by) validation performance and subset size. GAs explore more broadly than pure greedy SFS/SBS but introduce stochasticity and many hyperparameters (population size, mutation rate). In clinical n-small settings, aggressive wrappers overfit the validation fold; nested cross-validation or a fixed temporal outer holdout is mandatory.
+
+### Embedded Methods
+
+Embedded methods perform selection during model training. L1-regularized linear and logistic regression (Lasso) drive coefficients to exact zero. Tree ensembles rank features by impurity decrease or permutation importance. Gradient-boosted trees similarly yield gain-based importances. Embedded methods are efficient relative to wrappers and often more accurate than pure filters, but importances are model-dependent and can be unstable under correlated clinical labs.
+
+Filters: fast univariate/global scores; miss interactions; cheap screens.
+
+Wrappers (SFS/SBS/GA): optimize a model’s validation metric; expensive; nest in CV.
+
+Embedded: L1, tree importance; selection during training; still validate externally.
+
+## Feature Engineering for Numerical Data
+
+Numeric features take values on interval or ratio scales: age in years, systolic blood pressure in mmHg, serum glucose, infarct volume in mL, door-to-CT time in minutes. Many algorithms assume comparable scales. Euclidean distance in k-NN or k-means is dominated by large-range variables. L2-regularized linear models penalize large coefficients; unscaled features with large numeric ranges receive smaller coefficients for the same physical effect, distorting regularization paths. Tree-based models are largely invariant to monotonic rescaling of individual features.
+
+Figure 6.2. The same right-skewed glucose feature shown raw (mg/dL), min-max scaled to [0, 1], and z-standardized (mean 0, SD 1). Because min-max and z-score are affine maps, the distribution's shape is preserved and only the axis is rescaled; neither fixes skew, and both must be fit on training data alone.
+
+### Min–Max Scaling
+
+Min–max scaling maps a feature to [0, 1] (or a chosen interval) via (x − x_min)/(x_max − x_min). It is simple and preserves zero when x_min = 0, but is sensitive to extreme outliers: a single glucose of 1200 mg/dL stretches the scale for all patients. Estimate x_min and x_max on the training fold only, then apply to validation and test.
+
+### Standardization and z-Score
+
+Z-score standardization uses (x − μ)/σ so that the transformed feature has mean 0 and variance 1 on the data used to estimate μ and σ. It is the default for many linear models, PCA, and neural nets on tabular inputs. Robust alternatives replace μ and σ with median and IQR or MAD to resist lab errors. Again: fit on train only.
+
+### L1 and L2 Norms
+
+Feature-wise or sample-wise normalization by vector norms appears throughout ML. The L2 norm ‖x‖₂ = √(∑ x_j²) defines Euclidean length; dividing a row by ‖x‖₂ projects it onto the unit sphere (common in text). The L1 norm ‖x‖₁ = ∑ |x_j| relates to sparse geometry and Manhattan distance. For a two-feature row x = (3, 4): ‖x‖₂ = √(9 + 16) = 5, so the L2-normalized row is (0.6, 0.8) and lands on the unit circle; ‖x‖₁ = 3 + 4 = 7, so the L1-normalized row is (3/7, 4/7) ≈ (0.43, 0.57). Column-wise L2 scaling differs from row-wise unit-norm scaling: choose based on whether comparable feature units or comparable patient-vector lengths matter.
+
+### Logarithmic and Box–Cox Transformations
+
+Right-skewed positive variables—length of stay, infarct volume, costs, onset-to-arrival times—often benefit from log transforms. Use log1p(x) = log(1+x) when zeros occur. Logarithmic transforms compress multiplicative effects into additive ones and can stabilize variance for linear models.
+
+The Box-Cox (Box–Cox) family is a parameterized power transform for strictly positive y or x: x(λ) = (x^λ − 1)/λ for λ ≠ 0, and log x for λ = 0. Maximum likelihood or profile likelihood on training data chooses λ. Yeo–Johnson extends Box–Cox to non-positive values. Transform parameters, like scalers, must be estimated inside the training pipeline. Over-transforming can hurt tree models that already split on raw thresholds clinicians understand.
+
+## Feature Engineering for Categorical Data
+
+Categorical features label classes without inherent order (hospital site, stroke mechanism treated as unordered labels, imaging modality). Ordinal features have ordered levels without guaranteed equal spacing (mRS 0–6, ASPECTS). Encoding choices invent geometry; bad choices invent false neighbors.
+
+Figure 6.3. One-hot versus target (mean) encoding of a hospital-site column. One-hot expands the category into indicator columns that carry no outcome information, whereas smoothed target encoding replaces each level with e_c = (n_c*ybar_c + m*ybar) / (n_c + m) and must be fit out-of-fold or it leaks the label y.
+
+### One-Hot Encoding and Dummy Coding
+
+One-hot encoding creates a binary column per level. Dummy coding is the same idea with one reference level dropped to avoid perfect collinearity with an intercept in unregularized linear models. For a stroke mechanism field with levels {LAA, CE, SVS, Other, Undetermined}, dummy coding yields four indicators relative to a chosen baseline. One-hot/dummy works well with linear models and moderate cardinality; it explodes for hundreds of zip codes or thousands of drug strings.
+
+### Effect Coding
+
+Effect (sum-to-zero) coding contrasts each non-reference level with the grand mean rather than a single baseline category. Mechanically it uses the same k−1 columns as dummy coding, but the reference level is coded as −1 in every column instead of 0. For sites {Harbor, Metro, Clinic} with Clinic as reference, the two columns (is-Harbor, is-Metro) take Harbor → (1, 0), Metro → (0, 1), and Clinic → (−1, −1). Those −1 entries force the fitted level effects to sum to zero, so the intercept estimates the grand (unweighted) mean of the level means and each coefficient reads as that level’s deviation from the grand mean. The same information is reinterpreted: under dummy coding the Harbor coefficient means “Harbor versus Clinic,” whereas under effect coding it means “Harbor versus the average site.” Epidemiologists sometimes prefer effect coding for ANOVA-style interpretation; it remains a full-rank design for k levels with k−1 columns, differing from dummy coding only in the contrast matrix.
+
+### Feature Hashing
+
+The hashing trick maps category strings (or tokens) through a hash function into a fixed number of buckets m, typically with a sign hash to reduce bias. Collisions mix distinct categories into the same column—acceptable when m is large and models are regularized. Hashing enables streaming and memory-fixed pipelines for high-cardinality medication names without maintaining a growing vocabulary. Collisions are not clinically interpretable; do not use hashed columns as standalone audit trails for which drug drove a prediction.
+
+### Bin Counting
+
+Bin counting replaces a categorical level with historical counts or rates: how often this hospital saw LVO, how often this code co-occurred with the label in past data. It compresses high cardinality into numeric summaries. Like all history-based features, bin counts must be computed with time-aware or out-of-fold discipline so that a row does not use its own future outcomes. Supervised bin counts that use the label are a short step from target encoding and inherit the same leakage risks.
+
+### Target Encoding
+
+Target (mean) encoding replaces a category with a smoothed estimate of the mean outcome in that category: e_c = (n_c · ȳ_c + m · ȳ) / (n_c + m), where ȳ_c is the category mean of y, ȳ is the global mean, n_c is the count, and m is a prior strength. Without out-of-fold or leave-one-out discipline, target encoding leaks the row’s own label into its features and produces fantastically optimistic validation scores—especially deadly in small stroke subgroups (rare mechanisms, rare hospitals). Frequency encoding (replace level by its prevalence) is weaker but safer as a baseline.
+
+### Worked Example: Wrong Integer Encoding vs One-Hot
+
+Consider four fictional TIA/minor stroke encounters predicting a continuous care-intensity score y. Features: age, unordered site (Harbor, Metro, Clinic), pathway (Standard vs Expedited).
+Row1: age 62, Harbor, Standard, y=12
+Row2: age 71, Metro, Standard, y=18
+Row3: age 55, Clinic, Expedited, y=9
+Row4: age 80, Harbor, Expedited, y=22
+
+Wrong encoding: Harbor→1, Metro→2, Clinic→3 invents false geometry. Euclidean distance between Harbor Standard and Clinic Expedited becomes sqrt((62−55)²+(1−3)²+(0−1)²)=sqrt(54)≈7.35, while Harbor to Metro is sqrt((62−71)²+(1−2)²)≈9.06, so Clinic looks closer to Harbor than Metro does—driven by arbitrary codes, not care pattern. Correct approach: one-hot or dummy site indicators, pathway as 0/1, and z-score age using training μ and σ only. Neighbor geometry then mixes age with meaningful binary mismatches rather than fake ordinal hospital spacing.
+
+### Worked Example: Smoothed Target Encoding with Out-of-Fold Discipline
+
+Take a binary outcome—symptomatic intracranial hemorrhage (sICH) after thrombolysis—and encode hospital site. Suppose the training fold holds 20 patients with 4 events, so the global rate is ȳ = 4/20 = 0.20, with prior strength m = 10. Apply e_c = (n_c · ȳ_c + m · ȳ) / (n_c + m):
+
+Site A: n_A = 5 patients, 2 events, so ȳ_A = 0.40. Then e_A = (5·0.40 + 10·0.20)/(5 + 10) = (2 + 2)/15 = 4/15 ≈ 0.267—the raw 0.40 shrunk toward the 0.20 prior.
+
+Rare site B: n_B = 1 patient, 1 event, so the naive rate ȳ_B = 1.00, a single patient screaming “100% risk.” Smoothing tames it: e_B = (1·1.00 + 10·0.20)/(1 + 10) = 3/11 ≈ 0.273.
+
+Smoothing alone does not stop leakage, because e_A was computed from the very rows it will encode. The out-of-fold (or leave-one-out) fix encodes each row from data that exclude that row. Leave-one-out for a site-A patient whose own y_i = 1 gives e = (5·0.40 − 1 + 10·0.20)/((5 − 1) + 10) = (2 − 1 + 2)/14 = 3/14 ≈ 0.214; for a site-A patient with y_i = 0 it gives e = (2 − 0 + 2)/14 = 4/14 ≈ 0.286. The encoding now moves with the patient’s own label—exactly the dependence leave-one-out removes so the label cannot leak into its own feature. For singleton site B, leave-one-out leaves no other B rows and the estimate collapses to the prior: e = (1·1.00 − 1 + 10·0.20)/((1 − 1) + 10) = 2/10 = 0.20. Without this discipline, site B would enter training as a perfect but fictitious predictor equal to its lone patient’s outcome—the classic small-subgroup leakage that inflates validation AUC and evaporates prospectively.
+
+## Feature Engineering for Textual Data
+
+Clinical text—radiology impressions, ED notes, discharge summaries—is high-value and high-risk. Representations range from sparse counts to dense embeddings. Preprocessing typically includes section segmentation, de-identification, tokenization, and negation/uncertainty detection before any bag-of-words pipeline.
+
+### Bag-of-Words and Subword Tokenization
+
+Bag-of-words (BoW) represents a document as counts (or binary presence) of vocabulary terms, discarding order. It is simple, interpretable, and strong with linear models on short clinical snippets. Subword tokenization (BPE, WordPiece, Unigram LM) splits rare words into frequent pieces, reducing out-of-vocabulary rates for drug names and neologisms. Subwords feed both classical sparse models and neural language models.
+
+### N-Grams and Part-of-Speech Tagging
+
+N-grams extend BoW to contiguous token sequences (bigrams, trigrams), capturing short phrases such as “last known well” or “no acute infarct.” Dimensionality grows quickly; hashing or frequency thresholds help. Part-of-speech (POS) tagging labels tokens as nouns, verbs, adjectives, etc., enabling filters (keep nouns/adjectives for keyword features) and patterns for information extraction. POS features alone rarely beat strong embeddings but aid rule-based clinical NLP.
+
+### Word Embeddings: Word2Vec, GloVe, and FastText
+
+Word embeddings map tokens to dense vectors so that geometric proximity reflects distributional similarity. Word2Vec trains with skip-gram or CBOW objectives: predict context from word or word from context using shallow networks and negative sampling. GloVe factorizes a global word–word co-occurrence matrix with a weighted least-squares objective, blending count-based and prediction-based ideas. FastText extends Word2Vec with character n-gram vectors, improving morphology and rare words—useful for biomedical compounds.
+
+Figure 6.4. A two-dimensional feature embedding in which tokens sharing clinical context fall into labeled semantic neighborhoods (vascular territory, thrombolysis/EVT, imaging, deficit, anticoagulant). Geometric proximity approximates distributional similarity, so nearby tokens have small cosine distance.
+
+Document features can average word vectors, use TF–IDF-weighted averages, or feed sequences to recurrent/transformer encoders (later chapters). Domain-adapted embeddings (trained on clinical notes) often outperform generic web embeddings for EHR tasks, but still require leakage control: do not train embeddings on notes that contain the label narrative you are trying to predict if those notes are written after the outcome.
+
+### Theme and Keyword Extraction: TF–IDF, TextRank, RAKE, YAKE
+
+TF–IDF (Chapter 5) ranks terms that are frequent in a document but rare in the corpus—still a strong keyword baseline. TextRank builds a graph of terms or sentences with co-occurrence edges and applies a PageRank-style centrality score; top-ranked terms/sentences become keywords/summaries. RAKE (Rapid Automatic Keyword Extraction) splits text on stopwords and punctuation, scores candidate phrases by word co-occurrence statistics, and is fast unsupervised keywording. YAKE (Yet Another Keyword Extractor) uses statistical features (casing, position, frequency, relatedness) without external corpora, often strong on single documents. LLM-based keyword extraction is emerging but needs governance for PHI and reproducibility.
+
+## Feature Engineering for Image and Video Data
+
+Before deep end-to-end learning dominated vision, carefully designed local descriptors powered matching, detection, and recognition. Classical features remain useful for small medical datasets, interpretable pipelines, and hybrid systems that combine handcrafted descriptors with shallow classifiers.
+
+### Image Processing Concepts
+
+Digital images are arrays of intensities (grayscale) or channels (RGB, or multi-parametric MRI modalities). Preprocessing includes resampling to isotropic voxels, intensity normalization (z-score within brain mask, histogram matching), bias-field correction in MRI, and registration to templates. Features may be global (histograms, moments) or local (keypoints and descriptors). Medical imaging adds DICOM metadata, scanner/protocol batch effects, and strict train–test separation by patient—not by slice.
+
+### Harris–Stephens Corner Detection
+
+Harris–Stephens detects corners by examining the local autocorrelation of image intensities. Large intensity variation in two directions indicates a corner; edges vary in one direction; flat regions vary little. The Harris matrix of smoothed gradients yields a corner response score. Corners provide repeatable keypoints for registration and tracking.
+
+### MSER, HOG, SIFT, and Watershed
+
+Maximally Stable Extremal Regions (MSER) find connected components that remain stable across intensity thresholds—useful for blob-like structures and text-like regions. Histogram of Oriented Gradients (HOG) pools gradient orientations in spatial cells and normalizes blocks, capturing shape while tolerating modest illumination change; HOG famously powered pedestrian detection and still appears in medical texture pipelines.
+
+Scale-Invariant Feature Transform (SIFT) detects scale-space extrema (typically Difference-of-Gaussians), assigns orientations, and builds 128-dimensional gradient histograms in rotated patches, achieving invariance to scale and rotation and robustness to moderate illumination change. SIFT descriptors support matching across images for registration and object recognition. Watershed transformation treats the image (or its gradient) as a topographic surface and floods basins from markers, segmenting regions; over-segmentation is common without careful marker choice—relevant for lesion or organ boundary sketches when combined with clinical priors.
+
+### Video: Motion Vectors, Optical Flow, 3D CNNs, and Graphs
+
+Video adds time. Motion vectors from block-matching or codec side information describe coarse displacement of patches between frames. Optical flow estimates dense per-pixel motion fields under brightness constancy and spatial smoothness assumptions (Horn–Schunck, Lucas–Kanade, and modern learning-based flows). Flow features capture gait, ultrasound probe motion, or seizure-related movement in monitoring videos.
+
+3D convolutional neural networks extend 2D kernels across space and time to learn spatiotemporal filters directly from clip volumes—used in action recognition and increasingly in dynamic medical imaging. Graph convolutional networks (GCNs) process features on graph-structured data: skeleton joints for pose, electrode graphs for EEG-as-video-adjacent signals, or region-connectivity graphs from imaging parcellations. Treat GCNs as a pointer to graph feature learning (expanded in Chapter 15); the engineering message is that video and spatiotemporal clinical signals need features that respect both appearance and motion or topology.
+
+## Feature Engineering for Signals and Time Series
+
+Time series appear as vital-sign streams, continuous EEG, wearable accelerometry, daily case counts, and lab trajectories. Feature engineering extracts stationary summaries, seasonal patterns, trends, motifs, lags, and change points that downstream models can consume—or prepares series for dedicated forecasting models (ARIMA in Chapter 8).
+
+### Stationarity, Seasonality, and Trend
+
+A weakly stationary series has time-invariant mean and autocovariance structure. Many clinical series are non-stationary: means drift with disease progression, variance changes after interventions, and levels jump at care transitions. Differencing, detrending, and log transforms can approach stationarity. Seasonality is periodic structure (diurnal BP patterns, weekly ED volumes, academic calendar effects on staffing). Trends are long-run drifts (improving door-to-needle times after a quality program). Seasonal-trend decomposition (STL and relatives) separates components for feature use or residual modeling.
+
+### Motifs, Lags, and Change Points
+
+Motifs are recurring approximate subsequences—characteristic EEG graphoelements, stereotyped heart-rate patterns, or repeated mobility signatures. Discovery uses sliding windows with distance measures (Euclidean, DTW) and matrix-profile methods. Lag features are past values y_{t−k} or x_{t−k} used as predictors of the present; choosing lag sets encodes memory depth. Change-point detection finds times when distributional parameters shift (mean, variance, spectral content): CUSUM, PELT, Bayesian online change-point methods, and likelihood-ratio scans. Clinically, change points may mark deterioration, treatment effect onset, or artifactual sensor disconnects—always review before treating them as pure biology.
+
+### Signal Concepts, Types, and Smoothing
+
+Signals may be continuous-time concepts sampled discretely: amplitude, frequency content, phase, and noise characteristics matter. Biomedical signals include ECG, EEG, EMG, photoplethysmography, and intracranial pressure traces. Features include time-domain statistics (mean, variance, skewness, line length), frequency-domain band powers via Fourier methods, time–frequency features via wavelets (Chapter 7), and nonlinear measures (entropy, fractal indices) used carefully with small samples.
+
+Smoothing reduces high-frequency noise: moving averages, exponential smoothing, Savitzky–Golay polynomial filters, and median filters (robust to spikes). Over-smoothing erases clinically sharp events (seizure onsets, BP drops). Choose kernels with time constants matched to the physiology and the decision latency. Fit smoother parameters on training segments; applying adaptive smoothers that peek at future samples inside a window is a subtle form of leakage for causal real-time prediction.
+
+Concrete lag example: let MAP_t be mean arterial pressure at minute t. Features available to predict deterioration at t include MAP_t, MAP_{t−5}, MAP_{t−15}, the 15-minute slope (MAP_t − MAP_{t−15})/15, and a rolling standard deviation over [t−15, t] that uses only past samples (a causal window). Including MAP_{t+5} would be leakage for real-time alarms. Seasonality example: ED arrival counts often show weekday harmonics; features sin(2π d/7), cos(2π d/7) for day-of-week d capture weekly cycles without imposing an arbitrary Monday=0 integer geometry on tree and linear models alike.
+
+## Leakage in Clinical Data and Pipeline Discipline
+
+Leakage occurs when information unavailable at the intended prediction time enters training features. In stroke modeling the offenders are legion: discharge mRS used to predict discharge mRS; peak troponin during admission used to predict in-hospital mortality when the decision point was ED arrival; hospital-acquired pneumonia or hemicraniectomy flags used as inputs to a model that claims to risk-stratify at door; length of stay as a day-0 feature; radiology final reads finalized after the treatment decision; target encoding without out-of-fold discipline; scalers fit on the full cohort before splitting.
+
+Figure 6.5. An index-time legality timeline. Features knowable at the prediction time t0 (left, indigo) are legal inputs; variables resolved only after the outcome (right, rose) such as post-tPA labs, length of stay, discharge disposition, and discharge mRS constitute leakage when fed to a model that claims to predict at t0.
+
+A practical audit: draw the clinical timeline. Mark t₀ (for example, first ED blood pressure). Every feature must be knowable at t₀ for a t₀ model. If a field is only complete at discharge coding, it is not an arrival feature. Aggregate statistics computed with the test patient included leak. Identifiers that encode the label leak. If validation scores look “too good,” audit for leakage before celebrating—and before publishing AUCs that will not replicate prospectively.
+
+A feature pipeline is an ordered list of transforms—type coercion → range checks → flag missingness → impute → encode → scale → model—with a single fit API on training data and transform/predict on new data. Document feature lineage: source system, units, allowed range, missing conventions, and whether the field is known at inference. Version feature definitions with the model; silent ICD coding updates are distribution shift.
+
+```
+# Conceptual clinical pipeline (pseudocode)
+pipe = Pipeline([
+ ('coerce', TypesAndUnits()),
+ ('missing_flags', AddMissingnessIndicators()), # informative-presence features
+ ('impute', SeparateNumCatImputers()), # fit on train only
+ ('encode', OneHotAndOrdinalMaps()),
+ ('scale', StandardizeNumericOnly()),
+ ('model', Ridge(alpha=1.0)),
+])
+pipe.fit(X_train, y_train) # every column known at t0
+y_hat = pipe.predict(X_test)
+```
+
+## Missingness Mechanisms as Feature Decisions
+
+Blanks are not merely a nuisance to be silently filled; they are data whose reason for absence changes the correct engineering choice. Rubin’s taxonomy names three mechanisms, and each licenses a different legitimate handling—and a different leakage risk.
+
+Figure 6.6. Rubin's missingness mechanisms. MCAR: absence is driven by chance, independent of all data. MAR: absence in x3 is explained by an observed column x1. MNAR: absence depends on the unseen value itself. Each mechanism licenses a different legitimate imputation and missingness-indicator choice, and each indicator must still be certified legal at t0.
+
+### Missing Completely At Random (MCAR)
+
+Under MCAR the probability that a value is missing depends on nothing at all, observed or unobserved: P(missing) is effectively a constant. Intuition: a reagent lot lapses and a random afternoon of glucose panels is voided; a scanner is offline for maintenance on arbitrary days. Mechanism: the observed rows are a uniform random subsample, so complete-case analysis is unbiased (only less efficient) and simple mean or median imputation does not distort the marginal distribution. When to invoke it: rarely, and only with a documented, outcome-independent cause—MCAR is testable, not something to assume by default in EHR data.
+
+### Missing At Random (MAR)
+
+Under MAR, missingness depends only on observed variables, not on the unseen value itself once those observables are conditioned upon. Intuition: NIHSS is more often blank for rapidly improving TIA patients triaged as low-acuity—the blank is explained by observed acuity and care setting, not by the particular NIHSS score that was never recorded. Mechanism: conditioning on the observed covariates renders the missingness “ignorable,” which is exactly the assumption under which principled multiple imputation (MICE) or model-based imputation is valid. When to use it: the workhorse assumption for imputing covariates you will still model—provided the variables that drive the missingness are themselves present in the data.
+
+### Missing Not At Random (MNAR)
+
+Under MNAR, missingness depends on the unobserved value itself, even after conditioning on the observables. Intuition: a troponin is never drawn precisely because the patient looked well (the unmeasured value would likely have been normal); a cognitive subscore is blank because the very deficit being measured prevents the patient from completing it. Mechanism: the fact of missingness carries information about the missing value—and often about the outcome—so complete-case analysis and naive imputation are biased. When to model it: represent the missingness explicitly (indicators, pattern-mixture or selection models) rather than pretending a single fill value is the truth.
+
+### Translating Mechanism into Features
+
+The mechanism dictates which of three moves is honest: (a) impute and forget—defensible under MCAR or MAR when the value, not its absence, carries the signal; (b) impute and add a missingness indicator; or (c) treat “missing” as an informative level in its own right. In prediction—as opposed to etiologic inference—informative missingness is frequently among the strongest signals: that a CTA was ordered proxies for suspected large-vessel occlusion, and “NIHSS incomplete” co-varies with chaotic, high-severity arrivals. Exploiting this informative presence is legitimate.
+
+It is also where leakage hides. A “troponin missing” flag is a lawful index-time feature only if the ordering decision and its resolution are settled by t₀; if troponin typically results hours after the ED disposition being modeled, then “troponin measured” smuggles the future workup into a t₀ model. Worse, a blank created by the outcome—a discharge field empty because the patient died before discharge coding—encodes the label as absence, the purest leakage disguised as informative missingness. Two disciplines follow. First, fit every imputer on the training fold only: imputing with the full-cohort mean leaks the test distribution into each row, the same error as fitting a scaler on all data. Second, certify each missingness indicator against the timeline exactly as you would any other feature. Prefer per-mechanism handling: MCAR tolerates simple imputation; MAR earns multiple imputation with the missingness drivers included; MNAR demands that the absence itself be modeled and, above all, checked for index-time legality.
+
+## Feature Generation Beyond Selection
+
+Feature generation creates new coordinates rather than merely choosing among raw columns. Domain-informed generation often outperforms generic polynomial explosions because it aligns with pathophysiology and operations: LKW-to-door minutes, door-to-CT, door-to-needle, wake-up/unknown-onset flags, NIHSS subscores, ASPECTS or automated core/penumbra volumes known pre-decision, BP variability over a fixed pre-decision window, and arrival mode (EMS versus private). Ratios (glucose relative to a site median computed on training data only) can stabilize multi-center panels.
+
+Generic expansions still have a place: pairwise interactions among a short pre-specified list, restricted cubic splines of age and severity, and cyclic encodings of hour-of-day via sine and cosine so that 23:00 neighbors 00:00. Avoid crossing every ICD code with every lab—combinatorial generation without selection or penalization is an overfitting engine. Name features with temporal qualifiers (pre_EVT_ASPECTS versus discharge_mRS) so joins cannot silently attach the wrong timepoint.
+
+Missingness indicators deserve explicit generation when MAR/MNAR structure is informative: “NIHSS incomplete,” “no CTA performed,” “transfer missing prehospital times.” Combined with careful imputation (mean/median only as baselines; model-based or MICE for estimands; native missing support in some tree boosters), indicators prevent the fiction that every blank is a random draw from the observed marginal. Document unit conversions (mmol/L versus mg/dL) as first-class generation steps; multi-site disasters often begin as silent unit mismatches labeled as “outliers.”
+
+## Worked Scaling and Transform Walk-Through
+
+Suppose training glucose values (mg/dL) are {90, 110, 130, 250}. For min–max to [0,1]: x_min=90, x_max=250, so scaled values are 0, 20/160=0.125, 40/160=0.25, 1.0. A test value of 80 yields (80−90)/(250−90) = −0.0625—outside [0,1], which is allowed and preferable to refitting min/max on the test set. For z-scores with training mean μ=(90+110+130+250)/4=145 and population σ for illustration: deviations −55, −35, −15, +105; variance (3025+1225+225+11025)/4 = 3875; σ≈62.25; z ≈ (−0.88, −0.56, −0.24, +1.69). The extreme 250 dominates both scales—robust scaling with median and IQR would compress its influence.
+
+Log1p on the same vector: log(91), log(111), log(131), log(251) ≈ (4.51, 4.71, 4.88, 5.53), reducing right skew before standardization. A Box–Cox search on strictly positive training glucose might favor λ near 0 (log-like) when the likelihood surface peaks there; report λ with the model card. Never choose λ on the full dataset including test patients.
+
+## Clinical and Epidemiologic Notes
+
+Prediction is not causal inference. A feature that improves RMSE for infarct volume prediction may be a confounder, a mediator, or a collider artifact when the scientific goal is an exposure–outcome effect. Separate prognostic models (association, calibration, decision utility) from etiologic models (confounding control, not maximal R²).
+
+External validity depends on case mix and coding. TOAST labels vary by workup intensity; NIHSS completeness varies by site. Multi-center training without site-aware evaluation can hide that the model mostly detects documentation style. For rare events (sICH after thrombolysis), aggressive target encoding of sparse categories is especially fragile.
+
+Ethically, excellent predictors may be unacceptable decision inputs (proxies for socioeconomic status used to deny rehabilitation). Feature engineering is also governance: choose representations that match the intended use, the decision time, and the population that will bear the model’s errors. Imaging-derived embeddings and free-text vectors can encode site watermarks (scanner vendor, note templates); evaluate subgroup performance by site, language, and transfer status.
+
+Operationalization fails when the warehouse used for training joins discharge facts absent from the real-time feature store. Mirror production availability during training. For signals and video, patient-level splits prevent slice/frame leakage across train and test. For keyword features from notes written after outcomes, either restrict to early sections timed before t₀ or reframe the task as retrospective retrieval rather than prospective prediction.
+
+Define t₀ and list every feature’s availability relative to t₀.
+
+Prefer clinically named durations over raw timestamps.
+
+Treat imaging and ordinal scales as measurement instruments with error.
+
+Nest selection, encoding, and scaling inside validation.
+
+Audit text and imaging features for post-outcome documentation and reads.
+
+Generate missingness indicators when blanks are informative clinical signals.
+
+Match video/signal splits to patients, not frames, to avoid leakage.
+
+## Connections
+
+Feature engineering is the hinge between raw data and every later method. Selection here contrasts with dimensionality reduction (Chapter 7), which forges new axes (PCA, manifold methods) rather than choosing original, clinically nameable columns; the two are often stacked—filter first, then project. The scaling and norm discipline of this chapter is a prerequisite for distance- and gradient-based learners (k-NN, SVM, neural nets) and for the regularization paths of L1/L2 penalized models, where unstandardized units silently reweight the penalty. The text pipeline and TF–IDF extend the vector-space ideas of Chapter 5, and the embeddings sketched here become the input layers of the sequence models in later chapters. The time-series features—stationarity, lags, seasonality, change points—feed the forecasting models (ARIMA and state-space methods, Chapter 8), while wavelet and spectral signal features connect to the transforms in Chapter 7. Graph-structured features (GCNs) point forward to Chapter 15. Cutting across all of these is the leakage-and-index-time discipline: less a feature topic than an evaluation contract that every transform in the pipeline must honor.
+
+## Chapter Summary
+
+Feature engineering designs the matrix models actually learn from. Selection methods include filters (fast statistical scores), wrappers (SFS, SBS, genetic search optimizing a model’s validation metric), and embedded approaches (L1, tree importance). Numerical pipelines use min–max scaling, z-score standardization, L1/L2 norms, and log/Box–Cox transforms—always fit on train. Categorical encodings include one-hot, dummy, effect coding, feature hashing, bin counting, and target encoding; each invents geometry and some leak labels if misused. Text features span bags-of-words, subwords, n-grams, POS tags, Word2Vec/GloVe/FastText embeddings, and keyword methods (TF–IDF, TextRank, RAKE, YAKE). Image descriptors include Harris corners, MSER, HOG, SIFT, and watershed segments; video adds motion vectors, optical flow, 3D CNNs, and graph-based pose/region models. Time series and signals contribute stationarity checks, seasonal and trend components, motifs, lags, change points, and carefully chosen smoothers. Missingness is itself a feature decision: whether a blank is MCAR, MAR, or MNAR dictates whether to impute, impute-and-flag, or model the absence, and an informative-missingness indicator is lawful only when it is knowable at t₀. In clinical data, leakage is the cardinal sin: features must be knowable at decision time, and pipelines must enforce fit-on-train discipline end to end.
+
+## Practice and Reflection
+
+(1) Compare filter, wrapper, and embedded selection for a 200-feature stroke registry with n = 800. Propose a nested CV scheme and justify computational trade-offs.
+
+(2) Given ages {62, 71, 55, 80}, compute min–max scaled values to [0,1] and z-scores using population σ for illustration. Explain what changes if a new age 95 arrives at test time.
+
+(3) Show algebraically why dummy coding with an intercept is full rank when one level is dropped, while full one-hot plus intercept is singular.
+
+(4) Write a target-encoding formula with smoothing and describe an out-of-fold procedure that avoids using a row’s own label.
+
+(5) Contrast Word2Vec skip-gram, GloVe, and FastText for rare medication strings in clinical notes.
+
+(6) Explain how SIFT achieves scale and rotation robustness at a high level, and when a small labeled stroke CT dataset might still prefer a pretrained CNN embedding.
+
+(7) For hourly mean arterial pressure series, define one lag feature set, one seasonal feature, and one change-point feature usable at time t without future leakage.
+
+(8) Design a leakage audit checklist for a model that claims to predict 90-day mRS from ED arrival data at a comprehensive stroke center.
+
+(9) When would you choose RAKE or YAKE over TF–IDF for keyword features from a single radiology report?
+
+(10) Describe how optical flow features differ from 3D CNN features for detecting abnormal movement on bedside monitoring video.
+
+(11) Classify each blank as MCAR, MAR, or MNAR and give its feature-engineering implication: (a) glucose panels voided one afternoon by a lab-analyzer outage; (b) troponin never ordered because the patient appeared clinically well; (c) 90-day mRS blank because the follow-up window has not yet elapsed. For each, state whether a missingness indicator is a legal feature for a model that predicts at ED arrival.
+
+(12) Using target encoding with global rate ȳ = 0.20 and prior m = 10, compute the smoothed encoding for a site with 8 patients and 3 events, then give the leave-one-out encoding seen by one of its patients whose outcome is y = 1. Explain which number the model may legally train on.

@@ -1,0 +1,318 @@
+# Chapter 3. Probability and Statistics
+
+<div class="disclaimer-banner" markdown="1">
+**Web Edition — original teaching text.** Educational only; not medical advice. No commercial handbook prose, paper abstracts, or publisher figures.
+</div>
+
+## Web Edition clinical frame
+
+A hemorrhage-risk model quotes sensitivity 0.92 and specificity 0.88. Without prevalence, Bayes, and calibration language, those numbers are theater. This chapter rebuilds the probability spine for clinical ML consumers.
+
+## Learning Objectives
+
+Define random variables and distinguish continuous vs discrete types, dependent/independent/control variables, and independent trials.
+
+Compute and interpret arithmetic, geometric, and harmonic means; median; mode; variance, SD, covariance; range, quartiles, and boxplots; degrees of freedom.
+
+Apply joint and conditional probability and Bayes’ theorem with clinical base rates.
+
+Relate PDF, PMF, and CDF and recognize Normal, Uniform, Beta, Dirichlet, Binomial, Bernoulli, Geometric, Poisson, Weibull, power-law/exponential/Zipf/Pareto, Chi-square, and Boltzmann distributions.
+
+Use PP and QQ plots to assess distributional fit; define expectation and z-score normalization.
+
+State the CLT and LLN, describe sampling bias, and construct basic confidence intervals.
+
+Select conceptual families of hypothesis tests (t-tests, ANOVA/MANOVA/ANCOVA, chi-square, KS, Kruskal–Wallis, Mann–Whitney) and multiplicity corrections (Bonferroni, Tukey).
+
+Report effect sizes (Cohen’s d, odds ratios), correlations, and information-theoretic quantities (entropy, IG, KL, cross-entropy, JS); sketch MLE and EM.
+
+## Why Probability Underwrites Clinical Machine Learning
+
+Every predictive model in neurology is a statement under uncertainty. Labels such as large-vessel occlusion on CTA, electrographic seizure on EEG, or 90-day modified Rankin Scale are noisy; future patients differ from historical registries; multiple models can fit the same finite sample. Probability supplies a coherent language for that uncertainty. Statistics supplies estimators, intervals, and tests that quantify how wrong finite-sample answers might be. Without this foundation, an AUC is a floating score, a calibrated probability is wishful labeling, and Bayesian updating—central to diagnosis and to many learning algorithms—cannot be stated precisely.
+
+This chapter is applied and cumulative. We define variables and descriptive summaries; build joint and conditional probability through Bayes’ theorem with a fully worked LVO example; introduce PDFs, PMFs, CDFs and a catalog of distributions used in modeling; cover expectation, normalization, sampling laws, and confidence intervals; survey parametric and nonparametric tests with multiplicity control; and connect effect sizes, correlation, entropy-based divergences, maximum likelihood, and expectation–maximization. Clinical and epidemiologic notes keep the arithmetic tied to stroke and population reasoning.
+
+## Concepts and Definitions: Variables
+
+### Random (stochastic) variables; continuous and discrete
+
+A random variable (RV) X is a numerical summary of an outcome of a random experiment—formally a measurable function from a sample space Ω to the real line. Discrete RVs take countable values (stroke counts per day, number of recurrences) and are described by a probability mass function p(x) = P(X = x). Continuous RVs take values on intervals (serum sodium, infarct volume on a continuum) and are described by a probability density function f such that P(a ≤ X ≤ b) = ∫_a^b f(x) dx; the density value f(x) is not itself a probability. Mixed types and distributions with atoms (point masses) appear when continuous labs are censored at detection limits.
+
+Beyond the probabilistic continuous/discrete split, scientific data types include binary, nominal, ordinal, integer counts, and ratio-scale continuous measures. Legitimate operations depend on type: you may order mRS, but the gap from 1 to 2 is not the same clinical distance as from 5 to 6 in every decision context; you should not average nominal codes.
+
+### Dependent, independent, and control variables
+
+In experimental and regression language, independent variables (predictors, exposures, features) are inputs; the dependent variable is the response or outcome. Control variables are covariates included to adjust for confounding or precision—not ‘controls’ in the trial arm sense. In causal diagrams, the same clinical measurement might be a confounder, mediator, or collider depending on the estimand; calling a column ‘independent’ in software does not make it causally exogenous. ML feature lists should be designed with this vocabulary in mind when the goal is explanatory or policy-facing rather than pure prediction.
+
+### Independent versus dependent trials
+
+Independent trials mean that the outcome of one trial does not change the probability model of another: P(X_1, …, X_n) = Π_i P(X_i) under identical conditions (i.i.d. when the common distribution is shared). Dependent trials arise in clusters (patients in hospitals), repeated measures (days within ICU stay), and time series. Many textbook formulas (binomial variance, simple standard errors) assume independence. Violating it understates uncertainty—an endemic problem when hundreds of EEG windows from the same patient are treated as independent samples.
+
+## Descriptive Statistics: Means, Spread, and Boxplots
+
+### Arithmetic, geometric, and harmonic means
+
+For positive or real observations x_1, …, x_n, the arithmetic mean is x̄ = (1/n) Σ_i x_i—the center of mass and the least-squares constant predictor. The geometric mean is (Π_i x_i)^{1/n} = exp((1/n) Σ log x_i) for x_i > 0, appropriate for average growth rates and log-normal-ish positive labs. The harmonic mean is n / Σ_i (1/x_i) for x_i > 0, natural for average rates when time is fixed and counts vary (and for F1 as a harmonic mean of precision and recall). Inequality: harmonic ≤ geometric ≤ arithmetic, with equality iff all values are equal.
+
+### Median and mode
+
+The median is a value that splits the ordered sample so that at least half the points lie on each side; for even n it is often the average of the two central order statistics. Medians resist extreme outliers better than means—prefer them for skewed length-of-stay and cost. The mode is the most frequent value (or a density peak in continuous data); multimodal clinical scores suggest mixture populations or coding artifacts.
+
+### Variance, standard deviation, and covariance
+
+Population variance is Var(X) = E[(X − μ)²]; standard deviation is its square root. The unbiased sample variance uses divisor n−1: s² = (1/(n−1)) Σ (x_i − x̄)². Covariance Cov(X,Y) = E[(X−μ_X)(Y−μ_Y)] measures joint linear co-movement; Corr(X,Y) = Cov(X,Y)/(σ_X σ_Y) standardizes to [−1,1]. Covariance matrices underpin multivariate Gaussians, PCA, and Mahalanobis distance.
+
+### Range, quartiles, and boxplots
+
+Range = max − min is simple and outlier-sensitive. Quartiles Q1, Q2 (median), Q3 divide the ordered sample into fourths; IQR = Q3 − Q1. Boxplots (whisker plots) draw the box from Q1 to Q3 with a median line and whiskers to fences such as [Q1 − 1.5·IQR, Q3 + 1.5·IQR], plotting exterior points individually. They compare groups quickly but hide multimodality—pair with violins or histograms when mixtures matter.
+
+### Degrees of freedom
+
+Degrees of freedom (df) count independent pieces of information available to estimate a parameter after constraints. Sample variance uses n−1 df because one df is spent estimating the mean. In regression, residual df are roughly n − p for p estimated coefficients. In chi-square tests, df depend on table size and estimated margins. Reporting df with test statistics is part of reproducible statistics.
+
+## Probability: Joint, Conditional, and Bayes
+
+Consider a sample space Ω of mutually exclusive, exhaustive outcomes. An event A is a measurable subset of Ω. Kolmogorov’s axioms: non-negativity P(A) ≥ 0; normalization P(Ω) = 1; countable additivity for disjoint unions. Then P(∅) = 0, P(A^c) = 1 − P(A), and the addition rule P(A ∪ B) = P(A) + P(B) − P(A ∩ B). Independence means P(A ∩ B) = P(A)P(B).
+
+Joint probability P(A ∩ B) describes co-occurrence. Conditional probability P(A | B) = P(A ∩ B)/P(B) when P(B) > 0 restricts attention to the world where B is true. The law of total probability expands P(A) via a partition B_i: P(A) = Σ_i P(A | B_i) P(B_i). Bayes’ theorem reverses conditioning: P(H | E) = P(E | H) P(H) / P(E), with P(E) = Σ_j P(E | H_j) P(H_j) when hypotheses partition Ω.
+
+### Worked numerical example: LVO screening
+
+Suppose in an ED population of suspected acute ischemic stroke, P(LVO) = 0.20. A bedside scale has sensitivity P(+ | LVO) = 0.85 and specificity P(− | no LVO) = 0.70, so P(+ | no LVO) = 0.30. A patient screens positive. Then P(+) = 0.85·0.20 + 0.30·0.80 = 0.17 + 0.24 = 0.41, and P(LVO | +) = 0.17/0.41 ≈ 0.4146 ≈ 41.5%. Despite 85% sensitivity, PPV is only about 41.5% because false positives among the 80% without LVO dominate the marginal. At prevalence 0.05, the same sens/spec yield P(+) = 0.3275 and PPV ≈ 13.0%. Likelihood ratios LR+ = 0.85/0.30 ≈ 2.833 and LR− = 0.15/0.70 ≈ 0.214 travel across base rates; predictive values do not.
+
+Figure 3.1. Positive predictive value of the LVO bedside screen as a function of disease prevalence at fixed sensitivity 0.85 and specificity 0.70. PPV climbs from about 13.0% at 5% prevalence to about 41.5% at 20% prevalence; the likelihood ratio (LR+ approx. 2.83) is invariant to base rate, whereas predictive values are not.
+
+```
+prev, sens, spec = 0.20, 0.85, 0.70
+p_pos = sens*prev + (1-spec)*(1-prev) # 0.41
+ppv = (sens*prev)/p_pos # ~0.4146
+lr_plus = sens/(1-spec) # ~2.833
+print(p_pos, ppv, lr_plus)
+```
+
+## PDF, PMF, CDF, and a Catalog of Distributions
+
+The PMF of a discrete RV assigns probabilities to points. The PDF of a continuous RV assigns density whose integrals over sets give probabilities. The cumulative distribution function F(x) = P(X ≤ x) is nondecreasing and right-continuous, with F(−∞) = 0 and F(∞) = 1; for continuous RVs, f = F′ almost everywhere. Survival functions 1 − F(x) appear throughout time-to-event analysis.
+
+Figure 3.2. A catalog of common distributions used in modeling: Normal (pdf), Poisson (pmf, lambda=4), Beta (three shapes, including the Beta(2,8) approx. 20% complication prior), Exponential (pdf, lambda=1), Binomial (pmf, n=10, p=0.35), and continuous Uniform (pdf, a=2, b=6). All densities and masses are computed directly in NumPy.
+
+### Normal (Gaussian)
+
+X ~ N(μ, σ²) has support x ∈ (−∞, ∞), parameters mean μ and variance σ² > 0, with E[X] = μ and Var(X) = σ². Its density is (1/√(2πσ²)) exp(−(x−μ)²/(2σ²)). Linear combinations of independent Gaussians are Gaussian; the CLT explains approximate normality of many aggregates. Standardization Z = (X−μ)/σ ~ N(0,1). It models approximately symmetric measurement noise—for example, repeated volumetric readings of the same infarct; beware floors, ceilings, and skew in NIHSS-like scores.
+
+### Uniform
+
+Continuous Uniform(a,b) has support [a,b], parameters endpoints a < b, constant density 1/(b−a), with E[X] = (a+b)/2 and Var(X) = (b−a)²/12. Discrete uniform places equal mass 1/K on a finite set of K values. It models complete indifference over a bounded range. Uniforms appear as noninformative priors on bounded intervals, as random seeds for simulation, and as null models for fair lotteries—rarely as models of raw clinical labs.
+
+### Beta and Dirichlet
+
+Beta(α, β) has support (0,1), parameters shape α, β > 0, with E[X] = α/(α+β) and Var(X) = αβ/((α+β)²(α+β+1)). It is conjugate to Bernoulli/Binomial likelihoods—ideal for modeling an unknown proportion with prior pseudo-counts α−1 successes and β−1 failures. Clinically, a Beta(2, 8) prior encodes a plausible ~20% complication rate that observed events then update to a Beta posterior. Dirichlet is the multivariate generalization with support on the K-simplex (nonnegative vectors summing to 1), parameter vector α = (α_1, …, α_K), and mean component E[X_k] = α_k / Σ_j α_j; it is conjugate to categorical/multinomial models and central to topic models and mixed-membership clustering—for example, expressing a patient’s fractional membership across stroke etiologies. When α = β = 1, Beta is Uniform(0,1).
+
+### Bernoulli, Binomial, Geometric
+
+Bernoulli(p): support {0,1}, parameter success probability p ∈ [0,1], with E[X]=p and Var(X)=p(1−p); it models a single yes/no event such as thrombolysis given or not. Binomial(n,p): support {0,1,…,n}, the count of successes in n i.i.d. Bernoulli trials, P(Y=k)=C(n,k) p^k (1−p)^{n−k}, with E[Y]=np and Var(Y)=np(1−p); it models, say, the number of successful recanalizations in n independent thrombectomy attempts. Geometric(p): support {1,2,…} under the trials-until-first-success convention (definitions vary on whether the success trial is counted), with E[X]=1/p and Var(X)=(1−p)/p²; it models the number of independent trials to the first event and is memoryless.
+
+### Poisson and Weibull
+
+Poisson(λ): support {0,1,2,…}, parameter rate λ > 0, P(X=k)=e^{−λ} λ^k/k! for counts with E[X]=Var(X)=λ—stroke arrivals per day, rare adverse events. Overdispersion (variance > mean) pushes toward negative binomial. Weibull(k, λ): support (0,∞), shape k > 0 and scale λ > 0, with E[X]=λ·Γ(1+1/k); its hazard increases (k > 1), stays constant (k = 1, reducing to the Exponential), or decreases (k < 1). This flexible hazard makes it a workhorse of reliability and survival analysis—for example, a high early hazard after craniectomy that falls over time—when proportional hazards or exponential waiting times are too rigid.
+
+### Power-law, exponential, Zipf, and Pareto
+
+The Exponential(λ) has support (0,∞), rate parameter λ > 0, E[X]=1/λ and Var(X)=1/λ²; it is the memoryless continuous waiting time between events of a constant-hazard Poisson process (inter-arrival times of stroke admissions). Heavy-tailed laws are its opposite in spirit. The Pareto distribution has support x ≥ x_m with tail index α > 0 and mean αx_m/(α−1) only when α > 1—for α ≤ 1 the mean is infinite. Zipf is its discrete rank–frequency cousin: the r-th most common item has probability ∝ r^{−s}. These power laws appear in city sizes, word frequencies, and sometimes care utilization or network degree distributions. They imply that sample means can be unstable and that extreme events dominate totals. Always test fit carefully; many claimed power laws are merely heavy-tailed over a limited range.
+
+### Chi-square and Boltzmann
+
+Chi-square χ²(k) has support (0,∞), a single parameter—the degrees of freedom k—with E[X]=k and Var(X)=2k; it is the distribution of the sum of squares of k independent standard normals, a special Gamma, appearing in variance estimators and goodness-of-fit statistics. Boltzmann (and Gibbs) distributions in statistical physics have support over discrete states of energy E, assigning probability e^{−E/kT}/Z, where the partition function Z = Σ e^{−E/kT} normalizes and T is temperature; analogous softmax forms appear throughout ML as Gibbs distributions over labels or configurations, linking energy-based models to probabilistic classification.
+
+### PP plots and QQ plots
+
+Probability–probability (PP) plots graph empirical CDF values against theoretical CDF values; points near the diagonal support the theoretical model. Quantile–quantile (QQ) plots graph empirical quantiles against theoretical quantiles—more sensitive in the tails, hence preferred for checking Gaussian residuals or heavy tails. Systematic curvature diagnoses skewness; S-shapes diagnose tail weight.
+
+Figure 3.3. Normal quantile-quantile plots. A Gaussian sample falls along the reference line (left), while a right-skewed exponential sample bows systematically off it (right) with a flat lower tail and a steep upper tail, the curvature that QQ plots are designed to reveal.
+
+## Expectation, Normalization, and How Much Data Is Enough
+
+Expectation E[X] is the probability-weighted average (sum or integral). Linearity E[aX+bY]=aE[X]+bE[Y] holds without independence. Variance expands as E[X²]−(E[X])². Law of the unconscious statistician: E[g(X)] integrates g against the distribution of X without first finding the law of g(X).
+
+Figure 3.4. The central limit theorem in action. The sampling distribution of the mean of n Exponential(1) draws for n = 1, 5, 30 becomes progressively more Gaussian and narrower (standard error = 1/sqrt(n)); the CLT Normal approximation (solid) is a poor fit at n=1 but nearly exact by n=30.
+
+Z-score normalization transforms a value via z = (x − μ)/σ (or sample estimates s). Features on incommensurate scales become comparable; many distance-based learners (k-means, k-NN, PCA) require this discipline. Z-scores assume a roughly symmetric scale meaning; they do not fix heavy tails or coding errors. Robust alternatives use median and IQR.
+
+The law of large numbers (LLN): sample averages converge to expectations under i.i.d. sampling with finite mean—the philosophical backbone of ‘more data helps.’ The central limit theorem (CLT): standardized sums become approximately normal for large n under mild conditions—justifying many Wald intervals and z-tests. Sampling bias (nonrandom selection, volunteer bias, collider stratification) breaks the link between sample and target population no matter how large n grows. Confidence intervals at level 1−α are random intervals that cover the true parameter with probability 1−α under the model in repeated sampling; approximate Wald interval for a proportion: p̂ ± z_{α/2} √(p̂(1−p̂)/n).
+
+```
+import math
+p_hat, n, z = 0.17, 200, 1.96
+se = math.sqrt(p_hat*(1-p_hat)/n) # ~0.0266
+lo, hi = p_hat - z*se, p_hat + z*se # ~(0.118, 0.222)
+print(se, lo, hi)
+```
+
+## Hypothesis Tests, Multiplicity, and Effect Size
+
+Hypothesis testing formalizes conflict between data and a null H_0. A test statistic measures discrepancy; a p-value is the probability under H_0 of a result at least as extreme as observed—not the probability H_0 is true, and not clinical importance. Type I error is false rejection of H_0; Type II is false non-rejection. A/B tests in digital products are sequential or fixed-horizon significance tests on metrics; clinical analogues require pre-specification and care with peeking.
+
+### Parametric tests: t-tests and ANOVA family
+
+One-sample t-tests compare a mean to a null value; independent two-sample t-tests compare means of two groups; paired t-tests use within-pair differences. ANOVA compares means across more than two groups (one-way); repeated-measures ANOVA handles within-subject factors; factorial ANOVA examines multiple factors and interactions. MANOVA extends to multiple continuous outcomes jointly. ANCOVA blends ANOVA with regression adjustment for covariates. Assumptions include approximate normality of errors and, for classical variants, variance homogeneity; large n helps via CLT but does not fix bad estimands.
+
+### Nonparametric tests
+
+Chi-square tests assess independence in contingency tables or goodness-of-fit to a specified discrete distribution. Kolmogorov–Smirnov compares empirical and theoretical CDFs (or two empirical CDFs). Kruskal–Wallis is a rank-based multi-group alternative to one-way ANOVA; Mann–Whitney U (Wilcoxon rank-sum) compares two groups on stochastic dominance/ranks without requiring normality. Use these when ordinal outcomes or heavy tails make mean comparisons brittle—mRS comparisons often live here or in ordinal logistic models.
+
+### Multiplicity: Bonferroni and Tukey
+
+Testing many hypotheses inflates family-wise Type I error. Bonferroni adjusts by using α/m for m tests (conservative when tests are correlated). Tukey honest significant difference controls family-wise error for all pairwise mean comparisons after ANOVA. False discovery rate methods (Benjamini–Hochberg) are popular in high-dimensional screens. Pre-specify primary endpoints; exploratory subgroup p-values are hypothesis-generating without adjustment theater.
+
+### Effect size: Cohen’s d and odds ratios
+
+Statistical significance is not effect size. Cohen’s d = (μ_1 − μ_0)/s_pooled standardizes mean differences. Odds ratios compare odds of an event between groups; they arise naturally from logistic regression coefficients (exp(β)). Report effects with confidence intervals. Correlation coefficients (Pearson linear, Spearman rank) quantify association strength; they are not interventional effects.
+
+Figure 3.5. Effect size for two equal-variance Normal groups separated by Cohen's d = 0.80. The shaded region is the distributional overlap (about 69%), illustrating that even a conventionally large standardized mean difference still implies substantial overlap between groups.
+
+## Entropy, Divergences, Maximum Likelihood, and EM
+
+Shannon entropy H(X) = −Σ_x p(x) log p(x) (or integral analogue) measures uncertainty in a distribution. Information gain in decision trees is the reduction in entropy (or impurity) from a split—feature selection by how much knowing X reduces uncertainty about Y. Kullback–Leibler divergence KL(p || q) = Σ p log(p/q) measures directed discrepancy from q to p (not symmetric, not a metric). Cross-entropy H(p,q) = −Σ p log q = H(p) + KL(p || q) is the workhorse classification training loss when p is a one-hot label and q is the model’s predicted distribution. Jensen–Shannon divergence symmetrizes and smooths KL, yielding a bounded score used in distribution comparison and GAN theory.
+
+Figure 3.6. Kullback-Leibler divergence between two discrete outcome (mRS) distributions p and q: paired probability masses (left) and the pointwise contributions p*ln(p/q) that sum to KL(p||q) (right). KL is asymmetric, KL(p||q) approx. 0.96 nats differs from KL(q||p) approx. 0.85 nats, so it is a directed discrepancy, not a distance.
+
+Maximum likelihood estimation chooses θ maximizing L(θ) = Π_i f(x_i | θ), usually via log-likelihood. For i.i.d. Bernoulli data with k successes in n trials, p̂_MLE = k/n. For i.i.d. Gaussians, μ̂ = x̄ and σ̂² uses divisor n (MLE) versus n−1 (unbiased). Regularized and Bayesian MAP estimates multiply by priors.
+
+Expectation–maximization (EM) maximizes likelihood when some variables are latent (mixture memberships, missing labels). A concrete walkthrough: fit a two-component univariate Gaussian mixture to data x_1, …, x_n, where each point comes from component 1 ~ N(μ_1, σ_1²) with probability π or component 2 ~ N(μ_2, σ_2²) with probability 1−π, but the component label is unobserved. Maximizing the observed-data log-likelihood Σ_i log[π N(x_i | μ_1, σ_1²) + (1−π) N(x_i | μ_2, σ_2²)] directly is awkward because of the sum inside the log. EM sidesteps this by alternating two steps from an initial guess of (π, μ_1, σ_1², μ_2, σ_2²):
+
+E-step: compute each point’s responsibility—the posterior probability it belongs to component 1—r_i = π N(x_i | μ_1, σ_1²) / [π N(x_i | μ_1, σ_1²) + (1−π) N(x_i | μ_2, σ_2²)]. These soft labels lie in [0,1] and use the current parameters.
+
+M-step: re-estimate parameters as responsibility-weighted statistics: π ← (1/n) Σ_i r_i; μ_1 ← (Σ_i r_i x_i)/(Σ_i r_i); σ_1² ← (Σ_i r_i (x_i − μ_1)²)/(Σ_i r_i); and symmetrically for component 2 using weights (1 − r_i). This is a weighted version of the ordinary Gaussian MLE.
+
+Each iteration provably does not decrease the observed-data likelihood, so EM climbs to a stationary point—usually a local, not global, maximum, which is why several random initializations and a best-likelihood pick are standard. EM underpins Gaussian mixture clustering, many HMM estimators (Baum–Welch), and missing-data algorithms. Clinically, a NIHSS histogram with a mild-stroke bulk and a severe-stroke tail can be fit as such a mixture, with responsibilities giving each patient a soft membership rather than a hard threshold cut; the same soft labels should never be reported as verified etiologic subtypes.
+
+```
+# Bernoulli MLE sketch
+k, n = 34, 200
+p_hat = k / n # 0.17
+# loglik(p) = k*log(p) + (n-k)*log(1-p); critical point p = k/n
+```
+
+## From Distributions to Modeling Choices
+
+Choosing a distribution is choosing a set of assumptions about support, tail weight, mean–variance relationships, and conjugacy. Binary endpoints invite Bernoulli or Binomial models and logistic links. Counts invite Poisson or negative binomial models; if the variance greatly exceeds the mean in stroke arrival or readmission counts, Poisson standard errors will be optimistically small. Symmetric continuous errors invite Gaussians; positive skewed labs may invite log-normal or Gamma models; proportions on (0,1) invite Beta regression; categorical labels with more than two levels invite multinomial models with Dirichlet priors in Bayesian settings.
+
+Heavy-tailed behavior changes estimators as much as it changes plots. If length of stay or cost has a Pareto-like tail, the sample mean’s variance may be huge, and a few patients dominate totals—exactly when hospital contribution margins and outlier payment policies matter. Zipf-like ranks appear in token frequencies in clinical text: a handful of tokens carry most mass, which is why sublinear scaling and rare-token handling dominate NLP preprocessing. Weibull and other survival distributions remind us that censoring is part of the likelihood, not a nuisance to delete.
+
+Mixture distributions—finite Gaussian mixtures, zero-inflated counts, spike-and-slab priors—formalize the clinical intuition that one density cannot describe everyone. A NIHSS distribution with a spike at zero and a long right tail is not a failed Gaussian; it is a mixture of mild and severe regimes. EM and related algorithms estimate such mixtures; visualization (histograms, QQ plots) tells you when to try them. Boltzmann and softmax forms reappear when you turn energies or decision scores into probabilities: multiclass logistic regression is a Gibbs distribution over labels.
+
+PP and QQ plots deserve routine use before parametric tests. A t-test on heavily skewed mRS differences may still be approximately valid for large n by the CLT applied to means, but effect-size interpretation and interval coverage can suffer; rank-based tests or ordinal models may match the estimand better. QQ plots of residuals after regression diagnose whether Gaussian-based intervals are decorative or trusted.
+
+## Worked Example Extensions: Likelihood Ratios and Information
+
+Return to the LVO screen with prevalence 0.20, sensitivity 0.85, and specificity 0.70. Prior odds of LVO are 0.20/0.80 = 0.25. After a positive screen, posterior odds = LR+ × prior odds ≈ 2.833 × 0.25 ≈ 0.708, so posterior probability ≈ 0.708/(1+0.708) ≈ 0.415, matching the earlier PPV. After a negative screen, posterior odds ≈ 0.214 × 0.25 ≈ 0.0535, posterior probability ≈ 0.051. This odds arithmetic is the everyday form of Bayes used on teaching rounds; ML systems that emit only uncalibrated scores force clinicians to invent a private, unstated likelihood ratio—which is how silent misuse begins.
+
+Now connect to information theory with a tiny discrete example, using natural logs throughout so the units are nats. Suppose a binary outcome Y with P(Y=1)=0.2 and a binary feature X = screen result, with P(X=1)=0.41 (the positive-screen rate above) carrying the conditional probabilities from the screening table. The outcome’s entropy is H(Y) = −0.2 ln 0.2 − 0.8 ln 0.8 ≈ 0.500 nats. (Watch the units: the same quantity is 0.722 bits, because bits = nats / ln 2 = 0.500 / 0.6931; the numeral 0.7219 is the value in bits, not nats.) After observing X, the expected conditional entropy H(Y|X) is the screen-rate-weighted average of binary entropies at the posteriors 0.415 (screen +) and 0.051 (screen −): H(Y|X=1) ≈ 0.678 nats and H(Y|X=0) ≈ 0.201 nats; with P(X=1)=0.41 and P(X=0)=0.59, H(Y|X) ≈ 0.41·0.678 + 0.59·0.201 ≈ 0.397 nats. Information gain IG = H(Y) − H(Y|X) ≈ 0.500 − 0.397 ≈ 0.104 nats (about 0.15 bits). The screen cuts outcome uncertainty by roughly a fifth—a moderate, not decisive, reduction, consistent with a moderate LR+.
+
+```
+import math
+def bernoulli_entropy(p):
+ if p <= 0 or p >= 1:
+ return 0.0
+ return -p*math.log(p) - (1-p)*math.log(1-p)
+H_y = bernoulli_entropy(0.20) # 0.500 nats
+H_yx = 0.41*bernoulli_entropy(0.4146) + 0.59*bernoulli_entropy(0.0508) # 0.397 nats
+IG = H_y - H_yx # 0.104 nats
+print(H_y, H_yx, IG) # nats
+```
+
+Cross-entropy loss in classification is the same mathematical family: if the true label is a one-hot p and the model predicts q, the contribution −log q_true is minimized when q puts mass on the correct class. KL divergence adds the interpretation of extra bits needed if codes optimized for q are used when reality is p. Jensen–Shannon offers a symmetric, bounded alternative when comparing two models’ predictive distributions or two hospitals’ outcome distributions without treating either as absolute truth.
+
+A small numeric micro-example makes these three quantities concrete. Take a true distribution over two classes p = (0.5, 0.5) and a model’s prediction q = (0.9, 0.1), with natural logs. Cross-entropy is H(p,q) = −Σ p log q = −0.5 ln 0.9 − 0.5 ln 0.1 ≈ 0.053 + 1.151 = 1.204 nats. The label entropy is H(p) = −0.5 ln 0.5 − 0.5 ln 0.5 = ln 2 ≈ 0.693 nats. Their difference is the KL divergence: KL(p || q) = H(p,q) − H(p) ≈ 1.204 − 0.693 = 0.511 nats, which also equals Σ p log(p/q) = 0.5 ln(0.5/0.9) + 0.5 ln(0.5/0.1) computed directly—confirming the identity H(p,q) = H(p) + KL(p || q). KL is asymmetric: reversing the arguments gives KL(q || p) = 0.9 ln(0.9/0.5) + 0.1 ln(0.1/0.5) ≈ 0.368 nats ≠ 0.511. Jensen–Shannon symmetrizes by averaging each distribution’s KL to the mixture m = (p+q)/2 = (0.7, 0.3): JS(p,q) = ½ KL(p || m) + ½ KL(q || m) ≈ ½(0.087) + ½(0.116) = 0.102 nats. JS stays finite and bounded (≤ ln 2 ≈ 0.693 nats) even when one distribution puts near-zero mass where the other does not—the regime where KL diverges to infinity—which is why JS is preferred for comparing two hospitals’ outcome distributions or two models’ predictions when neither is treated as absolute truth.
+
+```
+import math
+p = [0.5, 0.5]; q = [0.9, 0.1]
+m = [(pi+qi)/2 for pi, qi in zip(p, q)] # [0.7, 0.3]
+H_p = -sum(pi*math.log(pi) for pi in p) # 0.693
+H_pq = -sum(pi*math.log(qi) for pi, qi in zip(p, q)) # 1.204
+KL_pq = sum(pi*math.log(pi/qi) for pi, qi in zip(p, q)) # 0.511
+JS = (0.5*sum(pi*math.log(pi/mi) for pi, mi in zip(p, m))
+ + 0.5*sum(qi*math.log(qi/mi) for qi, mi in zip(q, m))) # 0.102
+print(H_p, H_pq, KL_pq, JS) # nats; check H_pq == H_p + KL_pq
+```
+
+## Hypothesis Testing in Registries and Trials: A Practical Map
+
+Clinical ML projects inherit statistical testing cultures from both trials and observational epidemiology. A one-sample t-test might compare mean door-to-needle time to a guideline benchmark. An independent two-sample t-test might compare mean infarct volumes between device arms if approximate normality holds; otherwise Mann–Whitney is a common alternative on ranks. Paired t-tests fit before–after measurements on the same patients (for example, NIHSS at admission and at 24 hours), acknowledging dependence by analyzing differences.
+
+When more than two groups appear—four hospital tiers, three device generations—one-way ANOVA tests equality of means under classical assumptions; Kruskal–Wallis is the rank analogue. Factorial ANOVA addresses two factors at once (for example, sex and treatment) and their interaction. Repeated-measures ANOVA handles multiple time points per patient but is increasingly replaced by mixed models that better tolerate missing visits. MANOVA addresses several continuous outcomes together (volume, shift, NIHSS) when a single combined null is scientifically meaningful; ANCOVA adjusts a group comparison for a baseline covariate (baseline severity), sitting close to linear regression with an indicator plus covariate.
+
+Categorical outcomes use chi-square tests of independence (or Fisher’s exact in small tables) and goodness-of-fit tests against fixed theoretical proportions. Kolmogorov–Smirnov compares full distributions, useful when any difference in CDF—not only means—matters. Multiplicity is not optional theater: if you test twenty subgroups of a stroke trial for ‘signal,’ Bonferroni’s α/m is a blunt but transparent control of family-wise error; Tukey’s HSD is tailored to all pairwise mean comparisons after ANOVA; false discovery rate control is often preferable in high-dimensional biomarker screens where some false discoveries are tolerable.
+
+Effect sizes keep significance tests from becoming idols. A tiny p-value for a 0.1-point NIHSS difference in a huge registry is not a quality revolution. Cohen’s d puts mean differences on a scale relative to noise; odds ratios from logistic models state multiplicative changes in odds—remembering that rare-event odds ratios approximate risk ratios, but common-event odds ratios do not. Always accompany tests with intervals and with a plain-language statement of the estimand: difference in means? difference in medians? odds ratio conditional on covariates?
+
+## Clinical and Epidemiologic Notes
+
+Diagnostic reasoning in neurology is Bayesian whether or not the formula is written down. Pre-test probability of LVO after a severe hemispheric syndrome differs from that after a transient monocular symptom; the same test language does not yield the same post-test beliefs. Screening tools with moderate specificity destroy PPV when prevalence falls—as the numerical example showed. Seizure-detection algorithms face extreme imbalance: hours of non-seizure for minutes of seizure. Reporting accuracy alone is malpractice-level evaluation design; precision at fixed recall, false alarms per hour, and time-to-detection dominate operational utility.
+
+Study design constrains what probabilities mean. Incidence versus prevalence, competing risks for mRS and death, interval censoring of last-known-well, and informative missingness of 90-day outcomes change estimands. Models trained on complete cases silently condition on selection; the learned P(Y | X, observed) may not equal the population P(Y | X). Directed acyclic graphs and missing-data assumptions (MCAR, MAR, MNAR) determine whether your likelihood is even the right likelihood. Unsupervised clusters of ‘stroke phenotype’ are not etiology labels; association of a cluster with outcome is not proof of a causal subtype.
+
+Population research still relies on Poisson and negative binomial models for counts, logistic models for dichotomized mRS, and ordinal models for full mRS. Flexible ML estimators of conditional means or distributions inherit the same identification problems as classical models. Transporting a model across sites may change P(X), P(Y|X), or both; probability literacy is what lets you name which piece shifted. Calibration plots and prevalence-aware metrics are the applied face of that literacy.
+
+Always state population and prevalence when reporting PPV/NPV or precision.
+
+Prefer likelihood ratios and calibrated probabilities for transfer across base rates.
+
+Match metrics to imbalance and to clinical cost of false alarms.
+
+Separate discrimination (AUC) from calibration; name the estimand explicitly.
+
+Do not treat p < 0.05 as clinical importance or as P(H_0 false).
+
+Use independence assumptions only when sampling design supports them.
+
+## Sampling, Bias, and Confidence Intervals in Depth
+
+The law of large numbers reassures us that averages settle; the central limit theorem reassures us that many averages look Gaussian when n is large enough. Neither theorem erases bias in how the sample was formed. Convenience samples of patients who complete 90-day follow-up systematically differ from those lost to follow-up; survivors who answer phones may be healthier, shifting estimated disability downward. Volunteer bias in app-based stroke diaries, referral bias into comprehensive centers, and immortal-time bias in poorly aligned exposures all create sampling distributions centered on the wrong target. More data of the wrong kind produces more confident wrongness—the opposite of what LLN intuition suggests if you forget the population.
+
+Confidence intervals quantify uncertainty under a model and a sampling plan. For a mean with estimated standard error SE, an approximate 95% interval is estimate ± 1.96·SE when n is large and variance is finite. For proportions near 0 or 1, Wald intervals misbehave; Wilson or Jeffreys intervals are safer. Bootstrap intervals resample the dataset to approximate sampling variability when analytic SEs are hard—still assuming the observed sample represents the target process. Clustered data need cluster-robust or hierarchical SEs; ignoring hospital clustering is a common way to manufacture spurious precision in multi-center stroke analyses.
+
+How much data is enough depends on effect size, variance, design effect from clustering, class imbalance, and the decision threshold for action. Power calculations for trials are the classical answer for hypothesis tests; for prediction models, learning curves and external validation matter more than a single p-value target. A model trained on 50 events with 100 features will overfit regardless of CLT slogans. Rules of thumb (events-per-variable) are crude but better than magical thinking that deep networks remove sample-size constraints.
+
+## Connecting Classical Tests to Machine-Learning Metrics
+
+Sensitivity is recall of the positive class; specificity is recall of the negative class; precision is positive predictive value on the evaluation distribution. F1 is the harmonic mean of precision and recall—hence its kinship with harmonic means discussed earlier. AUROC summarizes ranking quality across thresholds and is prevalence-invariant in a way that can hide poor PPV in low-prevalence screening. Average precision and precision–recall curves are often more informative under imbalance. Brier score and log-loss (cross-entropy) reward calibrated probabilities; they are scoring rules with deep roots in probability theory, not ad hoc leaderboard ornaments.
+
+A/B tests in digital health products and classical two-group trials share sequential and multiplicity issues. Peeking at results daily without spending alpha inflates Type I error—the same sin as tuning on a test set until AUROC looks good. Pre-specification, locking analysis code, and using validation splits for model selection are the ML analogues of a statistical analysis plan. When both a classical endpoint test and an ML risk model appear in one paper, keep their estimands distinct: a significant mean difference in a trial arm is not automatic proof that a post-hoc cluster or a black-box score should guide individual care.
+
+## Pitfalls and Senior Practice
+
+Pitfalls to avoid: (1) Confusing P(D | +) with P(+ | D). (2) Applying sensitivity and specificity estimated in a severe cohort to a mild population without checking spectrum bias. (3) Interpreting a 95% CI as a 95% posterior probability without a Bayesian model. (4) Reporting only AUC for screening tasks with 1% prevalence. (5) Assuming independence across patients clustered in hospitals or across EEG windows from the same ICU stay. (6) Maximizing likelihood on leaked labels or on the test set. (7) Equating predictive feature importance with causal effect. (8) Multiple silent hypothesis tests across subgroups until a ‘significant’ stroke subtype appears. (9) Using arithmetic means alone for heavily skewed costs or lengths of stay. (10) Treating EM’s soft labels as ground-truth subtypes.
+
+Senior practice is boring in the best way: define the sample space and estimand, write the likelihood you claim to be optimizing, report uncertainty, check calibration at deployment prevalence, and refuse to let software defaults substitute for probabilistic reasoning. Probability and statistics are not prerequisites you outgrow when deep learning arrives; they are the only language in which deep learning’s claims can be stated without self-deception.
+
+## Chapter Summary
+
+Random variables, data types, and independent trials structure probabilistic modeling. Descriptive statistics—means (arithmetic, geometric, harmonic), median, mode, variance/SD/covariance, range/quartiles/boxplots, and degrees of freedom—summarize samples. Joint and conditional probability and Bayes’ theorem convert priors and likelihoods into posteriors; a worked LVO example showed PPV ≈ 41.5% at 20% prevalence with sens 0.85 and spec 0.70, falling to ~13% at 5% prevalence. PDFs, PMFs, and CDFs frame distributions including Normal, Uniform, Beta, Dirichlet, Bernoulli/Binomial/Geometric, Poisson, Weibull, heavy-tailed/Zipf/Pareto families, Chi-square, and Boltzmann/softmax forms; PP/QQ plots check fit. Expectation, z-scores, CLT, LLN, sampling bias, and confidence intervals address estimation and sample size intuition. Hypothesis tests span t-tests, ANOVA-family methods, and nonparametric chi-square, KS, Kruskal–Wallis, and Mann–Whitney procedures, with Bonferroni and Tukey multiplicity control. Effect sizes, correlations, entropy, information gain, KL, cross-entropy, and JS divergences link statistics to modern ML losses. MLE and EM provide core estimation strategies for fully and partially observed models.
+
+## Practice and Reflection
+
+(1) Repeat the LVO Bayes calculation with prevalence 0.30, sensitivity 0.90, and specificity 0.60. Compute P(+), PPV, P(LVO|−), LR+, and LR−.
+
+(2) In 10,000 patients with seizure prevalence 0.02, a detector has sensitivity 0.95 and specificity 0.90. How many true positives and false positives are expected among positives, and what is the PPV?
+
+(3) Derive the MLE of p for i.i.d. Bernoulli observations with k successes in n trials by maximizing the log-likelihood.
+
+(4) If stroke arrivals are Poisson with mean λ = 4 per day, compute P(X=0) and P(X≤2). What operational question does P(X≥8) address?
+
+(5) Explain why a model with AUC 0.90 can still have poor PPV in low-prevalence LVO screening.
+
+(6) A 95% CI for a 90-day death proportion is (0.11, 0.19). Give a correct frequentist interpretation and a common incorrect one.
+
+(7) Why is independence violated for multiple EEG windows from the same patient, and what goes wrong if you treat them as i.i.d. for standard errors?
+
+(8) Contrast Pearson correlation between NIHSS and door-to-needle time with a causal claim that reducing NIHSS would change door-to-needle time.
+
+(9) Compute arithmetic, geometric, and harmonic means of {2, 4, 8}; verify the mean inequality.
+
+(10) Sketch when you would prefer Mann–Whitney over a two-sample t-test for comparing mRS between two eras.
+
+(11) Define KL(p||q) and cross-entropy H(p,q); show algebraically that H(p,q) = H(p) + KL(p||q) for discrete finite supports.
+
+(12) In one paragraph each, explain what the E-step and M-step accomplish in a two-component univariate Gaussian mixture.

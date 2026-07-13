@@ -1,0 +1,28 @@
+/* Web Edition readability */
+.md-typeset {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  text-align: left;
+}
+.md-typeset h1, .md-typeset h2, .md-typeset h3 {
+  text-align: left;
+}
+.md-typeset img {
+  display: block;
+  margin: 1em auto;
+  max-width: 100%;
+  height: auto;
+}
+.disclaimer-banner {
+  border-left: 4px solid #c9a227;
+  padding: 0.6rem 1rem;
+  background: rgba(201, 162, 39, 0.08);
+  margin: 1rem 0 1.5rem;
+  font-size: 0.85rem;
+}
+figcaption, .figure-caption {
+  font-size: 0.85rem;
+  color: var(--md-default-fg-color--light);
+  text-align: left;
+  margin-top: 0.35rem;
+}
