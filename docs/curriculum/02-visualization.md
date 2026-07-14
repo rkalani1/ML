@@ -6,6 +6,11 @@
 
 ## Opening
 
+![Visualization hygiene (original).](../assets/figures/ml_fig_viz_hygiene.png)
+
+*Clear baseline versus truncated axis (original teaching graphic).*
+
+
 A quality dashboard shows a green line for door-to-needle. A density plot of NIHSS looks normal until you split by transfer status. Visualization is not decoration—it is the first place site shift and selection bias become visible.
 
 
