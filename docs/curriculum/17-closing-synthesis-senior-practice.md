@@ -5,6 +5,10 @@
 
 
 ## Opening
+![Three poles of model evaluation (original).](../assets/figures/ml_fig_eval_triangle.png)
+
+*Three poles of model evaluation (original).*
+
 
 You finish a model paper and a methods appendix in one sitting. Synthesis means you can state the decision, the data generation process, the evaluation design, and the residual risks in one paragraph a charge nurse would respect.
 

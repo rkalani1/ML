@@ -1,6 +1,10 @@
 # Selected Glossary
 
 ## Opening
+![Discrimination, calibration, and utility (original).](../assets/figures/ml_fig_eval_triangle.png)
+
+*Discrimination, calibration, and utility (original).*
+
 
 ![Metric families: discrimination, calibration, utility (original).](../assets/figures/ml_fig_metric_map.png)
 
