@@ -257,6 +257,253 @@ def fig_appraisal_card():
     save(fig, "ml_fig_appraisal_scorecard.png")
 
 
+def fig_association_rules():
+    """Ch05: support / confidence / lift for the 5-transaction worked example."""
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 3.8))
+    # Left: bar chart of conf vs lift for three rules
+    ax = axes[0]
+    rules = ["A→B", "A→D", "D→A"]
+    conf = [0.75, 0.50, 1.00]
+    lift = [0.94, 1.25, 1.25]
+    x = np.arange(len(rules))
+    w = 0.35
+    ax.bar(x - w / 2, conf, w, label="confidence", color=TEAL)
+    ax.bar(x + w / 2, lift, w, label="lift", color=GOLD)
+    ax.axhline(1.0, color="#94a3b8", ls="--", lw=1.2, label="lift = 1 (indep.)")
+    ax.set_xticks(x, rules)
+    ax.set_ylim(0, 1.35)
+    ax.set_ylabel("value")
+    ax.legend(frameon=False, fontsize=8, loc="upper left")
+    style_ax(ax, "Association rules (n=5 toy basket)")
+    # Right: support of itemsets
+    ax2 = axes[1]
+    items = ["A", "B", "C", "D", "AB", "AD"]
+    sup = [0.80, 0.80, 0.80, 0.40, 0.60, 0.40]
+    colors = [TEAL, TEAL, TEAL, DEEP, GOLD, GOLD]
+    ax2.barh(items[::-1], sup[::-1], color=colors[::-1])
+    ax2.set_xlabel("relative support s(X)")
+    ax2.set_xlim(0, 1.0)
+    style_ax(ax2, "Itemset support (same toy D)")
+    fig.tight_layout()
+    save(fig, "ml_fig_association_rules.png")
+
+
+def fig_feature_pipeline():
+    """Ch06: fit-on-train feature pipeline."""
+    fig, ax = plt.subplots(figsize=(8.5, 2.8))
+    ax.set_xlim(0, 12)
+    ax.set_ylim(0, 3)
+    ax.axis("off")
+    stages = [
+        (0.2, "Raw\ntable", "#64748b"),
+        (2.4, "Impute", TEAL),
+        (4.6, "Encode", DEEP),
+        (6.8, "Scale", GOLD),
+        (9.0, "Select", "#b45309"),
+        (11.0, "Model", INK),
+    ]
+    for i, (x, lab, c) in enumerate(stages):
+        ax.add_patch(
+            FancyBboxPatch(
+                (x - 0.55, 1.0),
+                1.3,
+                1.2,
+                boxstyle="round,pad=0.03,rounding_size=0.12",
+                facecolor=c,
+                edgecolor="none",
+            )
+        )
+        ax.text(x + 0.1, 1.6, lab, ha="center", va="center", color="white", fontsize=9, fontweight="bold")
+        if i < len(stages) - 1:
+            ax.annotate(
+                "",
+                xy=(stages[i + 1][0] - 0.6, 1.6),
+                xytext=(x + 0.8, 1.6),
+                arrowprops=dict(arrowstyle="->", color=INK, lw=1.6),
+            )
+    ax.text(6, 2.65, "Feature pipeline — fit transforms on train fold only", ha="center", fontsize=12, color=INK)
+    ax.text(6, 0.45, "Apply frozen transforms to validation / test (no leakage)", ha="center", fontsize=10, color="#64748b")
+    save(fig, "ml_fig_feature_pipeline.png")
+
+
+def fig_attention_toy():
+    """Ch12: scaled-dot-product attention weight heatmap for 3-token toy."""
+    # Tokens t1=[1,0], t2=[0,1], t3=[0.7,0.7]; d_k=2; scores = QK^T/sqrt(2)
+    tokens = np.array([[1.0, 0.0], [0.0, 1.0], [0.7, 0.7]])
+    scale = np.sqrt(2.0)
+    scores = tokens @ tokens.T / scale
+    # softmax rows
+    exp = np.exp(scores - scores.max(axis=1, keepdims=True))
+    alpha = exp / exp.sum(axis=1, keepdims=True)
+    fig, axes = plt.subplots(1, 2, figsize=(8.8, 3.6))
+    ax = axes[0]
+    im = ax.imshow(alpha, cmap="YlGnBu", vmin=0, vmax=1)
+    for i in range(3):
+        for j in range(3):
+            ax.text(j, i, f"{alpha[i, j]:.3f}", ha="center", va="center", color="white" if alpha[i, j] > 0.35 else INK, fontsize=11, fontweight="bold")
+    ax.set_xticks([0, 1, 2], ["t₁", "t₂", "t₃"])
+    ax.set_yticks([0, 1, 2], ["q=t₁", "q=t₂", "q=t₃"])
+    style_ax(ax, "Self-attention weights α (softmax row)")
+    fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+    ax2 = axes[1]
+    ax2.axis("off")
+    ax2.set_xlim(0, 10)
+    ax2.set_ylim(0, 6)
+    # show first-row context
+    ctx = alpha[0] @ tokens
+    ax2.text(5, 5.3, "Worked row q=t₁", ha="center", fontsize=12, fontweight="bold", color=DEEP)
+    ax2.text(5, 4.2, f"scaled scores ≈ [{scores[0,0]:.3f}, {scores[0,1]:.3f}, {scores[0,2]:.3f}]", ha="center", fontsize=10, color=INK)
+    ax2.text(5, 3.3, f"α ≈ [{alpha[0,0]:.3f}, {alpha[0,1]:.3f}, {alpha[0,2]:.3f}]  (sums to 1)", ha="center", fontsize=10, color=INK)
+    ax2.text(5, 2.3, f"context αV ≈ [{ctx[0]:.3f}, {ctx[1]:.3f}]", ha="center", fontsize=11, color=TEAL, fontweight="bold")
+    ax2.text(5, 1.1, "d_k=2; scale 1/√d_k keeps softmax soft", ha="center", fontsize=9, color="#64748b")
+    style_ax(ax2, "Attention numerics (synthetic tokens)")
+    fig.tight_layout()
+    save(fig, "ml_fig_attention.png")
+
+
+def fig_distill_prune():
+    fig, ax = plt.subplots(figsize=(8.2, 3.2))
+    ax.set_xlim(0, 12)
+    ax.set_ylim(0, 5)
+    ax.axis("off")
+    # teacher
+    ax.add_patch(FancyBboxPatch((0.5, 1.5), 3.2, 2.2, boxstyle="round,pad=0.05,rounding_size=0.15", facecolor=TEAL, edgecolor="none"))
+    ax.text(2.1, 2.9, "Teacher\n(large net)", ha="center", va="center", color="white", fontsize=12, fontweight="bold")
+    # student
+    ax.add_patch(FancyBboxPatch((8.3, 1.8), 3.0, 1.6, boxstyle="round,pad=0.05,rounding_size=0.15", facecolor=GOLD, edgecolor="none"))
+    ax.text(9.8, 2.6, "Student\n(edge device)", ha="center", va="center", color="white", fontsize=11, fontweight="bold")
+    ax.annotate("soft targets\n(temperature T)", xy=(8.2, 2.6), xytext=(4.0, 2.6), arrowprops=dict(arrowstyle="->", color=DEEP, lw=2), color=DEEP, fontsize=10, ha="center")
+    ax.text(6, 4.4, "Knowledge distillation + pruning (teaching sketch)", ha="center", fontsize=12, color=INK)
+    ax.text(6, 0.6, "Match teacher logits; then prune / quantize student for latency", ha="center", fontsize=9, color="#64748b")
+    save(fig, "ml_fig_distill_prune.png")
+
+
+def fig_graph_toy():
+    fig, ax = plt.subplots(figsize=(6.2, 4.8))
+    ax.set_xlim(-0.2, 1.2)
+    ax.set_ylim(-0.15, 1.15)
+    ax.axis("off")
+    # small patient-similarity graph
+    pos = {
+        "A": (0.2, 0.85),
+        "B": (0.55, 0.95),
+        "C": (0.9, 0.75),
+        "D": (0.35, 0.45),
+        "E": (0.75, 0.4),
+        "F": (0.55, 0.1),
+    }
+    edges = [("A", "B"), ("A", "D"), ("B", "C"), ("B", "D"), ("C", "E"), ("D", "E"), ("D", "F"), ("E", "F")]
+    for u, v in edges:
+        x1, y1 = pos[u]
+        x2, y2 = pos[v]
+        ax.plot([x1, x2], [y1, y2], color="#94a3b8", lw=1.8, zorder=1)
+    for name, (x, y) in pos.items():
+        ax.add_patch(Circle((x, y), 0.07, facecolor=TEAL if name in "ABD" else GOLD, edgecolor="white", lw=2, zorder=2))
+        ax.text(x, y, name, ha="center", va="center", color="white", fontsize=10, fontweight="bold", zorder=3)
+    ax.text(0.5, 1.08, "Toy patient-similarity graph", ha="center", fontsize=12, color=INK, fontweight="bold")
+    ax.text(0.5, -0.08, "Nodes = patients; edges = shared pathway / phenotype link", ha="center", fontsize=9, color="#64748b")
+    save(fig, "ml_fig_graph_toy.png")
+
+
+def fig_viz_hygiene():
+    fig, axes = plt.subplots(1, 2, figsize=(8.8, 3.5))
+    months = np.arange(1, 7)
+    rates = np.array([48, 49, 50, 51, 50, 52])  # door-to-needle minutes
+    ax = axes[0]
+    ax.plot(months, rates, "o-", color=TEAL, lw=2.2)
+    ax.set_ylim(0, 70)
+    ax.set_xlabel("month")
+    ax.set_ylabel("door-to-needle (min)")
+    style_ax(ax, "Honest baseline (y from 0)")
+    ax2 = axes[1]
+    ax2.plot(months, rates, "o-", color="#dc2626", lw=2.2)
+    ax2.set_ylim(47, 53)
+    ax2.set_xlabel("month")
+    ax2.set_ylabel("door-to-needle (min)")
+    style_ax(ax2, "Truncated axis exaggerates change")
+    fig.suptitle("Visualization hygiene (synthetic dashboard)", color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_viz_hygiene.png")
+
+
+def fig_how_to_read():
+    """Preface: how to study this ebook."""
+    fig, ax = plt.subplots(figsize=(8.2, 3.0))
+    ax.set_xlim(0, 12)
+    ax.set_ylim(0, 3.2)
+    ax.axis("off")
+    steps = [
+        (1.2, "Recompute\nby hand", TEAL),
+        (4.5, "Map method\n→ clinical claim", DEEP),
+        (7.8, "Audit metrics\nbeyond AUC", GOLD),
+        (10.8, "External\nvalidation", "#b45309"),
+    ]
+    for i, (x, lab, c) in enumerate(steps):
+        ax.add_patch(
+            FancyBboxPatch(
+                (x - 1.1, 0.9),
+                2.2,
+                1.5,
+                boxstyle="round,pad=0.04,rounding_size=0.15",
+                facecolor=c,
+                edgecolor="none",
+            )
+        )
+        ax.text(x, 1.65, lab, ha="center", va="center", color="white", fontsize=10, fontweight="bold")
+        if i < len(steps) - 1:
+            ax.annotate(
+                "",
+                xy=(steps[i + 1][0] - 1.15, 1.65),
+                xytext=(x + 1.15, 1.65),
+                arrowprops=dict(arrowstyle="->", color=INK, lw=1.6),
+            )
+    ax.text(6, 2.9, "How to read this open-source ebook", ha="center", fontsize=12, color=INK, fontweight="bold")
+    ax.text(6, 0.35, "Definitions → data → decision impact (not vendor vocabulary)", ha="center", fontsize=9, color="#64748b")
+    save(fig, "ml_fig_how_to_read.png")
+
+
+def fig_metric_map():
+    """Glossary: discrimination vs calibration vs utility."""
+    fig, ax = plt.subplots(figsize=(7.8, 3.6))
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 5)
+    ax.axis("off")
+    boxes = [
+        (0.4, 2.2, 2.8, 2.0, "Discrimination\nAUC / ROC", TEAL),
+        (3.6, 2.2, 2.8, 2.0, "Calibration\nreliability", GOLD),
+        (6.8, 2.2, 2.8, 2.0, "Utility\nnet benefit", DEEP),
+    ]
+    for x, y, w, h, t, c in boxes:
+        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.04,rounding_size=0.15", facecolor=c, edgecolor="none"))
+        ax.text(x + w / 2, y + h / 2, t, ha="center", va="center", color="white", fontsize=11, fontweight="bold")
+    ax.text(5, 1.2, "All three needed for clinical decisions — none alone is enough", ha="center", fontsize=11, color=INK)
+    ax.text(5, 0.4, "Teaching map for glossary metrics (original)", ha="center", fontsize=9, color="#64748b")
+    save(fig, "ml_fig_metric_map.png")
+
+
+def fig_ols_fit():
+    """Ch08 companion: four-point NIHSS–volume OLS line (exact worked numbers)."""
+    x = np.array([4.0, 8.0, 10.0, 14.0])
+    y = np.array([12.0, 20.0, 22.0, 30.0])
+    b1 = 23 / 13
+    b0 = 66 / 13
+    xs = np.linspace(3, 15, 50)
+    ys = b0 + b1 * xs
+    yhat = b0 + b1 * x
+    fig, ax = plt.subplots(figsize=(6.2, 4.2))
+    ax.plot(xs, ys, color=TEAL, lw=2.2, label=r"$\hat y = 66/13 + (23/13)x$")
+    ax.scatter(x, y, s=60, c=GOLD, zorder=3, edgecolors=INK, linewidths=0.6, label="data")
+    for xi, yi, yhi in zip(x, y, yhat):
+        ax.plot([xi, xi], [yi, yhi], color="#e11d48", lw=1.4, alpha=0.85)
+    ax.scatter([9], [21], s=40, c=DEEP, marker="x", zorder=4, label=r"$(\bar x,\bar y)$")
+    ax.set_xlabel("admission NIHSS (toy)")
+    ax.set_ylabel("infarct volume (toy units)")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "OLS fit (chapter 8 worked example)")
+    ax.text(0.98, 0.05, "RSS≈1.23  R²≈0.992", transform=ax.transAxes, ha="right", fontsize=9, color="#64748b")
+    save(fig, "ml_fig_ols_fit.png")
+
+
 def main():
     fig_supervised_map()
     fig_gradient_descent()
@@ -271,6 +518,16 @@ def main():
     fig_pretrain_finetune()
     fig_site_shift()
     fig_appraisal_card()
+    # Chapter-specific originals (cycle-1)
+    fig_association_rules()
+    fig_feature_pipeline()
+    fig_attention_toy()
+    fig_distill_prune()
+    fig_graph_toy()
+    fig_viz_hygiene()
+    fig_how_to_read()
+    fig_metric_map()
+    fig_ols_fit()
     print("DONE figures in", OUT)
 
 

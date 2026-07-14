@@ -2,6 +2,10 @@
 
 ## Opening
 
+![How to read this open-source ebook (original).](../assets/figures/ml_fig_how_to_read.png)
+
+*Study path: recompute by hand → map method to clinical claim → audit metrics beyond AUC → external validation (original).*
+
 ![Model appraisal scorecard (original).](../assets/figures/ml_fig_appraisal_scorecard.png)
 
 *Orientation graphic for how this open-source ebook treats models (original).*
@@ -28,3 +32,12 @@ Every major algorithm family in the published TOC is taught with definitions and
 3. **Be skeptical of performance metrics:** Always look past discrimination (AUROC) to calibration, utility, and external validation.
 
 There is no separate further-reading chapter—the book is the curriculum. Read it iteratively, refer to the mathematical foundations when needed, and apply these concepts rigorously to the next paper you read or the next clinical tool your hospital considers.
+
+## Reader’s map (teaching table)
+
+| Habit | What you do | What it prevents |
+|-------|-------------|------------------|
+| Recompute | Hand-check a slope, Bayes update, or gradient step | Ritual citation without understanding |
+| Map the claim | Prediction vs etiology vs decision support | Treating every model as “actionable AI” |
+| Metrics beyond AUC | Calibration, PPV at prevalence, net benefit | Deploying a well-ranked but miscalibrated score |
+| External check | Site/time transport, subgroup, drift plan | Local optimism that evaporates at the next hospital |

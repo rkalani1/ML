@@ -11,11 +11,16 @@ MAP = {
     "00-mathematical": [
         ("../assets/figures/ml_fig_gradient_descent.png", "Gradient descent on a synthetic loss surface (original teaching graphic)."),
     ],
+    "00a-preface": [
+        ("../assets/figures/ml_fig_how_to_read.png", "How to read this open-source ebook (original)."),
+        ("../assets/figures/ml_fig_appraisal_scorecard.png", "Model appraisal scorecard (original)."),
+    ],
     "01-basic": [
         ("../assets/figures/ml_fig_supervised_unsupervised_map.png", "Supervised versus unsupervised learning paths (original teaching graphic)."),
         ("../assets/figures/ml_fig_train_val_test.png", "Train / validation / test split along a clinical timeline (original)."),
     ],
     "02-visualization": [
+        ("../assets/figures/ml_fig_viz_hygiene.png", "Visualization hygiene (original)."),
         ("../assets/figures/ml_fig_calibration.png", "Calibration view as a visual truth check (original teaching graphic)."),
     ],
     "03-probability": [
@@ -25,9 +30,11 @@ MAP = {
         ("../assets/figures/ml_fig_clustering.png", "Clustering sketch with centroids (synthetic data; original)."),
     ],
     "05-frequent": [
+        ("../assets/figures/ml_fig_association_rules.png", "Support, confidence, and lift for the chapter’s five-transaction toy basket (original)."),
         ("../assets/figures/ml_fig_supervised_unsupervised_map.png", "Pattern mining sits on the unsupervised exploration path (original)."),
     ],
     "06-feature": [
+        ("../assets/figures/ml_fig_feature_pipeline.png", "Feature pipeline: raw → impute → encode → scale → select → model (original)."),
         ("../assets/figures/ml_fig_leakage_timeline.png", "Feature timing versus prediction time — leakage trap (original)."),
     ],
     "07-dimensionality": [
@@ -35,6 +42,7 @@ MAP = {
     ],
     "08-regression": [
         ("../assets/figures/ml_fig_calibration.png", "Reliability of numeric predictions matters as much as fit (original)."),
+        ("../assets/figures/ml_fig_ols_fit.png", "OLS fit for the four-point NIHSS–volume example (original)."),
     ],
     "09-classification": [
         ("../assets/figures/ml_fig_confusion_roc.png", "Confusion matrix and ROC for a synthetic classifier (original)."),
@@ -46,6 +54,7 @@ MAP = {
         ("../assets/figures/ml_fig_pretrain_finetune.png", "Pretrain then fine-tune pipeline (original teaching graphic)."),
     ],
     "12-deep-learning": [
+        ("../assets/figures/ml_fig_attention.png", "Self-attention weights for the three-token worked example (original)."),
         ("../assets/figures/ml_fig_mlp.png", "Deep models compose layered representations (original diagram)."),
         ("../assets/figures/ml_fig_site_shift.png", "Site shift in embedding space (synthetic; original)."),
     ],
@@ -53,9 +62,11 @@ MAP = {
         ("../assets/figures/ml_fig_rl_loop.png", "Agent–environment loop for sequential decisions (original)."),
     ],
     "14-making-lighter": [
+        ("../assets/figures/ml_fig_distill_prune.png", "Distill/prune teaching sketch (original)."),
         ("../assets/figures/ml_fig_mlp.png", "Smaller deployed nets still need appraisal discipline (original)."),
     ],
     "15-graph": [
+        ("../assets/figures/ml_fig_graph_toy.png", "Toy patient-similarity graph (original)."),
         ("../assets/figures/ml_fig_site_shift.png", "Graph/embedding geometry can drift across sites (original)."),
     ],
     "16-concepts": [
@@ -64,6 +75,11 @@ MAP = {
     ],
     "17-closing": [
         ("../assets/figures/ml_fig_appraisal_scorecard.png", "Teaching scorecard for model appraisal (original)."),
+        ("../assets/figures/ml_fig_metric_map.png", "Discrimination vs calibration vs utility (original)."),
+    ],
+    "18-selected": [
+        ("../assets/figures/ml_fig_metric_map.png", "Metric families: discrimination, calibration, utility (original)."),
+        ("../assets/figures/ml_fig_appraisal_scorecard.png", "Appraisal orientation graphic (original)."),
     ],
 }
 

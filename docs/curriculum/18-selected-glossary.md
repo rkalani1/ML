@@ -2,6 +2,15 @@
 
 ## Opening
 
+![Metric families: discrimination, calibration, utility (original).](../assets/figures/ml_fig_metric_map.png)
+
+*Teaching map: AUC ranks; calibration checks probability honesty; utility asks whether acting on a threshold helps (original).*
+
+![Appraisal orientation graphic (original).](../assets/figures/ml_fig_appraisal_scorecard.png)
+
+*Teaching orientation for metrics and appraisal terms (original).*
+
+
 Journal club language collapses when people use ‘AI,’ ‘algorithm,’ and ‘model’ interchangeably. The glossary is a shared lexicon for stroke services that want precise disagreement rather than vague awe.
 
 Activation function. A nonlinear transform applied to a neuron’s weighted input; without it a stack of layers would collapse into a single linear map.

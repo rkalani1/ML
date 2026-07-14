@@ -56,6 +56,10 @@ Deviations (x−x̄): −5, −1, +1, +5. Deviations (y−ȳ): −9, −1, +1, +
 
 Figure 8.1. The worked ordinary-least-squares fit of infarct volume on admission NIHSS for the four points (4, 12), (8, 20), (10, 22), (14, 30). The closed form gives β_1 = 92/52 = 23/13 ≈ 1.769 and β_0 = 66/13 ≈ 5.077, so ŷ = 5.077 + 1.769x. Rose segments are the residuals e_i = y_i − ŷ_i (RSS ≈ 1.23, R² ≈ 0.992), and the fitted line passes through the mean point (x̄, ȳ) = (9, 21).
 
+![OLS fit for the four-point NIHSS–volume example (original).](../assets/figures/ml_fig_ols_fit.png)
+
+*Exact OLS line ŷ = 66/13 + (23/13)x with residual segments; RSS ≈ 1.23, R² ≈ 0.992 (original).*
+
 Fitted line: ŷ = 66/13 + (23/13) x. At x = 8, ŷ = (66 + 184)/13 = 250/13 ≈ 19.23 (residual 20 − 19.23 ≈ 0.77). At x = 14, ŷ = (66 + 322)/13 = 388/13 ≈ 29.85 (residual ≈ 0.15). RSS = ∑ e_i² can be computed from all four residuals for RSE below. The slope says that each additional NIHSS point associates with about 1.77 volume units higher expected infarct size in this toy sample—not a causal claim about NIHSS raising volume.
 
 ### Choosing Variables and Challenges

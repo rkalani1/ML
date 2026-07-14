@@ -5,6 +5,10 @@
 A claims-analysis team wants frequent co-prescription patterns after TIA and a simple retrieval system for similar prior cases. Itemsets and sequences are powerful; they are also experts at encoding practice fashion as ‘knowledge.’
 
 
+![Support, confidence, and lift for the chapter’s five-transaction toy basket (original).](../assets/figures/ml_fig_association_rules.png)
+
+*Association-rule metrics from the worked example: confidence is not lift (original).*
+
 ![Pattern mining sits on the unsupervised exploration path (original).](../assets/figures/ml_fig_supervised_unsupervised_map.png)
 
 *Pattern mining sits on the unsupervised exploration path (original).*
@@ -64,6 +68,12 @@ Figure 5.1. Support, confidence, and lift for three association rules mined from
 Compute support for selected itemsets. count({A}) = 4 (T1–T3, T5), so s(A) = 4/5 = 0.80. count({B}) = 4, s(B) = 0.80. count({C}) = 4, s(C) = 0.80. count({D}) = 2, s(D) = 0.40. For pairs: count({A,B}) = 3, s(A,B) = 0.60; count({A,C}) = 3, s(A,C) = 0.60; count({B,C}) = 3, s(B,C) = 0.60; count({A,B,C}) = 2, s(A,B,C) = 0.40.
 
 Rule A → B has conf(A → B) = s(A,B)/s(A) = 0.60/0.80 = 0.75. Lift(A → B) = 0.75/0.80 = 0.9375 ≈ 0.94. Because lift is slightly below 1, co-occurrence of A and B is slightly less than independence would predict, even though confidence looks decent. For A → D: s(A,D) = 0.40; conf(A → D) = 0.40/0.80 = 0.50; lift = 0.50/0.40 = 1.25. Confidence is lower than A → B, yet lift > 1 indicates a genuine positive association relative to the base rate of D.
+
+| Rule | conf | lift | Teaching note |
+|------|------|------|----------------|
+| A → B | 0.75 | ≈0.94 | High conf, lift &lt; 1 (base-rate of B) |
+| A → D | 0.50 | 1.25 | Lower conf, positive association vs s(D) |
+| D → A | 1.00 | 1.25 | Perfect conf on small support of D; lift symmetric |
 
 Three teaching points follow. First, with small n, one transaction swings support sharply. Second, confidence alone is not enough: popular consequents inflate confidence. Third, lift normalizes by the consequent’s base rate and can reverse the ranking of “interesting” rules. In practice one filters by minsup, minconf, and often minlift simultaneously, then still applies domain judgment.
 

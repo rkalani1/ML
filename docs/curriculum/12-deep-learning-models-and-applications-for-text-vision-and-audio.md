@@ -5,6 +5,10 @@
 A multimodal model claims to fuse note text, DWI, and audio dysphagia screens. Cross-modal architectures are exciting; they also multiply failure modes. This chapter separates capability demos from clinically transportable systems.
 
 
+![Self-attention weights for the three-token worked example (original).](../assets/figures/ml_fig_attention.png)
+
+*Scaled dot-product self-attention α and context vector for q=t₁ (matches the chapter numerics; original).*
+
 ![Deep models compose layered representations (original diagram).](../assets/figures/ml_fig_mlp.png)
 
 *Deep models compose layered representations (original diagram).*
