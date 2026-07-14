@@ -1,18 +1,26 @@
-/* Open-source ebook — reading-first design (ML · teal) */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+/* ==========================================================================
+   Machine Learning & AI for Neurologists — open-source ebook stylesheet
+   Brand: teal · reading-first · multi-device · print-friendly
+   Does NOT enable navigation.tabs (tabs stay hidden).
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
 :root {
   --ebook-primary: #0d9488;
   --ebook-deep: #0f766e;
   --ebook-ink: #1e293b;
   --ebook-muted: #64748b;
+  --ebook-gold: rgba(201, 162, 39, 0.12);
   --ebook-glow: rgba(13, 148, 136, 0.16);
   --ebook-glow-strong: rgba(13, 148, 136, 0.28);
-  --ebook-gold: rgba(201, 162, 39, 0.1);
+  --ebook-surface: rgba(255, 255, 255, 0.78);
+  --ebook-rule: rgba(15, 118, 110, 0.14);
   --ebook-serif: "Cormorant Garamond", "Palatino Linotype", Palatino, Georgia, serif;
   --ebook-sans: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
   --ebook-measure: 42rem;
   --ebook-radius: 1.15rem;
+  --ebook-shadow: 0 8px 28px rgba(15, 23, 42, 0.06);
 }
 
 /* Selection + smooth anchors */
@@ -30,7 +38,7 @@ html {
   scroll-margin-top: 5.5rem;
 }
 
-/* Header — frosted glass, no tab chrome */
+/* ── Header / chrome (no tab strip) ─────────────────────────── */
 .md-header {
   background: rgba(15, 18, 32, 0.86) !important;
   backdrop-filter: blur(16px) saturate(1.2);
@@ -38,20 +46,34 @@ html {
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: none;
 }
-.md-tabs { display: none !important; }
+/* Explicitly hide Material tabs — do not reintroduce navigation.tabs */
+.md-tabs {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  visibility: hidden !important;
+  overflow: hidden !important;
+}
 .md-header__topic .md-ellipsis {
   font-family: var(--ebook-serif);
   font-weight: 600;
   letter-spacing: 0.02em;
 }
-.md-header__button.md-logo { display: none; }
+.md-header__button.md-logo {
+  display: none;
+}
+.md-header__button:hover {
+  opacity: 1;
+}
 
-/* Ambient page wash */
+/* Ambient page wash — teal + faint gold */
 .md-main {
   background:
     radial-gradient(1200px 520px at 8% -12%, var(--ebook-glow), transparent 58%),
     radial-gradient(900px 400px at 100% 0%, var(--ebook-gold), transparent 52%),
-    radial-gradient(600px 300px at 50% 100%, rgba(13, 148, 136, 0.04), transparent 60%);
+    radial-gradient(600px 300px at 50% 100%, rgba(13, 148, 136, 0.04), transparent 60%),
+    linear-gradient(180deg, #f6fbfa 0%, #fafcfc 45%, #f6fbfa 100%);
+  min-height: 100vh;
 }
 
 .md-sidebar {
@@ -79,25 +101,39 @@ html {
   box-shadow: inset 3px 0 0 var(--ebook-primary);
 }
 
-/* Reading column */
+/* TOC sidebar polish */
+.md-nav--secondary .md-nav__link {
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+.md-nav--secondary .md-nav__title {
+  font-size: 0.88rem;
+}
+
+/* ── Reading column ─────────────────────────────────────────── */
 .md-content {
   max-width: calc(var(--ebook-measure) + 4.5rem);
 }
 .md-content__inner {
   margin-top: 0.35rem;
+  padding-bottom: 2.5rem;
 }
 .md-typeset {
   font-family: var(--ebook-sans);
-  font-size: 1rem;
-  line-height: 1.74;
+  font-size: 1.02rem;
+  line-height: 1.76;
   color: inherit;
   text-align: left;
+  -webkit-font-smoothing: antialiased;
   letter-spacing: 0.005em;
+}
+.md-typeset ::selection {
+  background: rgba(13, 148, 136, 0.2);
 }
 .md-typeset h1 {
   font-family: var(--ebook-serif);
   font-weight: 700;
-  font-size: 2.4rem;
+  font-size: clamp(1.85rem, 4vw, 2.45rem);
   line-height: 1.14;
   letter-spacing: -0.02em;
   margin-bottom: 0.9rem;
@@ -107,17 +143,19 @@ html {
 .md-typeset h2 {
   font-family: var(--ebook-serif);
   font-weight: 600;
-  font-size: 1.55rem;
+  font-size: clamp(1.28rem, 2.5vw, 1.55rem);
   margin-top: 2.35rem;
   padding-top: 0.55rem;
   border-top: 1px solid rgba(127, 127, 127, 0.16);
   letter-spacing: -0.01em;
+  color: var(--ebook-ink);
 }
 .md-typeset h3 {
   font-family: var(--ebook-serif);
   font-weight: 600;
   font-size: 1.22rem;
   margin-top: 1.75rem;
+  color: var(--ebook-deep);
 }
 .md-typeset h4 {
   font-family: var(--ebook-serif);
@@ -163,7 +201,16 @@ html {
   margin: 2.2rem 0;
 }
 
-/* Hero card on intro */
+/* Focus for keyboard readers */
+.md-typeset a:focus-visible,
+.ebook-start a:focus-visible,
+.chapter-list a:focus-visible,
+.md-nav__link:focus-visible {
+  outline: 2px solid var(--ebook-primary);
+  outline-offset: 2px;
+}
+
+/* ── Hero card on intro ─────────────────────────────────────── */
 .ebook-hero {
   margin: 0 0 1.75rem;
   padding: 2.35rem 2.15rem 2rem;
@@ -281,20 +328,26 @@ html {
   list-style: none;
   padding: 0;
   margin: 0.35rem 0 2.5rem;
-  border-top: 1px solid rgba(127, 127, 127, 0.12);
+  border: 1px solid var(--ebook-rule);
+  border-radius: var(--ebook-radius);
+  background: var(--ebook-surface);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+  box-shadow: var(--ebook-shadow);
 }
 .chapter-list li {
   margin: 0;
   max-width: none !important;
-  border-bottom: 1px solid rgba(127, 127, 127, 0.12);
+  border-bottom: 1px solid var(--ebook-rule);
+}
+.chapter-list li:last-child {
+  border-bottom: none;
 }
 .chapter-list a {
   display: flex;
   gap: 0.95rem;
   align-items: baseline;
-  padding: 0.78rem 0.55rem;
-  margin: 0 -0.35rem;
-  border-radius: 0.5rem;
+  padding: 0.78rem 1rem;
   text-decoration: none !important;
   color: inherit !important;
   transition: color 0.15s ease, background 0.15s ease, padding-left 0.15s ease;
@@ -302,7 +355,7 @@ html {
 .chapter-list a:hover {
   color: var(--ebook-primary) !important;
   background: var(--ebook-glow);
-  padding-left: 0.85rem;
+  padding-left: 1.2rem;
 }
 .chapter-list .num {
   font-variant-numeric: tabular-nums;
@@ -314,25 +367,113 @@ html {
   flex-shrink: 0;
 }
 
-/* Figures, tables, code */
-.md-typeset img {
+/* ── Figures / images / captions ────────────────────────────── */
+.md-typeset img,
+.md-typeset figure img,
+.md-typeset p > img {
   display: block;
-  margin: 1.35em auto;
+  margin: 1.35em auto 0.55em;
   max-width: 100%;
+  width: auto;
+  height: auto;
   border-radius: 0.7rem;
   box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.25);
 }
-.md-typeset table {
+
+.md-typeset figure {
+  display: block;
+  margin: 1.75em auto 2em;
+  max-width: 100%;
+  text-align: center;
+}
+.md-typeset figcaption,
+.md-typeset figure figcaption {
+  display: block;
+  max-width: var(--ebook-measure);
+  margin: 0.55rem auto 0;
+  padding: 0 0.5rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--ebook-muted);
+  text-align: center;
+  font-style: italic;
+  font-family: var(--ebook-sans);
+}
+
+/* Caption pattern: italic line immediately after an image */
+.md-typeset p:has(> img:only-child) + p > em:only-child,
+.md-typeset p > img + em,
+.md-typeset img + em {
+  display: block;
+  max-width: var(--ebook-measure);
+  margin: 0.45rem auto 1.35rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--ebook-muted);
+  text-align: center;
+  font-style: italic;
+}
+
+/* Explicit caption helpers */
+.md-typeset .figure-caption,
+.md-typeset .img-caption {
+  display: block;
+  max-width: var(--ebook-measure);
+  margin: 0.45rem auto 1.35rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--ebook-muted);
+  text-align: center;
+  font-style: italic;
+}
+
+/* ── Tables: scroll on small screens ────────────────────────── */
+.md-typeset .md-typeset__table,
+.md-typeset div[class*="table"],
+.md-typeset .table-wrap {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.25em 0;
+}
+
+.md-typeset__table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.25em 0;
+  border-radius: 0.55rem;
+}
+
+.md-typeset table:not([class]) {
+  display: table;
+  width: 100%;
+  min-width: 28rem;
   font-size: 0.88rem;
   border-radius: 0.55rem;
-  overflow: hidden;
+  border-collapse: collapse;
   box-shadow: 0 0 0 1px rgba(127, 127, 127, 0.12);
 }
+
 .md-typeset table th {
   background: var(--ebook-glow);
   font-weight: 600;
   color: var(--ebook-deep);
+  white-space: nowrap;
 }
+.md-typeset table td,
+.md-typeset table th {
+  padding: 0.55rem 0.75rem;
+  vertical-align: top;
+}
+.md-typeset table tr:nth-child(even) td {
+  background: rgba(13, 148, 136, 0.035);
+}
+
+/* ── Code / admonitions / math ──────────────────────────────── */
 .md-typeset code {
   font-size: 0.86em;
   border-radius: 0.3rem;
@@ -342,11 +483,19 @@ html {
   padding: 0;
   border-radius: 0;
 }
+.md-typeset pre {
+  border-radius: 0.7rem;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.05);
+  max-width: 100%;
+  overflow-x: auto;
+}
 
 /* Math breathing room */
 .md-typeset .arithmatex,
 .md-typeset mjx-container {
   margin: 0.85em 0;
+  overflow-x: auto;
+  max-width: 100%;
 }
 
 /* Admonitions — teal family */
@@ -366,6 +515,19 @@ html {
 }
 
 /* Opening callouts in chapters */
+.md-typeset h2#opening {
+  border-top: none;
+  margin-top: 0.35rem;
+  margin-bottom: 0.55rem;
+  padding-top: 0;
+  font-family: var(--ebook-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ebook-primary);
+  line-height: 1.3;
+}
 .md-typeset h2#opening + p {
   padding: 1rem 1.2rem;
   border-left: 3px solid var(--ebook-primary);
@@ -376,18 +538,10 @@ html {
   line-height: 1.65;
   max-width: var(--ebook-measure);
   box-shadow: 0 1px 0 rgba(13, 148, 136, 0.08);
+  margin: 0 0 1.75rem;
 }
 
-/* TOC sidebar polish */
-.md-nav--secondary .md-nav__link {
-  font-size: 0.8rem;
-  line-height: 1.35;
-}
-.md-nav--secondary .md-nav__title {
-  font-size: 0.88rem;
-}
-
-/* Footer */
+/* ── Footer ─────────────────────────────────────────────────── */
 .md-footer {
   background: transparent !important;
   border-top: 1px solid rgba(127, 127, 127, 0.14);
@@ -407,27 +561,30 @@ html {
   font-size: 0.95rem;
 }
 
-/* Focus for keyboard readers */
-.md-typeset a:focus-visible,
-.ebook-start a:focus-visible,
-.chapter-list a:focus-visible,
-.md-nav__link:focus-visible {
-  outline: 2px solid var(--ebook-primary);
-  outline-offset: 2px;
-}
-
-/* Dark (slate) scheme */
+/* ── Dark (slate) scheme ────────────────────────────────────── */
 [data-md-color-scheme="slate"] {
+  --ebook-primary: #2dd4bf;
+  --ebook-deep: #5eead4;
   --ebook-ink: #f1f5f9;
   --ebook-muted: #94a3b8;
   --ebook-glow: rgba(45, 212, 191, 0.12);
   --ebook-glow-strong: rgba(45, 212, 191, 0.22);
+  --ebook-surface: rgba(15, 23, 32, 0.55);
+  --ebook-rule: rgba(45, 212, 191, 0.14);
+  --ebook-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
 }
+
 [data-md-color-scheme="slate"] .md-main {
   background:
     radial-gradient(1000px 440px at 0% 0%, var(--ebook-glow), transparent 55%),
     radial-gradient(800px 360px at 100% 10%, rgba(201, 162, 39, 0.05), transparent 50%),
-    radial-gradient(500px 280px at 40% 100%, rgba(13, 148, 136, 0.06), transparent 55%);
+    radial-gradient(500px 280px at 40% 100%, rgba(13, 148, 136, 0.06), transparent 55%),
+    linear-gradient(180deg, #0a1211 0%, #0f1716 50%, #0a1211 100%);
+}
+[data-md-color-scheme="slate"] .md-typeset h1,
+[data-md-color-scheme="slate"] .md-typeset h2,
+[data-md-color-scheme="slate"] .md-typeset h3 {
+  color: var(--ebook-ink);
 }
 [data-md-color-scheme="slate"] .md-typeset h1 {
   color: #f8fafc;
@@ -448,12 +605,20 @@ html {
 [data-md-color-scheme="slate"] .ebook-start a.secondary:hover {
   background: rgba(45, 212, 191, 0.1);
 }
+[data-md-color-scheme="slate"] .chapter-list {
+  border-color: var(--ebook-rule);
+  background: var(--ebook-surface);
+  box-shadow: var(--ebook-shadow);
+}
 [data-md-color-scheme="slate"] .chapter-list a:hover {
   background: rgba(45, 212, 191, 0.08);
 }
 [data-md-color-scheme="slate"] .md-typeset table th {
   background: rgba(45, 212, 191, 0.1);
   color: #99f6e4;
+}
+[data-md-color-scheme="slate"] .md-typeset table tr:nth-child(even) td {
+  background: rgba(45, 212, 191, 0.04);
 }
 [data-md-color-scheme="slate"] .md-typeset blockquote,
 [data-md-color-scheme="slate"] .md-typeset h2#opening + p {
@@ -468,9 +633,40 @@ html {
     0 28px 56px rgba(0, 0, 0, 0.35),
     0 0 0 1px rgba(255, 255, 255, 0.05) inset;
 }
+[data-md-color-scheme="slate"] .md-typeset img {
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+[data-md-color-scheme="slate"] .md-typeset figcaption,
+[data-md-color-scheme="slate"] .md-typeset .figure-caption,
+[data-md-color-scheme="slate"] .md-typeset .img-caption,
+[data-md-color-scheme="slate"] .md-typeset img + em {
+  color: #94a3b8;
+}
+[data-md-color-scheme="slate"] ::selection,
+[data-md-color-scheme="slate"] .md-typeset ::selection {
+  background: rgba(45, 212, 191, 0.28);
+}
 
-/* Responsive hero / CTAs */
-@media (max-width: 44em) {
+/* ==========================================================================
+   Multi-device: tablet (≤768px) and phone (≤480px)
+   ========================================================================== */
+
+@media screen and (max-width: 768px) {
+  .md-typeset {
+    font-size: 0.98rem;
+    line-height: 1.72;
+  }
+  .md-typeset h1 {
+    font-size: 1.9rem;
+  }
+  .md-typeset h2 {
+    font-size: 1.35rem;
+    margin-top: 1.9rem;
+  }
+  .md-typeset h3 {
+    font-size: 1.12rem;
+  }
   .ebook-hero {
     padding: 1.65rem 1.35rem 1.5rem;
     border-radius: 0.95rem;
@@ -478,29 +674,329 @@ html {
   .ebook-hero h1 {
     font-size: 1.85rem !important;
   }
+  .ebook-hero p {
+    font-size: 1rem;
+  }
+  .ebook-start {
+    gap: 0.55rem;
+  }
+  .ebook-start a {
+    padding: 0.55rem 1rem;
+    font-size: 0.9rem;
+  }
+  .chapter-list a {
+    padding: 0.7rem 0.85rem;
+  }
+  .md-typeset h2#opening + p {
+    font-size: 0.98rem;
+    padding: 0.9rem 1rem;
+  }
+  .md-typeset table:not([class]) {
+    min-width: 24rem;
+    font-size: 0.84rem;
+  }
+  .md-typeset img {
+    margin-top: 1.1em;
+    border-radius: 0.55rem;
+  }
+  .md-content {
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .md-typeset {
+    font-size: 0.95rem;
+    line-height: 1.68;
+  }
+  .md-typeset h1 {
+    font-size: 1.65rem;
+    line-height: 1.15;
+  }
+  .md-typeset h2 {
+    font-size: 1.22rem;
+    margin-top: 1.65rem;
+    padding-top: 0.45rem;
+  }
+  .md-typeset h3 {
+    font-size: 1.05rem;
+  }
+  .ebook-hero {
+    padding: 1.35rem 1.1rem 1.25rem;
+    border-radius: 0.85rem;
+    margin-bottom: 1.25rem;
+  }
+  .ebook-hero h1 {
+    font-size: 1.55rem !important;
+  }
+  .ebook-hero .eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+  }
+  .ebook-hero p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .ebook-start {
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 1.5rem;
+  }
   .ebook-start a {
     width: 100%;
     justify-content: center;
+    padding: 0.65rem 1rem;
   }
-  .md-typeset h1 {
-    font-size: 1.9rem;
+  .chapter-list {
+    border-radius: 0.85rem;
   }
   .chapter-list a {
-    padding: 0.7rem 0.25rem;
+    padding: 0.7rem 0.75rem;
+    gap: 0.65rem;
+  }
+  .chapter-list a:hover {
+    padding-left: 0.9rem;
+  }
+  .chapter-list .num {
+    min-width: 1.7rem;
+    font-size: 0.8rem;
+  }
+  .md-typeset h2#opening + p {
+    font-size: 0.95rem;
+    padding: 0.8rem 0.9rem;
+    margin-bottom: 1.35rem;
+  }
+  .md-typeset table:not([class]) {
+    min-width: 20rem;
+    font-size: 0.8rem;
+  }
+  .md-typeset table td,
+  .md-typeset table th {
+    padding: 0.45rem 0.55rem;
+  }
+  .md-typeset figcaption,
+  .md-typeset .figure-caption,
+  .md-typeset .img-caption,
+  .md-typeset img + em {
+    font-size: 0.82rem;
+    padding: 0 0.25rem;
+  }
+  .md-typeset blockquote {
+    padding: 0.6rem 0.85rem;
+  }
+  .md-content__inner {
+    margin: 0 0.1rem;
   }
 }
 
+/* ==========================================================================
+   Print — light background, hide chrome, readable contrast
+   ========================================================================== */
+@media print {
+  *,
+  *::before,
+  *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
 
-/* Hour-loop figure captions */
-.md-typeset em {
-  display: block;
-  max-width: 42rem;
-  margin: -0.4rem auto 1.2rem;
-  font-size: 0.88rem;
-  color: var(--md-default-fg-color--light, #64748b);
-  text-align: center;
-  font-style: italic;
-}
-.md-typeset img {
-  border: 1px solid rgba(148, 163, 184, 0.25);
+  html,
+  body {
+    background: #fff !important;
+    color: #111 !important;
+  }
+
+  /* Hide Material nav chrome */
+  .md-header,
+  .md-tabs,
+  .md-sidebar,
+  .md-sidebar--primary,
+  .md-sidebar--secondary,
+  .md-nav,
+  .md-top,
+  .md-dialog,
+  .md-search,
+  .md-search-result,
+  .md-footer,
+  .md-footer-meta,
+  .md-header__button,
+  .md-content__button,
+  header.md-header,
+  nav.md-tabs,
+  .md-skip,
+  .md-announce,
+  .md-overlay {
+    display: none !important;
+  }
+
+  .md-main,
+  .md-main__inner,
+  .md-content,
+  .md-content__inner,
+  .md-typeset {
+    background: #fff !important;
+    color: #111 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .md-grid {
+    max-width: 100% !important;
+  }
+
+  .md-typeset {
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+  }
+
+  .md-typeset h1,
+  .md-typeset h2,
+  .md-typeset h3,
+  .md-typeset h4 {
+    color: #111 !important;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  .md-typeset h1 {
+    font-size: 18pt !important;
+  }
+  .md-typeset h2 {
+    font-size: 14pt !important;
+    border-top: 1px solid #ccc !important;
+    margin-top: 1.2em !important;
+  }
+  .md-typeset h3 {
+    font-size: 12pt !important;
+    color: #222 !important;
+  }
+
+  .md-typeset a {
+    color: #0f766e !important;
+    text-decoration: underline;
+  }
+  .md-typeset a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #444;
+    word-break: break-all;
+  }
+  .md-typeset a.headerlink::after,
+  .md-typeset a.md-button::after,
+  .ebook-start a::after {
+    content: none !important;
+  }
+
+  .md-typeset img,
+  .md-typeset figure img {
+    max-width: 100% !important;
+    height: auto !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    border-radius: 0 !important;
+  }
+
+  .md-typeset table {
+    min-width: 0 !important;
+    width: 100% !important;
+    font-size: 9pt !important;
+    page-break-inside: avoid;
+    box-shadow: none !important;
+  }
+  .md-typeset table th {
+    background: #eee !important;
+    color: #111 !important;
+    white-space: normal !important;
+  }
+  .md-typeset table tr:nth-child(even) td {
+    background: #f7f7f7 !important;
+  }
+
+  .md-typeset__table {
+    overflow: visible !important;
+  }
+
+  .ebook-hero {
+    background: #eef7f6 !important;
+    color: #111 !important;
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    border-radius: 0 !important;
+    padding: 0.75rem 1rem !important;
+  }
+  .ebook-hero::before,
+  .ebook-hero::after {
+    display: none !important;
+  }
+  .ebook-hero h1 {
+    color: #111 !important;
+    text-shadow: none !important;
+  }
+  .ebook-hero p,
+  .ebook-hero .meta,
+  .ebook-hero .eyebrow {
+    color: #222 !important;
+    opacity: 1 !important;
+  }
+  .ebook-hero .meta a {
+    color: #0f766e !important;
+  }
+
+  .ebook-start a {
+    background: transparent !important;
+    color: #0f766e !important;
+    border: 1px solid #666 !important;
+    box-shadow: none !important;
+  }
+
+  .chapter-list {
+    background: #fff !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+  .chapter-list a {
+    color: #111 !important;
+  }
+  .chapter-list .num {
+    color: #0f766e !important;
+  }
+
+  .md-typeset h2#opening + p {
+    background: #eef7f6 !important;
+    color: #111 !important;
+    box-shadow: none !important;
+    border-left: 3px solid #0d9488 !important;
+  }
+
+  .md-typeset blockquote {
+    background: #f5f5f5 !important;
+    border-left-color: #0d9488 !important;
+    color: #111 !important;
+  }
+
+  .md-typeset .admonition,
+  .md-typeset details {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    page-break-inside: avoid;
+  }
+
+  .md-typeset pre,
+  .md-typeset code {
+    background: #f5f5f5 !important;
+    color: #111 !important;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+  }
+
+  .md-typeset figure,
+  .md-typeset p {
+    orphans: 3;
+    widows: 3;
+  }
 }
