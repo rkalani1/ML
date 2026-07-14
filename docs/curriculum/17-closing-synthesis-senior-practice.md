@@ -5,6 +5,10 @@
 
 
 ## Opening
+![One-paragraph senior synthesis habit (original).](../assets/figures/ml_fig_one_paragraph.png)
+
+*One-paragraph senior synthesis habit (original).*
+
 ![Three poles of model evaluation (original).](../assets/figures/ml_fig_eval_triangle.png)
 
 *Three poles of model evaluation (original).*
