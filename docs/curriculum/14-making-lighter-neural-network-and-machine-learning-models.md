@@ -1,6 +1,10 @@
 # Chapter 14. Making Lighter Neural Network and Machine Learning Models
 
 ## Opening
+![Distill/prune teaching sketch (original).](../assets/figures/ml_fig_distill_prune.png)
+
+*Distill/prune teaching sketch (original).*
+
 
 Your hospital’s edge device cannot run a 7-billion-parameter model during a code stroke. Compression, distillation, and efficient architectures are deployment medicine—not just engineering fashion.
 

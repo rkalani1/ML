@@ -1,6 +1,10 @@
 # Chapter 15. Graph Mining Algorithms
 
 ## Opening
+![Toy patient-similarity graph (original).](../assets/figures/ml_fig_graph_toy.png)
+
+*Toy patient-similarity graph (original).*
+
 
 A network analysis links hospitals, transfer patterns, and outcome codes. Graph methods can reveal systems structure; they can also launder confounding through edges. Literacy here protects both science and equity claims.
 
