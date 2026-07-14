@@ -1,6 +1,10 @@
 # Selected Glossary
 
 ## Opening
+![Train / validation / test vocabulary (original).](../assets/figures/ml_fig_split_vocab.png)
+
+*Train / validation / test vocabulary (original).*
+
 ![Discrimination, calibration, and utility (original).](../assets/figures/ml_fig_eval_triangle.png)
 
 *Discrimination, calibration, and utility (original).*
@@ -230,3 +234,8 @@ Viterbi algorithm. A dynamic-programming procedure that finds the single most pr
 
 Synthetic reminder: identical sensitivity/specificity can yield very different PPV in a rare-disease clinic versus a case-enriched research sample.
 
+
+
+## Leakage (short definition)
+
+**Leakage** is using information that would not be available at prediction time (or that is a proxy for the outcome created after the fact). It inflates apparent performance and fails in real deployment.
