@@ -8,6 +8,10 @@
 
 A research coordinator proposes clustering ‘phenotypes’ of cryptogenic stroke from EHR labs and imaging codes. Clustering can discover structure—or invent comforting noise. This chapter teaches how to ask which one you just saw.
 
+
+![Clustering sketch with centroids (synthetic data; original).](../assets/figures/ml_fig_clustering.png)
+
+*Clustering sketch with centroids (synthetic data; original).*
 ## Learning Objectives
 
 Define clustering as unsupervised partitioning and select similarity measures matched to feature type.

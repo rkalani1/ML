@@ -8,6 +8,10 @@
 
 A vendor demo animates a CNN highlighting an infarct core. Deep learning can extract hierarchical image features; it can also memorize scanner fingerprints. This chapter gives neurologists the vocabulary to interrogate both.
 
+
+![Simple multilayer network diagram (original teaching graphic).](../assets/figures/ml_fig_mlp.png)
+
+*Simple multilayer network diagram (original teaching graphic).*
 ## Learning Objectives
 
 State universal approximation ideas and contrast biological neurons with artificial units.

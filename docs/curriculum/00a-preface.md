@@ -2,6 +2,11 @@
 
 ## Opening
 
+![Model appraisal scorecard (original).](../assets/figures/ml_fig_appraisal_scorecard.png)
+
+*Orientation graphic for how this open-source ebook treats models (original).*
+
+
 A telestroke consult ends. The hub radiologist mentions a new large-vessel occlusion detector with a ‘state-of-the-art AUROC.’ The spoke hospital asks whether to buy it this quarter. This book exists so that conversation starts with definitions, data, and decision impact—not vendor vocabulary.
 
 This expanded edition is designed so that studying this document alone delivers the topical mastery a careful reader would gain from a full curriculum on machine learning and artificial intelligence: foundations, unsupervised learning, feature engineering and decomposition, supervised methods, deep and self-supervised learning, multimodal models, reinforcement learning, efficient models, graph mining, and data challenges. Exposition is original; the syllabus is comprehensive.

@@ -4,6 +4,10 @@
 
 A network analysis links hospitals, transfer patterns, and outcome codes. Graph methods can reveal systems structure; they can also launder confounding through edges. Literacy here protects both science and equity claims.
 
+
+![Graph/embedding geometry can drift across sites (original).](../assets/figures/ml_fig_site_shift.png)
+
+*Graph/embedding geometry can drift across sites (original).*
 ## Learning Objectives
 
 Define graphs formally and represent them with adjacency matrices and lists.

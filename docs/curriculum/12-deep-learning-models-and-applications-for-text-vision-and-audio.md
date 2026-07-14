@@ -4,6 +4,14 @@
 
 A multimodal model claims to fuse note text, DWI, and audio dysphagia screens. Cross-modal architectures are exciting; they also multiply failure modes. This chapter separates capability demos from clinically transportable systems.
 
+
+![Deep models compose layered representations (original diagram).](../assets/figures/ml_fig_mlp.png)
+
+*Deep models compose layered representations (original diagram).*
+
+![Site shift in embedding space (synthetic; original).](../assets/figures/ml_fig_site_shift.png)
+
+*Site shift in embedding space (synthetic; original).*
 ## Learning Objectives
 
 Implement sequence-to-sequence models with dot-product, Bahdanau, Luong, self-, and cross-attention.

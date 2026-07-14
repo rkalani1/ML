@@ -489,3 +489,18 @@ html {
     padding: 0.7rem 0.25rem;
   }
 }
+
+
+/* Hour-loop figure captions */
+.md-typeset em {
+  display: block;
+  max-width: 42rem;
+  margin: -0.4rem auto 1.2rem;
+  font-size: 0.88rem;
+  color: var(--md-default-fg-color--light, #64748b);
+  text-align: center;
+  font-style: italic;
+}
+.md-typeset img {
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}

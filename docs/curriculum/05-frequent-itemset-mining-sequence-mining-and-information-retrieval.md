@@ -4,6 +4,10 @@
 
 A claims-analysis team wants frequent co-prescription patterns after TIA and a simple retrieval system for similar prior cases. Itemsets and sequences are powerful; they are also experts at encoding practice fashion as ‘knowledge.’
 
+
+![Pattern mining sits on the unsupervised exploration path (original).](../assets/figures/ml_fig_supervised_unsupervised_map.png)
+
+*Pattern mining sits on the unsupervised exploration path (original).*
 ## Learning Objectives
 
 Define market-basket transactions and compute support, confidence, and lift for association rules with a full numerical example.

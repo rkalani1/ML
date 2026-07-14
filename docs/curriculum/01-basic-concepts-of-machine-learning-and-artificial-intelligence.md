@@ -8,6 +8,14 @@
 
 An overnight resident asks whether ‘AI’ can rule out stroke on non-contrast CT. Before architecture debates begin, this chapter forces the supervised vs unsupervised vs reinforcement taxonomy and the prediction-versus-causation boundary that stroke teams violate most often.
 
+
+![Supervised versus unsupervised learning paths (original teaching graphic).](../assets/figures/ml_fig_supervised_unsupervised_map.png)
+
+*Supervised versus unsupervised learning paths (original teaching graphic).*
+
+![Train / validation / test split along a clinical timeline (original).](../assets/figures/ml_fig_train_val_test.png)
+
+*Train / validation / test split along a clinical timeline (original).*
 ## Learning Objectives
 
 Place modern machine learning in a short historical arc from symbolic AI through statistical learning to large-scale generative systems.

@@ -8,6 +8,14 @@
 
 Missing NIHSS, duplicated MRNs, label drift after a documentation change—this is the real curriculum of clinical ML. Architecture papers rarely fail first; data pipelines do.
 
+
+![Data challenges often reduce to time and shift (original).](../assets/figures/ml_fig_leakage_timeline.png)
+
+*Data challenges often reduce to time and shift (original).*
+
+![Distribution shift between cohorts (original).](../assets/figures/ml_fig_site_shift.png)
+
+*Distribution shift between cohorts (original).*
 ## Learning Objectives
 
 Map problem complexity and the clinical data lifecycle from cohort design through monitoring.

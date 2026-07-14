@@ -4,6 +4,10 @@
 
 Two sites train the same classifier for early neurologic deterioration. One encodes time-to-CT as minutes; the other as free-text. Feature engineering is where most ‘AI magic’ quietly lives—and where leakage hides.
 
+
+![Feature timing versus prediction time — leakage trap (original).](../assets/figures/ml_fig_leakage_timeline.png)
+
+*Feature timing versus prediction time — leakage trap (original).*
 ## Learning Objectives
 
 Classify feature types and state their modeling implications for neurologic and epidemiologic data.

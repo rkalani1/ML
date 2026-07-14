@@ -8,6 +8,10 @@
 
 A binary classifier flags LVO on CTA with impressive accuracy in the training center. Classification literacy means thresholds, class imbalance, costs of false negatives on the stroke pathway, and external validation—not leaderboard ego.
 
+
+![Confusion matrix and ROC for a synthetic classifier (original).](../assets/figures/ml_fig_confusion_roc.png)
+
+*Confusion matrix and ROC for a synthetic classifier (original).*
 ## Learning Objectives
 
 Formulate binary, multiclass, and multilabel classification problems and interpret decision boundaries and margins.

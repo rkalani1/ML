@@ -4,6 +4,10 @@
 
 Labeled stroke images are scarce; unlabeled scans are abundant. Self-supervised pretraining looks attractive until domain shift between scanners and protocols is measured. Read this before believing ‘we barely needed labels.’
 
+
+![Pretrain then fine-tune pipeline (original teaching graphic).](../assets/figures/ml_fig_pretrain_finetune.png)
+
+*Pretrain then fine-tune pipeline (original teaching graphic).*
 ## Learning Objectives
 
 Distinguish generative vs discriminative and deterministic vs stochastic models in representation learning.

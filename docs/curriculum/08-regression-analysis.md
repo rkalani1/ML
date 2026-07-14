@@ -8,6 +8,10 @@
 
 A lab wants to regress 90-day mRS from admission labs. Linear models still discipline thinking about targets, residuals, and collinearity before anyone reaches for a neural net.
 
+
+![Reliability of numeric predictions matters as much as fit (original).](../assets/figures/ml_fig_calibration.png)
+
+*Reliability of numeric predictions matters as much as fit (original).*
 ## Learning Objectives
 
 Distinguish loss, cost, and objective functions and write them for squared error and log loss.

@@ -1,42 +1,124 @@
-import os
+#!/usr/bin/env python3
+"""Embed original figures into ML curriculum chapters if missing."""
+from __future__ import annotations
+
 import re
+from pathlib import Path
 
-curriculum_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'docs', 'curriculum')
-
-figure_mapping = {
-    '00-mathematical-foundations-for-machine-learning.md': '00_vector_matrix.png',
-    '01-basic-concepts-of-machine-learning-and-artificial-intelligence.md': '01_gradient_descent.png',
-    '02-visualization.md': '02_viz_anatomy.png',
-    '03-probability-and-statistics.md': '03_bayes_update.png',
-    '04-clustering.md': '04_kmeans.png',
-    '07-dimensionality-reduction-and-data-decomposition.md': '07_pca_projection.png',
-    '08-regression-analysis.md': '08_regression_fit.png',
-    '09-classification.md': '09_supervised_map.png',
-    '10-neural-networks-and-deep-learning.md': '10_mlp_architecture.png',
-    '16-concepts-and-challenges-of-working-with-data.md': '16_leakage_timeline.png',
-    '17-closing-synthesis-senior-practice.md': '17_roc_curve.png'
+CURR = Path(__file__).resolve().parents[1] / "docs" / "curriculum"
+# chapter file pattern -> list of (rel_path, caption)
+MAP = {
+    "00-mathematical": [
+        ("../assets/figures/ml_fig_gradient_descent.png", "Gradient descent on a synthetic loss surface (original teaching graphic)."),
+    ],
+    "01-basic": [
+        ("../assets/figures/ml_fig_supervised_unsupervised_map.png", "Supervised versus unsupervised learning paths (original teaching graphic)."),
+        ("../assets/figures/ml_fig_train_val_test.png", "Train / validation / test split along a clinical timeline (original)."),
+    ],
+    "02-visualization": [
+        ("../assets/figures/ml_fig_calibration.png", "Calibration view as a visual truth check (original teaching graphic)."),
+    ],
+    "03-probability": [
+        ("../assets/figures/ml_fig_calibration.png", "Predicted risk versus observed frequency (synthetic; original)."),
+    ],
+    "04-clustering": [
+        ("../assets/figures/ml_fig_clustering.png", "Clustering sketch with centroids (synthetic data; original)."),
+    ],
+    "05-frequent": [
+        ("../assets/figures/ml_fig_supervised_unsupervised_map.png", "Pattern mining sits on the unsupervised exploration path (original)."),
+    ],
+    "06-feature": [
+        ("../assets/figures/ml_fig_leakage_timeline.png", "Feature timing versus prediction time — leakage trap (original)."),
+    ],
+    "07-dimensionality": [
+        ("../assets/figures/ml_fig_pca.png", "Dimensionality reduction intuition along a dominant axis (original)."),
+    ],
+    "08-regression": [
+        ("../assets/figures/ml_fig_calibration.png", "Reliability of numeric predictions matters as much as fit (original)."),
+    ],
+    "09-classification": [
+        ("../assets/figures/ml_fig_confusion_roc.png", "Confusion matrix and ROC for a synthetic classifier (original)."),
+    ],
+    "10-neural": [
+        ("../assets/figures/ml_fig_mlp.png", "Simple multilayer network diagram (original teaching graphic)."),
+    ],
+    "11-self-supervised": [
+        ("../assets/figures/ml_fig_pretrain_finetune.png", "Pretrain then fine-tune pipeline (original teaching graphic)."),
+    ],
+    "12-deep-learning": [
+        ("../assets/figures/ml_fig_mlp.png", "Deep models compose layered representations (original diagram)."),
+        ("../assets/figures/ml_fig_site_shift.png", "Site shift in embedding space (synthetic; original)."),
+    ],
+    "13-reinforcement": [
+        ("../assets/figures/ml_fig_rl_loop.png", "Agent–environment loop for sequential decisions (original)."),
+    ],
+    "14-making-lighter": [
+        ("../assets/figures/ml_fig_mlp.png", "Smaller deployed nets still need appraisal discipline (original)."),
+    ],
+    "15-graph": [
+        ("../assets/figures/ml_fig_site_shift.png", "Graph/embedding geometry can drift across sites (original)."),
+    ],
+    "16-concepts": [
+        ("../assets/figures/ml_fig_leakage_timeline.png", "Data challenges often reduce to time and shift (original)."),
+        ("../assets/figures/ml_fig_site_shift.png", "Distribution shift between cohorts (original)."),
+    ],
+    "17-closing": [
+        ("../assets/figures/ml_fig_appraisal_scorecard.png", "Teaching scorecard for model appraisal (original)."),
+    ],
 }
 
-for filename, figname in figure_mapping.items():
-    filepath = os.path.join(curriculum_dir, filename)
-    if os.path.exists(filepath):
-        with open(filepath, 'r', encoding='utf-8') as f:
-            content = f.read()
-        
-        # Don't add if already there
-        if figname not in content:
-            # We want to embed the figure right after the first heading or opening
-            embed_str = f"\n\n![{figname.replace('_', ' ').replace('.png', '').title()}](../assets/figures/{figname})\n\n"
-            
-            # Simple heuristic: add after the first heading
-            match = re.search(r'# .*?\n', content)
-            if match:
-                insert_pos = match.end()
-                new_content = content[:insert_pos] + embed_str + content[insert_pos:]
-                with open(filepath, 'w', encoding='utf-8') as f:
-                    f.write(new_content)
-                print(f"Added {figname} to {filename}")
+
+def already_has(path: str, text: str) -> bool:
+    return Path(path).name in text
+
+
+def main() -> None:
+    for p in sorted(CURR.glob("*.md")):
+        if p.name == "index.md":
+            continue
+        text = p.read_text(encoding="utf-8")
+        key = None
+        for k in MAP:
+            if p.name.startswith(k) or k in p.name:
+                # match prefix more carefully
+                if p.name.startswith(k.split("-")[0]) or any(p.name.startswith(k)):
+                    key = k
+                    break
+        # better match
+        key = None
+        for k in MAP:
+            if p.name.startswith(k):
+                key = k
+                break
+        if key is None:
+            continue
+        block = []
+        for rel, cap in MAP[key]:
+            if already_has(rel, text):
+                continue
+            block.append(f"\n![{cap}]({rel})\n\n*{cap}*\n")
+        if not block:
+            print("skip", p.name)
+            continue
+        # insert after first ## Opening section or after title
+        insert = "".join(block)
+        if re.search(r"^## Opening\s*$", text, re.M):
+            # after opening paragraph block
+            m = re.search(r"(## Opening\n\n.*?\n\n)", text, re.S)
+            if m:
+                text = text[: m.end()] + insert + text[m.end() :]
             else:
-                with open(filepath, 'a', encoding='utf-8') as f:
-                    f.write(embed_str)
-                print(f"Appended {figname} to {filename}")
+                text = text + "\n" + insert
+        else:
+            # after first H1 block
+            m = re.search(r"(^# .+\n\n)", text, re.M)
+            if m:
+                text = text[: m.end()] + insert + text[m.end() :]
+            else:
+                text = insert + text
+        p.write_text(text, encoding="utf-8")
+        print("embedded", p.name, len(block), "figures")
+
+
+if __name__ == "__main__":
+    main()

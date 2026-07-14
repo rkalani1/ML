@@ -8,6 +8,10 @@
 
 A quality dashboard shows a green line for door-to-needle. A density plot of NIHSS looks normal until you split by transfer status. Visualization is not decoration—it is the first place site shift and selection bias become visible.
 
+
+![Calibration view as a visual truth check (original teaching graphic).](../assets/figures/ml_fig_calibration.png)
+
+*Calibration view as a visual truth check (original teaching graphic).*
 ## Learning Objectives
 
 State the historical purpose of statistical graphics and treat visualization as analytic method, not decoration.

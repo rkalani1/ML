@@ -4,6 +4,10 @@
 
 A simulation lab proposes reinforcement learning for sequential BP targets after thrombolysis. RL requires a reward design that does not quietly optimize the wrong clinical trade-off. Stroke care is not Atari.
 
+
+![Agent–environment loop for sequential decisions (original).](../assets/figures/ml_fig_rl_loop.png)
+
+*Agent–environment loop for sequential decisions (original).*
 ## Learning Objectives
 
 Formalize sequential decision making as a Markov decision process with states, actions, transitions, rewards, and discounting.

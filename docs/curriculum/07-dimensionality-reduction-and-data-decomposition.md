@@ -8,6 +8,10 @@
 
 A multiparametric MRI radiomics pipeline has 1,200 features and 180 patients. Dimensionality reduction is not optional aesthetics; it is survival against overfitting and irreproducible stroke biomarkers.
 
+
+![Dimensionality reduction intuition along a dominant axis (original).](../assets/figures/ml_fig_pca.png)
+
+*Dimensionality reduction intuition along a dominant axis (original).*
 ## Learning Objectives
 
 Explain the curse of dimensionality and how it motivates projection and decomposition in wide clinical and omics matrices.

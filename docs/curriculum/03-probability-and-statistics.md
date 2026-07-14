@@ -8,6 +8,10 @@
 
 A hemorrhage-risk model quotes sensitivity 0.92 and specificity 0.88. Without prevalence, Bayes, and calibration language, those numbers are theater. This chapter rebuilds the probability spine for clinical ML consumers.
 
+
+![Predicted risk versus observed frequency (synthetic; original).](../assets/figures/ml_fig_calibration.png)
+
+*Predicted risk versus observed frequency (synthetic; original).*
 ## Learning Objectives
 
 Define random variables and distinguish continuous vs discrete types, dependent/independent/control variables, and independent trials.

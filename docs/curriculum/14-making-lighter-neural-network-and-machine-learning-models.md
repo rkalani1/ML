@@ -4,6 +4,10 @@
 
 Your hospital’s edge device cannot run a 7-billion-parameter model during a code stroke. Compression, distillation, and efficient architectures are deployment medicine—not just engineering fashion.
 
+
+![Smaller deployed nets still need appraisal discipline (original).](../assets/figures/ml_fig_mlp.png)
+
+*Smaller deployed nets still need appraisal discipline (original).*
 ## Learning Objectives
 
 State why latency, energy, memory, and privacy constrain model deployment at the bedside and on the edge.

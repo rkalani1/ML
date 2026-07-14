@@ -201,3 +201,19 @@ Unsupervised learning. Discovering structure — clusters, components, densities
 VAE. A variational autoencoder; a generative latent-variable model trained to reconstruct inputs through a probabilistic bottleneck by maximizing an evidence lower bound.
 
 Viterbi algorithm. A dynamic-programming procedure that finds the single most probable sequence of hidden states in an HMM given the observations.
+
+
+## Quick metric map (teaching table)
+
+| Metric | Answers | Common misuse |
+|--------|---------|----------------|
+| Accuracy | Overall correct rate | Collapses under class imbalance |
+| Sensitivity / recall | Catch true positives | Ignores false alarms |
+| Specificity | Correct negatives | Ignores missed cases |
+| PPV / precision | Of predicted positives, how many true? | Drifts with prevalence |
+| AUC (ROC) | Ranking discrimination | Not calibration or utility |
+| Brier / calibration plot | Probability reliability | Not the same as AUC |
+| Net benefit | Decision value at a threshold | Requires a meaningful threshold range |
+
+Synthetic reminder: identical sensitivity/specificity can yield very different PPV in a rare-disease clinic versus a case-enriched research sample.
+
