@@ -293,3 +293,15 @@ Self-supervised and generative deep learning extract structure from unlabeled da
 (13) Using the worked triplet numbers, compute the loss for margin m=0.4 with a negative n″ at distance d(a,n″)=0.6 and d(a,p)=0.5; state whether the triplet is active and what the gradient would do.
 
 (14) Design a nearest-neighbor memorization audit for a diffusion model trained on multi-site CT: which embedding space, what distance threshold and how to calibrate it, and how to prevent scanner site from confounding the audit.
+
+
+## Fine-tune legality checklist (teaching)
+
+| Step | Question | Failure mode |
+|------|----------|--------------|
+| 1 | What is index time for the clinical prediction? | Features after the decision time |
+| 2 | Were pretraining images/text free of test-patient leakage? | Contaminated foundation data |
+| 3 | Is the fine-tune label independent of post-outcome charting? | Label leakage |
+| 4 | External site performance reported? | Overfit to one scanner/vendor |
+| 5 | Calibration checked after fine-tune? | Sharp but unusable probabilities |
+
