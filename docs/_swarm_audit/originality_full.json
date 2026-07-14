@@ -1,0 +1,139 @@
+{
+  "audit_id": "originality_full",
+  "audit_date": "2026-07-13",
+  "target_root": "C:\\Users\\rkala\\ML\\docs",
+  "focus": "docs/curriculum/*.md",
+  "overall_verdict": "pass",
+  "high_risk_paste_found": false,
+  "rewrites_performed": 0,
+  "chapters_reviewed": 21,
+  "high": 0,
+  "medium": 3,
+  "low": 4,
+  "pass": 22,
+  "top_findings": [
+    {
+      "severity": "pass",
+      "id": "images_clean",
+      "summary": "docs/assets/figures empty; zero markdown/HTML image embeds; 129 DOCX images skipped and not replaced by lifted publisher art."
+    },
+    {
+      "severity": "pass",
+      "id": "frames_universal",
+      "summary": "Every non-index curriculum chapter has Web Edition disclaimer-banner and clinical frame; about/index originality disclaimers present."
+    },
+    {
+      "severity": "medium",
+      "id": "M1_toc_alignment",
+      "summary": "Preface discloses syllabus alignment to Rawassizadeh curriculum / published TOC; topic coverage not expressive paste.",
+      "files": ["curriculum/00a-preface.md", "curriculum/index.md"]
+    },
+    {
+      "severity": "medium",
+      "id": "M2_dense_cs_math",
+      "summary": "Some long algorithm/math paragraphs lack clinical tokens and feel textbook-like; spot-check indicates original teaching voice and worked synthetic examples.",
+      "example_files": [
+        "curriculum/00-mathematical-foundations-for-machine-learning.md",
+        "curriculum/04-clustering.md",
+        "curriculum/05-frequent-itemset-mining-sequence-mining-and-information-retrieval.md",
+        "curriculum/09-classification.md",
+        "curriculum/14-making-lighter-neural-network-and-machine-learning-models.md"
+      ]
+    },
+    {
+      "severity": "medium",
+      "id": "M3_captions_without_assets",
+      "summary": "~111 figure captions with no shipped image files; copyright-safe omission; do not backfill with DOCX/publisher figures.",
+      "figure_captions_approx": 111,
+      "image_embeds": 0
+    },
+    {
+      "severity": "high",
+      "id": "none",
+      "summary": "No HIGH findings: no abstracts, ISBN/copyright lines, book-distinctive wholesale definitions, long third-party quotes, paper tables, or adapted-from-book figure credits."
+    }
+  ],
+  "images_status": {
+    "status": "clean_no_publisher_assets",
+    "assets_figures_dir": "C:\\Users\\rkala\\ML\\docs\\assets\\figures",
+    "files_in_figures_dir": 0,
+    "image_files_under_docs": 0,
+    "markdown_image_embeds": 0,
+    "html_img_tags": 0,
+    "figure_captions_text_only_approx": 111,
+    "docx_images_skipped_per_manifest": 129,
+    "lifted_publisher_images_detected": false,
+    "note": "Skipped DOCX figures were not replaced by third-party images."
+  },
+  "controls": {
+    "disclaimer_banner_all_chapters": true,
+    "clinical_frame_all_chapters": true,
+    "site_about_originality_bar": true,
+    "educational_disclaimer_home": true,
+    "isbn_or_permission_lines": 0,
+    "commercial_textbook_source_citations": 0,
+    "adapted_from_figure_credits": 0
+  },
+  "chapter_results": [
+    {"file": "00a-preface.md", "verdict": "pass", "notes": "Discloses Rawassizadeh syllabus alignment (medium residual, not paste)."},
+    {"file": "00b-how-to-use-this-textbook.md", "verdict": "pass"},
+    {"file": "00-mathematical-foundations-for-machine-learning.md", "verdict": "pass", "notes": "Long original math pedagogy; clinical frame present."},
+    {"file": "01-basic-concepts-of-machine-learning-and-artificial-intelligence.md", "verdict": "pass"},
+    {"file": "02-visualization.md", "verdict": "pass"},
+    {"file": "03-probability-and-statistics.md", "verdict": "pass"},
+    {"file": "04-clustering.md", "verdict": "pass"},
+    {"file": "05-frequent-itemset-mining-sequence-mining-and-information-retrieval.md", "verdict": "pass"},
+    {"file": "06-feature-engineering.md", "verdict": "pass"},
+    {"file": "07-dimensionality-reduction-and-data-decomposition.md", "verdict": "pass"},
+    {"file": "08-regression-analysis.md", "verdict": "pass"},
+    {"file": "09-classification.md", "verdict": "pass"},
+    {"file": "10-neural-networks-and-deep-learning.md", "verdict": "pass"},
+    {"file": "11-self-supervised-deep-learning.md", "verdict": "pass"},
+    {"file": "12-deep-learning-models-and-applications-for-text-vision-and-audio.md", "verdict": "pass"},
+    {"file": "13-reinforcement-learning.md", "verdict": "pass"},
+    {"file": "14-making-lighter-neural-network-and-machine-learning-models.md", "verdict": "pass"},
+    {"file": "15-graph-mining-algorithms.md", "verdict": "pass"},
+    {"file": "16-concepts-and-challenges-of-working-with-data.md", "verdict": "pass"},
+    {"file": "17-closing-synthesis-senior-practice.md", "verdict": "pass"},
+    {"file": "18-selected-glossary.md", "verdict": "pass", "notes": "Short standard definitions (low residual)."},
+    {"file": "index.md", "verdict": "pass", "notes": "TOC only."}
+  ],
+  "medium_findings": [
+    {
+      "id": "M1",
+      "title": "Syllabus/TOC alignment to named external curriculum",
+      "severity": "medium",
+      "files": ["curriculum/00a-preface.md"]
+    },
+    {
+      "id": "M2",
+      "title": "Dense CS/math paragraphs without clinical tokens",
+      "severity": "medium",
+      "files": [
+        "curriculum/00-mathematical-foundations-for-machine-learning.md",
+        "curriculum/04-clustering.md",
+        "curriculum/05-frequent-itemset-mining-sequence-mining-and-information-retrieval.md",
+        "curriculum/09-classification.md",
+        "curriculum/14-making-lighter-neural-network-and-machine-learning-models.md"
+      ]
+    },
+    {
+      "id": "M3",
+      "title": "Figure captions without image assets",
+      "severity": "medium",
+      "files": ["curriculum/*"],
+      "copyright_implication": "favorable_omission"
+    }
+  ],
+  "high_findings": [],
+  "low_findings": [
+    {"id": "L1", "title": "Glossary short definitions"},
+    {"id": "L2", "title": "Standard formulas and algorithm names"},
+    {"id": "L3", "title": "Internal Figure X.Y numbering"},
+    {"id": "L4", "title": "Standard method family headings"}
+  ],
+  "outputs": {
+    "markdown": "C:\\Users\\rkala\\ML\\docs\\_swarm_audit\\originality_full.md",
+    "json": "C:\\Users\\rkala\\ML\\docs\\_swarm_audit\\originality_full.json"
+  }
+}

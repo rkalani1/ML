@@ -22,6 +22,9 @@ RULES = [
 def main() -> int:
     bad: list[str] = []
     for p in DOCS.rglob("*.md"):
+        # Internal audit notes document forbidden patterns by name; skip them.
+        if "_swarm_audit" in p.parts:
+            continue
         text = p.read_text(encoding="utf-8", errors="replace")
         for i, line in enumerate(text.splitlines(), 1):
             for pat, name in RULES:

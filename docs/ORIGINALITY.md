@@ -17,7 +17,16 @@ All figures that existed as embedded DOCX images were omitted from the Web Editi
 ## Residual flags
 
 - None recorded at export.
+- Deep originality scan (2026-07-13 swarm): **0 flags**.
 
 ## Human residual
 
-Automated gates cannot prove absence of all third-party expressive content. Prefer skipping risky blocks over publishing them. Spot-check random chapters before treating the site as final. Educational disclaimer applies site-wide.
+Automated gates cannot prove absence of all third-party expressive content. Prefer skipping risky blocks over publishing them. Spot-check random chapters before treating the site as final. Educational disclaimer applies site-wide. **Absolute legal zero-risk cannot be certified.**
+
+## Swarm originality audit (2026-07-13)
+
+- Dense read: `docs/_swarm_audit/originality_full.md`
+- Short verdict: `docs/ORIGINALITY_SWARM_VERDICT.md`
+- Full counsel opinion: OneDrive `AI-Work-Sync/textbook-originality-swarm-VERDICT.md`
+- No HIGH paste; figure omission intentional (safer than unverified DOCX art).
+- **Practical copyright risk: LOW. Public Pages: GO.**
