@@ -1,5 +1,9 @@
 # Chapter 16. Concepts and Challenges of Working with Data
 
+
+![16 Leakage Timeline](../assets/figures/16_leakage_timeline.png)
+
+
 ## Opening
 
 Missing NIHSS, duplicated MRNs, label drift after a documentation change—this is the real curriculum of clinical ML. Architecture papers rarely fail first; data pipelines do.

@@ -1,5 +1,9 @@
 # Chapter 4. Clustering
 
+
+![04 Kmeans](../assets/figures/04_kmeans.png)
+
+
 ## Opening
 
 A research coordinator proposes clustering ‘phenotypes’ of cryptogenic stroke from EHR labs and imaging codes. Clustering can discover structure—or invent comforting noise. This chapter teaches how to ask which one you just saw.

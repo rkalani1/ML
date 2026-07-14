@@ -1,5 +1,9 @@
 # Chapter 10. Neural Networks and Deep Learning
 
+
+![10 Mlp Architecture](../assets/figures/10_mlp_architecture.png)
+
+
 ## Opening
 
 A vendor demo animates a CNN highlighting an infarct core. Deep learning can extract hierarchical image features; it can also memorize scanner fingerprints. This chapter gives neurologists the vocabulary to interrogate both.

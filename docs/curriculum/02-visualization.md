@@ -1,5 +1,9 @@
 # Chapter 2. Visualization
 
+
+![02 Viz Anatomy](../assets/figures/02_viz_anatomy.png)
+
+
 ## Opening
 
 A quality dashboard shows a green line for door-to-needle. A density plot of NIHSS looks normal until you split by transfer status. Visualization is not decoration—it is the first place site shift and selection bias become visible.

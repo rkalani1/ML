@@ -1,5 +1,9 @@
 # Chapter 8. Regression Analysis
 
+
+![08 Regression Fit](../assets/figures/08_regression_fit.png)
+
+
 ## Opening
 
 A lab wants to regress 90-day mRS from admission labs. Linear models still discipline thinking about targets, residuals, and collinearity before anyone reaches for a neural net.

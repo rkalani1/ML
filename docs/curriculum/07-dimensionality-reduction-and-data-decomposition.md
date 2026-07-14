@@ -1,5 +1,9 @@
 # Chapter 7. Dimensionality Reduction and Data Decomposition
 
+
+![07 Pca Projection](../assets/figures/07_pca_projection.png)
+
+
 ## Opening
 
 A multiparametric MRI radiomics pipeline has 1,200 features and 180 patients. Dimensionality reduction is not optional aesthetics; it is survival against overfitting and irreproducible stroke biomarkers.

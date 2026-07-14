@@ -1,0 +1,16 @@
+{
+  "chapters": [
+    {
+      "file": "00a-preface.md",
+      "status": "FAIL",
+      "issues": ["Chapter is too thin, needs expansion for thoroughness."],
+      "fixes": ["Expand preface with original prose regarding the motivation for neurologists to learn ML."]
+    },
+    {
+      "file": "17-closing-synthesis-senior-practice.md",
+      "status": "FAIL",
+      "issues": ["Chapter is too thin, needs expansion for thoroughness."],
+      "fixes": ["Expand with more detailed case studies and synthesis of clinical integration."]
+    }
+  ]
+}

@@ -1,5 +1,9 @@
 # Chapter 3. Probability and Statistics
 
+
+![03 Bayes Update](../assets/figures/03_bayes_update.png)
+
+
 ## Opening
 
 A hemorrhage-risk model quotes sensitivity 0.92 and specificity 0.88. Without prevalence, Bayes, and calibration language, those numbers are theater. This chapter rebuilds the probability spine for clinical ML consumers.

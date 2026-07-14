@@ -1,5 +1,9 @@
 # Chapter 0. Mathematical Foundations for Machine Learning
 
+
+![00 Vector Matrix](../assets/figures/00_vector_matrix.png)
+
+
 ## Opening
 
 A fellow freezes at a gradient step in a methods appendix for an ICH expansion model. The clinical question is still bedside-valid, but the math barrier is blocking appraisal. Chapter 0 rebuilds the minimum calculus and linear algebra needed to read ML without surrendering clinical judgment.

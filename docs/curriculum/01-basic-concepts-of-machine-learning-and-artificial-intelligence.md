@@ -1,5 +1,9 @@
 # Chapter 1. Basic Concepts of Machine Learning and Artificial Intelligence
 
+
+![01 Gradient Descent](../assets/figures/01_gradient_descent.png)
+
+
 ## Opening
 
 An overnight resident asks whether ‘AI’ can rule out stroke on non-contrast CT. Before architecture debates begin, this chapter forces the supervised vs unsupervised vs reinforcement taxonomy and the prediction-versus-causation boundary that stroke teams violate most often.
