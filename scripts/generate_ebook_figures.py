@@ -504,6 +504,162 @@ def fig_ols_fit():
     save(fig, "ml_fig_ols_fit.png")
 
 
+def fig_core_functions():
+    """Ch00 Fig 0.2: core ML function catalog."""
+    fig, axes = plt.subplots(2, 3, figsize=(9.2, 5.4))
+    x = np.linspace(-3, 3, 400)
+    plots = [
+        (axes[0, 0], x, 0.5 * x + 0.2, "Linear", TEAL),
+        (axes[0, 1], x, 0.35 * x**2 - 0.4, "Quadratic", DEEP),
+        (axes[0, 2], x, np.exp(0.7 * x) * 0.15, "Exponential", GOLD),
+        (axes[1, 0], np.linspace(0.05, 4, 400), np.log(np.linspace(0.05, 4, 400)), "Logarithmic", "#b45309"),
+        (axes[1, 1], x, 1 / (1 + np.exp(-x)), "Sigmoid", TEAL),
+        (axes[1, 2], x, np.maximum(0, x), "ReLU", DEEP),
+    ]
+    for ax, xx, yy, title, c in plots:
+        ax.plot(xx, yy, color=c, lw=2.2)
+        ax.axhline(0, color="#e2e8f0", lw=1)
+        ax.axvline(0, color="#e2e8f0", lw=1)
+        style_ax(ax, title)
+        ax.set_xlabel("x", fontsize=9)
+        ax.set_ylabel("f(x)", fontsize=9)
+    fig.suptitle("Core functions of machine learning (teaching catalog)", color=INK, fontsize=12, fontweight="bold", y=1.01)
+    fig.tight_layout()
+    save(fig, "ml_fig_core_functions.png")
+
+
+def fig_bias_capacity():
+    """Ch01 Fig 1.6: train vs validation error vs capacity."""
+    fig, ax = plt.subplots(figsize=(6.5, 4.0))
+    cap = np.linspace(0.5, 10, 80)
+    train = 0.55 * np.exp(-0.35 * cap) + 0.05
+    val = 0.12 + 0.45 * np.exp(-0.55 * cap) + 0.018 * (cap - 3.2) ** 2
+    ax.plot(cap, train, color=TEAL, lw=2.4, label="training error")
+    ax.plot(cap, val, color=GOLD, lw=2.4, label="validation error")
+    best = cap[np.argmin(val)]
+    ax.axvline(best, color="#94a3b8", ls="--", lw=1.5, label="sweet-spot capacity")
+    ax.set_xlabel("model capacity (synthetic axis)")
+    ax.set_ylabel("error")
+    ax.set_ylim(0, 0.7)
+    ax.legend(frameon=False, fontsize=9)
+    style_ax(ax, "Bias–variance: capacity vs error (synthetic)")
+    save(fig, "ml_fig_bias_capacity.png")
+
+
+def fig_elbow_wss():
+    """Ch04 Fig 4.5: elbow plot for six-point toy set WSS."""
+    # Approximate chapter narrative: sharp drop 74.2→4.0 from k=1 to k=2 then flat
+    ks = np.array([1, 2, 3, 4, 5, 6])
+    wss = np.array([74.2, 4.0, 2.6, 1.5, 0.8, 0.2])
+    fig, ax = plt.subplots(figsize=(6.0, 3.8))
+    ax.plot(ks, wss, "o-", color=TEAL, lw=2.2, markersize=8)
+    ax.annotate("elbow", xy=(2, 4.0), xytext=(3.2, 35), arrowprops=dict(arrowstyle="->", color=GOLD, lw=1.6), color=GOLD, fontsize=11, fontweight="bold")
+    ax.set_xlabel("k (number of clusters)")
+    ax.set_ylabel("within-cluster sum of squares")
+    ax.set_xticks(ks)
+    style_ax(ax, "Elbow plot of WSS vs k (six-point toy set)")
+    save(fig, "ml_fig_elbow_wss.png")
+
+
+def fig_activations():
+    """Ch10 Fig 10.2: four activation functions."""
+    z = np.linspace(-4, 4, 400)
+    fig, axes = plt.subplots(2, 2, figsize=(8.0, 5.6))
+    acts = [
+        (axes[0, 0], 1 / (1 + np.exp(-z)), "Sigmoid", TEAL),
+        (axes[0, 1], np.tanh(z), "Tanh", DEEP),
+        (axes[1, 0], np.maximum(0, z), "ReLU", GOLD),
+        (axes[1, 1], np.where(z > 0, z, 0.1 * z), "Leaky ReLU (α=0.1)", "#b45309"),
+    ]
+    for ax, y, title, c in acts:
+        ax.plot(z, y, color=c, lw=2.3)
+        ax.axhline(0, color="#e2e8f0", lw=1)
+        ax.axvline(0, color="#e2e8f0", lw=1)
+        style_ax(ax, title)
+        ax.set_xlabel("z")
+        ax.set_ylabel("φ(z)")
+    fig.suptitle("Activation functions (teaching panel)", color=INK, fontsize=12, fontweight="bold", y=1.01)
+    fig.tight_layout()
+    save(fig, "ml_fig_activations.png")
+
+
+def fig_triplet_ssl():
+    """Ch11 Fig 11.3: triplet loss with chapter worked numbers."""
+    # a=(0,0), p=(0.3,0.4) d=0.5, m=0.2 → boundary radius 0.7
+    # easy n=(0.8,0.6) d=1.0 L=0; hard n'=(0.4,0.3) d=0.5 L=0.2
+    fig, ax = plt.subplots(figsize=(6.2, 5.4))
+    ax.set_aspect("equal")
+    a = np.array([0.0, 0.0])
+    p = np.array([0.3, 0.4])
+    n_easy = np.array([0.8, 0.6])
+    n_hard = np.array([0.4, 0.3])
+    circ = plt.Circle(a, 0.7, fill=False, ls="--", color="#94a3b8", lw=1.6, label="margin boundary d(a,p)+m=0.7")
+    ax.add_patch(circ)
+    ax.scatter(*a, s=120, c=TEAL, zorder=3, label="anchor a")
+    ax.scatter(*p, s=100, c=GOLD, zorder=3, label="positive p")
+    ax.scatter(*n_easy, s=100, c="#64748b", zorder=3, label="easy neg n (L=0)")
+    ax.scatter(*n_hard, s=100, c="#dc2626", zorder=3, label="hard neg n′ (L=0.2)")
+    ax.annotate("", xy=p, xytext=a, arrowprops=dict(arrowstyle="->", color=TEAL, lw=1.5))
+    ax.annotate("pull +", xy=((a[0] + p[0]) / 2 - 0.05, (a[1] + p[1]) / 2 + 0.05), color=TEAL, fontsize=9)
+    ax.annotate("", xy=(n_hard[0] * 1.35, n_hard[1] * 1.35), xytext=n_hard, arrowprops=dict(arrowstyle="->", color="#dc2626", lw=1.6))
+    ax.annotate("push −", xy=(0.62, 0.55), color="#dc2626", fontsize=9)
+    ax.set_xlim(-0.35, 1.15)
+    ax.set_ylim(-0.35, 1.05)
+    ax.set_xlabel("embedding dim 1")
+    ax.set_ylabel("embedding dim 2")
+    ax.legend(frameon=False, fontsize=8, loc="upper left")
+    style_ax(ax, "Triplet loss (chapter worked numbers)")
+    ax.text(0.5, -0.28, "L = max(0, d(a,p) − d(a,n) + m); m=0.2", transform=ax.transAxes, ha="center", fontsize=9, color="#64748b")
+    save(fig, "ml_fig_triplet_ssl.png")
+
+
+def fig_value_iteration():
+    """Ch13 Fig 13.3: value iteration on two-state MDP."""
+    gamma = 0.9
+    # Simulate VI for plotting (matches chapter narrative directionally)
+    V1, V2 = [0.0], [0.0]
+    for _ in range(40):
+        s1 = max(1 + gamma * V1[-1], 0 + gamma * V2[-1])  # Stay vs Go
+        s2 = max(2 + gamma * V2[-1], 0 + gamma * V1[-1])
+        V1.append(s1)
+        V2.append(s2)
+    it = np.arange(len(V1))
+    fig, ax = plt.subplots(figsize=(6.8, 4.0))
+    ax.plot(it, V1, "o-", color=TEAL, lw=2, markersize=4, label=r"$V(s_1)$")
+    ax.plot(it, V2, "s-", color=GOLD, lw=2, markersize=4, label=r"$V(s_2)$")
+    ax.axhline(18, color=TEAL, ls="--", lw=1.2, alpha=0.7, label=r"$V^*(s_1)=18$")
+    ax.axhline(20, color=GOLD, ls="--", lw=1.2, alpha=0.7, label=r"$V^*(s_2)=20$")
+    ax.axvline(3, color="#94a3b8", ls=":", lw=1.4)
+    ax.text(3.2, 8, "greedy flip\nGo in s₁", fontsize=9, color=DEEP)
+    ax.set_xlabel("value-iteration sweep")
+    ax.set_ylabel("state value")
+    ax.set_xlim(0, 25)
+    ax.legend(frameon=False, fontsize=8, ncol=2)
+    style_ax(ax, "Value iteration on two-state MDP (γ=0.9)")
+    save(fig, "ml_fig_value_iteration.png")
+
+
+# ---------------------------------------------------------------------------
+# Legacy numbered PNGs (00_*.png … 17_*.png)
+# These files already exist under docs/assets/figures/ and are linked from
+# chapter openings. They are FROZEN historical assets — not regenerated here.
+# Do not re-import from DOCX. Prefer ml_fig_* for all new art.
+# ---------------------------------------------------------------------------
+LEGACY_NUMBERED_ASSETS = (
+    "00_vector_matrix.png",
+    "01_gradient_descent.png",
+    "02_viz_anatomy.png",
+    "03_bayes_update.png",
+    "04_kmeans.png",
+    "07_pca_projection.png",
+    "08_regression_fit.png",
+    "09_supervised_map.png",
+    "10_mlp_architecture.png",
+    "16_leakage_timeline.png",
+    "17_roc_curve.png",
+)
+
+
 def main():
     fig_supervised_map()
     fig_gradient_descent()
@@ -528,7 +684,19 @@ def main():
     fig_how_to_read()
     fig_metric_map()
     fig_ols_fit()
+    # High-value bare-caption panels (cycle-2)
+    fig_core_functions()
+    fig_bias_capacity()
+    fig_elbow_wss()
+    fig_activations()
+    fig_triplet_ssl()
+    fig_value_iteration()
     print("DONE figures in", OUT)
+    missing_legacy = [n for n in LEGACY_NUMBERED_ASSETS if not (OUT / n).exists()]
+    if missing_legacy:
+        print("WARN missing legacy assets:", missing_legacy)
+    else:
+        print("LEGACY numbered assets present:", len(LEGACY_NUMBERED_ASSETS))
 
 
 if __name__ == "__main__":

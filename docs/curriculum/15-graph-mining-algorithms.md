@@ -64,7 +64,9 @@ print(adj, degrees)
 
 A spanning tree of a connected undirected weighted graph is a subset of edges that connects all vertices without cycles. A minimum spanning tree (MST) minimizes the total edge weight. MSTs appear in network design (cheapest backbone linking hospitals), hierarchical clustering sketches, and approximation algorithms.
 
-Figure 15.1. A minimum spanning tree on a seven-node weighted transfer network, computed with Kruskal's algorithm. Edges are sorted by increasing weight and added by union-find only when their endpoints lie in different components, so cycle-closing edges are skipped. The six amber edges F–G(2), E–G(3), D–E(4), C–D(5), A–B(6), and A–D(7) are selected in that order for a total weight of 27; the grey dashed edges (8, 9, 10, 12) are rejected because both endpoints were already connected. The tree links all seven facilities at minimum total cost with no redundant cycles—the backbone intuition behind connecting regional stroke centers.
+!!! note "Figure concept (text diagram) 15.1"
+
+    A minimum spanning tree on a seven-node weighted transfer network, computed with Kruskal's algorithm. Edges are sorted by increasing weight and added by union-find only when their endpoints lie in different components, so cycle-closing edges are skipped. The six amber edges F–G(2), E–G(3), D–E(4), C–D(5), A–B(6), and A–D(7) are selected in that order for a total weight of 27; the grey dashed edges (8, 9, 10, 12) are rejected because both endpoints were already connected. The tree links all seven facilities at minimum total cost with no redundant cycles—the backbone intuition behind connecting regional stroke centers.
 
 Kruskal’s algorithm. Sort all edges by increasing weight. Initialize a forest of single-node trees. Add the next lightest edge if it connects different components (union-find / disjoint set structure); skip if it would form a cycle. Runtime O(m log m) dominated by sorting (or better with sophisticated unions). Correctness follows from the cut property: the lightest edge across any cut is safe for some MST.
 
@@ -94,7 +96,9 @@ return mst, total
 
 Shortest-path problems seek a minimum-weight path from a source s to a target t (or to all nodes). Edge weights must be carefully defined: travel time, risk, or 1 for hop count. Negative weights require Bellman-Ford; Dijkstra requires nonnegative weights.
 
-Figure 15.2. Dijkstra's shortest-path search on the chapter's five-hospital transfer graph, with undirected road-time weights in minutes. From source A the algorithm settles the tentative distances d(A)=0, d(B)=20, d(P)=25, d(C)=45, and d(Z)=60; relaxing edge P–Z improves d(Z) from the direct A–Z edge (70) down to 25+35=60. The emerald path A–P–Z is the minimum-time route to comprehensive center Z at 60 minutes, beating both the direct edge and the A–B–C–Z detour (95). Network distance is not clinical appropriateness—bypass rules still depend on last-known-well and severity.
+!!! note "Figure concept (text diagram) 15.2"
+
+    Dijkstra's shortest-path search on the chapter's five-hospital transfer graph, with undirected road-time weights in minutes. From source A the algorithm settles the tentative distances d(A)=0, d(B)=20, d(P)=25, d(C)=45, and d(Z)=60; relaxing edge P–Z improves d(Z) from the direct A–Z edge (70) down to 25+35=60. The emerald path A–P–Z is the minimum-time route to comprehensive center Z at 60 minutes, beating both the direct edge and the A–B–C–Z detour (95). Network distance is not clinical appropriateness—bypass rules still depend on last-known-well and severity.
 
 Dijkstra’s algorithm. Maintain tentative distances d(v), initially 0 at s and infinity elsewhere. Use a priority queue to repeatedly extract the node u with smallest d(u) and relax its outgoing edges: if d(u)+w(u,v) < d(v), update d(v) and predecessor. With a binary heap, time is O(m log n). Dijkstra is optimal for nonnegative weights and underpins routing in transfer networks and many map services.
 
@@ -133,7 +137,9 @@ Worked assignment intuition. Three patients and three slots with cost matrix row
 
 Centrality scores try to quantify importance. Degree centrality is simply d_i (or d_i/(n-1) normalized): nodes with many ties are locally busy. In a hospital referral network, high degree may mark a general neurologist who both sends and receives many consults—or a data artifact of a large clinic.
 
-Figure 15.3. Betweenness centrality on an eight-node referral network of two dense clusters joined by a single bridge. Each node's area and shade are proportional to its betweenness—the fraction of all-pairs shortest paths routed through it, computed by Brandes' algorithm. Bridge nodes 4 and 5 dominate even though they share the same degree (3) as interior nodes 2, 3, 6, and 7, while periphery nodes 1 and 8 have betweenness 0. Degree and betweenness answer different questions: a broker linking community EDs to endovascular services can be a low-degree yet high-betweenness bottleneck.
+!!! note "Figure concept (text diagram) 15.3"
+
+    Betweenness centrality on an eight-node referral network of two dense clusters joined by a single bridge. Each node's area and shade are proportional to its betweenness—the fraction of all-pairs shortest paths routed through it, computed by Brandes' algorithm. Bridge nodes 4 and 5 dominate even though they share the same degree (3) as interior nodes 2, 3, 6, and 7, while periphery nodes 1 and 8 have betweenness 0. Degree and betweenness answer different questions: a broker linking community EDs to endovascular services can be a low-degree yet high-betweenness bottleneck.
 
 Closeness centrality of i is often (n-1) / sum_j dist(i, j) for nodes in a connected component: how many hops on average to everyone else. High closeness means efficient reach across the network.
 
@@ -151,7 +157,9 @@ PageRank models a random surfer who, with probability alpha (damping, typically 
 
 Take nodes {A, B, C, D} with directed edges A→B, A→C, B→C, C→A, D→C. Out-degrees are d(A)=2, d(B)=1, d(C)=1, d(D)=1, so no node is dangling (each has at least one out-link). Spreading each node’s out-mass equally over its targets gives the row-stochastic transition matrix P (rows = source), order A, B, C, D:
 
-Figure 15.4. PageRank on the worked four-node directed graph (edges A→B, A→C, B→C, C→A, D→C) with damping α=0.85 and uniform teleport. Left: the transition graph, nodes shaded by converged score. Right: the rank vector across power-iteration steps r₀…r₃ alongside the exact fixed point r*=(0.372, 0.196, 0.394, 0.038), which ranks C>A>B>D. C leads because A, B, and D all point to it while it recycles mass back to A; D sits at the constant 0.0375 teleport floor because no link ever feeds it. A and C visibly oscillate for the first few steps—the A↔C two-cycle makes the undamped walk nearly period-2—so ranks must be read from convergence, not from two or three iterations.
+!!! note "Figure concept (text diagram) 15.4"
+
+    PageRank on the worked four-node directed graph (edges A→B, A→C, B→C, C→A, D→C) with damping α=0.85 and uniform teleport. Left: the transition graph, nodes shaded by converged score. Right: the rank vector across power-iteration steps r₀…r₃ alongside the exact fixed point r*=(0.372, 0.196, 0.394, 0.038), which ranks C>A>B>D. C leads because A, B, and D all point to it while it recycles mass back to A; D sits at the constant 0.0375 teleport floor because no link ever feeds it. A and C visibly oscillate for the first few steps—the A↔C two-cycle makes the undamped walk nearly period-2—so ranks must be read from convergence, not from two or three iterations.
 
 Row A: 0, 1/2, 1/2, 0
 Row B: 0, 0, 1, 0
@@ -237,7 +245,9 @@ print(np.round(r, 4), r.sum())
 
 Communities are groups of nodes more densely connected internally than externally. Detecting them reveals modules in brain networks, clusters of co-morbid codes, or regional care patterns.
 
-Figure 15.5. Community structure in a twelve-node graph with three modules that are dense internally and sparse between. A modularity-based method such as Louvain or Leiden recovers the coloring by moving nodes to raise within-community edge density relative to a degree-preserving null model. Here only three inter-community edges (grey, dashed) bridge the modules, so the partition is unambiguous; on real comorbidity or referral graphs the edge definition itself can manufacture communities, so partitions must be validated against clinical taxonomy.
+!!! note "Figure concept (text diagram) 15.5"
+
+    Community structure in a twelve-node graph with three modules that are dense internally and sparse between. A modularity-based method such as Louvain or Leiden recovers the coloring by moving nodes to raise within-community edge density relative to a degree-preserving null model. Here only three inter-community edges (grey, dashed) bridge the modules, so the partition is unambiguous; on real comorbidity or referral graphs the edge definition itself can manufacture communities, so partitions must be validated against clinical taxonomy.
 
 Spectral clustering. Form Laplacian L (or normalized variant), compute the k eigenvectors with smallest eigenvalues, row-normalize embeddings, and run k-means. The spectral gap suggests the number of clusters. Works well for well-separated communities; costs depend on eigen-solves for large n.
 
@@ -249,7 +259,9 @@ Leiden algorithm. Improves Louvain by adding a refinement phase that splits weak
 
 Graph neural networks (GNNs) learn representations for nodes, edges, or whole graphs by propagating information along structure. Challenges of graphs for neural nets include: variable size and isomorphism (no canonical node order); heterogeneity of node/edge types; scalability to millions of edges; over-smoothing (node features become indistinguishable after many layers); over-squashing (long-range signals bottlenecked through narrow cuts); and distribution shift when deployment graphs differ from training graphs.
 
-Figure 15.6. One layer of graph neural-network message passing for a center node v. Each neighbor u ∈ N(v) sends a message m = MSG(h_v^(k), h_u^(k), e_vu) along its edge (cyan arrows inward); the messages are combined by a permutation-invariant AGGREGATE (sum, mean, max, or attention), and an UPDATE step folds that aggregate back with the node's own state to produce the new embedding h_v^(k+1) = UPDATE(h_v^(k), m_v^(k)). Stacking k such layers mixes information from k-hop neighborhoods; stacking too many drives over-smoothing as node embeddings converge.
+!!! note "Figure concept (text diagram) 15.6"
+
+    One layer of graph neural-network message passing for a center node v. Each neighbor u ∈ N(v) sends a message m = MSG(h_v^(k), h_u^(k), e_vu) along its edge (cyan arrows inward); the messages are combined by a permutation-invariant AGGREGATE (sum, mean, max, or attention), and an UPDATE step folds that aggregate back with the node's own state to produce the new embedding h_v^(k+1) = UPDATE(h_v^(k), m_v^(k)). Stacking k such layers mixes information from k-hop neighborhoods; stacking too many drives over-smoothing as node embeddings converge.
 
 Message passing layer (propagation). A generic layer updates node embeddings h_i by aggregating messages from neighbors:
 

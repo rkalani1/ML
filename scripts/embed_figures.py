@@ -10,6 +10,7 @@ CURR = Path(__file__).resolve().parents[1] / "docs" / "curriculum"
 MAP = {
     "00-mathematical": [
         ("../assets/figures/ml_fig_gradient_descent.png", "Gradient descent on a synthetic loss surface (original teaching graphic)."),
+        ("../assets/figures/ml_fig_core_functions.png", "Core functions of machine learning (original teaching catalog)."),
     ],
     "00a-preface": [
         ("../assets/figures/ml_fig_how_to_read.png", "How to read this open-source ebook (original)."),
@@ -18,6 +19,7 @@ MAP = {
     "01-basic": [
         ("../assets/figures/ml_fig_supervised_unsupervised_map.png", "Supervised versus unsupervised learning paths (original teaching graphic)."),
         ("../assets/figures/ml_fig_train_val_test.png", "Train / validation / test split along a clinical timeline (original)."),
+        ("../assets/figures/ml_fig_bias_capacity.png", "Training vs validation error versus model capacity (original)."),
     ],
     "02-visualization": [
         ("../assets/figures/ml_fig_viz_hygiene.png", "Visualization hygiene (original)."),
@@ -28,6 +30,7 @@ MAP = {
     ],
     "04-clustering": [
         ("../assets/figures/ml_fig_clustering.png", "Clustering sketch with centroids (synthetic data; original)."),
+        ("../assets/figures/ml_fig_elbow_wss.png", "Elbow plot of WSS vs k on the six-point toy set (original)."),
     ],
     "05-frequent": [
         ("../assets/figures/ml_fig_association_rules.png", "Support, confidence, and lift for the chapter’s five-transaction toy basket (original)."),
@@ -49,9 +52,11 @@ MAP = {
     ],
     "10-neural": [
         ("../assets/figures/ml_fig_mlp.png", "Simple multilayer network diagram (original teaching graphic)."),
+        ("../assets/figures/ml_fig_activations.png", "Activation functions: sigmoid, tanh, ReLU, leaky ReLU (original)."),
     ],
     "11-self-supervised": [
         ("../assets/figures/ml_fig_pretrain_finetune.png", "Pretrain then fine-tune pipeline (original teaching graphic)."),
+        ("../assets/figures/ml_fig_triplet_ssl.png", "Triplet loss with chapter worked numbers (original)."),
     ],
     "12-deep-learning": [
         ("../assets/figures/ml_fig_attention.png", "Self-attention weights for the three-token worked example (original)."),
@@ -60,6 +65,7 @@ MAP = {
     ],
     "13-reinforcement": [
         ("../assets/figures/ml_fig_rl_loop.png", "Agent–environment loop for sequential decisions (original)."),
+        ("../assets/figures/ml_fig_value_iteration.png", "Value iteration on the two-state MDP (original)."),
     ],
     "14-making-lighter": [
         ("../assets/figures/ml_fig_distill_prune.png", "Distill/prune teaching sketch (original)."),

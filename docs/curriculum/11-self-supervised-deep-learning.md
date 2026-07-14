@@ -78,7 +78,9 @@ Deep belief networks (DBNs) stack RBMs greedily: train a bottom RBM, freeze it, 
 
 An autoencoder (AE) learns to reconstruct input x through a bottleneck: encoder z = f_θ(x), decoder x̂ = g_φ(z), trained to minimize a reconstruction loss ‖x − x̂‖² or cross-entropy for Bernoulli data. If the bottleneck is too wide and capacity unrestricted, the AE can cheat by learning an identity map with no useful compression—hence constraints: narrow codes, noise, sparsity, contractive penalties, or stochastic latents.
 
-Figure 11.1. Autoencoder and variational-autoencoder architecture. An encoder q_φ(z|x) compresses the input x through narrowing layers to a bottleneck; in the VAE the bottleneck emits a Gaussian mean μ and standard deviation σ, and a code is drawn by the reparameterization z = μ + σ·ε with ε ~ N(0,1). A decoder p_θ(x|z) widens back to a reconstruction x̂ ≈ x. Training maximizes the ELBO = E_q[log p_θ(x|z)] − KL(q_φ(z|x) ‖ p(z)); for μ=1.0, σ=0.5 the KL term equals ½[μ²+σ²−1−log σ²] ≈ 0.818, so a reconstruction error of 0.50 yields ELBO ≈ −0.50 − 0.818 = −1.318.
+!!! note "Figure concept (text diagram) 11.1"
+
+    Autoencoder and variational-autoencoder architecture. An encoder q_φ(z|x) compresses the input x through narrowing layers to a bottleneck; in the VAE the bottleneck emits a Gaussian mean μ and standard deviation σ, and a code is drawn by the reparameterization z = μ + σ·ε with ε ~ N(0,1). A decoder p_θ(x|z) widens back to a reconstruction x̂ ≈ x. Training maximizes the ELBO = E_q[log p_θ(x|z)] − KL(q_φ(z|x) ‖ p(z)); for μ=1.0, σ=0.5 the KL term equals ½[μ²+σ²−1−log σ²] ≈ 0.818, so a reconstruction error of 0.50 yields ELBO ≈ −0.50 − 0.818 = −1.318.
 
 ### Sparse, denoising, contractive, and stacked autoencoders
 
@@ -96,7 +98,9 @@ U-Net pairs a contracting encoder path with an expanding decoder path and concat
 
 A generative adversarial network (GAN) pits a generator G(z) that maps noise to samples against a discriminator D(x) that scores real versus fake. In the original formulation, D maximizes log D(x) + log(1 − D(G(z))) while G minimizes log(1 − D(G(z))) or, more practically, maximizes log D(G(z)) (non-saturating heuristic). Training alternates discriminator and generator steps. At optimality under infinite capacity, G matches the data distribution and D is chance—though practice never reaches this ideal cleanly.
 
-Figure 11.2. The generative-adversarial-network training loop. A noise vector z ~ p(z) is mapped by the generator G to a fake sample that is presented, alongside real data, to the discriminator D. D is trained to push D(real)→1 and D(fake)→0, while G is trained with the non-saturating loss −log D(G(z)) to push D(fake)→1, together realizing the two-player value function min_G max_D E_x[log D(x)] + E_z[log(1 − D(G(z)))]. The dashed rose arrow marks the adversarial gradient that flows back through D to update G.
+!!! note "Figure concept (text diagram) 11.2"
+
+    The generative-adversarial-network training loop. A noise vector z ~ p(z) is mapped by the generator G to a fake sample that is presented, alongside real data, to the discriminator D. D is trained to push D(real)→1 and D(fake)→0, while G is trained with the non-saturating loss −log D(G(z)) to push D(fake)→1, together realizing the two-player value function min_G max_D E_x[log D(x)] + E_z[log(1 − D(G(z)))]. The dashed rose arrow marks the adversarial gradient that flows back through D to update G.
 
 ```
 # One GAN iteration (non-saturating generator loss)
@@ -144,7 +148,9 @@ Contrastive learning trains encoders so that semantically similar pairs of examp
 
 A classic contrastive loss for pairs (x_i, x_j) with binary similarity s_{ij} pulls embeddings together when s=1 and pushes them apart up to a margin when s=0: L = s · d² + (1−s) · max(0, m − d)² for distance d between embeddings. Triplet loss uses anchors a, positives p, negatives n and enforces d(a,p) + margin < d(a,n), summing hinge violations. Hard-negative mining focuses on challenging n. InfoNCE and related losses frame contrastive learning as identifying the positive among many negatives via softmax over similarity scores—foundational to modern SSL and CLIP.
 
-Figure 11.3. Triplet loss in embedding space, drawn with the chapter's worked numbers. With anchor a=(0,0), positive p=(0.3,0.4) and margin m=0.2, the loss L = max(0, d(a,p) − d(a,n) + m) requires negatives to lie beyond the dashed boundary at radius d(a,p)+m = 0.7. The easy negative n=(0.8,0.6) at distance 1.0 is inactive (L=0), whereas the hard negative n′=(0.4,0.3) at distance 0.5 falls inside the margin and is active (L=0.2); the emerald arrow pulls the positive inward and the rose arrow pushes the hard negative outward.
+![Triplet loss with chapter worked numbers (original).](../assets/figures/ml_fig_triplet_ssl.png)
+
+*Figure 11.3. Triplet loss in embedding space, drawn with the chapter's worked numbers. With anchor a=(0,0), positive p=(0.3,0.4) and margin m=0.2, the loss L = max(0, d(a,p) − d(a,n) + m) requires negatives to lie beyond the dashed boundary at radius d(a,p)+m = 0.7. The easy negative n=(0.8,0.6) at distance 1.0 is inactive (L=0), whereas the hard negative n′=(0.4,0.3) at distance 0.5 falls inside the margin and is active (L=0.2); the emerald arrow pulls the positive inward and the rose arrow pushes the hard negative outward.*
 
 ```
 # SimCLR-style InfoNCE for a minibatch of N images (temperature τ)
@@ -170,7 +176,9 @@ Siamese architectures run twin networks with shared weights on two inputs, then 
 
 Zero-shot learning predicts classes or generates content for concepts unseen as labeled training targets, typically by aligning with language embeddings. Autoregressive text-to-image models serialize images into token sequences (often via discrete VQ codes) and predict the next token conditioned on text—like language models over visual tokens. Diffusion models learn to reverse a gradual noising process: train a network to predict noise (or clean data) given a noisy image at timestep t and optional text conditioning; sampling starts from pure noise and iteratively denoises. Inpainting and outpainting adapt diffusion by fixing known pixels and sampling the missing region—relevant to artifact repair, not clinical fabrication of nonexistent findings.
 
-Figure 11.4. The diffusion process. Top: the forward chain x0→…→xT gradually corrupts a structured image by adding Gaussian noise, x_t = √(ᾱ_t)·x0 + √(1−ᾱ_t)·ε, with the cumulative signal fraction ᾱ falling from 1.00 to 0.04. Bottom: the learned reverse chain xT→…→x0 starts from pure noise and iteratively denoises, a network predicting the noise ε_θ(x_t,t) to remove at each step and recovering the clean image.
+!!! note "Figure concept (text diagram) 11.4"
+
+    The diffusion process. Top: the forward chain x0→…→xT gradually corrupts a structured image by adding Gaussian noise, x_t = √(ᾱ_t)·x0 + √(1−ᾱ_t)·ε, with the cumulative signal fraction ᾱ falling from 1.00 to 0.04. Bottom: the learned reverse chain xT→…→x0 starts from pure noise and iteratively denoises, a network predicting the noise ε_θ(x_t,t) to remove at each step and recovering the clean image.
 
 ### CLIP
 
@@ -196,7 +204,9 @@ Tiny VAE ELBO sketch. Suppose one latent dimension, prior p(z)=N(0,1), encoder f
 
 Energy-based models assign low energy to plausible configurations. RBMs, many GANs (via critic scores), and score-based diffusion models share the spirit of shaping a landscape over data space. Diffusion training can be viewed as learning the score ∇_x log p_t(x) of noisy marginals—linking denoising autoencoders to modern generative SOTA. For clinicians, the operational question is not the elegance of the energy but whether samples or embeddings improve a pre-registered downstream endpoint.
 
-Figure 11.5. A structured two-dimensional latent manifold. A grid of latent codes (z1, z2) is rendered as decoded glyphs whose orientation and elongation vary smoothly across the plane and whose color follows a smooth scalar field, so that neighboring codes decode to similar outputs. The dashed circle is the 2σ contour of the N(0, I) prior, and the rose path shows how linear interpolation between two codes z_a and z_b traverses the manifold as a continuous morph rather than jumping between disconnected regions.
+!!! note "Figure concept (text diagram) 11.5"
+
+    A structured two-dimensional latent manifold. A grid of latent codes (z1, z2) is rendered as decoded glyphs whose orientation and elongation vary smoothly across the plane and whose color follows a smooth scalar field, so that neighboring codes decode to similar outputs. The dashed circle is the 2σ contour of the N(0, I) prior, and the rose path shows how linear interpolation between two codes z_a and z_b traverses the manifold as a continuous morph rather than jumping between disconnected regions.
 
 Latent geometry matters when you interpolate or cluster codes. VAEs encourage continuous latents with Gaussian priors; VQ models yield discrete codes friendly to Transformers; GAN latents can be manipulable (StyleGAN w-space) without explicit densities. An example failure mode in medical synthesis is latent directions that change ‘scanner vendor look’ entangled with ‘lesion size,’ so that style edits silently alter pathology. Always measure clinical attributes of synthetic images with independent classifiers or readers.
 
@@ -234,7 +244,9 @@ Example milestone project: pretrain a ResNet encoder with SimCLR-style augmentat
 
 Hospitals accumulate years of unlabeled CT/MRI, continuous EEG, and clinical text. SSL pretraining on in-domain unlabeled corpora often beats ImageNet initialization for downstream hemorrhage detection or phenotype classification—especially when labeled sets are small. Choose pretext tasks that respect clinical invariances: random heavy color jitter may be fine for natural photos but harmful for CT window-dependent signs; horizontal flips may break laterality. Masked autoencoding, contrastive multi-crop, and temporal order prediction for longitudinal scans are common patterns.
 
-Figure 11.6. Label efficiency of self-supervised pretraining. Downstream accuracy (here ICH detection) is plotted against the number of labeled studies on a logarithmic axis for a self-supervised-pretrained-then-fine-tuned model (indigo) versus one trained from scratch (muted). Pretraining dominates in the scarce-label regime and reaches the 0.85 target with roughly eight-fold fewer labels, while the two curves converge as labels become abundant—consistent with the chapter's caution that in-domain SSL helps most when labeled data are limited.
+!!! note "Figure concept (text diagram) 11.6"
+
+    Label efficiency of self-supervised pretraining. Downstream accuracy (here ICH detection) is plotted against the number of labeled studies on a logarithmic axis for a self-supervised-pretrained-then-fine-tuned model (indigo) versus one trained from scratch (muted). Pretraining dominates in the scarce-label regime and reaches the 0.85 target with roughly eight-fold fewer labels, while the two curves converge as labels become abundant—consistent with the chapter's caution that in-domain SSL helps most when labeled data are limited.
 
 Evaluation discipline matters more than architecture fashion. Pretrain only on training-site unlabeled studies; never peek at test patients during pretraining or augmentation search. Report downstream metrics with and without SSL, with confidence intervals, and with external hospitals. Synthetic data from GANs/diffusion must not be treated as evidence of disease mechanisms; use synthesis for augmentation only after proving downstream benefit and checking for spurious shortcuts (generated images that encode label text). For text-to-image systems, prevent generation of identifiable patient imagery and follow institutional governance.
 

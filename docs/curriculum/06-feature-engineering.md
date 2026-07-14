@@ -36,7 +36,9 @@ Audit clinical pipelines for leakage and document feature availability at infere
 
 A learning algorithm never sees the patient, the stroke code, or the cohort protocol; it sees a matrix of features X and, in supervised settings, a target y. Feature engineering is the craft of transforming raw measurements—vital signs, NIH Stroke Scale (NIHSS) items, door-to-needle timestamps, imaging scores, comorbidity codes, laboratory panels, free-text notes, pixels, and waveforms—into representations that make the predictive or descriptive relationship easier to approximate.
 
-Figure 6.1. A feature-engineering pipeline: raw data flows through impute, encode, scale, and select stages into the model. Every transform is fit on the training fold only and then applied unchanged to validation and test data, so no test information leaks backward into feature construction.
+!!! note "Figure concept (text diagram) 6.1"
+
+    A feature-engineering pipeline: raw data flows through impute, encode, scale, and select stages into the model. Every transform is fit on the training fold only and then applied unchanged to validation and test data, so no test information leaks backward into feature construction.
 
 In classical machine learning for clinical prediction, feature engineering is often the highest-leverage step. Deep learning can learn representations from images and text, yet tabular stroke registries, administrative claims, and multi-center epidemiologic cohorts still depend on deliberate design of covariates, careful handling of missingness, and honest separation of what is known at decision time from what is known only in retrospect. This chapter treats features as design decisions with clinical, statistical, and ethical consequences.
 
@@ -72,7 +74,9 @@ Embedded: L1, tree importance; selection during training; still validate externa
 
 Numeric features take values on interval or ratio scales: age in years, systolic blood pressure in mmHg, serum glucose, infarct volume in mL, door-to-CT time in minutes. Many algorithms assume comparable scales. Euclidean distance in k-NN or k-means is dominated by large-range variables. L2-regularized linear models penalize large coefficients; unscaled features with large numeric ranges receive smaller coefficients for the same physical effect, distorting regularization paths. Tree-based models are largely invariant to monotonic rescaling of individual features.
 
-Figure 6.2. The same right-skewed glucose feature shown raw (mg/dL), min-max scaled to [0, 1], and z-standardized (mean 0, SD 1). Because min-max and z-score are affine maps, the distribution's shape is preserved and only the axis is rescaled; neither fixes skew, and both must be fit on training data alone.
+!!! note "Figure concept (text diagram) 6.2"
+
+    The same right-skewed glucose feature shown raw (mg/dL), min-max scaled to [0, 1], and z-standardized (mean 0, SD 1). Because min-max and z-score are affine maps, the distribution's shape is preserved and only the axis is rescaled; neither fixes skew, and both must be fit on training data alone.
 
 ### Min–Max Scaling
 
@@ -96,7 +100,9 @@ The Box-Cox (Box–Cox) family is a parameterized power transform for strictly p
 
 Categorical features label classes without inherent order (hospital site, stroke mechanism treated as unordered labels, imaging modality). Ordinal features have ordered levels without guaranteed equal spacing (mRS 0–6, ASPECTS). Encoding choices invent geometry; bad choices invent false neighbors.
 
-Figure 6.3. One-hot versus target (mean) encoding of a hospital-site column. One-hot expands the category into indicator columns that carry no outcome information, whereas smoothed target encoding replaces each level with e_c = (n_c*ybar_c + m*ybar) / (n_c + m) and must be fit out-of-fold or it leaks the label y.
+!!! note "Figure concept (text diagram) 6.3"
+
+    One-hot versus target (mean) encoding of a hospital-site column. One-hot expands the category into indicator columns that carry no outcome information, whereas smoothed target encoding replaces each level with e_c = (n_c*ybar_c + m*ybar) / (n_c + m) and must be fit out-of-fold or it leaks the label y.
 
 ### One-Hot Encoding and Dummy Coding
 
@@ -154,7 +160,9 @@ N-grams extend BoW to contiguous token sequences (bigrams, trigrams), capturing 
 
 Word embeddings map tokens to dense vectors so that geometric proximity reflects distributional similarity. Word2Vec trains with skip-gram or CBOW objectives: predict context from word or word from context using shallow networks and negative sampling. GloVe factorizes a global word–word co-occurrence matrix with a weighted least-squares objective, blending count-based and prediction-based ideas. FastText extends Word2Vec with character n-gram vectors, improving morphology and rare words—useful for biomedical compounds.
 
-Figure 6.4. A two-dimensional feature embedding in which tokens sharing clinical context fall into labeled semantic neighborhoods (vascular territory, thrombolysis/EVT, imaging, deficit, anticoagulant). Geometric proximity approximates distributional similarity, so nearby tokens have small cosine distance.
+!!! note "Figure concept (text diagram) 6.4"
+
+    A two-dimensional feature embedding in which tokens sharing clinical context fall into labeled semantic neighborhoods (vascular territory, thrombolysis/EVT, imaging, deficit, anticoagulant). Geometric proximity approximates distributional similarity, so nearby tokens have small cosine distance.
 
 Document features can average word vectors, use TF–IDF-weighted averages, or feed sequences to recurrent/transformer encoders (later chapters). Domain-adapted embeddings (trained on clinical notes) often outperform generic web embeddings for EHR tasks, but still require leakage control: do not train embeddings on notes that contain the label narrative you are trying to predict if those notes are written after the outcome.
 
@@ -210,7 +218,9 @@ Concrete lag example: let MAP_t be mean arterial pressure at minute t. Features 
 
 Leakage occurs when information unavailable at the intended prediction time enters training features. In stroke modeling the offenders are legion: discharge mRS used to predict discharge mRS; peak troponin during admission used to predict in-hospital mortality when the decision point was ED arrival; hospital-acquired pneumonia or hemicraniectomy flags used as inputs to a model that claims to risk-stratify at door; length of stay as a day-0 feature; radiology final reads finalized after the treatment decision; target encoding without out-of-fold discipline; scalers fit on the full cohort before splitting.
 
-Figure 6.5. An index-time legality timeline. Features knowable at the prediction time t0 (left, indigo) are legal inputs; variables resolved only after the outcome (right, rose) such as post-tPA labs, length of stay, discharge disposition, and discharge mRS constitute leakage when fed to a model that claims to predict at t0.
+!!! note "Figure concept (text diagram) 6.5"
+
+    An index-time legality timeline. Features knowable at the prediction time t0 (left, indigo) are legal inputs; variables resolved only after the outcome (right, rose) such as post-tPA labs, length of stay, discharge disposition, and discharge mRS constitute leakage when fed to a model that claims to predict at t0.
 
 A practical audit: draw the clinical timeline. Mark t₀ (for example, first ED blood pressure). Every feature must be knowable at t₀ for a t₀ model. If a field is only complete at discharge coding, it is not an arrival feature. Aggregate statistics computed with the test patient included leak. Identifiers that encode the label leak. If validation scores look “too good,” audit for leakage before celebrating—and before publishing AUCs that will not replicate prospectively.
 
@@ -234,7 +244,9 @@ y_hat = pipe.predict(X_test)
 
 Blanks are not merely a nuisance to be silently filled; they are data whose reason for absence changes the correct engineering choice. Rubin’s taxonomy names three mechanisms, and each licenses a different legitimate handling—and a different leakage risk.
 
-Figure 6.6. Rubin's missingness mechanisms. MCAR: absence is driven by chance, independent of all data. MAR: absence in x3 is explained by an observed column x1. MNAR: absence depends on the unseen value itself. Each mechanism licenses a different legitimate imputation and missingness-indicator choice, and each indicator must still be certified legal at t0.
+!!! note "Figure concept (text diagram) 6.6"
+
+    Rubin's missingness mechanisms. MCAR: absence is driven by chance, independent of all data. MAR: absence in x3 is explained by an observed column x1. MNAR: absence depends on the unseen value itself. Each mechanism licenses a different legitimate imputation and missingness-indicator choice, and each indicator must still be certified legal at t0.
 
 ### Missing Completely At Random (MCAR)
 

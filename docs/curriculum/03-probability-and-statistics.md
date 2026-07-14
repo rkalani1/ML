@@ -84,7 +84,9 @@ Joint probability P(A ∩ B) describes co-occurrence. Conditional probability P(
 
 Suppose in an ED population of suspected acute ischemic stroke, P(LVO) = 0.20. A bedside scale has sensitivity P(+ | LVO) = 0.85 and specificity P(− | no LVO) = 0.70, so P(+ | no LVO) = 0.30. A patient screens positive. Then P(+) = 0.85·0.20 + 0.30·0.80 = 0.17 + 0.24 = 0.41, and P(LVO | +) = 0.17/0.41 ≈ 0.4146 ≈ 41.5%. Despite 85% sensitivity, PPV is only about 41.5% because false positives among the 80% without LVO dominate the marginal. At prevalence 0.05, the same sens/spec yield P(+) = 0.3275 and PPV ≈ 13.0%. Likelihood ratios LR+ = 0.85/0.30 ≈ 2.833 and LR− = 0.15/0.70 ≈ 0.214 travel across base rates; predictive values do not.
 
-Figure 3.1. Positive predictive value of the LVO bedside screen as a function of disease prevalence at fixed sensitivity 0.85 and specificity 0.70. PPV climbs from about 13.0% at 5% prevalence to about 41.5% at 20% prevalence; the likelihood ratio (LR+ approx. 2.83) is invariant to base rate, whereas predictive values are not.
+!!! note "Figure concept (text diagram) 3.1"
+
+    Positive predictive value of the LVO bedside screen as a function of disease prevalence at fixed sensitivity 0.85 and specificity 0.70. PPV climbs from about 13.0% at 5% prevalence to about 41.5% at 20% prevalence; the likelihood ratio (LR+ approx. 2.83) is invariant to base rate, whereas predictive values are not.
 
 ```
 prev, sens, spec = 0.20, 0.85, 0.70
@@ -98,7 +100,9 @@ print(p_pos, ppv, lr_plus)
 
 The PMF of a discrete RV assigns probabilities to points. The PDF of a continuous RV assigns density whose integrals over sets give probabilities. The cumulative distribution function F(x) = P(X ≤ x) is nondecreasing and right-continuous, with F(−∞) = 0 and F(∞) = 1; for continuous RVs, f = F′ almost everywhere. Survival functions 1 − F(x) appear throughout time-to-event analysis.
 
-Figure 3.2. A catalog of common distributions used in modeling: Normal (pdf), Poisson (pmf, lambda=4), Beta (three shapes, including the Beta(2,8) approx. 20% complication prior), Exponential (pdf, lambda=1), Binomial (pmf, n=10, p=0.35), and continuous Uniform (pdf, a=2, b=6). All densities and masses are computed directly in NumPy.
+!!! note "Figure concept (text diagram) 3.2"
+
+    A catalog of common distributions used in modeling: Normal (pdf), Poisson (pmf, lambda=4), Beta (three shapes, including the Beta(2,8) approx. 20% complication prior), Exponential (pdf, lambda=1), Binomial (pmf, n=10, p=0.35), and continuous Uniform (pdf, a=2, b=6). All densities and masses are computed directly in NumPy.
 
 ### Normal (Gaussian)
 
@@ -132,13 +136,17 @@ Chi-square χ²(k) has support (0,∞), a single parameter—the degrees of free
 
 Probability–probability (PP) plots graph empirical CDF values against theoretical CDF values; points near the diagonal support the theoretical model. Quantile–quantile (QQ) plots graph empirical quantiles against theoretical quantiles—more sensitive in the tails, hence preferred for checking Gaussian residuals or heavy tails. Systematic curvature diagnoses skewness; S-shapes diagnose tail weight.
 
-Figure 3.3. Normal quantile-quantile plots. A Gaussian sample falls along the reference line (left), while a right-skewed exponential sample bows systematically off it (right) with a flat lower tail and a steep upper tail, the curvature that QQ plots are designed to reveal.
+!!! note "Figure concept (text diagram) 3.3"
+
+    Normal quantile-quantile plots. A Gaussian sample falls along the reference line (left), while a right-skewed exponential sample bows systematically off it (right) with a flat lower tail and a steep upper tail, the curvature that QQ plots are designed to reveal.
 
 ## Expectation, Normalization, and How Much Data Is Enough
 
 Expectation E[X] is the probability-weighted average (sum or integral). Linearity E[aX+bY]=aE[X]+bE[Y] holds without independence. Variance expands as E[X²]−(E[X])². Law of the unconscious statistician: E[g(X)] integrates g against the distribution of X without first finding the law of g(X).
 
-Figure 3.4. The central limit theorem in action. The sampling distribution of the mean of n Exponential(1) draws for n = 1, 5, 30 becomes progressively more Gaussian and narrower (standard error = 1/sqrt(n)); the CLT Normal approximation (solid) is a poor fit at n=1 but nearly exact by n=30.
+!!! note "Figure concept (text diagram) 3.4"
+
+    The central limit theorem in action. The sampling distribution of the mean of n Exponential(1) draws for n = 1, 5, 30 becomes progressively more Gaussian and narrower (standard error = 1/sqrt(n)); the CLT Normal approximation (solid) is a poor fit at n=1 but nearly exact by n=30.
 
 Z-score normalization transforms a value via z = (x − μ)/σ (or sample estimates s). Features on incommensurate scales become comparable; many distance-based learners (k-means, k-NN, PCA) require this discipline. Z-scores assume a roughly symmetric scale meaning; they do not fix heavy tails or coding errors. Robust alternatives use median and IQR.
 
@@ -172,13 +180,17 @@ Testing many hypotheses inflates family-wise Type I error. Bonferroni adjusts by
 
 Statistical significance is not effect size. Cohen’s d = (μ_1 − μ_0)/s_pooled standardizes mean differences. Odds ratios compare odds of an event between groups; they arise naturally from logistic regression coefficients (exp(β)). Report effects with confidence intervals. Correlation coefficients (Pearson linear, Spearman rank) quantify association strength; they are not interventional effects.
 
-Figure 3.5. Effect size for two equal-variance Normal groups separated by Cohen's d = 0.80. The shaded region is the distributional overlap (about 69%), illustrating that even a conventionally large standardized mean difference still implies substantial overlap between groups.
+!!! note "Figure concept (text diagram) 3.5"
+
+    Effect size for two equal-variance Normal groups separated by Cohen's d = 0.80. The shaded region is the distributional overlap (about 69%), illustrating that even a conventionally large standardized mean difference still implies substantial overlap between groups.
 
 ## Entropy, Divergences, Maximum Likelihood, and EM
 
 Shannon entropy H(X) = −Σ_x p(x) log p(x) (or integral analogue) measures uncertainty in a distribution. Information gain in decision trees is the reduction in entropy (or impurity) from a split—feature selection by how much knowing X reduces uncertainty about Y. Kullback–Leibler divergence KL(p || q) = Σ p log(p/q) measures directed discrepancy from q to p (not symmetric, not a metric). Cross-entropy H(p,q) = −Σ p log q = H(p) + KL(p || q) is the workhorse classification training loss when p is a one-hot label and q is the model’s predicted distribution. Jensen–Shannon divergence symmetrizes and smooths KL, yielding a bounded score used in distribution comparison and GAN theory.
 
-Figure 3.6. Kullback-Leibler divergence between two discrete outcome (mRS) distributions p and q: paired probability masses (left) and the pointwise contributions p*ln(p/q) that sum to KL(p||q) (right). KL is asymmetric, KL(p||q) approx. 0.96 nats differs from KL(q||p) approx. 0.85 nats, so it is a directed discrepancy, not a distance.
+!!! note "Figure concept (text diagram) 3.6"
+
+    Kullback-Leibler divergence between two discrete outcome (mRS) distributions p and q: paired probability masses (left) and the pointwise contributions p*ln(p/q) that sum to KL(p||q) (right). KL is asymmetric, KL(p||q) approx. 0.96 nats differs from KL(q||p) approx. 0.85 nats, so it is a directed discrepancy, not a distance.
 
 Maximum likelihood estimation chooses θ maximizing L(θ) = Π_i f(x_i | θ), usually via log-likelihood. For i.i.d. Bernoulli data with k successes in n trials, p̂_MLE = k/n. For i.i.d. Gaussians, μ̂ = x̄ and σ̂² uses divisor n (MLE) versus n−1 (unbiased). Regularized and Bayesian MAP estimates multiply by priors.
 

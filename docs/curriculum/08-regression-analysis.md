@@ -54,7 +54,9 @@ Deviations (x−x̄): −5, −1, +1, +5. Deviations (y−ȳ): −9, −1, +1, +
 ∑ (x−x̄)² = 25+1+1+25 = 52.
 β₁ = 92/52 = 23/13 ≈ 1.769. β₀ = 21 − (23/13)·9 = 21 − 207/13 = (273 − 207)/13 = 66/13 ≈ 5.077.
 
-Figure 8.1. The worked ordinary-least-squares fit of infarct volume on admission NIHSS for the four points (4, 12), (8, 20), (10, 22), (14, 30). The closed form gives β_1 = 92/52 = 23/13 ≈ 1.769 and β_0 = 66/13 ≈ 5.077, so ŷ = 5.077 + 1.769x. Rose segments are the residuals e_i = y_i − ŷ_i (RSS ≈ 1.23, R² ≈ 0.992), and the fitted line passes through the mean point (x̄, ȳ) = (9, 21).
+!!! note "Figure concept (text diagram) 8.1"
+
+    The worked ordinary-least-squares fit of infarct volume on admission NIHSS for the four points (4, 12), (8, 20), (10, 22), (14, 30). The closed form gives β_1 = 92/52 = 23/13 ≈ 1.769 and β_0 = 66/13 ≈ 5.077, so ŷ = 5.077 + 1.769x. Rose segments are the residuals e_i = y_i − ŷ_i (RSS ≈ 1.23, R² ≈ 0.992), and the fitted line passes through the mean point (x̄, ȳ) = (9, 21).
 
 ![OLS fit for the four-point NIHSS–volume example (original).](../assets/figures/ml_fig_ols_fit.png)
 
@@ -98,7 +100,9 @@ Softmax (multinomial logistic) regression extends to K classes: P(y = k | x) = e
 
 Consider one patient described by two standardized features, x = [x₁, x₂] = [1.0, 0.5], where x₁ is a scaled admission NIHSS and x₂ a scaled age, and a fitted model with coefficients β = [β₀, β₁, β₂] = [−1.0, 0.8, 0.4]; the intercept multiplies a constant x₀ = 1. The true label is y = 1 (the event occurred).
 
-Figure 8.2. The logistic sigmoid σ(z) = 1/(1 + e^−z), mapping the linear predictor z = xᵀβ (the log-odds) to a probability. At the chapter's worked example z = 0 the curve sits exactly at its midpoint p = σ(0) = 0.5 — a coin flip on the decision boundary — and its tangent there has slope 1/4. The p = 0.5 threshold partitions predictions into ŷ = 0 for z < 0 and ŷ = 1 for z > 0.
+!!! note "Figure concept (text diagram) 8.2"
+
+    The logistic sigmoid σ(z) = 1/(1 + e^−z), mapping the linear predictor z = xᵀβ (the log-odds) to a probability. At the chapter's worked example z = 0 the curve sits exactly at its midpoint p = σ(0) = 0.5 — a coin flip on the decision boundary — and its tangent there has slope 1/4. The p = 0.5 threshold partitions predictions into ŷ = 0 for z < 0 and ŷ = 1 for z > 0.
 
 Linear predictor: z = β₀·1 + β₁·x₁ + β₂·x₂ = −1.0 + 0.8·(1.0) + 0.4·(0.5) = −1.0 + 0.8 + 0.2 = 0.0.
 
@@ -134,7 +138,9 @@ K-fold cross-validation partitions training data into K folds, repeatedly fittin
 
 Receiver Operating Characteristic (ROC) curves plot true positive rate versus false positive rate as the classification threshold on predicted probability sweeps. AUC summarizes ranking quality. ROC ignores calibration: two models with identical AUC can have very different probability reliability. For clinical decisions, report calibration plots, the Brier score (the mean squared error between predicted probabilities and 0/1 outcomes, a joint measure of calibration and discrimination), and threshold-specific net benefit (from decision-curve analysis, which weighs true positives against false positives at a clinically chosen threshold) alongside AUC. Precision–recall curves are more informative under rare events (sICH).
 
-Figure 8.3. Discrimination is not calibration. (a) An ROC curve traced by sweeping the probability threshold, with the shaded area under it giving AUC = 0.876 above the chance diagonal. (b) A calibration (reliability) plot of observed event frequency versus mean predicted probability by decile; the points bow steeper than the 45° identity line, the signature of over-confident probabilities. Two models with equal AUC can calibrate very differently, so both curves must be reported.
+!!! note "Figure concept (text diagram) 8.3"
+
+    Discrimination is not calibration. (a) An ROC curve traced by sweeping the probability threshold, with the shaded area under it giving AUC = 0.876 above the chance diagonal. (b) A calibration (reliability) plot of observed event frequency versus mean predicted probability by decile; the points bow steeper than the 45° identity line, the signature of over-confident probabilities. Two models with equal AUC can calibrate very differently, so both curves must be reported.
 
 ### Wald Tests, Information Criteria, R² and Pseudo-R², LRT
 
@@ -146,7 +152,9 @@ Information criteria balance fit and complexity: AIC ≈ −2ℓ + 2k, BIC ≈ �
 
 Underfitting (high bias) means the hypothesis class cannot represent the true regression function: a straight line through curved volume–NIHSS data, or too heavy regularization. Overfitting (high variance) means the model captures noise and sample idiosyncrasies: a high-degree polynomial through few points, unpenalized models with p ≈ n. Expected prediction error decomposes (for squared error) into bias² + variance + irreducible noise. Increasing model flexibility tends to decrease bias and increase variance; regularization and more data rebalance the tradeoff.
 
-Figure 8.4. Underfitting, good fit, and overfitting shown by fitting the same 13 noisy points with polynomials of degree 1, 3, and 15. The degree-1 line is too rigid (high bias); degree 3 recovers the true generating curve; degree 15 interpolates the noise and erupts into Runge oscillations at the boundaries (high variance). Training RMSE falls monotonically (0.40 → 0.12 → 0.00) even as out-of-sample behaviour deteriorates — low training error alone does not imply a good model.
+!!! note "Figure concept (text diagram) 8.4"
+
+    Underfitting, good fit, and overfitting shown by fitting the same 13 noisy points with polynomials of degree 1, 3, and 15. The degree-1 line is too rigid (high bias); degree 3 recovers the true generating curve; degree 15 interpolates the noise and erupts into Runge oscillations at the boundaries (high variance). Training RMSE falls monotonically (0.40 → 0.12 → 0.00) even as out-of-sample behaviour deteriorates — low training error alone does not imply a good model.
 
 Clinical n is often small relative to candidate features. Prefer pre-specified predictors, penalization, dimensionality control, and honest temporal validation. A model that memorizes one comprehensive stroke center’s documentation style will not transport to a telestroke network.
 
@@ -180,7 +188,9 @@ The Hessian H = ∇²J is the matrix of second partials. Taylor expansion to sec
 
 Batch gradient descent updates θ ← θ − η ∇J(θ) using the full training set gradient each step. It has low-noise gradients but is expensive for large n. Stochastic gradient descent (SGD) uses one example (or a random shuffle stream) per update: noisy but cheap and often better at escaping shallow local structure in nonconvex deep models. Mini-batch SGD uses b examples per step, the practical default: vectorized hardware efficiency with controlled noise. Learning rate η (and schedules, momentum, adaptive methods like Adam in later chapters) dominate empirical success.
 
-Figure 8.5. Batch gradient descent on a convex quadratic loss whose contours form an ill-conditioned, elongated bowl. Iterates follow θ ← θ − η∇J(θ) with η = 0.32, zig-zagging across the steep axis before crawling along the valley floor to the minimum θ*. The slowdown reflects the conditioning of the Hessian, not non-convexity; feature scaling or curvature-aware (Newton) steps would straighten the path.
+!!! note "Figure concept (text diagram) 8.5"
+
+    Batch gradient descent on a convex quadratic loss whose contours form an ill-conditioned, elongated bowl. Iterates follow θ ← θ − η∇J(θ) with η = 0.32, zig-zagging across the steep axis before crawling along the valley floor to the minimum θ*. The slowdown reflects the conditioning of the Hessian, not non-convexity; feature scaling or curvature-aware (Newton) steps would straighten the path.
 
 ### Newton Methods
 
@@ -221,7 +231,9 @@ Survival and Cox models link to the same culture for time-to-event neurologic ou
 
 As λ goes from large to small along a Lasso path, coefficients enter the model at values where their correlation with residuals overcomes the L1 penalty—producing a sequence of nested sparse models. Cross-validated λ_min minimizes average validation loss; λ_1se (one-standard-error rule) picks a sparser model within one SE of the minimum, often more stable for clinical reporting. Plot coefficient paths against log λ and mark selected values for transparency.
 
-Figure 8.6. Regularization coefficient paths for five standardized predictors as the penalty increases along log₁₀λ. Ridge (L2, left) shrinks every coefficient smoothly toward zero but none reaches it, yielding dense solutions that tame multicollinearity; Lasso (L1, right) drives coefficients to exactly zero and holds them there (marked dots), performing built-in variable selection. Plotting the paths against log λ and marking where coefficients vanish is the standard way to read shrinkage and sparsity.
+!!! note "Figure concept (text diagram) 8.6"
+
+    Regularization coefficient paths for five standardized predictors as the penalty increases along log₁₀λ. Ridge (L2, left) shrinks every coefficient smoothly toward zero but none reaches it, yielding dense solutions that tame multicollinearity; Lasso (L1, right) drives coefficients to exactly zero and holds them there (marked dots), performing built-in variable selection. Plotting the paths against log λ and marking where coefficients vanish is the standard way to read shrinkage and sparsity.
 
 Elastic net’s mixing parameter α (weight on L1 versus L2) is a second hyperparameter; nest its selection. Grouped clinical features (multiple BP meds, multi-item NIHSS) sometimes use group Lasso variants so that whole groups enter together—beyond this chapter’s core, but aligned with elastic net’s motivation. The non-negative garrote’s c_j path similarly traces shrinkage of an initial fit; if the initial OLS is already nonsense due to p > n, start from Ridge or univariate screens instead.
 

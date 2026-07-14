@@ -63,7 +63,9 @@ T3: {A, C, D}
 T4: {B, C}
 T5: {A, B, C, D}
 
-Figure 5.1. Support, confidence, and lift for three association rules mined from the five-transaction basket over items {A, B, C, D}. Confidence climbs from A→B (0.75) to D→A (1.00), yet A→D and D→A share the same lift (1.25) while A→B sits just below the lift = 1 independence line (0.94): lift is symmetric and base-rate–adjusted, confidence is not.
+!!! note "Figure concept (text diagram) 5.1"
+
+    Support, confidence, and lift for three association rules mined from the five-transaction basket over items {A, B, C, D}. Confidence climbs from A→B (0.75) to D→A (1.00), yet A→D and D→A share the same lift (1.25) while A→B sits just below the lift = 1 independence line (0.94): lift is symmetric and base-rate–adjusted, confidence is not.
 
 Compute support for selected itemsets. count({A}) = 4 (T1–T3, T5), so s(A) = 4/5 = 0.80. count({B}) = 4, s(B) = 0.80. count({C}) = 4, s(C) = 0.80. count({D}) = 2, s(D) = 0.40. For pairs: count({A,B}) = 3, s(A,B) = 0.60; count({A,C}) = 3, s(A,C) = 0.60; count({B,C}) = 3, s(B,C) = 0.60; count({A,B,C}) = 2, s(A,B,C) = 0.40.
 
@@ -81,7 +83,9 @@ Three teaching points follow. First, with small n, one transaction swings suppor
 
 Information retrieval systems accept a query q and return a ranked list of documents from a corpus C = {d₁, …, d_N}. Classical vector-space IR represents each document as a vector in a high-dimensional term space. Let V be the vocabulary of terms after tokenization, lowercasing, stopword removal, and optionally stemming or lemmatization. The term–document matrix A is |V| × N (or its transpose), with entry A_{t,d} equal to a weight for term t in document d.
 
-Figure 5.2. Cosine similarity of two document vectors in a two-term space. For d1 = (4, 2) and d2 = (1, 3), cos θ = (d1·d2) / (||d1|| ||d2||) = 10 / (√20·√10) = 0.707, so θ = 45°. Cosine depends only on vector direction, which makes the score invariant to document length.
+!!! note "Figure concept (text diagram) 5.2"
+
+    Cosine similarity of two document vectors in a two-term space. For d1 = (4, 2) and d2 = (1, 3), cos θ = (d1·d2) / (||d1|| ||d2||) = 10 / (√20·√10) = 0.707, so θ = 45°. Cosine depends only on vector direction, which makes the score invariant to document length.
 
 Relevance is the ideal binary (or graded) judgment that a document satisfies an information need. Systems approximate relevance with scoring functions. Boolean retrieval returns documents that match logical combinations of terms. Ranked retrieval orders all documents by a score s(q, d). Evaluation against human judgments uses precision, recall, average precision (AP), mean average precision (MAP), and graded metrics such as nDCG.
 
@@ -107,7 +111,9 @@ Precision at rank k is the fraction of the top-k returned documents that are rel
 
 Scanning every document for every query is impossible at web or enterprise scale. An inverted index maps each term t to a postings list of document identifiers (and often positions, fields, and payloads) where t occurs. Boolean queries intersect or union postings; ranked retrieval accumulates partial scores while traversing postings, using heuristics such as WAND and block-max indexes to skip low-scoring documents. Compression of postings (gap encoding, variable-byte or SIMD codecs) is essential.
 
-Figure 5.3. Constructing an inverted index from three tokenized documents: each term points to a postings list of document ids, and each term carries a TF–IDF weight through idf(t) = ln(N/df(t)) with N = 3. The rare term 'mining' (df = 1) earns the largest idf (1.10) and is therefore the most discriminative term for retrieval.
+!!! note "Figure concept (text diagram) 5.3"
+
+    Constructing an inverted index from three tokenized documents: each term points to a postings list of document ids, and each term carries a TF–IDF weight through idf(t) = ln(N/df(t)) with N = 3. The rare term 'mining' (df = 1) earns the largest idf (1.10) and is therefore the most discriminative term for retrieval.
 
 Dictionary: term → metadata and pointer to postings.
 
@@ -155,7 +161,9 @@ Red-black trees are binary trees with color invariants that keep the longest pat
 
 A trie (prefix tree) stores strings by sharing common prefixes: each edge is labeled by a character (or byte), and a path from the root spells a key. Search time is proportional to key length, independent of the number of keys when branching is dense. Radix trees (Patricia tries) compress unary paths into single edges labeled by substrings, reducing memory. Tries excel for autocomplete, IP routing, and token dictionaries. In clinical coding, a trie over ICD or medication strings supports fast prefix lookup during charting or phenotype queries.
 
-Figure 5.4. A trie (prefix tree) over the keys car, care, cart, cat, and dog. Shared prefixes collapse onto shared paths—car, care, and cart all descend through c–a–r—edges are labeled by characters, and green nodes mark where a stored key terminates. Lookup cost grows with key length, not with the number of keys.
+!!! note "Figure concept (text diagram) 5.4"
+
+    A trie (prefix tree) over the keys car, care, cart, cat, and dog. Shared prefixes collapse onto shared paths—car, care, and cart all descend through c–a–r—edges are labeled by characters, and green nodes mark where a stored key terminates. Lookup cost grows with key length, not with the number of keys.
 
 ## Tree Search Methods: BFS, DFS, Beam Search, and MCTS
 
@@ -199,7 +207,9 @@ Enumerating all 2^|I| − 1 nonempty itemsets is impossible for realistic invent
 
 Apriori generates candidates of size k from frequent itemsets of size k−1, prunes any candidate with an infrequent (k−1)-subset, then scans the database to count survivors. Pseudocode sketch:
 
-Figure 5.5. The subset lattice of itemsets over {A, B, C, D}. At minsup = 0.6 on the five-transaction basket, six itemsets are frequent (indigo). Because support is anti-monotone, every superset of the infrequent single item D—and of the infrequent triple ABC—is pruned (grey) without further counting. Node labels give relative support.
+!!! note "Figure concept (text diagram) 5.5"
+
+    The subset lattice of itemsets over {A, B, C, D}. At minsup = 0.6 on the five-transaction basket, six itemsets are frequent (indigo). Because support is anti-monotone, every superset of the infrequent single item D—and of the infrequent triple ABC—is pruned (grey) without further counting. Node labels give relative support.
 
 ```
 Apriori(D, minsup):
@@ -274,7 +284,9 @@ Viterbi replaces the sum in the forward recursion with a max and stores argmax b
 
 A tiny two-state HMM makes both algorithms concrete. Hidden states model EEG background: N (interictal/normal) and S (ictal/seizure). Each second a detector emits one symbol, q (quiet) or k (spike). Parameters θ = (π, A, B):
 
-Figure 5.6. Viterbi decoding of the two-state EEG HMM (N = normal, S = seizure) for the observation sequence O = (q, k, k). Each node is annotated with its best-path score δ_t(state); the amber path N→S→S is the maximum-a-posteriori state sequence, terminating at δ3(S) = 0.0635. Viterbi maximizes the joint probability of the entire path rather than concatenating per-step argmaxes.
+!!! note "Figure concept (text diagram) 5.6"
+
+    Viterbi decoding of the two-state EEG HMM (N = normal, S = seizure) for the observation sequence O = (q, k, k). Each node is annotated with its best-path score δ_t(state); the amber path N→S→S is the maximum-a-posteriori state sequence, terminating at δ3(S) = 0.0635. Viterbi maximizes the joint probability of the entire path rather than concatenating per-step argmaxes.
 
 Initial: π_N = 0.8, π_S = 0.2.
 

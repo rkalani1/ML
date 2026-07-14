@@ -138,7 +138,9 @@ Trade-off: choose operating points on the accuracy–efficiency frontier deliber
 
 Machine learning methods assume structure in their inputs. Matching method to data type is as important as matching method to task. This section surveys major dataset modalities you will encounter in clinical and epidemiologic work, and closes with numerical data types that cut across modalities.
 
-Figure 1.5. Six common data modalities in clinical machine learning: tabular records, temporal signals, graphs, text tokens (with a masked token), images, and audio waveforms.
+!!! note "Figure concept (text diagram) 1.5"
+
+    Six common data modalities in clinical machine learning: tabular records, temporal signals, graphs, text tokens (with a masked token), images, and audio waveforms.
 
 ### Tabular datasets
 
@@ -188,7 +190,9 @@ Numerical types: binary, nominal, ordinal, count, continuous, time—encode acco
 
 Learning problems differ by the kind of feedback available and by the form of the desired output. We organize tasks into unsupervised structure discovery, supervised prediction, self-supervised representation learning, generative modeling, and reinforcement learning. Hybrids are common; the taxonomy still helps you write a precise problem statement.
 
-Figure 1.2. A taxonomy of machine-learning tasks, splitting supervised learning into regression and classification and unsupervised learning into clustering, association/sequence mining, dimensionality reduction, and anomaly detection, alongside self-supervised, generative, and reinforcement learning.
+!!! note "Figure concept (text diagram) 1.2"
+
+    A taxonomy of machine-learning tasks, splitting supervised learning into regression and classification and unsupervised learning into clustering, association/sequence mining, dimensionality reduction, and anomaly detection, alongside self-supervised, generative, and reinforcement learning.
 
 ### Unsupervised learning: clustering
 
@@ -254,7 +258,9 @@ Constructing ground truth is a first-class scientific task. Define inclusion cri
 
 If you fit parameters and claim performance on the same observations, you will systematically overstate quality. Hold-out validation splits data into training and validation (and ideally a final test) sets. When data are scarce, k-fold cross-validation (CV) rotates the validation role: partition the n examples into k disjoint folds of roughly equal size; for each i, train on all folds except i and evaluate on fold i; average the k scores. Common choices are k = 5 or k = 10. Leave-one-out CV is the extreme k = n, often expensive and high-variance for some metrics.
 
-Figure 1.4. Five-fold cross-validation rotates the held-out validation fold (amber) across five iterations inside the training partition of a train/validation/test split, averaging the five per-fold errors into a single CV estimate.
+!!! note "Figure concept (text diagram) 1.4"
+
+    Five-fold cross-validation rotates the held-out validation fold (amber) across five iterations inside the training partition of a train/validation/test split, averaging the five per-fold errors into a single CV estimate.
 
 Nested cross-validation uses an inner loop for hyperparameter selection and an outer loop for performance estimation, reducing optimistic bias from tuning. Grouped CV keeps all rows from the same patient (or site) inside the same fold to block leakage. Time-series CV trains only on the past and validates on the future. Stratified CV preserves class prevalence in each fold for classification. CV estimates internal reproducibility under exchangeability assumptions; it is not a substitute for external geographic or temporal validation.
 
@@ -271,7 +277,9 @@ Hyperparameters (tree depth, regularization strength, network width) should be c
 
 A healthy ML workflow is linear in its accountability even when iterative in practice. The following sequence is a template for clinical and epidemiologic projects; adapt roles and documentation to your institution, but do not skip the scientific content of each step.
 
-Figure 1.1. The machine-learning lifecycle as an iterative pipeline running from problem framing through data, features, model, evaluation, deployment, and monitoring, with a feedback loop that returns monitoring signals to the data stage for retraining.
+!!! note "Figure concept (text diagram) 1.1"
+
+    The machine-learning lifecycle as an iterative pipeline running from problem framing through data, features, model, evaluation, deployment, and monitoring, with a feedback loop that returns monitoring signals to the data stage for retraining.
 
 1. Frame the decision and estimand: who, when (index time), what action the score changes, what outcome horizon.
 
@@ -305,7 +313,9 @@ Iteration is expected: EDA will rewrite features; external validation will humbl
 
 We walk through a small, fully numerical decision that mirrors everyday model selection. Suppose we predict a binary outcome from a single numeric feature using two candidate rule families on a fixed feature representation. We have 20 labeled examples. We hold out 6 as a validation set and train on 14. A real study would use more data and a separate test set; the logic is identical.
 
-Figure 1.6. Training error falls monotonically with model capacity while validation error is U-shaped; the amber dashed line marks the sweet-spot capacity that minimizes validation error, near the selected Candidate A and far from the overfit Candidate B.
+![Training vs validation error versus model capacity (original).](../assets/figures/ml_fig_bias_capacity.png)
+
+*Figure 1.6. Training error falls monotonically with model capacity while validation error is U-shaped; the amber dashed line marks the sweet-spot capacity that minimizes validation error, near the selected Candidate A and far from the overfit Candidate B.*
 
 Candidate A is a threshold rule on the feature: predict positive if x ≥ t, choosing t to minimize training classification error. Candidate B is a more flexible piecewise rule that can place two thresholds (a band classifier), also fit by minimizing training error. Higher flexibility means higher capacity.
 
@@ -348,7 +358,9 @@ Match task type (classification, survival, RL) to the clinical decision, not to 
 
 A feature is a measurable property used as model input. Features may be raw measurements or engineered quantities. A label is the supervised target. Training estimates parameters by optimizing an objective; inference applies a fixed model to new inputs. Inductive bias is the set of assumptions a learner uses to generalize beyond the training sample—linearity, local smoothness, tree-shaped interactions, convolutional locality. Every nontrivial learner has an inductive bias; without assumptions, no finite dataset determines future predictions uniquely.
 
-Figure 1.3. The same noisy sample fit three ways, showing an underfitting straight line, a good-fitting smooth curve tracking the true function, and an overfitting high-degree polynomial that chases noise between points.
+!!! note "Figure concept (text diagram) 1.3"
+
+    The same noisy sample fit three ways, showing an underfitting straight line, a good-fitting smooth curve tracking the true function, and an overfitting high-degree polynomial that chases noise between points.
 
 Model capacity informally measures how wide a range of functions a hypothesis class can represent. Underfitting: high train and test error—try richer features or capacity. Overfitting: low train error, high test error—try regularization, more data, simpler models, or early stopping. The bias–variance decomposition (for squared loss) separates irreducible noise, systematic wrong assumptions (bias), and sensitivity to the particular sample (variance). Use it as a diagnostic language, not a single number you always compute.
 
