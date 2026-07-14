@@ -1,6 +1,10 @@
 # Chapter 6. Feature Engineering
 
 ## Opening
+![Feature legality at index time (original).](../assets/figures/ml_fig_feature_legality.png)
+
+*Feature legality at index time (original).*
+
 
 Two sites train the same classifier for early neurologic deterioration. One encodes time-to-CT as minutes; the other as free-text. Feature engineering is where most ‘AI magic’ quietly lives—and where leakage hides.
 

@@ -1,6 +1,10 @@
 # Preface
 
 ## Opening
+![Boundaries of this open-source ebook (original).](../assets/figures/ml_fig_boundaries.png)
+
+*Boundaries of this open-source ebook (original).*
+
 ![Reading path through the open-source ebook (original).](../assets/figures/ml_fig_reader_journey.png)
 
 *Reading path through the open-source ebook (original).*
