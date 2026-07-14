@@ -1,10 +1,6 @@
 # Chapter 9. Classification
 
-<div class="disclaimer-banner" markdown="1">
-**Web Edition — original teaching text.** Educational only; not medical advice. No commercial handbook prose, paper abstracts, or publisher figures.
-</div>
-
-## Web Edition clinical frame
+## Opening
 
 A binary classifier flags LVO on CTA with impressive accuracy in the training center. Classification literacy means thresholds, class imbalance, costs of false negatives on the stroke pathway, and external validation—not leaderboard ego.
 

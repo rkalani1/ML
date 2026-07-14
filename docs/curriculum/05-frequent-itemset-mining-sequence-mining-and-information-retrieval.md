@@ -1,10 +1,6 @@
 # Chapter 5. Frequent Itemset Mining, Sequence Mining, and Information Retrieval
 
-<div class="disclaimer-banner" markdown="1">
-**Web Edition — original teaching text.** Educational only; not medical advice. No commercial handbook prose, paper abstracts, or publisher figures.
-</div>
-
-## Web Edition clinical frame
+## Opening
 
 A claims-analysis team wants frequent co-prescription patterns after TIA and a simple retrieval system for similar prior cases. Itemsets and sequences are powerful; they are also experts at encoding practice fashion as ‘knowledge.’
 

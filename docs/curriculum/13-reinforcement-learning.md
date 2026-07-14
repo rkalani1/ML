@@ -1,10 +1,6 @@
 # Chapter 13. Reinforcement Learning
 
-<div class="disclaimer-banner" markdown="1">
-**Web Edition — original teaching text.** Educational only; not medical advice. No commercial handbook prose, paper abstracts, or publisher figures.
-</div>
-
-## Web Edition clinical frame
+## Opening
 
 A simulation lab proposes reinforcement learning for sequential BP targets after thrombolysis. RL requires a reward design that does not quietly optimize the wrong clinical trade-off. Stroke care is not Atari.
 

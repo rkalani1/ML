@@ -1,10 +1,6 @@
 # Chapter 14. Making Lighter Neural Network and Machine Learning Models
 
-<div class="disclaimer-banner" markdown="1">
-**Web Edition — original teaching text.** Educational only; not medical advice. No commercial handbook prose, paper abstracts, or publisher figures.
-</div>
-
-## Web Edition clinical frame
+## Opening
 
 Your hospital’s edge device cannot run a 7-billion-parameter model during a code stroke. Compression, distillation, and efficient architectures are deployment medicine—not just engineering fashion.
 

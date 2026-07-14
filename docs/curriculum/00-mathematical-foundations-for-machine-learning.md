@@ -1,10 +1,6 @@
 # Chapter 0. Mathematical Foundations for Machine Learning
 
-<div class="disclaimer-banner" markdown="1">
-**Web Edition — original teaching text.** Educational only; not medical advice. No commercial handbook prose, paper abstracts, or publisher figures.
-</div>
-
-## Web Edition clinical frame
+## Opening
 
 A fellow freezes at a gradient step in a methods appendix for an ICH expansion model. The clinical question is still bedside-valid, but the math barrier is blocking appraisal. Chapter 0 rebuilds the minimum calculus and linear algebra needed to read ML without surrendering clinical judgment.
 

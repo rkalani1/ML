@@ -1,10 +1,6 @@
 # Chapter 11. Self-Supervised Deep Learning
 
-<div class="disclaimer-banner" markdown="1">
-**Web Edition — original teaching text.** Educational only; not medical advice. No commercial handbook prose, paper abstracts, or publisher figures.
-</div>
-
-## Web Edition clinical frame
+## Opening
 
 Labeled stroke images are scarce; unlabeled scans are abundant. Self-supervised pretraining looks attractive until domain shift between scanners and protocols is measured. Read this before believing ‘we barely needed labels.’
 

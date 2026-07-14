@@ -1,10 +1,6 @@
 # Chapter 6. Feature Engineering
 
-<div class="disclaimer-banner" markdown="1">
-**Web Edition — original teaching text.** Educational only; not medical advice. No commercial handbook prose, paper abstracts, or publisher figures.
-</div>
-
-## Web Edition clinical frame
+## Opening
 
 Two sites train the same classifier for early neurologic deterioration. One encodes time-to-CT as minutes; the other as free-text. Feature engineering is where most ‘AI magic’ quietly lives—and where leakage hides.
 

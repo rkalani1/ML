@@ -1,10 +1,6 @@
 # Chapter 16. Concepts and Challenges of Working with Data
 
-<div class="disclaimer-banner" markdown="1">
-**Web Edition — original teaching text.** Educational only; not medical advice. No commercial handbook prose, paper abstracts, or publisher figures.
-</div>
-
-## Web Edition clinical frame
+## Opening
 
 Missing NIHSS, duplicated MRNs, label drift after a documentation change—this is the real curriculum of clinical ML. Architecture papers rarely fail first; data pipelines do.
 

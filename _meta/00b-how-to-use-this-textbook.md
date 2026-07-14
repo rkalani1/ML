@@ -1,10 +1,6 @@
 # How to Use This Textbook
 
-<div class="disclaimer-banner" markdown="1">
-**Web Edition — original teaching text.** Educational only; not medical advice. No commercial handbook prose, paper abstracts, or publisher figures.
-</div>
-
-## Web Edition clinical frame
+## Opening
 
 You have forty-five free minutes between clinic and journal club. This chapter maps efficient paths through the curriculum so you spend time on the literacy layer that actually changes how you read a stroke-imaging model paper.
 

@@ -1,10 +1,6 @@
 # Chapter 10. Neural Networks and Deep Learning
 
-<div class="disclaimer-banner" markdown="1">
-**Web Edition — original teaching text.** Educational only; not medical advice. No commercial handbook prose, paper abstracts, or publisher figures.
-</div>
-
-## Web Edition clinical frame
+## Opening
 
 A vendor demo animates a CNN highlighting an infarct core. Deep learning can extract hierarchical image features; it can also memorize scanner fingerprints. This chapter gives neurologists the vocabulary to interrogate both.
 

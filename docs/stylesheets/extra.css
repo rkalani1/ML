@@ -1,28 +1,491 @@
-/* Web Edition readability */
-.md-typeset {
+/* Open-source ebook — reading-first design (ML · teal) */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+:root {
+  --ebook-primary: #0d9488;
+  --ebook-deep: #0f766e;
+  --ebook-ink: #1e293b;
+  --ebook-muted: #64748b;
+  --ebook-glow: rgba(13, 148, 136, 0.16);
+  --ebook-glow-strong: rgba(13, 148, 136, 0.28);
+  --ebook-gold: rgba(201, 162, 39, 0.1);
+  --ebook-serif: "Cormorant Garamond", "Palatino Linotype", Palatino, Georgia, serif;
+  --ebook-sans: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --ebook-measure: 42rem;
+  --ebook-radius: 1.15rem;
+}
+
+/* Selection + smooth anchors */
+::selection {
+  background: rgba(13, 148, 136, 0.22);
+  color: inherit;
+}
+html {
+  scroll-behavior: smooth;
+}
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4 {
+  scroll-margin-top: 5.5rem;
+}
+
+/* Header — frosted glass, no tab chrome */
+.md-header {
+  background: rgba(15, 18, 32, 0.86) !important;
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: none;
+}
+.md-tabs { display: none !important; }
+.md-header__topic .md-ellipsis {
+  font-family: var(--ebook-serif);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.md-header__button.md-logo { display: none; }
+
+/* Ambient page wash */
+.md-main {
+  background:
+    radial-gradient(1200px 520px at 8% -12%, var(--ebook-glow), transparent 58%),
+    radial-gradient(900px 400px at 100% 0%, var(--ebook-gold), transparent 52%),
+    radial-gradient(600px 300px at 50% 100%, rgba(13, 148, 136, 0.04), transparent 60%);
+}
+
+.md-sidebar {
+  background: transparent;
+}
+.md-nav__title {
+  font-family: var(--ebook-serif);
   font-size: 0.95rem;
-  line-height: 1.55;
-  text-align: left;
+  color: var(--ebook-deep);
+  font-weight: 600;
 }
-.md-typeset h1, .md-typeset h2, .md-typeset h3 {
-  text-align: left;
+.md-nav__link {
+  font-family: var(--ebook-sans);
+  font-size: 0.84rem;
+  border-radius: 0.5rem;
+  transition: background 0.15s ease, color 0.15s ease, padding-left 0.15s ease;
 }
+.md-nav__link:hover {
+  background: var(--ebook-glow);
+}
+.md-nav__link--active {
+  color: var(--ebook-primary) !important;
+  font-weight: 600;
+  background: var(--ebook-glow);
+  box-shadow: inset 3px 0 0 var(--ebook-primary);
+}
+
+/* Reading column */
+.md-content {
+  max-width: calc(var(--ebook-measure) + 4.5rem);
+}
+.md-content__inner {
+  margin-top: 0.35rem;
+}
+.md-typeset {
+  font-family: var(--ebook-sans);
+  font-size: 1rem;
+  line-height: 1.74;
+  color: inherit;
+  text-align: left;
+  letter-spacing: 0.005em;
+}
+.md-typeset h1 {
+  font-family: var(--ebook-serif);
+  font-weight: 700;
+  font-size: 2.4rem;
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.9rem;
+  border-bottom: none;
+  color: var(--ebook-ink);
+}
+.md-typeset h2 {
+  font-family: var(--ebook-serif);
+  font-weight: 600;
+  font-size: 1.55rem;
+  margin-top: 2.35rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid rgba(127, 127, 127, 0.16);
+  letter-spacing: -0.01em;
+}
+.md-typeset h3 {
+  font-family: var(--ebook-serif);
+  font-weight: 600;
+  font-size: 1.22rem;
+  margin-top: 1.75rem;
+}
+.md-typeset h4 {
+  font-family: var(--ebook-serif);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ebook-deep);
+}
+.md-typeset p,
+.md-typeset li {
+  max-width: var(--ebook-measure);
+}
+.md-typeset p {
+  margin-bottom: 0.95em;
+}
+.md-typeset a {
+  color: var(--ebook-primary);
+  text-underline-offset: 0.14em;
+  transition: color 0.12s ease;
+}
+.md-typeset a:hover {
+  color: var(--ebook-deep);
+}
+.md-typeset strong {
+  font-weight: 600;
+  color: inherit;
+}
+.md-typeset blockquote {
+  border-left: 3px solid var(--ebook-primary);
+  background: var(--ebook-glow);
+  border-radius: 0 0.65rem 0.65rem 0;
+  padding: 0.85rem 1.15rem;
+  margin: 1.4rem 0;
+  color: inherit;
+  quotes: none;
+}
+.md-typeset blockquote p {
+  margin: 0.35em 0;
+}
+.md-typeset hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(13, 148, 136, 0.35), transparent);
+  margin: 2.2rem 0;
+}
+
+/* Hero card on intro */
+.ebook-hero {
+  margin: 0 0 1.75rem;
+  padding: 2.35rem 2.15rem 2rem;
+  border-radius: var(--ebook-radius);
+  background:
+    radial-gradient(ellipse 80% 70% at 90% 110%, rgba(94, 234, 212, 0.35), transparent 55%),
+    linear-gradient(135deg, #042f2e 0%, #0f766e 48%, #14b8a6 120%);
+  color: #f8fafc;
+  box-shadow:
+    0 24px 50px rgba(15, 23, 42, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+  position: relative;
+  overflow: hidden;
+}
+.ebook-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 40%);
+  pointer-events: none;
+}
+.ebook-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto -20% -40% 40%;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent 65%);
+  pointer-events: none;
+}
+.ebook-hero .eyebrow {
+  font-family: var(--ebook-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin: 0 0 0.7rem;
+  position: relative;
+  z-index: 1;
+}
+.ebook-hero h1 {
+  color: #fff !important;
+  margin: 0 0 0.8rem !important;
+  font-size: clamp(1.85rem, 4vw, 2.55rem) !important;
+  border: none !important;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.15);
+}
+.ebook-hero p {
+  margin: 0;
+  max-width: 38rem;
+  font-size: 1.06rem;
+  line-height: 1.58;
+  opacity: 0.94;
+  position: relative;
+  z-index: 1;
+}
+.ebook-hero .meta {
+  margin-top: 1.25rem;
+  font-size: 0.82rem;
+  opacity: 0.8;
+  letter-spacing: 0.01em;
+  position: relative;
+  z-index: 1;
+}
+.ebook-hero .meta a {
+  color: #fff !important;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* CTA row */
+.ebook-start {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin: 1.15rem 0 2.15rem;
+  align-items: center;
+}
+.ebook-start a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.62rem 1.2rem;
+  border-radius: 999px;
+  background: var(--ebook-primary);
+  color: #fff !important;
+  text-decoration: none !important;
+  font-weight: 600;
+  font-size: 0.92rem;
+  letter-spacing: 0.01em;
+  box-shadow: 0 10px 24px var(--ebook-glow-strong);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+.ebook-start a:hover {
+  background: var(--ebook-deep);
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px var(--ebook-glow-strong);
+}
+.ebook-start a.secondary {
+  background: transparent;
+  color: var(--ebook-deep) !important;
+  border: 1px solid rgba(15, 118, 110, 0.28);
+  box-shadow: none;
+}
+.ebook-start a.secondary:hover {
+  background: var(--ebook-glow);
+  border-color: var(--ebook-primary);
+  transform: none;
+  box-shadow: none;
+}
+
+/* Contents list */
+.chapter-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.35rem 0 2.5rem;
+  border-top: 1px solid rgba(127, 127, 127, 0.12);
+}
+.chapter-list li {
+  margin: 0;
+  max-width: none !important;
+  border-bottom: 1px solid rgba(127, 127, 127, 0.12);
+}
+.chapter-list a {
+  display: flex;
+  gap: 0.95rem;
+  align-items: baseline;
+  padding: 0.78rem 0.55rem;
+  margin: 0 -0.35rem;
+  border-radius: 0.5rem;
+  text-decoration: none !important;
+  color: inherit !important;
+  transition: color 0.15s ease, background 0.15s ease, padding-left 0.15s ease;
+}
+.chapter-list a:hover {
+  color: var(--ebook-primary) !important;
+  background: var(--ebook-glow);
+  padding-left: 0.85rem;
+}
+.chapter-list .num {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--ebook-primary);
+  min-width: 2.1rem;
+  font-size: 0.86rem;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+/* Figures, tables, code */
 .md-typeset img {
   display: block;
-  margin: 1em auto;
+  margin: 1.35em auto;
   max-width: 100%;
-  height: auto;
+  border-radius: 0.7rem;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
 }
-.disclaimer-banner {
-  border-left: 4px solid #c9a227;
-  padding: 0.6rem 1rem;
-  background: rgba(201, 162, 39, 0.08);
-  margin: 1rem 0 1.5rem;
-  font-size: 0.85rem;
+.md-typeset table {
+  font-size: 0.88rem;
+  border-radius: 0.55rem;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(127, 127, 127, 0.12);
 }
-figcaption, .figure-caption {
-  font-size: 0.85rem;
-  color: var(--md-default-fg-color--light);
-  text-align: left;
-  margin-top: 0.35rem;
+.md-typeset table th {
+  background: var(--ebook-glow);
+  font-weight: 600;
+  color: var(--ebook-deep);
+}
+.md-typeset code {
+  font-size: 0.86em;
+  border-radius: 0.3rem;
+  padding: 0.1em 0.35em;
+}
+.md-typeset pre > code {
+  padding: 0;
+  border-radius: 0;
+}
+
+/* Math breathing room */
+.md-typeset .arithmatex,
+.md-typeset mjx-container {
+  margin: 0.85em 0;
+}
+
+/* Admonitions — teal family */
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: 0.7rem;
+  border-left-width: 0.22rem;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.05);
+}
+.md-typeset .admonition.note,
+.md-typeset details.note {
+  border-color: var(--ebook-primary);
+}
+.md-typeset .admonition.note > .admonition-title,
+.md-typeset details.note > summary {
+  background: var(--ebook-glow);
+}
+
+/* Opening callouts in chapters */
+.md-typeset h2#opening + p {
+  padding: 1rem 1.2rem;
+  border-left: 3px solid var(--ebook-primary);
+  background:
+    linear-gradient(90deg, var(--ebook-glow), rgba(13, 148, 136, 0.04));
+  border-radius: 0 0.7rem 0.7rem 0;
+  font-size: 1.01rem;
+  line-height: 1.65;
+  max-width: var(--ebook-measure);
+  box-shadow: 0 1px 0 rgba(13, 148, 136, 0.08);
+}
+
+/* TOC sidebar polish */
+.md-nav--secondary .md-nav__link {
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+.md-nav--secondary .md-nav__title {
+  font-size: 0.88rem;
+}
+
+/* Footer */
+.md-footer {
+  background: transparent !important;
+  border-top: 1px solid rgba(127, 127, 127, 0.14);
+}
+.md-footer-meta {
+  background: transparent !important;
+}
+.md-copyright {
+  font-size: 0.75rem;
+  opacity: 0.85;
+}
+.md-footer__link {
+  transition: opacity 0.15s ease;
+}
+.md-footer__title {
+  font-family: var(--ebook-serif);
+  font-size: 0.95rem;
+}
+
+/* Focus for keyboard readers */
+.md-typeset a:focus-visible,
+.ebook-start a:focus-visible,
+.chapter-list a:focus-visible,
+.md-nav__link:focus-visible {
+  outline: 2px solid var(--ebook-primary);
+  outline-offset: 2px;
+}
+
+/* Dark (slate) scheme */
+[data-md-color-scheme="slate"] {
+  --ebook-ink: #f1f5f9;
+  --ebook-muted: #94a3b8;
+  --ebook-glow: rgba(45, 212, 191, 0.12);
+  --ebook-glow-strong: rgba(45, 212, 191, 0.22);
+}
+[data-md-color-scheme="slate"] .md-main {
+  background:
+    radial-gradient(1000px 440px at 0% 0%, var(--ebook-glow), transparent 55%),
+    radial-gradient(800px 360px at 100% 10%, rgba(201, 162, 39, 0.05), transparent 50%),
+    radial-gradient(500px 280px at 40% 100%, rgba(13, 148, 136, 0.06), transparent 55%);
+}
+[data-md-color-scheme="slate"] .md-typeset h1 {
+  color: #f8fafc;
+}
+[data-md-color-scheme="slate"] .md-typeset h2 {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+[data-md-color-scheme="slate"] .md-typeset h4 {
+  color: #5eead4;
+}
+[data-md-color-scheme="slate"] .md-nav__title {
+  color: #5eead4;
+}
+[data-md-color-scheme="slate"] .ebook-start a.secondary {
+  color: #5eead4 !important;
+  border-color: rgba(94, 234, 212, 0.28);
+}
+[data-md-color-scheme="slate"] .ebook-start a.secondary:hover {
+  background: rgba(45, 212, 191, 0.1);
+}
+[data-md-color-scheme="slate"] .chapter-list a:hover {
+  background: rgba(45, 212, 191, 0.08);
+}
+[data-md-color-scheme="slate"] .md-typeset table th {
+  background: rgba(45, 212, 191, 0.1);
+  color: #99f6e4;
+}
+[data-md-color-scheme="slate"] .md-typeset blockquote,
+[data-md-color-scheme="slate"] .md-typeset h2#opening + p {
+  background: rgba(45, 212, 191, 0.08);
+}
+[data-md-color-scheme="slate"] .md-nav__link--active {
+  background: rgba(45, 212, 191, 0.1);
+  box-shadow: inset 3px 0 0 #2dd4bf;
+}
+[data-md-color-scheme="slate"] .ebook-hero {
+  box-shadow:
+    0 28px 56px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+}
+
+/* Responsive hero / CTAs */
+@media (max-width: 44em) {
+  .ebook-hero {
+    padding: 1.65rem 1.35rem 1.5rem;
+    border-radius: 0.95rem;
+  }
+  .ebook-hero h1 {
+    font-size: 1.85rem !important;
+  }
+  .ebook-start a {
+    width: 100%;
+    justify-content: center;
+  }
+  .md-typeset h1 {
+    font-size: 1.9rem;
+  }
+  .chapter-list a {
+    padding: 0.7rem 0.25rem;
+  }
 }

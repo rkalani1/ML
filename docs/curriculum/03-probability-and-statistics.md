@@ -1,10 +1,6 @@
 # Chapter 3. Probability and Statistics
 
-<div class="disclaimer-banner" markdown="1">
-**Web Edition — original teaching text.** Educational only; not medical advice. No commercial handbook prose, paper abstracts, or publisher figures.
-</div>
-
-## Web Edition clinical frame
+## Opening
 
 A hemorrhage-risk model quotes sensitivity 0.92 and specificity 0.88. Without prevalence, Bayes, and calibration language, those numbers are theater. This chapter rebuilds the probability spine for clinical ML consumers.
 
