@@ -58,6 +58,8 @@ extra_javascript:
   - javascripts/mathjax.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
+use_directory_urls: false
+
 extra_css:
   - stylesheets/extra.css
 
@@ -71,21 +73,21 @@ nav:
   - Book:
     - "01. Mathematical Foundations for Machine Learning": curriculum/00-mathematical-foundations-for-machine-learning.md
     - "02. Preface": curriculum/00a-preface.md
-    - "03. Basic Concepts of Machine Learning and Artificial…": curriculum/01-basic-concepts-of-machine-learning-and-artificial-intelligence.md
+    - "03. Basic Concepts of Machine Learning and Artificial...": curriculum/01-basic-concepts-of-machine-learning-and-artificial-intelligence.md
     - "04. Visualization": curriculum/02-visualization.md
     - "05. Probability and Statistics": curriculum/03-probability-and-statistics.md
     - "06. Clustering": curriculum/04-clustering.md
-    - "07. Frequent Itemset Mining, Sequence Mining, and Inf…": curriculum/05-frequent-itemset-mining-sequence-mining-and-information-retrieval.md
+    - "07. Frequent Itemset Mining, Sequence Mining, and Inf...": curriculum/05-frequent-itemset-mining-sequence-mining-and-information-retrieval.md
     - "08. Feature Engineering": curriculum/06-feature-engineering.md
     - "09. Dimensionality Reduction and Data Decomposition": curriculum/07-dimensionality-reduction-and-data-decomposition.md
     - "10. Regression Analysis": curriculum/08-regression-analysis.md
     - "11. Classification": curriculum/09-classification.md
     - "12. Neural Networks and Deep Learning": curriculum/10-neural-networks-and-deep-learning.md
     - "13. Self-Supervised Deep Learning": curriculum/11-self-supervised-deep-learning.md
-    - "14. Deep Learning Models and Applications for Text, V…": curriculum/12-deep-learning-models-and-applications-for-text-vision-and-audio.md
+    - "14. Deep Learning Models and Applications for Text, V...": curriculum/12-deep-learning-models-and-applications-for-text-vision-and-audio.md
     - "15. Reinforcement Learning": curriculum/13-reinforcement-learning.md
-    - "16. Making Lighter Neural Network and Machine Learnin…": curriculum/14-making-lighter-neural-network-and-machine-learning-models.md
+    - "16. Making Lighter Neural Network and Machine Learnin...": curriculum/14-making-lighter-neural-network-and-machine-learning-models.md
     - "17. Graph Mining Algorithms": curriculum/15-graph-mining-algorithms.md
     - "18. Concepts and Challenges of Working with Data": curriculum/16-concepts-and-challenges-of-working-with-data.md
-    - "19. Closing Synthesis: Senior Practice in Clinical Ne…": curriculum/17-closing-synthesis-senior-practice.md
+    - "19. Closing Synthesis: Senior Practice in Clinical Ne...": curriculum/17-closing-synthesis-senior-practice.md
     - "20. Selected Glossary": curriculum/18-selected-glossary.md
