@@ -44,9 +44,9 @@ Delayed consequences: myopic greedy choices can destroy long-horizon value.
 
 At discrete time steps t = 0, 1, 2, … the agent observes a state S_t drawn from a state space S (which may be discrete or continuous, fully or partially observed). It selects an action A_t from an action set A(S_t), or from a global action set A. The environment responds with a reward R_{t+1} and a next state S_{t+1}. The interaction produces a trajectory S_0, A_0, R_1, S_1, A_1, R_2, … . Conventionally the reward is indexed by the time at which it is received, so R_{t+1} is the immediate consequence of taking A_t in S_t.
 
-!!! note "Figure concept (text diagram) 13.1"
+![13.1: The agent-environment interaction loop. At each discrete step the agent, following its policy π(a|s), selects an action ](../assets/figures/ml_concept_13.1_48097877.png)
 
-    The agent-environment interaction loop. At each discrete step the agent, following its policy π(a|s), selects an action a_t; the environment applies its transition kernel P(s'|s,a) and reward function R and returns the next state s_{t+1} and reward r_{t+1}, which the agent uses to choose its next action. Iterating produces the trajectory S_0, A_0, R_1, S_1, A_1, R_2, …; by convention the reward R_{t+1} is indexed to the time it is received, so it is the immediate consequence of taking A_t in S_t.
+*Figure 13.1 — original teaching graphic.*
 
 The agent’s behavior is summarized by a policy pi. A deterministic policy maps states to actions: a = pi(s). A stochastic policy specifies a distribution over actions, written pi(a|s) = P(A_t = a | S_t = s). Stochastic policies are essential for exploration and for domains with imperfect information.
 
@@ -76,9 +76,9 @@ Discounting serves two purposes. First, it makes infinite-horizon returns finite
 
 A classic teaching environment is a small grid of cells. Each cell is a state; actions are the four compass moves {N, S, E, W}; some cells are walls; one cell is a terminal goal with reward +1; stepping into a pit yields -1 and terminates. A small living reward (for example -0.04 per step) encourages shorter paths. Transitions may be deterministic (intended move always succeeds) or stochastic (with probability p the agent slips sideways). With a known transition model, dynamic programming produces a value heat map and arrows for the greedy policy. Students should implement a 4x3 or 5x5 grid, run value iteration with gamma = 0.9, and verify that values decrease with distance from the goal and that the policy points along shortest safe paths. Stochastic slips create a risk-reward trade-off: a path hugging a cliff may be shorter in expectation under deterministic dynamics but catastrophic under slip noise—an analogy to aggressive versus conservative clinical pathways under outcome uncertainty.
 
-!!! note "Figure concept (text diagram) 13.2"
+![13.2: A deterministic 4×3 gridworld Markov decision process solved by value iteration (γ = 0.9, step cost −0.04). Each open ce](../assets/figures/ml_concept_13.2_70530ae2.png)
 
-    A deterministic 4×3 gridworld Markov decision process solved by value iteration (γ = 0.9, step cost −0.04). Each open cell is shaded by its optimal state value V*(s), printed in the cell, and carries an arrow for the greedy optimal action π*(s) = argmax_a Q*(s,a). Values decay with distance from the +1 goal in the upper-right corner; the policy flows toward the goal along the shortest safe path while steering around the −1 hazard and the central wall—for example, the cell directly below the hazard moves west rather than north.
+*Figure 13.2 — original teaching graphic.*
 
 # Tiny deterministic gridworld sketch (educational)
 # States: 0..n*m-1; actions: 0=N,1=S,2=E,3=W
@@ -185,9 +185,9 @@ print(V, pi) # ~ s1:18, s2:20; Go, Stay
 
 A multi-armed bandit is an MDP with a single state (or i.i.d. rounds): each action a (“arm”) yields a stochastic reward with unknown mean mu_a, and the goal is to maximize cumulative reward over T pulls. There is no long-term state transition, so the problem isolates exploration. Regret is the gap between the reward of always pulling the best arm and the reward actually obtained.
 
-!!! note "Figure concept (text diagram) 13.4"
+![13.4: Cumulative regret on a fixed six-armed Bernoulli bandit, averaged over 300 simulated runs. Pure greedy (ε = 0) frequentl](../assets/figures/ml_concept_13.4_ef666085.png)
 
-    Cumulative regret on a fixed six-armed Bernoulli bandit, averaged over 300 simulated runs. Pure greedy (ε = 0) frequently locks onto a suboptimal arm and accrues steeply linear regret; ε-greedy (ε = 0.1) keeps exploring and so also grows linearly but far more slowly; UCB1, which adds an exploration bonus c·√(ln t / N(a)), shifts adaptively from exploration to exploitation and attains the lowest, sub-linear regret—an illustration of optimism in the face of uncertainty.
+*Figure 13.4 — original teaching graphic.*
 
 ### Epsilon-Greedy
 
@@ -303,9 +303,9 @@ return pi
 
 Temporal-difference (TD) methods combine ideas from MC and DP: they learn from sampled experience (like MC) but bootstrap from current value estimates (like DP). The one-step TD target for policy evaluation is R_{t+1} + gamma V(S_{t+1}). The update is
 
-!!! note "Figure concept (text diagram) 13.5"
+![13.5: Backup diagrams contrasting how three families of methods estimate a value. Open circles are states, filled dots are act](../assets/figures/ml_concept_13.5_19e18b4d.png)
 
-    Backup diagrams contrasting how three families of methods estimate a value. Open circles are states, filled dots are actions, and the square is a terminal state. Monte Carlo (left) samples one complete trajectory and backs up the full return G_t. TD(0) (center) takes a single sampled step and then bootstraps, using the target R_{t+1} + γV(S_{t+1}). Dynamic programming (right) takes no samples at all, instead averaging over every successor through the full expectation Σ_{s'} P(s'|s,a)[R + γV(s')].
+*Figure 13.5 — original teaching graphic.*
 
 V(S_t) <- V(S_t) + alpha [ R_{t+1} + gamma V(S_{t+1}) - V(S_t) ],
 
@@ -505,9 +505,9 @@ Audit equity: age, race/ethnicity, language, insurance, transferring hospital.
 
 A practical workflow for an RL problem is: (1) define observations, actions, episode termination, and reward; (2) build a simulator or logging pipeline; (3) choose a baseline that is not RL if possible (contextual bandit, model-predictive control with a model, imitation learning); (4) if sequential credit assignment is essential, start with a simple method—tabular Q-learning or DQN for discrete actions, PPO or SAC for continuous control; (5) monitor not only return but constraint violations and qualitative failure modes; (6) ablate exploration, discount, and network capacity; (7) for clinical domains, interrogate reward misspecification, off-policy coverage, and ethical constraints before any policy leaves the lab.
 
-!!! note "Figure concept (text diagram) 13.6"
+![13.6: A taxonomy of the reinforcement-learning algorithms surveyed in the chapter, organized into three families. Value-based ](../assets/figures/ml_concept_13.6_7c00d06e.png)
 
-    A taxonomy of the reinforcement-learning algorithms surveyed in the chapter, organized into three families. Value-based methods (Q-learning, DQN, Double DQN, Dueling DQN, and prioritized experience replay) learn action values and act greedily; policy-gradient methods (REINFORCE, TRPO, PPO) optimize a parameterized policy directly; and actor-critic methods (A3C, DDPG, TD3, SAC, and the latent world-model agent Dreamer) pair a learned policy with a learned value critic. Most modern algorithms are recombinations of these same Bellman-backup and on- versus off-policy ingredients.
+*Figure 13.6 — original teaching graphic.*
 
 Understanding Bellman backups and on- versus off-policy learning is more valuable than memorizing every acronym: new algorithms almost always remix these ingredients. Relative to supervised learning, expect higher variance across seeds, greater sensitivity to implementation details, and a larger role for domain knowledge in reward and state design. Relative to planning with a perfect model, expect sample inefficiency when learning from scratch in high dimensions—hence the importance of simulation, demonstration data, and transfer.
 

@@ -82,6 +82,42 @@ class EbookSiteTests(unittest.TestCase):
                 f"{name} should not be public docs root",
             )
 
+    def test_css_responsive_and_print(self) -> None:
+        css = (self.docs / "stylesheets" / "extra.css").read_text(encoding="utf-8")
+        self.assertIn("@media print", css)
+        self.assertTrue(
+            "max-width: 768px" in css or "max-width:768px" in css,
+            "tablet breakpoint missing",
+        )
+        self.assertTrue(
+            "max-width: 480px" in css or "max-width:480px" in css,
+            "phone breakpoint missing",
+        )
+        self.assertIn(".md-header", css)
+        self.assertIn("display: none", css)
+
+    def test_no_figure_concept_admonitions(self) -> None:
+        hits = 0
+        for p in (self.docs / "curriculum").glob("*.md"):
+            hits += p.read_text(encoding="utf-8", errors="replace").count(
+                "Figure concept (text diagram)"
+            )
+        self.assertEqual(hits, 0, f"leftover text-diagram callouts: {hits}")
+
+    def test_math_verify_script_passes(self) -> None:
+        import subprocess
+
+        script = self.root / "scripts" / "verify_math_examples.py"
+        self.assertTrue(script.exists(), "verify_math_examples.py missing")
+        r = subprocess.run(
+            [sys.executable, str(script)],
+            capture_output=True,
+            text=True,
+            cwd=str(self.root),
+        )
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        self.assertIn("ALL_PASS", r.stdout)
+
 
 if __name__ == "__main__":
     # Preserve path arg for setUpClass via module-level ROOT

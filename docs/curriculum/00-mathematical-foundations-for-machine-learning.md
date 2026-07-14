@@ -195,9 +195,9 @@ One worked case can illustrate a claim but never proves a universal (“∀”) 
 
 ## 0.2 Numbers, Algebra, Exponents, and Logarithms
 
-!!! note "Figure concept (text diagram) 0.1"
+![0.1: Exponential and logarithm are inverse functions (reflected across y = x); a log scale turns exponential growth into a st](../assets/figures/ml_concept_0.1_b95475b9.png)
 
-    Exponential and logarithm are inverse functions (reflected across y = x); a log scale turns exponential growth into a straight line.
+*Figure 0.1 — original teaching graphic.*
 
 ### The real line and basic arithmetic
 
@@ -429,9 +429,9 @@ Answers. 1. A ∪ B = {1, 2, 3, 4, 5}; A ∩ B = {3, 4}; A B = {1, 2}; the state
 
 Machine learning is, at bottom, a great deal of adding and multiplying — the same operation repeated over thousands of data points, features, or parameters. Rather than write “add up all of these” in words, mathematics has a compact shorthand. This section teaches that shorthand and then the closely related art of counting: how many ways can something happen? Counting is the seed of probability (Chapter 3) and of the data-compression codes you will meet in Chapter 14.
 
-!!! note "Figure concept (text diagram) 0.3"
+![0.3: The geometric series Σ (1/2)ⁿ: terms shrink while the partial sums converge to 2.](../assets/figures/ml_concept_0.3_860b37f0.png)
 
-    The geometric series Σ (1/2)ⁿ: terms shrink while the partial sums converge to 2.
+*Figure 0.3 — original teaching graphic.*
 
 ### Sigma notation: the summation sign Σ
 
@@ -632,9 +632,9 @@ The general pattern — C(n, k) ways, each with probability pᵏ(1−p)^(n−k) 
 
 Trigonometry began as the study of triangles, but its modern payload is the description of anything that repeats: waves, oscillations, rotations, and cycles. In machine learning, sine and cosine appear in three headline places — the sinusoidal position codes inside transformers (Chapter 12), the Fourier and wavelet features for signals (Chapter 7), and the angle-based similarity of vectors (Chapters 4 and 5). We build the ideas from a single circle.
 
-!!! note "Figure concept (text diagram) 0.4"
+![0.4: On the unit circle, cos θ and sin θ are the coordinates of the point at angle θ; tracing θ generates the sine wave.](../assets/figures/ml_concept_0.4_09e1caeb.png)
 
-    On the unit circle, cos θ and sin θ are the coordinates of the point at angle θ; tracing θ generates the sine wave.
+*Figure 0.4 — original teaching graphic.*
 
 ### Degrees versus radians (and why radians win)
 
@@ -780,9 +780,9 @@ a·b = 1·0 + 0·1 + 1·1 = 1; |a| = √2, |b| = √2; cos θ = 1/(√2·√2) =
 
 Almost everything in machine learning comes down to one question: if I nudge this knob a tiny bit, how much does my error change? The mathematics that answers “how much does one thing change when another changes” is calculus. It rests on a single idea — the limit — so we start there, slowly.
 
-!!! note "Figure concept (text diagram) 0.5"
+![0.5: The derivative as a limit: as spacing h shrinks, secant slopes approach the tangent slope (2 at x = 1).](../assets/figures/ml_concept_0.5_b229f9ea.png)
 
-    The derivative as a limit: as spacing h shrinks, secant slopes approach the tangent slope (2 at x = 1).
+*Figure 0.5 — original teaching graphic.*
 
 ### The intuition of a limit: approaching, not arriving
 
@@ -898,9 +898,9 @@ So for y = x² we may write f′(x) = 2x or dy/dx = 2x interchangeably.
 
 Computing every derivative from the limit definition would be exhausting. Fortunately a small set of rules lets us differentiate almost any formula by inspection. We collect them, prove the one that matters most (the chain rule, which powers backpropagation), and then use them to find the bottom of a loss curve — the core task of training a model.
 
-!!! note "Figure concept (text diagram) 0.6"
+![0.6: Optima occur where f′ = 0. A convex function has one global minimum; a non-convex one can have several critical points.](../assets/figures/ml_concept_0.6_1492d114.png)
 
-    Optima occur where f′ = 0. A convex function has one global minimum; a non-convex one can have several critical points.
+*Figure 0.6 — original teaching graphic.*
 
 ### The rules of differentiation
 
@@ -1007,9 +1007,9 @@ Second-derivative test. Often faster. At a critical point c where f′(c) = 0: -
 
 A function is convex on an interval when f″(x) ≥ 0 throughout — it curves upward everywhere, like a bowl. Convexity is the property optimizers dream of: a convex function has no false valleys. Any critical point is automatically the global minimum, so gradient descent cannot get trapped in a lesser dip. Much of the design of loss functions is an effort to keep them convex, or nearly so.
 
-!!! note "Figure concept (text diagram) 0.13"
+![0.13: Gradient descent: stepping along the negative gradient walks the iterate down a convex loss surface to its minimum.](../assets/figures/ml_concept_0.13_6ef7569c.png)
 
-    Gradient descent: stepping along the negative gradient walks the iterate down a convex loss surface to its minimum.
+*Figure 0.13 — original teaching graphic.*
 
 ### Worked minimization 1: the loss L(w) = (w − 3)² + 1
 
@@ -1056,9 +1056,9 @@ Minimize L(w) = 2w² − 8w + 3. Differentiate: L′(w) = 4w − 8. Set to zero:
 
 Differentiation breaks a total into its instantaneous rate. Integration runs the film backward: it accumulates a rate back into a total, and — read geometrically — it measures the area under a curve. For an epidemiologist this is the natural language of probability: the chance of an outcome is an area under a density curve.
 
-!!! note "Figure concept (text diagram) 0.7"
+![0.7: The definite integral is the area under a curve; under a probability density that area is a probability.](../assets/figures/ml_concept_0.7_a3194c90.png)
 
-    The definite integral is the area under a curve; under a probability density that area is a probability.
+*Figure 0.7 — original teaching graphic.*
 
 ### The antiderivative (indefinite integral)
 
@@ -1212,9 +1212,9 @@ By the chain rule, s′(x) = (1/(1 + eˣ))·eˣ = eˣ/(1 + eˣ). Multiply numera
 
 In sections 0.6–0.8 we learned to differentiate a function of one variable: given f(x), the derivative f′(x) tells us the slope, the rate at which f changes as we nudge x. But almost nothing in machine learning depends on a single number. A neural network’s loss depends on thousands or millions of weights at once. A logistic regression for stroke risk depends on age, blood pressure, glucose, and a dozen other inputs simultaneously. To train these models we must ask: if I nudge this input a little, holding all the others fixed, how does the output respond? And then: what is the single best direction to nudge everything at once?
 
-!!! note "Figure concept (text diagram) 0.8"
+![0.8: The gradient is perpendicular to the contour lines and points in the direction of steepest ascent; its negative points d](../assets/figures/ml_concept_0.8_a2f19287.png)
 
-    The gradient is perpendicular to the contour lines and points in the direction of steepest ascent; its negative points downhill.
+*Figure 0.8 — original teaching graphic.*
 
 That is the subject of this section. It is the mathematical engine of every optimizer you will meet in this book. We build it up from the ground, leaning only on single-variable derivatives (0.6–0.8) and on vectors and matrices (0.10–0.11).
 
@@ -1558,9 +1558,9 @@ Step 𝐝 = (0.2, −0.1). Linear term ∇fᵀ𝐝 = 4·0.2 + 13·(−0.1) = 0.8
 
 Almost everything in machine learning begins by turning a real-world object — a patient, an image, a word, a day of case counts — into a list of numbers. That list is a vector, and the mathematics of vectors is the grammar that the rest of this book speaks. This section builds that grammar from nothing. If you can add, multiply, and take a square root, you have every prerequisite you need.
 
-!!! note "Figure concept (text diagram) 0.9"
+![0.9: Vector operations: addition by the parallelogram rule, projection onto another vector, and the angle encoded by the dot ](../assets/figures/ml_concept_0.9_9d68b349.png)
 
-    Vector operations: addition by the parallelogram rule, projection onto another vector, and the angle encoded by the dot product.
+*Figure 0.9 — original teaching graphic.*
 
 ### Two pictures of a vector
 
@@ -1795,9 +1795,9 @@ Every advanced idea later in the book is assembled from these seven bricks.
 
 A single vector describes one data point. But we never have just one patient — we have a whole cohort, and we want to transform all of them at once. The object that holds many vectors, and that acts on vectors to transform them, is the matrix.
 
-!!! note "Figure concept (text diagram) 0.10"
+![0.10: A matrix acts as a linear transformation, mapping the unit square to a rotated/scaled or sheared image.](../assets/figures/ml_concept_0.10_702284c9.png)
 
-    A matrix acts as a linear transformation, mapping the unit square to a rotated/scaled or sheared image.
+*Figure 0.10 — original teaching graphic.*
 
 ### Two pictures of a matrix
 
@@ -2128,9 +2128,9 @@ Answers.
 
 ## 0.12 Eigenvalues, Eigenvectors, and Matrix Decompositions
 
-!!! note "Figure concept (text diagram) 0.11"
+![0.11: A matrix turns the unit circle into an ellipse; eigenvectors are the directions only stretched, by the eigenvalues λ.](../assets/figures/ml_concept_0.11_2667d291.png)
 
-    A matrix turns the unit circle into an ellipse; eigenvectors are the directions only stretched, by the eigenvalues λ.
+*Figure 0.11 — original teaching graphic.*
 
 ### The idea: directions a matrix only stretches
 
@@ -2324,9 +2324,9 @@ Suppose two standardized features have covariance matrix [[2, 1], [1, 2]] — ou
 
 Probability is the mathematics of uncertainty. As a clinician you already reason probabilistically every day — a positive test raises your suspicion, a negative one lowers it — but you do so with intuition. This section gives you the formal machinery behind that intuition. We build only the foundations you need to reach Chapter 3, which develops statistics, estimation, and inference in depth. Here we cover the grammar: outcomes, events, the rules that combine them, Bayes’ theorem, and the two objects that dominate machine learning — random variables and their expectations.
 
-!!! note "Figure concept (text diagram) 0.12"
+![0.12: Bayes' theorem in natural frequencies: a 90%-accurate test still yields a low positive predictive value when disease is ](../assets/figures/ml_concept_0.12_59812f8d.png)
 
-    Bayes' theorem in natural frequencies: a 90%-accurate test still yields a low positive predictive value when disease is rare (PPV ≈ 0.08 at 1% prevalence).
+*Figure 0.12 — original teaching graphic.*
 
 ### Sample space, events, and the three axioms
 
@@ -2636,9 +2636,9 @@ Answers.
 
 Continuous mathematics (calculus, linear algebra) describes smooth quantities. Discrete mathematics describes countable, separated things: sets, relationships, networks, and the step-by-step cost of algorithms. This section equips you with the vocabulary of structure and the arithmetic of scale.
 
-!!! note "Figure concept (text diagram) 0.14"
+![0.14: Asymptotic growth of common complexity classes; the gap between O(n log n) and O(n²) or O(2ⁿ) decides what is computable](../assets/figures/ml_concept_0.14_93423239.png)
 
-    Asymptotic growth of common complexity classes; the gap between O(n log n) and O(n²) or O(2ⁿ) decides what is computable at scale.
+*Figure 0.14 — original teaching graphic.*
 
 ### Sets, relations, and functions
 

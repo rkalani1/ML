@@ -38,9 +38,9 @@ Apply these stacks to stroke imaging and clinical NLP with leakage, hallucinatio
 
 Sequence-to-sequence (seq2seq) models map an input sequence (tokens, frames, time points) to an output sequence of possibly different length—machine translation, summarization, speech recognition, discharge-summary generation. The classic encoder–decoder RNN compresses the input into a single fixed vector passed to the decoder. That bottleneck discards positional detail for long inputs and motivates attention: at each decoder step, compute a weighted average of encoder states rather than a single summary. Clinical sequence pairs include: EMS narrative → structured last-known-well and anticoagulant flags; radiology impressions → ICD-style codes; serial NIHSS plus vitals → free-text deterioration alerts. Length mismatch and domain vocabulary make attention and subword tokenization essential rather than optional.
 
-!!! note "Figure concept (text diagram) 12.1"
+![12.1: Sequence-to-sequence generation with attention. An encoder reads the source tokens (bottom) into hidden states h_s; as t](../assets/figures/ml_concept_12.1_7132e488.png)
 
-    Sequence-to-sequence generation with attention. An encoder reads the source tokens (bottom) into hidden states h_s; as the decoder emits each structured target token (top, left to right) it forms attention weights α_{t,s} over those states and reads a context vector c_t = Σ_s α_{t,s} h_s. Line width is proportional to α_{t,s}, so the learned alignment is legible: 'AC =' attends to 'on'/'warfarin', the copied 'warfarin' and '2.6' align to their source tokens, and 'INR =' aligns to 'INR'. Attention removes the single fixed-vector bottleneck of the classic encoder–decoder, letting long or reordered inputs map faithfully to the output.
+*Figure 12.1 — original teaching graphic.*
 
 Before Transformers, attention was a module bolted onto RNNs; after Transformers, attention is the primary computational motif and recurrence is optional. This chapter traces that shift, then surveys the application stacks that dominate text, vision, and audio practice—including efficient sequence models that try to escape quadratic attention cost. Each section ends with enough operational detail for a neurologist–epidemiologist to critique papers and protocols, not merely recognize acronyms. Where older curricula stopped at word2vec and simple RNNs, contemporary practice requires fluency with multi-head attention, instruction tuning, detection metrics, and speech foundation models because those are what appear in grant aims and vendor demos. Reading this chapter with a pencil: for each architecture family, write one stroke-system use case, one failure mode, and one metric that would convince a skeptical QI committee.
 
@@ -76,17 +76,17 @@ Self-attention passes X_q = X_kv (one sequence contextualizes itself); cross-att
 
 Transformers replace recurrence with stacked self-attention and position-wise feedforward layers, enabling full parallelization over sequence length during training. Residual (skip) connections around sublayers plus layer normalization stabilize deep stacks: output = LayerNorm(x + Sublayer(x)) (pre-norm variants reorder operations).
 
-!!! note "Figure concept (text diagram) 12.2"
+![12.2: The Transformer encoder–decoder. Inputs are token-embedded and summed with positional encodings, then passed through N e](../assets/figures/ml_concept_12.2_9dae343b.png)
 
-    The Transformer encoder–decoder. Inputs are token-embedded and summed with positional encodings, then passed through N encoder blocks of multi-head self-attention and a position-wise feed-forward network, each wrapped by a residual skip and layer normalization (Add & Norm): output = LayerNorm(x + Sublayer(x)). Each decoder block adds masked (causal) multi-head self-attention—so position t cannot attend to future tokens—and multi-head cross-attention whose keys and values come from the encoder memory (dashed), before its own feed-forward and Add & Norm; a final Linear + Softmax yields the next-token probability distribution.
+*Figure 12.2 — original teaching graphic.*
 
 ### Positional encoding
 
 Bare attention is permutation-equivariant: without position information, bag-of-tokens behavior emerges. Sinusoidal positional encodings add fixed functions of position index to embeddings; learned absolute position embeddings are alternative; relative position biases and rotary embeddings (RoPE) encode pairwise geometry more flexibly for long contexts. Medical notes and genomic sequences both stress long-context positional design. Extrapolation beyond training context lengths is imperfect: a model trained at 4k tokens may degrade at 32k without specialized positional schemes or continued training. For chart summarization, explicit retrieval of the relevant note sections often beats stuffing entire longitudinal records into a fragile long context.
 
-!!! note "Figure concept (text diagram) 12.3"
+![12.3: Sinusoidal positional encoding PE[pos, i]. Even dimensions use PE = sin(pos / 10000^{2i/d}) and odd dimensions use cos, ](../assets/figures/ml_concept_12.3_0a3122e9.png)
 
-    Sinusoidal positional encoding PE[pos, i]. Even dimensions use PE = sin(pos / 10000^{2i/d}) and odd dimensions use cos, with d = 64. Because bare self-attention is permutation-equivariant, these fixed position-dependent vectors are added to token embeddings to inject order. The geometric progression of frequencies makes low dimensions (left) oscillate rapidly while high dimensions (right) vary slowly, giving every position a unique, smoothly varying code whose relative offsets can be recovered by linear operations.
+*Figure 12.3 — original teaching graphic.*
 
 ### Multi-head attention and architecture
 
@@ -128,9 +128,9 @@ LLM evaluation mixes automatic and human protocols. General benchmarks include l
 
 LeNet pioneered CNN digit recognition with conv–pool stacks and dense layers. AlexNet reignited deep vision at ImageNet scale with ReLU, dropout, and GPU training. VGG showed that deep stacks of small 3×3 convolutions work well. GoogLeNet/Inception introduced multi-branch modules mixing 1×1, 3×3, 5×5 convolutions and pooling in parallel, with 1×1 bottlenecks for efficiency; later Inception-v4 and Inception-ResNet hybridize residual links. ResNet introduced identity skip connections so deep nets train by learning residual functions F(x) with output x+F(x), enabling hundreds of layers and remaining a default medical imaging backbone.
 
-!!! note "Figure concept (text diagram) 12.4"
+![12.4: Vision Transformer (ViT) patch embedding. An image (here a head-CT-like scene) is split into a grid of non-overlapping p](../assets/figures/ml_concept_12.4_25ef3fd6.png)
 
-    Vision Transformer (ViT) patch embedding. An image (here a head-CT-like scene) is split into a grid of non-overlapping patches (3×3 shown); each patch is flattened and linearly projected to a token embedding, a learnable [class] token is prepended, and learned position embeddings E_i are added. The token sequence is then processed by a standard Transformer encoder (L layers of multi-head self-attention + MLP), and the final [class]-token state feeds an MLP head that outputs the image label. Treating vision as a sequence problem rivals CNNs given sufficient data or pretraining.
+*Figure 12.4 — original teaching graphic.*
 
 Vision Transformers (ViT) split images into patch tokens, embed them linearly, add position encodings, and run Transformer encoders—treating vision as a sequence problem. With sufficient data or strong distillation/pretraining, ViTs match or exceed CNNs; hybrids combine convolutional stems with Transformer towers. For stroke CT with smaller labeled sets, CNN inductive bias (locality, translation equivariance) still helps unless domain-specific pretraining is strong. Transfer learning recipes should log which layers were frozen, what input normalization matched pretraining, and whether grayscale CT was replicated across RGB channels—an example of reproducibility detail that reviewers and regulators increasingly expect.
 
@@ -150,9 +150,9 @@ Single Shot MultiBox Detector (SSD) predicts boxes and classes from multi-scale 
 
 Semantic segmentation labels each pixel with a class (ischemic lesion vs background). Instance segmentation separates object instances (each hemorrhage component). U-Net’s encoder–decoder with skips is the clinical default for biomedical segmentation. Fully convolutional networks (FCN) replace dense layers with convolutions for spatial outputs and upsample coarse score maps. Mask R-CNN extends Faster R-CNN with a parallel mask head on RoI features for instance masks. DeepLab models use atrous (dilated) convolutions and atrous spatial pyramid pooling for multi-scale context; v3+ adds a decoder module for sharper boundaries.
 
-!!! note "Figure concept (text diagram) 12.5"
+![12.5: Detection versus segmentation on the same scene. Object detection (left) localizes each instance with a bounding box and](../assets/figures/ml_concept_12.5_fe60984f.png)
 
-    Detection versus segmentation on the same scene. Object detection (left) localizes each instance with a bounding box and a class-confidence score (a hyperdense ICH at 0.94 and a smaller candidate at 0.61) and is scored by box overlap (IoU, mAP). Semantic and instance segmentation (right) instead assign a class label to every pixel—hemorrhage, perilesional edema, and a second lesion—and are scored by region overlap (Dice) and boundary distance (Hausdorff). The task dictates the output structure, the annotation cost, and the evaluation metric.
+*Figure 12.5 — original teaching graphic.*
 
 Segment Anything Model (SAM) is a promptable foundation model for segmentation: a heavy image encoder, a prompt encoder (points, boxes, masks), and a lightweight mask decoder produce masks zero-shot across domains. SAM v1 popularized interactive annotation acceleration; SAM v2 extends tracking/segmentation in videos. In stroke research, SAM-assisted labeling can cut mask time, but clinical deployment still needs task-specific validation—promptable generality is not the same as approved CAD.
 
@@ -178,9 +178,9 @@ wav2vec models learn speech representations from unlabeled audio via contrastive
 
 Consider a decoder step with query q = [1.0, 0.0] and three encoder keys k1=[1.0,0.0], k2=[0.0,1.0], k3=[0.7,0.7], with values equal to keys for simplicity and d_k=2 so √d_k=√2≈1.414. The dot products q·k_i are 1.0, 0.0, and 0.7 (only the first component of q is nonzero, so each score reads off the first component of the key). Dividing by √2 gives scaled scores 0.707, 0.000, and 0.495. Exponentiate: exp(0.707)≈2.028, exp(0.000)=1.000, exp(0.495)≈1.640, which sum to 2.028+1.000+1.640=4.668. Softmax divides each exponential by that sum, giving weights α≈[2.028/4.668, 1.000/4.668, 1.640/4.668]=[0.434, 0.214, 0.351] (these sum to 1.000—a useful check). The attention output is the weighted sum 0.434·k1 + 0.214·k2 + 0.351·k3: the x-coordinate is 0.434·1.0 + 0.214·0.0 + 0.351·0.7 = 0.434 + 0.246 = 0.680, and the y-coordinate is 0.434·0.0 + 0.214·1.0 + 0.351·0.7 = 0.214 + 0.246 = 0.460, so the output ≈ [0.680, 0.460]. The query preferentially weights the aligned key k1 (largest α) while still mixing in context from k2 and k3, and the output lands between the keys, pulled toward k1 and k3. Had we skipped the 1/√d_k scaling, the ranking would be unchanged but the weights would be sharper (α≈[0.474, 0.174, 0.351], more mass on k1)—exactly the softmax saturation that scaling is designed to temper.
 
-!!! note "Figure concept (text diagram) 12.6"
+![12.6: Scaled dot-product self-attention weights for the chapter's three-token example. Tokens t_1 = [1,0], t_2 = [0,1], t_3 = ](../assets/figures/ml_concept_12.6_76dbd7a2.png)
 
-    Scaled dot-product self-attention weights for the chapter's three-token example. Tokens t_1 = [1,0], t_2 = [0,1], t_3 = [0.7,0.7] serve as queries, keys, and values; each row is α = softmax(QKᵀ / √d_k) with d_k = 2. The highlighted first row reproduces the worked example: scaled scores [0.707, 0, 0.495] give α = [0.434, 0.214, 0.351] and context αV = [0.680, 0.460], pulled toward the aligned key t_1 while still mixing in t_3. Every row sums to 1.000; the 1/√d_k scaling tempers the softmax so the weights do not saturate.
+*Figure 12.6 — original teaching graphic.*
 
 Causal mask example for length 3: the allowed attention pattern is lower-triangular—each position attends to itself and earlier positions only. Position 0 attends to key 0; position 1 attends to keys 0 and 1, with key 2 (a future token) masked; position 2 attends to keys 0, 1, and 2. Masked entries are set to −∞ before the softmax so their weight α=0 (since exp(−∞)=0). During training of GPT-style models, this same triangular mask is applied at every layer and every position in parallel, so the prediction at position t never sees tokens after t—essential for valid next-token likelihoods, and the reason a single forward pass yields a training signal for all positions at once.
 

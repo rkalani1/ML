@@ -48,9 +48,9 @@ An artificial unit computes a weighted sum of inputs plus bias, then applies a n
 
 The classical perceptron (Rosenblatt) is a binary linear classifier with a hard threshold: predict sign(w^T x + b). The perceptron learning rule updates weights when a training example is misclassified: w ← w + η y x for label y ∈ {−1, +1}. If data are linearly separable, the perceptron converges to a separating hyperplane; if not, it cycles. With sigmoid or identity activations, a single unit recovers logistic or linear regression as special cases of a one-layer network.
 
-!!! note "Figure concept (text diagram) 10.1"
+![10.1: A multilayer perceptron with three input units, one hidden layer of four ReLU units, and two output units, fully connect](../assets/figures/ml_concept_10.1_3dca7021.png)
 
-    A multilayer perceptron with three input units, one hidden layer of four ReLU units, and two output units, fully connected between adjacent layers. Each hidden or output unit computes h^(l) = phi(W^(l) h^(l-1) + b^(l)); stacking these affine-then-nonlinear maps is what lets depth build hierarchical features that a single linear map cannot.
+*Figure 10.1 — original teaching graphic.*
 
 The multilayer perceptron (MLP), or fully connected feedforward network, stacks layers: h^{(0)} = x, h^{(ℓ)} = φ(W^{(ℓ)} h^{(ℓ−1)} + b^{(ℓ)}), and an output layer produces scores or probabilities. Hidden width, depth, and activation choice define capacity. Matrix notation keeps implementations efficient: a batch of inputs X ∈ R^{n×d} multiplies weight matrices so hardware accelerates dense linear algebra. Residual connections add a block’s input to its output to ease gradient flow in very deep stacks. For tabular EHR inputs, MLPs with modest width, strong regularization, and careful preprocessing often suffice; architecture search rarely substitutes for clean labels and honest validation. Width versus depth trade-offs are empirical: very wide shallow nets can approximate well but may overfit differently than deep thin nets. In practice, start with two or three hidden layers of moderate width (e.g., 64–512 units), ReLU, and AdamW with weight decay, then adjust only when learning curves demand it.
 
@@ -86,9 +86,9 @@ Hellinger distance between discrete distributions p and q is H(p, q) = (1/√2) 
 
 Stochastic gradient descent approximates the full-batch gradient with a mini-batch average: θ ← θ − η ∇_θ L_batch. Noise can help escape sharp minima. Learning rate η is the most sensitive hyperparameter. Batch size interacts with learning rate: larger batches yield stabler gradients but may require warmup and higher η.
 
-!!! note "Figure concept (text diagram) 10.3"
+![10.3: Optimizer trajectories on an elongated quadratic bowl f = (1/2)(theta_1^2 + 9 theta_2^2), whose ill-conditioning forms a](../assets/figures/ml_concept_10.3_69b59ac6.png)
 
-    Optimizer trajectories on an elongated quadratic bowl f = (1/2)(theta_1^2 + 9 theta_2^2), whose ill-conditioning forms a narrow valley. Plain SGD zig-zags across the steep axis, momentum accumulates velocity and accelerates along the gentle axis while overshooting slightly, and Adam rescales each coordinate by its own gradient history to follow a more direct path to the minimum.
+*Figure 10.3 — original teaching graphic.*
 
 ### Exponentially weighted averages, momentum, and Nesterov
 
@@ -112,9 +112,9 @@ Adam/AdamW: robust defaults; watch weight-decay decoupling and overfitting on sm
 
 Training minimizes loss by gradient descent on parameters. Backpropagation applies the chain rule from the loss backward through the computational graph. If L depends on z and z = w · h, then ∂L/∂w = (∂L/∂z) · h and ∂L/∂h = (∂L/∂z) · w (scalars for intuition; tensors use Jacobians). Each module implements a forward map and a local gradient rule; automatic differentiation frameworks generate these from the forward program.
 
-!!! note "Figure concept (text diagram) 10.4"
+![10.4: The worked forward and backward pass for the chapter's tiny network (inputs x = [1, 2], label y = 1). The forward pass (](../assets/figures/ml_concept_10.4_9fe947e7.png)
 
-    The worked forward and backward pass for the chapter's tiny network (inputs x = [1, 2], label y = 1). The forward pass (black) gives z1 = [0.0, 0.8], h = ReLU(z1), logit z2 = -0.40, p = sigma(z2) = 0.4013, and binary cross-entropy L = 0.913. Backpropagation (rose) applies the chain rule: delta2 = p - y = -0.599 flows back to dL/dh = [-0.36, 0.30], the ReLU gate zeros the first unit's gradient, and the parameter gradients dL/dW1 and dL/dW2 follow.
+*Figure 10.4 — original teaching graphic.*
 
 ### Worked numerical forward and backward sketch
 
@@ -182,9 +182,9 @@ Split by patient (and site) before any normalization or augmentation fit.
 
 Convolutional layers exploit spatial structure. A filter (kernel) of small spatial size slides over the input, computing local dot products and producing feature maps. Strictly, many frameworks implement cross-correlation (no kernel flip) but call it convolution; for learned filters the distinction is absorbed into the weights. Weight sharing means the same filter detects a pattern regardless of location—translation equivariance of feature maps. Multiple filters learn diverse patterns. Stacking convolutions with nonlinearities and pooling (or strided convolutions) builds larger receptive fields.
 
-!!! note "Figure concept (text diagram) 10.5"
+![10.5: A convolutional stage on a 6x6 input. A 3x3 kernel (the highlighted receptive field) slides with stride 1 to produce a 4](../assets/figures/ml_concept_10.5_626b3e54.png)
 
-    A convolutional stage on a 6x6 input. A 3x3 kernel (the highlighted receptive field) slides with stride 1 to produce a 4x4 feature map through valid cross-correlation followed by ReLU; a 2x2 max-pool with stride 2 then downsamples it to 2x2. Weight sharing means the same kernel detects its pattern at every location, yielding translation-equivariant feature maps with far fewer parameters than a dense layer on the flattened image.
+*Figure 10.5 — original teaching graphic.*
 
 ### CNN architecture
 
@@ -202,9 +202,9 @@ Sequential data (text, time series, audio frames, EEG windows) invite models wit
 
 A vanilla RNN overwrites its whole hidden state each step, so information must survive repeated multiplication by W_h and repeated squashing by φ; across long horizons the product of Jacobians shrinks toward zero (vanishing) or blows up (exploding). Gated cells fix this by adding an explicitly protected memory and learned valves that decide what to keep, overwrite, and expose.
 
-!!! note "Figure concept (text diagram) 10.6"
+![10.6: An LSTM cell. The cell state c_t runs along the top as a protected memory highway, altered only by a forget-gate element](../assets/figures/ml_concept_10.6_82d22f93.png)
 
-    An LSTM cell. The cell state c_t runs along the top as a protected memory highway, altered only by a forget-gate elementwise multiply and an additive write of the input gate times the tanh candidate. Three sigmoid gates (forget, input, output) and the tanh candidate are all computed from the concatenated [h_{t-1}, x_t]; the output gate exposes o_t (elementwise) tanh(c_t) as the hidden state h_t. The additive cell-state path is the constant error carousel that lets gradients flow across long sequences.
+*Figure 10.6 — original teaching graphic.*
 
 Long short-term memory (LSTM) carries a cell state c_t (protected long-term memory) alongside the hidden state h_t (the exposed working copy). Writing [h_{t−1}, x_t] for the concatenated previous hidden state and current input, each step computes three sigmoid gates in (0,1) and one tanh candidate:
 

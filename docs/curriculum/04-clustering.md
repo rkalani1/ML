@@ -42,9 +42,9 @@ This chapter develops similarity measures, partitioning methods (k-means/median/
 
 Most clustering methods need a distance d(x,y) or a similarity s(x,y). Distance choice is a modeling decision: it defines which patients are ‘near.’ Always standardize or otherwise scale continuous features before Euclidean geometry unless units are already commensurate. State the measure explicitly—results can flip under L1 versus L2, or under Jaccard versus Hamming for binary comorbidity vectors.
 
-!!! note "Figure concept (text diagram) 4.1"
+![4.1: Unit balls and iso-distance contours around the origin for the Euclidean (L2), Manhattan (L1), and Mahalanobis metrics (](../assets/figures/ml_concept_4.1_6c43a3ff.png)
 
-    Unit balls and iso-distance contours around the origin for the Euclidean (L2), Manhattan (L1), and Mahalanobis metrics (Σ = [[1, 0.5], [0.5, 1]]). The bold rose curve is the unit ball (d = 1). Because Mahalanobis distance down-weights the correlated 'grain,' its unit ball stretches along the (1, 1) direction, so a with-grain step reaches farther than an against-grain step of equal Euclidean length.
+*Figure 4.1 — original teaching graphic.*
 
 ### Euclidean and Manhattan distances
 
@@ -115,9 +115,9 @@ K-median replaces squared Euclidean loss with L1 (or general distance) and updat
 
 Cluster six points in R² with k = 2. Think of axis 1 as a standardized age-like coordinate and axis 2 as a standardized severity-like coordinate; numbers are chosen for clean arithmetic.
 
-!!! note "Figure concept (text diagram) 4.2"
+![4.2: Lloyd's algorithm for k-means (k = 2) on the six-point toy set: (a) initialize centroids at μ1 = (1, 1) and μ2 = (7, 6);](../assets/figures/ml_concept_4.2_d79fde27.png)
 
-    Lloyd's algorithm for k-means (k = 2) on the six-point toy set: (a) initialize centroids at μ1 = (1, 1) and μ2 = (7, 6); (b) assign each point to its nearest centroid, giving clusters {A, B, C} and {D, E, F}; (c) update centroids to the cluster means μ1 = (4/3, 4/3) and μ2 = (19/3, 6). Assignments are then stable and the within-cluster sum of squares is J = 4.
+*Figure 4.2 — original teaching graphic.*
 
 # Points and initialization
 A,B,C = (1,1),(1,2),(2,1)
@@ -135,9 +135,9 @@ Interpretation: the algorithm recovered the two visual clumps. Poor initializati
 
 ## Density-Based Methods: DBSCAN and OPTICS
 
-!!! note "Figure concept (text diagram) 4.3"
+![4.3: Two interleaving moons (generated with numpy) clustered two ways. (a) DBSCAN (ε = 0.20, minPts = 6) chains through dense](../assets/figures/ml_concept_4.3_a8c7db03.png)
 
-    Two interleaving moons (generated with numpy) clustered two ways. (a) DBSCAN (ε = 0.20, minPts = 6) chains through dense neighborhoods and recovers both crescents with no noise points; (b) k-means (k = 2), constrained to spherical clusters, cuts straight across the moons and mixes them.
+*Figure 4.3 — original teaching graphic.*
 
 ### DBSCAN
 
@@ -179,9 +179,9 @@ OPTICS (Ordering Points To Identify the Clustering Structure) extends density cl
 
 Agglomerative hierarchical clustering begins with each point alone and merges closest clusters until one remains; the history is a dendrogram. Divisive methods start with one cluster and recursively split.
 
-!!! note "Figure concept (text diagram) 4.4"
+![4.4: Agglomerative hierarchical clustering (average linkage, Euclidean) of the six toy points, drawn as a dendrogram. The com](../assets/figures/ml_concept_4.4_0c668308.png)
 
-    Agglomerative hierarchical clustering (average linkage, Euclidean) of the six toy points, drawn as a dendrogram. The compact triplets {A, B, C} and {D, E, F} merge at low height and join only near height 6.9; the amber cut line recovers the two-cluster partition.
+*Figure 4.4 — original teaching graphic.*
 
 ### Single-linkage (SLINK)
 
@@ -251,9 +251,9 @@ Soft elliptical blobs → GMM/EM; soft non-generative → Fuzzy C-means.
 
 Intrinsic indices answer: ‘How compact and separated is this partition under distance d?’ They do not answer: ‘Is this the disease taxonomy we should write into guidelines?’ Still, they are useful for rejecting absurd k and for comparing algorithms on the same feature space. Elbow plots of WSS versus k for k-means on the six-point toy data would show a large drop from k=1 to k=2 and smaller gains thereafter—consistent with the visual two-clump structure—but even a clear elbow can be wrong under label shift or feature leakage.
 
-!!! note "Figure concept (text diagram) 4.6"
+![4.6: Per-sample silhouette coefficients s(i) for a three-cluster dataset, sorted within each cluster. Longer bars indicate po](../assets/figures/ml_concept_4.6_ee0aedbb.png)
 
-    Per-sample silhouette coefficients s(i) for a three-cluster dataset, sorted within each cluster. Longer bars indicate points that fit their cluster far better than the nearest alternative; the rose dashed line is the mean silhouette (0.77). The full distribution, not the mean alone, reveals whether any cluster is a poorly separated dumping ground.
+*Figure 4.6 — original teaching graphic.*
 
 Silhouette analysis should be reported as a distribution, not only a mean. A mean silhouette of 0.5 with a mass of negative silhouettes in one purported cluster means that cluster is a dumping ground. In clinical data, negative silhouettes often flag patients with mixed physiology or with features dominated by a site effect. Dunn’s index is sensitive to the single worst cluster diameter and the single closest pair of clusters—high variance, but good at flagging near-merges. Davies–Bouldin averages similarity ratios; it is convenient and, like silhouette, prefers convex-ish clusters, so it can unfairly punish legitimate elongated DBSCAN structures.
 

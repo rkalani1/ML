@@ -94,9 +94,9 @@ LZW: adaptive dictionary; good for repetitive streams without a prior model.
 
 A wearable cardiac patch classifies each detected beat into one of six event codes and streams that code sequence to a phone over a low-power radio. To cut bandwidth (and therefore battery drain) we entropy-code the stream. Over one monitoring window it logs 100 beats with the empirical counts below (toy data). We convert counts to probabilities by dividing by 100.
 
-!!! note "Figure concept (text diagram) 14.1"
+![14.1: The Huffman code built for the wearable beat stream, whose six event codes N, S, V, A, P, Q occur 40, 25, 15, 10, 6, and](../assets/figures/ml_concept_14.1_50ca232a.png)
 
-    The Huffman code built for the wearable beat stream, whose six event codes N, S, V, A, P, Q occur 40, 25, 15, 10, 6, and 4 times per 100-beat window. Repeatedly merging the two lowest-weight nodes (P+Q=10, then +A=20, +V=35, +S=60, +N=100) yields a maximally skewed tree; labelling each branch 0/1 gives the prefix-free codewords 0, 10, 110, 1110, 11110, 11111. The average length L = sum_i p_i L_i = 2.25 bits/symbol beats the 3-bit fixed-length code (225 vs 300 bits per window, a 25% saving) and sits just above the entropy floor H = 2.20 bits, while the Kraft sum of 2^(-L_i) = 1 confirms a complete prefix code.
+*Figure 14.1 — original teaching graphic.*
 
 | Symbol | Meaning (toy) | Count | Probability p |
 | --- | --- | --- | --- |
@@ -213,9 +213,9 @@ Worked intuition. Suppose x in R^100 must be reconstructed. A dense code uses 10
 
 Quantization represents continuous values with a smaller discrete set. Vector quantization (VQ) and cluster quantization map vectors to a codebook of centroids (k-means style); encoding stores the centroid index rather than the full vector. VQ-VAE and product quantization (which splits each vector into subvectors and quantizes each subvector with its own small codebook, so a handful of indices approximate a high-dimensional vector—the workhorse of billion-scale approximate nearest-neighbor search) in retrieval systems use related ideas. Scalar quantization maps each number independently.
 
-!!! note "Figure concept (text diagram) 14.2"
+![14.2: Amplitude quantization of a smooth full-scale (plus/minus 1) signal onto a uniform 3-bit grid. Three bits give 2^3 = 8 l](../assets/figures/ml_concept_14.2_504238ed.png)
 
-    Amplitude quantization of a smooth full-scale (plus/minus 1) signal onto a uniform 3-bit grid. Three bits give 2^3 = 8 levels spaced by step Delta = 2/7 (about 0.286), so the continuous curve (indigo) is replaced by the staircase (amber) that snaps each sample to its nearest level, encoded 000 to 111 on the right axis. The shaded band is the quantization error; the bit-width sets the resolution exponentially (n bits map to 2^n levels), so more bits mean a finer grid and smaller error at the cost of storage.
+*Figure 14.2 — original teaching graphic.*
 
 Non-uniform quantization and signal companding. Human perception and many signals have wide dynamic range. µ-law and A-law companding (classic telephony) apply a logarithmic-like transform before uniform quantization so that small amplitudes get finer effective resolution. The µ-law compressor is roughly F(x) = sign(x) ln(1+µ|x|)/ln(1+µ) for |x|<=1 (telephony uses µ=255); expand after transmission. The A-law variant is piecewise. These remind us that uniform int8 grids can waste levels on rarely used tails; learned or logarithmic quantizers sometimes help audio and sensor streams.
 
@@ -242,9 +242,9 @@ def affine_quantize(x, n_bits=8):
 
 Pruning sets selected weights or structures to zero (or removes them) so that computation and storage shrink. Key design choices: what to prune (weights, neurons, channels, heads, blocks), when to prune (one-shot after training, iterative prune-retrain, or during training), and structured versus unstructured sparsity.
 
-!!! note "Figure concept (text diagram) 14.3"
+![14.3: Magnitude pruning of a small fully-connected network (4-6-3 units, 42 weights). On the left every weight is drawn with w](../assets/figures/ml_concept_14.3_b3c32e6a.png)
 
-    Magnitude pruning of a small fully-connected network (4-6-3 units, 42 weights). On the left every weight is drawn with width and opacity proportional to its magnitude and coloured by sign; on the right the low-magnitude edges have been set to zero, removing 23 of 42 weights (54.8% sparsity) and leaving only the high-magnitude connections. This unstructured sparsity shrinks storage but needs sparse kernels to gain speed on dense hardware, which is why structured pruning of whole neurons or channels is usually preferred for edge CPUs.
+*Figure 14.3 — original teaching graphic.*
 
 Unstructured pruning can reach high sparsity in theory but needs sparse kernels or special hardware to gain latency. Structured pruning removes channels, filters, attention heads, or entire residual blocks, yielding dense smaller tensors that ordinary BLAS and conv libraries accelerate immediately.
 
@@ -264,9 +264,9 @@ Always fine-tune after pruning; one-shot pruning often over-destroys accuracy.
 
 Full fine-tuning of large language or vision models updates all parameters and stores a separate copy per task—prohibitive when many clinical sites or tasks share a foundation model. Low-Rank Adaptation (LoRA) freezes the pretrained weights W0 and injects trainable low-rank updates: W = W0 + B A, where B is d x r, A is r x k, and rank r << min(d,k). Only A and B are trained (often with scaling alpha/r). At inference, BA can be merged into W0 so there is no extra latency, or kept separate for multi-tenant adapters.
 
-!!! note "Figure concept (text diagram) 14.4"
+![14.4: Low-Rank Adaptation (LoRA). The pretrained weight matrix W0 (d x d) is frozen and the per-task update is factored as a p](../assets/figures/ml_concept_14.4_07afc635.png)
 
-    Low-Rank Adaptation (LoRA). The pretrained weight matrix W0 (d x d) is frozen and the per-task update is factored as a product of two trainable low-rank matrices, W = W0 + B A, with B of shape d x r and A of shape r x d for rank r much smaller than d. For d = 1024 and r = 8, full fine-tuning would train d^2 = 1,048,576 parameters per task whereas LoRA trains only 2dr = 16,384 (a 64x reduction, about 1.6%); because B A can be merged back into W0 at inference, the adapter adds no extra latency.
+*Figure 14.4 — original teaching graphic.*
 
 LoRA is a parameter-efficient fine-tuning method, not a general compressor of the base model, but it makes specialization light: many small adapters can sit on one frozen backbone. Variants include QLoRA (LoRA on quantized bases), higher-rank or adaptive-rank schemes, and related adapters (prefix tuning, which prepends trainable key/value vectors to each attention layer; (IA)^3, which learns per-channel rescaling vectors). For multi-hospital NLP, train a shared clinical LLM backbone once, then LoRA-adapt to local note styles without shipping full model copies. Evaluate whether adapter merge preserves safety behaviors and whether low rank underfits rare local phenotypes.
 
@@ -300,9 +300,9 @@ Curriculum learning orders examples from easy to hard (or from common to rare ph
 
 Knowledge distillation trains a smaller student model to mimic a larger teacher. Hard targets are one-hot labels; soft targets are the teacher’s probability distribution over classes, which carry dark knowledge about similarities (e.g., confusing ischemic subtypes). Softmax temperature T flattens distributions: p_i = exp(z_i/T) / sum_j exp(z_j/T). Higher T reveals more inter-class structure; the distillation loss often scales by T^2 when using cross-entropy on soft targets (so that soft-target gradients keep a magnitude comparable to the hard-label term as T grows). A balancing factor alpha mixes soft distillation loss with hard label loss on the transfer set (data used for distillation—labeled or unlabeled): L = alpha * T^2 * CE(soft_student, soft_teacher) + (1 - alpha) * CE(student, hard_labels).
 
-!!! note "Figure concept (text diagram) 14.5"
+![14.5: Knowledge distillation. A large teacher's logits are passed through a temperature-scaled softmax, p_i = exp(z_i/T) / sum](../assets/figures/ml_concept_14.5_b3ee7a22.png)
 
-    Knowledge distillation. A large teacher's logits are passed through a temperature-scaled softmax, p_i = exp(z_i/T) / sum_j exp(z_j/T), to produce soft targets that a small edge student mimics alongside the hard labels. Raising the temperature from T = 1 to T = 4 on the teacher logits z = [2.0, 1.0, 0.1] flattens the distribution from [0.66, 0.24, 0.10] to [0.42, 0.32, 0.26], exposing the inter-class similarities (the 'dark knowledge'). The student minimises L = alpha T^2 CE(soft) + (1 - alpha) CE(hard), where the T^2 factor keeps the soft-target gradient comparable in magnitude to the hard-label term as T grows.
+*Figure 14.5 — original teaching graphic.*
 
 Training recipe: train teacher well; choose student architecture that fits the edge budget; run distillation on a transfer set representative of deployment; tune T and alpha; validate student calibration and failure modes. Architectures include response-based distillation (logits), feature-based (match intermediate maps), and relation-based (match pairwise structures). For stroke imaging, a heavy ensemble teacher can distill into a single student deployable on MSU hardware—if the transfer set includes the MSU’s scanner characteristics.
 
@@ -354,9 +354,9 @@ complementary methods multiply gains: a distilled, pruned, int8 student with GQA
 
 Consider a pedagogical CNN for binary ICH-vs-no-ICH on downsampled slices: two convolutional blocks (16 then 32 filters, 3x3 kernels) and a 64-unit dense head. Approximate parameter counts: first conv 1*16*3*3 + 16 = 160; second 16*32*3*3 + 32 = 4640; dense if flattened spatial size is 8x8x32=2048 inputs: 2048*64+64=131136; logits 64*2+2=130; total roughly 136k parameters (~544 KB float32).
 
-!!! note "Figure concept (text diagram) 14.6"
+![14.6: The accuracy-versus-size trade-off for the chapter's tiny ICH CNN and its compressed variants, plotted on a logarithmic ](../assets/figures/ml_concept_14.6_83a085ec.png)
 
-    The accuracy-versus-size trade-off for the chapter's tiny ICH CNN and its compressed variants, plotted on a logarithmic size axis. Using the section's parameter counts and AUROC values, the fp32 baseline (about 544 KB, 0.91), int8 quantization (about 136 KB, 0.89), structured pruning (about 409 KB, 0.90), the distilled student (about 102 KB, 0.905), and a larger teacher ensemble (0.93) trace a Pareto frontier (dashed) through the non-dominated models. Distillation lifts the smallest model onto the frontier, while pruning or quantization applied on their own remain dominated by it.
+*Figure 14.6 — original teaching graphic.*
 
 Apply structured pruning of 25% of channels after the second conv (32->24 filters), reducing that layer’s parameters by 25% and shrinking the dense input from 2048 to 1536 features (8*8*24), cutting the dense layer from 131k to about 98k parameters—often the dominant saving. Fine-tune two epochs. Then PTQ to int8 on weights: storage falls ~4x on remaining weights if activations stay float16. Measure: suppose full float32 AUROC 0.91; pruned 0.90; int8 0.89 on a balanced research set. On an MSU tablet, latency might drop from 180 ms to 70 ms. Whether 0.89 is acceptable depends on decision utility, not leaderboard pride.
 

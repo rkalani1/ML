@@ -42,9 +42,9 @@ Dimensionality reduction and matrix decomposition seek lower-dimensional structu
 
 Consider points drawn uniformly in the d-dimensional unit hypercube. The volume of a thin shell near the boundary dominates as d grows; most mass sits near the surface, not the center. For Gaussian distributions, most probability mass concentrates in a thin annular region at a radius that grows like √d. Pairwise Euclidean distances between random points become relatively similar, so nearest-neighbor search for “similar stroke phenotypes” loses contrast when features are numerous, weakly scaled, and noisy.
 
-!!! note "Figure concept (text diagram) 7.1"
+![7.1: Two faces of the curse of dimensionality for points drawn uniformly in the unit hypercube. (a) The ratio of each query p](../assets/figures/ml_concept_7.1_1766b92d.png)
 
-    Two faces of the curse of dimensionality for points drawn uniformly in the unit hypercube. (a) The ratio of each query point's nearest- to farthest-neighbor distance climbs from near 0 toward 1 as the dimension d grows (median with interquartile band over 60 queries), so nearest-neighbor contrast collapses and distance-based phenotyping loses meaning. (b) The fraction of hypercube volume lying within an outer shell of half-width ε, equal to 1 − (1 − 2ε)^d, rushes to 1, so almost all mass sits near the boundary rather than the center.
+*Figure 7.1 — original teaching graphic.*
 
 Statistically, estimating a full covariance matrix requires on the order of d² parameters; with n ≪ d, the sample covariance is singular and unstable—routine when a multi-lab panel plus comorbidity indicators exceeds the number of ICH admissions in a single-center year. Lipschitz concentration inequalities formalize that smooth functions of many independent variables concentrate tightly, which is both a blessing (stable averages) and a curse (little local structure for learning).
 
@@ -62,9 +62,9 @@ Clinical reality: p ≫ n is normal in imaging-derived and omics stroke research
 
 Principal component analysis (PCA) finds orthogonal directions that capture maximal variance in a centered data matrix. Let X be an n × d matrix with rows as patients (or samples) and columns as features. Form the centered matrix X_c by subtracting the column means. The sample covariance may be written C = (1/n) X_cᵀ X_c (some texts use n−1). PCA solves for unit vectors u that maximize uᵀ C u, the variance of the projected scalar X_c u. The maximizer is the leading eigenvector of C; the maximal variance is the leading eigenvalue λ₁. Subsequent components maximize variance subject to orthogonality to previous directions.
 
-!!! note "Figure concept (text diagram) 7.2"
+![7.2: A scree plot of a covariance eigenvalue spectrum (bars, left axis) with the cumulative fraction of variance explained ov](../assets/figures/ml_concept_7.2_01c9aabd.png)
 
-    A scree plot of a covariance eigenvalue spectrum (bars, left axis) with the cumulative fraction of variance explained overlaid on the right axis. Eigenvalues decay from 5.89 to 0.04, and the first four components already account for 90% of the variance; the elbow of the bars and the flattening of the cumulative curve are the usual visual cues for choosing k. Retaining 80–90% of variance is a compression heuristic, not a guarantee of predictive utility for an outcome such as mRS.
+*Figure 7.2 — original teaching graphic.*
 
 If C = V Λ Vᵀ with eigenvalues λ₁ ≥ λ₂ ≥ ⋯ ≥ λ_d ≥ 0 and orthonormal eigenvectors as columns of V, then the k-dimensional PCA scores are Z = X_c V_k where V_k holds the top k eigenvectors. The fraction of variance explained by component j is λ_j / ∑_i λ_i. Cumulative explained variance guides the choice of k—but “80% variance retained” is not a guarantee of predictive utility for mRS or infarct growth. PCA assumes that large-variance directions are interesting, which fails when the signal is low-variance or when units of measurement arbitrarily inflate variance—hence the common practice of standardizing features before PCA when panels mix mg/dL, mmHg, and seconds.
 
@@ -77,9 +77,9 @@ x₁ = (1, 2), x₂ = (3, 3), x₃ = (5, 4).
 Mean μ = ((1+3+5)/3, (2+3+4)/3) = (3, 3). Centered data:
 x₁_c = (−2, −1), x₂_c = (0, 0), x₃_c = (2, 1).
 
-!!! note "Figure concept (text diagram) 7.3"
+![7.3: The chapter's three-point PCA worked example, with x₂ nudged to (3, 4) so the second component is non-degenerate. The po](../assets/figures/ml_concept_7.3_a11e16f2.png)
 
-    The chapter's three-point PCA worked example, with x₂ nudged to (3, 4) so the second component is non-degenerate. The points are centered on the mean μ; the amber and emerald arrows are the PC1 and PC2 eigenvector axes drawn through μ and scaled by the square root of their eigenvalues. Dashed segments project each point onto the PC1 line (open circles), the coordinate PCA retains. Here λ₁ = 3.38 and λ₂ = 0.18, so PC1 alone keeps 95.1% of the variance.
+*Figure 7.3 — original teaching graphic.*
 
 Form X_c with rows as centered points. Then X_cᵀ X_c = [[8, 4], [4, 2]]. Using C = (1/n) X_cᵀ X_c = [[8/3, 4/3], [4/3, 2/3]]. Eigenvalues solve det(C − λI) = 0. C − λI = [[8/3−λ, 4/3], [4/3, 2/3−λ]]. Determinant: (8/3−λ)(2/3−λ) − (4/3)² = λ² − (10/3)λ. Thus λ(λ − 10/3) = 0. Eigenvalues: λ₁ = 10/3 ≈ 3.333, λ₂ = 0. Two independent identities confirm the algebra before we go further: eigenvalues must sum to the trace, λ₁ + λ₂ = 10/3 = 8/3 + 2/3 ✓, and multiply to the determinant, λ₁ · λ₂ = 0 = det(C) ✓—zero here because C is singular. Data are exactly one-dimensional after centering: all centered points lie on the line spanned by (2, 1).
 
@@ -95,9 +95,9 @@ Truncated SVD keeps the top k components and yields the best rank-k approximatio
 
 The singular value decomposition sits behind truncated-SVD compression and the PCA–SVD link just described, so it repays grinding one small case entirely by hand. Take the 2×2 matrix A = [[1, 2], [2, 1]]. The recipe has four steps: form AᵀA, find its eigenvalues, take square roots for the singular values σ, then read off the best rank-1 approximation.
 
-!!! note "Figure concept (text diagram) 7.4"
+![7.4: Truncated-SVD low-rank approximation of a synthetic nonnegative image, the Eckart–Young optimum in Frobenius norm. Keepi](../assets/figures/ml_concept_7.4_61ba1117.png)
 
-    Truncated-SVD low-rank approximation of a synthetic nonnegative image, the Eckart–Young optimum in Frobenius norm. Keeping only the largest singular triplet (rank 1, σ₁ = 15.4) already captures 92.6% of the squared-Frobenius energy; rank 2 adds the second blob and reaches 99.0%; rank 6 is visually indistinguishable from the full rank-40 image. Retained energy is the matrix analog of PCA's explained-variance fraction and is the mechanism behind truncated-SVD denoising of imaging and term–document matrices.
+*Figure 7.4 — original teaching graphic.*
 
 Because this A is symmetric, Aᵀ = A, so AᵀA = [[1, 2], [2, 1]]·[[1, 2], [2, 1]] = [[5, 4], [4, 5]] (top-left entry 1·1 + 2·2 = 5; each off-diagonal 1·2 + 2·1 = 4). Eigenvalues solve det(AᵀA − λI) = (5 − λ)² − 4² = 0, so (5 − λ)² = 16 and 5 − λ = ±4, giving λ₁ = 9 and λ₂ = 1. Two independent identities confirm the algebra before we continue: the eigenvalues sum to the trace, 9 + 1 = 10 = 5 + 5 ✓, and multiply to the determinant, 9 · 1 = 9 = 25 − 16 ✓. The singular values are the square roots of the eigenvalues: σ₁ = √9 = 3 and σ₂ = √1 = 1.
 
@@ -115,9 +115,9 @@ Unlike PCA, LDA can discard high-variance directions that do not separate labels
 
 The exposition above states Fisher’s criterion abstractly; here we drive the whole computation on two tiny, clearly separable classes so every matrix is checkable by hand. Let Class A = {(1, 1), (2, 1), (1, 2)} and Class B = {(4, 4), (5, 4), (4, 5)}—two small triangular clouds sitting at opposite ends of the (1, 1) diagonal.
 
-!!! note "Figure concept (text diagram) 7.5"
+![7.5: Fisher's linear discriminant versus PCA on two classes that share an elongated within-class covariance. PCA (amber) poin](../assets/figures/ml_concept_7.5_37a7391b.png)
 
-    Fisher's linear discriminant versus PCA on two classes that share an elongated within-class covariance. PCA (amber) points along the direction of maximum total variance, which here does not separate the classes, whereas Fisher's discriminant (violet), proportional to S_W⁻¹(μ_A − μ_B), points along the lower-variance but discriminative axis. The right panels show one-dimensional projections: onto the LDA axis the two classes separate cleanly, but onto the PCA axis they overlap almost completely.
+*Figure 7.5 — original teaching graphic.*
 
 Class means. μ_A = ((1+2+1)/3, (1+1+2)/3) = (4/3, 4/3) ≈ (1.33, 1.33) and μ_B = ((4+5+4)/3, (4+4+5)/3) = (13/3, 13/3) ≈ (4.33, 4.33). Their difference is μ_A − μ_B = (4/3 − 13/3, 4/3 − 13/3) = (−3, −3).
 
@@ -151,9 +151,9 @@ Uniform Manifold Approximation and Projection (UMAP) constructs a fuzzy topologi
 
 Because t-SNE and UMAP optimize local neighborhoods while sacrificing global geometry, a handful of specific misreadings recur in imaging and omics work, each with a clinical failure mode. Cluster size is an artifact: both methods equalize local density, so a tight homogeneous group and a diffuse heterogeneous one can occupy similar map area—never read a cluster’s visual spread as biological heterogeneity or variance. Between-cluster distance is an artifact: two blobs far apart on the page may be no more dissimilar than two that touch, so do not rank subtypes by apparent separation. Point density is an artifact: crowding in the map does not track sample density in feature space. Most dangerous clinically, these methods can tear a genuine continuum into apparently discrete islands, or merge distinct groups into one—a smooth severity gradient (rising infarct volume, a titrated biomarker) can render as several disconnected clusters, inviting a false claim of discrete stroke subtypes when the biology is a continuum.
 
-!!! note "Figure concept (text diagram) 7.6"
+![7.6: Why neighbor-embedding maps must not be read literally. The identical three clusters (n = 130 each) are laid out two way](../assets/figures/ml_concept_7.6_4b3f1db0.png)
 
-    Why neighbor-embedding maps must not be read literally. The identical three clusters (n = 130 each) are laid out two ways, as t-SNE or UMAP would produce at different perplexity or seed settings. Embedding A renders three equal, well-separated islands; Embedding B rearranges the very same points so that cluster 2 appears large and diffuse while the between-cluster gaps change. Cluster area, point density, and inter-cluster distance are artifacts of the embedding, not effect sizes—confirm any candidate clusters in the original feature space.
+*Figure 7.6 — original teaching graphic.*
 
 Two engineering realities sharpen the warning for p ≫ n biomedical data. Spurious clusters form easily: at small perplexity or n_neighbors, even isotropic Gaussian noise fragments into crisp-looking groups, so a compelling map is not evidence that structure exists. And technical variation dominates: in multi-site radiomics the leading axis of a UMAP is often scanner, sequence, or reconstruction kernel; in single-cell or bulk omics it is often library size, batch, or ancestry rather than cell type or disease—and it shifts again if highly-variable-feature selection or normalization changes. The discipline follows directly. Treat every embedding as a hypothesis generator, never proof. Confirm candidate clusters in the original (or PCA-reduced) feature space and quantify separation there—silhouette, or a held-out classifier—not by eye. Overlay known technical covariates (site, scanner, batch, sequencing run, ancestry PCs) and verify the clusters are not merely those. Regenerate the map across several random seeds and a range of perplexity/n_neighbors, keep only structure that persists, and report those settings. In a manuscript, a neighbor-embedding figure should illustrate a conclusion reached by other means, not carry the inferential weight of “natural clusters” by itself.
 

@@ -32,9 +32,9 @@ Map classifiers and metrics to neurologic prediction with phenotype labels, inde
 
 Classification is supervised learning with a discrete target. Given training pairs (x_i, y_i) where x_i lives in a feature space X and y_i belongs to a finite label set Y = {1, …, K}, the goal is to learn a function f: X → Y that assigns labels to new inputs. When K = 2 we speak of binary classification; when K > 2 we speak of multiclass classification. Multilabel problems allow several labels to be active simultaneously and are usually reduced to collections of binary problems or modeled with structured outputs. Throughout this chapter we emphasize mutually exclusive classes unless multilabel is stated.
 
-!!! note "Figure concept (text diagram) 9.1"
+![9.1: Three classifiers induce three boundary geometries on one two-class toy set. k-NN (k = 3) carves piecewise regions that ](../assets/figures/ml_concept_9.1_ac880ae5.png)
 
-    Three classifiers induce three boundary geometries on one two-class toy set. k-NN (k = 3) carves piecewise regions that hug local point clusters, including small islands; a linear/SVM-style rule splits the plane with a single hyperplane; and an axis-aligned CART tree partitions it into rectangles. All three reach high training accuracy (0.92–0.96), but their inductive biases—and therefore how they generalize—differ sharply.
+*Figure 9.1 — original teaching graphic.*
 
 A probabilistic view is often more useful than a hard assignment. Many algorithms estimate scores s_k(x) or class posteriors p(y = k | x). Hard predictions then arise by choosing argmax_k s_k(x), or by thresholding a single score for binary problems. Separating scoring from decision is crucial: the same model can support different operating points for screening versus confirmation, and evaluation should sometimes assess ranking quality rather than a single fixed threshold. Bayes-optimal classification minimizes expected risk under a loss. With 0–1 loss the optimal rule predicts the maximum posterior class; with unequal misclassification costs the optimal threshold shifts. Thinking in terms of risk clarifies why accuracy alone is not always the right objective and why class priors matter.
 
@@ -114,9 +114,9 @@ Locality-sensitive hashing approximates nearest neighbors by hashing items so th
 
 A hard-margin support vector machine (SVM) finds the maximum-margin separating hyperplane between linearly separable classes. In canonical form the constraints are y_i (w^T x_i + b) ≥ 1 and the objective minimizes (1/2)‖w‖², which maximizes the geometric margin 2/‖w‖. Support vectors are the training points that lie on the margin boundaries and determine the solution; points farther away can often be removed without changing the hyperplane. Soft-margin SVM introduces slack variables ξ_i ≥ 0 allowing margin violations and misclassifications, with objective (1/2)‖w‖² + C Σ_i ξ_i. Large C insists on fitting training data tightly; small C prefers a wider margin with more training errors.
 
-!!! note "Figure concept (text diagram) 9.2"
+![9.2: The maximum-margin separating hyperplane w·x + b = 0 with its two margin boundaries (dashed, w·x + b = ±1). The four cir](../assets/figures/ml_concept_9.2_7aa2976a.png)
 
-    The maximum-margin separating hyperplane w·x + b = 0 with its two margin boundaries (dashed, w·x + b = ±1). The four circled points are the support vectors—the only training points that touch the margins and hence determine the solution; every other point could shift or be deleted without moving the boundary. The margin width equals 2/||w||, so maximizing the margin is the same as minimizing ||w||.
+*Figure 9.2 — original teaching graphic.*
 
 ### Kernel trick and kernel functions
 
@@ -134,9 +134,9 @@ Prediction for a kernel SVM sums kernel evaluations against support vectors: cos
 
 A decision tree recursively partitions the feature space. At each internal node a test on one or more features routes examples left or right (or into multiway branches). Leaves store class majorities or class probability estimates. Prediction follows the unique path from root to leaf consistent with the input. Trees handle mixed feature types, provide transparent decision rules, and capture interactions without manual cross-products—but single trees are unstable: small data changes can alter top splits substantially.
 
-!!! note "Figure concept (text diagram) 9.3"
+![9.3: A decision tree for bedside large-vessel-occlusion (LVO) triage. Each internal (indigo) node applies one condition—NIHSS](../assets/figures/ml_concept_9.3_f1a6bd23.png)
 
-    A decision tree for bedside large-vessel-occlusion (LVO) triage. Each internal (indigo) node applies one condition—NIHSS ≥ 6, gaze deviation, severe arm weakness—routing a patient left or right until a leaf assigns a class. Leaf annotations give the subgroup size and LVO fraction; the illustrative counts are internally consistent (children sum to their parent, with root prevalence 66/200 ≈ 0.33). A prediction follows the single root-to-leaf path consistent with the input.
+*Figure 9.3 — original teaching graphic.*
 
 ### ID3
 
@@ -168,9 +168,9 @@ Unpruned trees overfit by isolating individual noisy points. Pre-pruning stops g
 
 Bootstrap aggregating (bagging) trains base learners on bootstrap resamples of the training set and aggregates predictions by majority vote or averaging. Bagging primarily reduces variance of unstable learners such as deep trees. Boosting builds an additive ensemble sequentially, each new learner focusing on residual errors or reweighted hard examples, primarily reducing bias (and potentially variance with shrinkage). Stacking trains a meta-learner on out-of-fold predictions of heterogeneous base models so that the combiner learns when to trust each expert. Soft voting averages calibrated probabilities; hard voting averages labels. Ensembles help most when members make different errors.
 
-!!! note "Figure concept (text diagram) 9.4"
+![9.4: Three ensemble architectures. Bagging trains base learners in parallel on bootstrap resamples and votes/averages to redu](../assets/figures/ml_concept_9.4_d9210e0b.png)
 
-    Three ensemble architectures. Bagging trains base learners in parallel on bootstrap resamples and votes/averages to reduce variance; boosting adds learners sequentially, re-weighting hard examples and combining them as a weighted sum Σ αt·ht to reduce bias; stacking trains a meta-learner on the out-of-fold predictions of heterogeneous base models. Ensembles help most when their members make different errors.
+*Figure 9.4 — original teaching graphic.*
 
 ### Random forests
 
@@ -226,9 +226,9 @@ Accuracy is (TP + TN) / (TP + TN + FP + FN). It is misleading under class imbala
 
 Consider a binary test set of 200 cases with TP = 40, FP = 10, FN = 20, TN = 130. Accuracy = (40 + 130) / 200 = 0.85. Precision = 40 / (40 + 10) = 0.80. Recall = 40 / (40 + 20) ≈ 0.667. F1 = 2 · 0.80 · 0.667 / (0.80 + 0.667) ≈ 0.727. Specificity = 130 / 140 ≈ 0.929. False positive rate = 1 − specificity ≈ 0.071. If each FN costs five times each FP in a triage setting, one may lower the decision threshold to raise recall at the expense of precision. Metrics must match the decision problem, not a default 0.5 threshold.
 
-!!! note "Figure concept (text diagram) 9.5"
+![9.5: Worked confusion-matrix metrics for a binary test set of n = 200 (TP = 40, FN = 20, FP = 10, TN = 130). Reading off the ](../assets/figures/ml_concept_9.5_600c2868.png)
 
-    Worked confusion-matrix metrics for a binary test set of n = 200 (TP = 40, FN = 20, FP = 10, TN = 130). Reading off the margins: accuracy = (40+130)/200 = 0.85, precision (PPV) = 40/50 = 0.80, recall (sensitivity) = 40/60 = 0.667, specificity = 130/140 = 0.929, and F1 = 0.727. Accuracy alone hides the modest recall—only two of every three true positives are caught.
+*Figure 9.5 — original teaching graphic.*
 
 ROC curves plot true positive rate versus false positive rate as the threshold varies. AUC-ROC summarizes ranking quality: probability that a random positive scores higher than a random negative. ROC can look optimistic under severe imbalance. Precision–recall (PR) curves plot precision versus recall and are often more informative when positives are rare; average precision summarizes the PR curve. Calibration asks whether predicted probabilities match empirical frequencies (among cases scored 0.7, about 70% should be positive). Reliability diagrams and expected calibration error (ECE) diagnose miscalibration; Platt scaling or isotonic regression can recalibrate on validation data without changing ranking much.
 
@@ -238,9 +238,9 @@ Class imbalance remedies include resampling (oversample minority, undersample ma
 
 Classification is the workhorse of predictive modeling in neurology: large-vessel occlusion (LVO) versus not, hemorrhagic versus ischemic pathways, TOAST or CCS stroke subtype, malignant MCA edema risk, 90-day functional independence (mRS 0–2), or detection of atrial fibrillation on extended monitoring. Scientific quality depends as much on cohort design and metrics as on the choice among logistic regression, forests, or boosting.
 
-!!! note "Figure concept (text diagram) 9.6"
+![9.6: ROC and precision–recall views of the same strong model on an imbalanced problem (prevalence 10%). The ROC sits far abov](../assets/figures/ml_concept_9.6_ba0d6fb7.png)
 
-    ROC and precision–recall views of the same strong model on an imbalanced problem (prevalence 10%). The ROC sits far above the chance diagonal (AUC = 0.93) and looks near-perfect, yet the PR curve—whose no-skill baseline is the prevalence 0.10, not 0.5—shows precision eroding as recall climbs (average precision = 0.69). When positives are rare, PR analysis is the more honest summary of performance.
+*Figure 9.6 — original teaching graphic.*
 
 Labels rarely fall from the sky. LVO may be defined by CTA/MRA adjudication, by thrombectomy performance (which confounds access and decision-making), or by proxy severity scores. Subtype labels from administrative codes disagree with expert consensus; training on codes and testing on codes can overstate clinical utility. Prefer reference-standard labels on a validation subset even if training uses a scalable computable phenotype. When labels are uncertain, model that uncertainty or perform sensitivity analyses across phenotype definitions.
 
