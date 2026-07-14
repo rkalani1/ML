@@ -1,6 +1,10 @@
 # Preface
 
 ## Opening
+![Skill stack built by this open-source ebook (original).](../assets/figures/ml_fig_skill_stack.png)
+
+*Skill stack built by this open-source ebook (original).*
+
 ![Boundaries of this open-source ebook (original).](../assets/figures/ml_fig_boundaries.png)
 
 *Boundaries of this open-source ebook (original).*
