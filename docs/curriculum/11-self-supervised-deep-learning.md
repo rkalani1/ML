@@ -1,6 +1,10 @@
 # Chapter 11. Self-Supervised Deep Learning
 
 ## Opening
+![Pretext pretrain then clinical fine-tune (original).](../assets/figures/swarm3h_ssl_pipeline.png)
+
+*Pretext pretrain then clinical fine-tune (original).*
+
 
 Labeled stroke images are scarce; unlabeled scans are abundant. Self-supervised pretraining looks attractive until domain shift between scanners and protocols is measured. Read this before believing ‘we barely needed labels.’
 
