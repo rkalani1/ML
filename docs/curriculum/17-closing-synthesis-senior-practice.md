@@ -799,3 +799,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c206 teaching panel 18 (original).](../assets/figures/ml_fig_c206_18.png)
 *Figure — Incident rollback playbook. Synthetic teaching geometry—not a causal claim.*
+
+![c207 teaching panel 18 (original).](../assets/figures/ml_fig_c207_18.png)
+*Figure — Shadow mode dual-write monitor. Synthetic teaching geometry—not a causal claim.*

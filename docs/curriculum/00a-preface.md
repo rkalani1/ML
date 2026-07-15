@@ -754,3 +754,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c206 teaching panel 01 (original).](../assets/figures/ml_fig_c206_01.png)
 *Figure — Fairness slice TPR FPR. Synthetic teaching geometry—not a causal claim.*
+
+![c207 teaching panel 01 (original).](../assets/figures/ml_fig_c207_01.png)
+*Figure — Minimal risk de-identification map. Synthetic teaching geometry—not a causal claim.*
