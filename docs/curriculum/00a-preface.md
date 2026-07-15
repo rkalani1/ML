@@ -859,3 +859,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c241 teaching panel 01 (original).](../assets/figures/ml_fig_c241_01.png)
 *Figure — zCDP rho to epsilon map. Synthetic teaching geometry—not a causal claim.*
+
+![c242 teaching panel 01 (original).](../assets/figures/ml_fig_c242_01.png)
+*Figure — Threat model control path. Synthetic teaching geometry—not a causal claim.*
