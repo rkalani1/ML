@@ -406,3 +406,9 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c90 teaching panel 01 (original).](../assets/figures/ml_fig_c90_01.png)
 *Figure — Dataset card fields for transparency. Synthetic teaching geometry—not a causal claim.*
+
+![c91 teaching panel 01 (original).](../assets/figures/ml_fig_c91_01.png)
+*Figure — CONSORT-like flow for ML cohort. Synthetic teaching geometry—not a causal claim.*
+
+![c92 teaching panel 01 (original).](../assets/figures/ml_fig_c92_01.png)
+*Figure — TRIPOD reporting items sketch. Synthetic teaching geometry—not a causal claim.*

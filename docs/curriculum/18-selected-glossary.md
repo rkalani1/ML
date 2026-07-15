@@ -601,3 +601,9 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 ![c90 teaching panel 19 (original).](../assets/figures/ml_fig_c90_19.png)
 *Figure — Key identities: Bayes, chain, bias-var. Synthetic teaching geometry—not a causal claim.*
+
+![c91 teaching panel 19 (original).](../assets/figures/ml_fig_c91_19.png)
+*Figure — Acronym strip: AUC ECE Brier NLL. Synthetic teaching geometry—not a causal claim.*
+
+![c92 teaching panel 19 (original).](../assets/figures/ml_fig_c92_19.png)
+*Figure — Greek strip: alpha beta gamma lambda. Synthetic teaching geometry—not a causal claim.*
