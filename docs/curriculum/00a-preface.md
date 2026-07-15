@@ -1165,3 +1165,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c343 teaching panel 01 (original).](../assets/figures/ml_fig_c343_01.png)
 *Figure — Fairness review path c343. Synthetic teaching geometry—not a causal claim.*
+
+![c344 teaching panel 01 (original).](../assets/figures/ml_fig_c344_01.png)
+*Figure — Privacy DPIA path c344. Synthetic teaching geometry—not a causal claim.*
