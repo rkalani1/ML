@@ -802,3 +802,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c222 teaching panel 01 (original).](../assets/figures/ml_fig_c222_01.png)
 *Figure — Dual-use capability gate. Synthetic teaching geometry—not a causal claim.*
+
+![c223 teaching panel 01 (original).](../assets/figures/ml_fig_c223_01.png)
+*Figure — Model card section map. Synthetic teaching geometry—not a causal claim.*

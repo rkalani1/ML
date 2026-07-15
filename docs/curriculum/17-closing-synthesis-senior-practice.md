@@ -847,3 +847,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c222 teaching panel 18 (original).](../assets/figures/ml_fig_c222_18.png)
 *Figure — Incident postmortem learning loop. Synthetic teaching geometry—not a causal claim.*
+
+![c223 teaching panel 18 (original).](../assets/figures/ml_fig_c223_18.png)
+*Figure — SRE error budget burn. Synthetic teaching geometry—not a causal claim.*
