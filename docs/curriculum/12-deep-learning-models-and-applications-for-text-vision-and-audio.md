@@ -112,6 +112,10 @@ Multi-head attention runs h parallel attention heads with different learned proj
 
 *Figure — Position as rotation. **Left:** queries/keys at positions t and t+Δ are rotated in a plane. **Right:** relative score contribution depends on Δ through cos(Δ·ω), aiding length extrapolation versus pure absolute PE. Positional geometry is still not a clinical causal graph.*
 
+![Attention mask patterns: causal, bidirectional, sliding window (original).](../assets/figures/ml_fig_attention_masks.png)
+
+*Figure — Allowed key positions for each query. Causal masks enable autoregressive decode; bidirectional suits encoder understanding; sliding windows bound cost for long notes. Mask pattern is inductive bias—not clinical causation.*
+
 ## 12.3 Structured State-Space Models and Mamba
 
 Quadratic cost of self-attention in sequence length motivates efficient sequence layers. State-space models (SSMs) describe continuous-time latent dynamics h’(t) = A h(t) + B x(t), y(t) = C h(t) + D x(t), discretized for sequences. Linear time-invariant SSMs can be written as convolutions, enabling fast training with FFT-based methods while retaining recurrent inference.

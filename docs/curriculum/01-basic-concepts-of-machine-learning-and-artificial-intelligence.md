@@ -234,6 +234,10 @@ Regression predicts a continuous (or conditionally continuous) target from featu
 
 *Figure — Read the train/val pair. **Left:** both errors high → underfit. **Middle:** large optimistic train–val gap → overfit. **Right:** both fall with n → capacity better matched. Curves diagnose fit—not causation.*
 
+![Permutation importance ΔAUROC with correlated/leakage risks (synthetic; original).](../assets/figures/ml_fig_perm_importance.png)
+
+*Figure — Drop in score when a feature is shuffled. Large drops flag useful *predictors* under the fitted model; correlated features share credit, and scanner/site can look “important” via leakage. Importance rankings are not causal effects.*
+
 ### Classification
 
 Classification predicts discrete labels: stroke versus mimic, LVO versus no LVO, mRS 0–2 versus 3–6. Binary, multiclass, and multi-label settings differ in loss design and metrics. Logistic regression, linear discriminants, trees and forests, boosting, support vector machines, and deep networks are standard tools. Class imbalance, label noise, and calibration deserve first-class attention in medicine.

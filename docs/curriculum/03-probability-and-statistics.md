@@ -235,6 +235,10 @@ Heavy-tailed behavior changes estimators as much as it changes plots. If length 
 
 *Figure — Two ways to fail. **Left:** cumulative incidence functions for event A and competing event B; their sum is the risk of either. **Right:** naive 1−KM that censors competing deaths can overstate cause-specific risk. Prefer CIF / Fine–Gray thinking when death other than stroke competes; curves are absolute risks under a regime—not automatic causal effects of covariates.*
 
+![Hierarchical / empirical-Bayes shrinkage of small-site rates (synthetic; original).](../assets/figures/ml_fig_hierarchical_shrink.png)
+
+*Figure — Small n sites shrink harder toward the global mean. Stabilizes noisy rates for surveillance dashboards; shrinkage is statistical borrowing—not proof that sites caused outcomes.*
+
 Mixture distributions—finite Gaussian mixtures, zero-inflated counts, spike-and-slab priors—formalize the clinical intuition that one density cannot describe everyone. A NIHSS distribution with a spike at zero and a long right tail is not a failed Gaussian; it is a mixture of mild and severe regimes. EM and related algorithms estimate such mixtures; visualization (histograms, QQ plots) tells you when to try them. Boltzmann and softmax forms reappear when you turn energies or decision scores into probabilities: multiclass logistic regression is a Gibbs distribution over labels.
 
 PP and QQ plots deserve routine use before parametric tests. A t-test on heavily skewed mRS differences may still be approximately valid for large n by the CLT applied to means, but effect-size interpretation and interval coverage can suffer; rank-based tests or ordinal models may match the estimand better. QQ plots of residuals after regression diagnose whether Gaussian-based intervals are decorative or trusted.

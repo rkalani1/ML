@@ -274,6 +274,14 @@ Class imbalance remedies include resampling (oversample minority, undersample ma
 
 *Figure — ECE = Σ mass_b · |acc_b − conf_b|. **Left:** equal-width reliability bars. **Right:** per-bin contributions—large mass in a miscalibrated bin dominates the scalar. Inspect tails; one ECE number can hide clinically critical high-risk bins. ECE is not a causal metric.*
 
+![PR curve with chance baseline at prevalence (synthetic; original).](../assets/figures/ml_fig_pr_chance.png)
+
+*Figure — Always draw the prevalence line on a PR plot. A random-ish ranker sits near π; models must beat that floor. PR-AUC is more honest than ROC under rare events. Still ranking quality—not causation.*
+
+![SMOTE-style synthetic minority oversampling caution (synthetic; original).](../assets/figures/ml_fig_smote_caution.png)
+
+*Figure — Synthetic minorities fill geometric gaps. Apply only inside training folds; recalibrate probabilities after resampling; synthetic points are not new patients and do not create causal balance.*
+
 ## Clinical and Epidemiologic Notes
 
 Classification is the workhorse of predictive modeling in neurology: large-vessel occlusion (LVO) versus not, hemorrhagic versus ischemic pathways, TOAST or CCS stroke subtype, malignant MCA edema risk, 90-day functional independence (mRS 0–2), or detection of atrial fibrillation on extended monitoring. Scientific quality depends as much on cohort design and metrics as on the choice among logistic regression, forests, or boosting.

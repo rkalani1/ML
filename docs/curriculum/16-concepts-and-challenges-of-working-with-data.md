@@ -192,6 +192,10 @@ Dataset shift occurs when training and target distributions differ. Covariate sh
 
 *Figure — Aligning distributions. **Left:** pairwise cost C between source and target bins. **Right:** Sinkhorn coupling P moves mass with entropy regularization. OT appears in domain adaptation and batch correction; the coupling is a transport plan—not a causal map between patients or sites.*
 
+![1-Wasserstein shift via quantile functions (synthetic; original).](../assets/figures/ml_fig_wasserstein1.png)
+
+*Figure — Distribution distance. **Left:** train vs serve histograms. **Right:** quantile functions; mean vertical gap approximates W₁. Useful for drift alarms—not a causal site effect size.*
+
 ![16.4: Monitoring for dataset shift across deployment windows. (a) Live AUROC is tracked monthly; concept drift (a change in P(](../assets/figures/ml_concept_16.4_6c511648.png)
 
 *Figure 16.4 — original teaching graphic.*
