@@ -327,6 +327,10 @@ V(S_t) <- V(S_t) + alpha [ R_{t+1} + gamma V(S_{t+1}) - V(S_t) ],
 
 where alpha is a step-size. The term in brackets is the TD error delta_t. Bootstrapping reduces variance relative to full returns but introduces bias that vanishes as V approaches V^pi.
 
+![TD error δ = R + γV(s′) − V(s) and TD(0) convergence on a reward-at-end chain (original).](../assets/figures/ml_fig_td_error.png)
+
+*Figure — One-step TD. **Left:** backup diagram for δ and the α-weighted update. **Right:** TD(0) value estimates on a five-state chain with terminal reward approach V* (dashed). TD bootstraps (lower variance than full Monte Carlo return; bias until V is accurate). Value estimates are not causal treatment effects.*
+
 ### SARSA (On-Policy Control)
 
 After observing (S, A, R, S’, A’), update

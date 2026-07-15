@@ -55,6 +55,10 @@ Understanding these models is no longer a niche skill—it is a core clinical co
 
 Every major algorithm family in the published TOC is taught with definitions and intuition.
 
+![Study-design triad: cohort, index time, label legality before algorithm choice (original).](../assets/figures/ml_fig_study_design_triad.png)
+
+*Figure — Design before optimizer. Lock **cohort** (who), **index time** (when features are legal), and **label** (what event, when ascertained, rater reliability). Features after index time are leakage; fuzzy labels cap achievable performance. Algorithm choice is secondary to this triad. Prediction ≠ causation.*
+
 1. **Work numerical examples by hand:** Recompute intermediates. Nothing demystifies an algorithm faster than doing the matrix multiplication or gradient update yourself.
 2. **Map each method:** Continually map the computational method back to the clinical problem space. Is this for prediction, etiology, or decision support?
 3. **Be skeptical of performance metrics:** Always look past discrimination (AUROC) to calibration, utility, and external validation.

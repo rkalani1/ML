@@ -55,6 +55,10 @@ The book has moved from describing data to deploying systems, but the through-ar
 
 *Figure — Point AUROC is not enough. **Left:** bootstrap distribution of AUROC with percentile 95% CI around a single point estimate. **Right:** mean CI width shrinks with n—small cohorts license wide uncertainty. Bootstrap CIs still do not prove transportability; external validation remains the real examination. High AUROC is not causation.*
 
+![Split conformal prediction: finite-sample band and empirical coverage vs 1−α (synthetic; original).](../assets/figures/ml_fig_conformal.png)
+
+*Figure — Distribution-free intervals under exchangeability. **Left:** split-conformal band from calibration absolute residuals around a point predictor. **Right:** empirical coverage tracks target 1−α; tighter α yields wider intervals (annotated). Coverage guarantees break under dataset shift—re-estimate on local exchangeable cal data. Prediction intervals are not causal effects of intervening on x.*
+
 **Prevalence, imbalance, and predictive value.** Identical sensitivity and specificity yield wildly different positive predictive value as the base rate moves. A model tuned on a case-enriched development sample will disappoint in a low-prevalence clinic unless its probabilities are mapped back to the deployment prevalence. Resampling to balance classes is a modeling convenience that silently rewrites the base rate; the calibration must be restored afterward.
 
 **External validation and dataset shift.** Internal cross-validation estimates reproducibility, not transportability. Scanners, coding systems (an ICD transition, a local phenotype definition), and case mix all differ between sites, so a model can be internally excellent and externally useless. Geographic and temporal external validation, not a tighter internal fold, is the real examination.

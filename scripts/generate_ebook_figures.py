@@ -5496,6 +5496,411 @@ def fig_umap_neighbors_caricature():
     save(fig, "ml_fig_umap_neighbors.png")
 
 
+def fig_dropout_train_test():
+    """Ch10: dropout — random masks at train; scaled full net at test."""
+    rng = np.random.default_rng(3)
+    # Synthetic 1D regression with overfit risk
+    n = 40
+    x = np.linspace(-2, 2, n)
+    y = np.sin(1.5 * x) + rng.normal(0, 0.25, size=n)
+    xs = np.linspace(-2.2, 2.2, 200)
+
+    # "Ensemble" of dropout subnetworks ≈ different polynomial-ish fits
+    def noisy_fit(seed, mask_keep=0.7):
+        r = np.random.default_rng(seed)
+        # RBF-like expansion with random dropout of centers
+        centers = np.linspace(-2, 2, 12)
+        keep = r.random(len(centers)) < mask_keep
+        centers = centers[keep]
+        if len(centers) < 3:
+            centers = np.linspace(-2, 2, 4)
+        Phi = np.exp(-((x[:, None] - centers[None, :]) ** 2) / (2 * 0.35 ** 2))
+        Phi = np.c_[np.ones(n), Phi]
+        # ridge
+        w = np.linalg.solve(Phi.T @ Phi + 0.4 * np.eye(Phi.shape[1]), Phi.T @ y)
+        Phis = np.exp(-((xs[:, None] - centers[None, :]) ** 2) / (2 * 0.35 ** 2))
+        Phis = np.c_[np.ones(len(xs)), Phis]
+        return Phis @ w
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.1))
+    ax = axes[0]
+    ax.scatter(x, y, c=TEAL, s=28, alpha=0.85, zorder=3, label="train points")
+    for s in range(12):
+        ax.plot(xs, noisy_fit(10 + s, mask_keep=0.55), color=GOLD, alpha=0.35, lw=1.2)
+    ax.plot(xs, noisy_fit(99, mask_keep=0.55), color=GOLD, lw=2.0, label="one dropout sub-net")
+    ax.set_xlabel("x")
+    ax.set_ylabel("y")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Train: stochastic masks → ensemble of nets")
+
+    ax = axes[1]
+    # Test: average of many masks ≈ expectation
+    stack = np.stack([noisy_fit(200 + s, mask_keep=0.55) for s in range(30)], axis=0)
+    mean_pred = stack.mean(axis=0)
+    lo, hi = np.percentile(stack, [10, 90], axis=0)
+    ax.scatter(x, y, c=TEAL, s=28, alpha=0.85, zorder=3)
+    ax.fill_between(xs, lo, hi, color=TEAL, alpha=0.2, label="dropout sample band")
+    ax.plot(xs, mean_pred, color=DEEP, lw=2.5, label="test ≈ E[sub-net]")
+    ax.set_xlabel("x")
+    ax.set_ylabel("y")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Test: full net with scaled weights")
+    ax.text(
+        0.98, 0.08,
+        "Inverted dropout scales at train.\nDo not leave dropout on at serve\nunless MC-dropout uncertainty.",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Dropout: train masks vs test expectation (synthetic; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_dropout.png")
+
+
+def fig_td_error_backup():
+    """Ch13: TD error δ = R + γV(s') − V(s) teaching sketch."""
+    # Simple chain of 5 states, V estimates evolving
+    gamma = 0.9
+    # True V* for reward +1 at terminal, 0 elsewhere, left-to-right policy
+    V_star = np.array([gamma ** 4, gamma ** 3, gamma ** 2, gamma, 1.0])
+    V = np.zeros(5)
+    history = [V.copy()]
+    # Simulate TD(0) along episodes s0→s1→…→s4 (terminal reward 1)
+    rng = np.random.default_rng(1)
+    alpha = 0.25
+    for ep in range(40):
+        for s in range(4):
+            r = 0.0 if s < 3 else 0.0
+            s2 = s + 1
+            r = 1.0 if s2 == 4 else 0.0
+            # only last transition gets r=1
+            if s2 != 4:
+                r = 0.0
+            else:
+                r = 1.0
+            delta = r + gamma * V[s2] - V[s]
+            V[s] = V[s] + alpha * delta
+        history.append(V.copy())
+    history = np.array(history)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.1))
+    ax = axes[0]
+    # One backup diagram
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 6)
+    ax.axis("off")
+    boxes = [(0.5, 2.5, "V(s)"), (3.5, 2.5, "R"), (5.5, 2.5, "γV(s′)"), (8.0, 2.5, "δ")]
+    for x, y, t in boxes[:3]:
+        ax.add_patch(FancyBboxPatch((x, y), 2.0, 1.4, boxstyle="round,pad=0.04,rounding_size=0.12",
+                                    facecolor=TEAL if t.startswith("V") else GOLD, edgecolor="none"))
+        ax.text(x + 1.0, y + 0.7, t, ha="center", va="center", color="white" if t.startswith("V") else INK,
+                fontsize=12, fontweight="bold")
+    ax.add_patch(FancyBboxPatch((8.0, 2.5), 1.6, 1.4, boxstyle="round,pad=0.04,rounding_size=0.12",
+                                facecolor=DEEP, edgecolor="none"))
+    ax.text(8.8, 3.2, "δ", ha="center", va="center", color="white", fontsize=14, fontweight="bold")
+    ax.annotate("", xy=(3.4, 3.2), xytext=(2.6, 3.2), arrowprops=dict(arrowstyle="->", color=INK, lw=1.5))
+    ax.annotate("", xy=(5.4, 3.2), xytext=(5.6 - 0.1, 3.2), arrowprops=dict(arrowstyle="-", color=INK, lw=0))
+    ax.text(5.0, 4.3, r"$\delta = R + \gamma V(s') - V(s)$", ha="center", fontsize=12,
+            color=DEEP, fontweight="bold")
+    ax.text(5.0, 1.5, r"update: $V(s) \leftarrow V(s) + \alpha\,\delta$", ha="center", fontsize=11, color=INK)
+    ax.text(5.0, 0.6, "Bootstraps from current V(s′)—unlike full Monte Carlo return",
+            ha="center", fontsize=8, color="#64748b")
+    style_ax(ax, "One-step TD backup")
+    ax.set_title("One-step TD backup", fontsize=13, fontweight="bold", color=INK, pad=10)
+
+    ax = axes[1]
+    for i in range(4):
+        ax.plot(history[:, i], lw=2.0, color=TEAL if i < 2 else GOLD, label=f"V(s{i})")
+    ax.hlines(V_star[:4], 0, len(history) - 1, colors="#94a3b8", linestyles="--", lw=1.2)
+    ax.set_xlabel("episode")
+    ax.set_ylabel("V estimate")
+    ax.legend(frameon=False, fontsize=8, ncol=2)
+    style_ax(ax, rf"TD(0) on reward-at-end chain ($\gamma$={gamma})")
+    ax.text(
+        0.98, 0.08,
+        "Dashed = V*. High variance MC\nvs biased bootstrap TD tradeoff.",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Temporal-difference error and value backup (original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_td_error.png")
+
+
+def fig_platt_isotonic():
+    """Ch09/03: Platt scaling vs isotonic recalibration on reliability diagram."""
+    rng = np.random.default_rng(14)
+    n = 1500
+    # True risk from a latent score; raw model is overconfident sigmoid of scaled score
+    z = rng.normal(0, 1.2, size=n)
+    p_true = 1 / (1 + np.exp(-1.1 * z))
+    y = rng.binomial(1, p_true)
+    # Mis-calibrated raw scores: steeper
+    p_raw = 1 / (1 + np.exp(-2.4 * z))
+    p_raw = np.clip(p_raw, 1e-4, 1 - 1e-4)
+
+    # Platt: fit logistic a*logit(p)+b on a calibration split
+    idx = rng.permutation(n)
+    cal, te = idx[:700], idx[700:]
+    logit = np.log(p_raw / (1 - p_raw))
+    # Newton/IRLS-ish via simple sklearn-free logistic on (logit -> y)
+    Xc = np.c_[np.ones(len(cal)), logit[cal]]
+    w = np.zeros(2)
+    for _ in range(25):
+        eta = Xc @ w
+        p = 1 / (1 + np.exp(-eta))
+        W = p * (1 - p) + 1e-6
+        grad = Xc.T @ (p - y[cal])
+        H = Xc.T @ (Xc * W[:, None])
+        w = w - np.linalg.solve(H + 1e-4 * np.eye(2), grad)
+    p_platt = 1 / (1 + np.exp(-(w[0] + w[1] * logit)))
+
+    # Isotonic: pool adjacent violators on sorted p_raw (calibration set)
+    order = np.argsort(p_raw[cal])
+    pr = p_raw[cal][order]
+    yr = y[cal][order].astype(float)
+    # PAV
+    y_iso = yr.copy()
+    # simple PAV
+    n_c = len(y_iso)
+    # blocks
+    changed = True
+    while changed:
+        changed = False
+        i = 0
+        while i < n_c - 1:
+            j = i
+            while j < n_c - 1 and y_iso[j] > y_iso[j + 1] + 1e-12:
+                j += 1
+            if j > i:
+                m = y_iso[i : j + 1].mean()
+                y_iso[i : j + 1] = m
+                changed = True
+                i = j + 1
+            else:
+                i += 1
+    # map test raw to isotonic via interpolation of (pr, y_iso)
+    # average y_iso at unique pr
+    p_iso = np.interp(p_raw, pr, y_iso)
+
+    def rel_curve(p, y, n_bins=10):
+        edges = np.linspace(0, 1, n_bins + 1)
+        cx, ox = [], []
+        for i in range(n_bins):
+            m = (p >= edges[i]) & (p < edges[i + 1] if i < n_bins - 1 else p <= edges[i + 1])
+            if m.sum() < 20:
+                continue
+            cx.append(p[m].mean())
+            ox.append(y[m].mean())
+        return np.array(cx), np.array(ox)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.1))
+    ax = axes[0]
+    for name, p, c in [
+        ("raw overconfident", p_raw[te], "#94a3b8"),
+        ("Platt", p_platt[te], TEAL),
+        ("isotonic", p_iso[te], GOLD),
+    ]:
+        cx, ox = rel_curve(p, y[te])
+        ax.plot(cx, ox, "o-", color=c, lw=2.0, markersize=5, label=name)
+    ax.plot([0, 1], [0, 1], ":", color=INK, lw=1.2)
+    ax.set_xlabel("mean predicted p")
+    ax.set_ylabel("observed rate")
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Reliability after recalibration")
+
+    ax = axes[1]
+    # ECE proxy
+    def ece(p, y, n_bins=10):
+        edges = np.linspace(0, 1, n_bins + 1)
+        e = 0.0
+        for i in range(n_bins):
+            m = (p >= edges[i]) & (p < edges[i + 1] if i < n_bins - 1 else p <= edges[i + 1])
+            if m.sum() == 0:
+                continue
+            e += (m.mean()) * abs(p[m].mean() - y[m].mean())
+        return e
+
+    names = ["raw", "Platt", "isotonic"]
+    eces = [ece(p_raw[te], y[te]), ece(p_platt[te], y[te]), ece(p_iso[te], y[te])]
+    cols = ["#94a3b8", TEAL, GOLD]
+    ax.bar(names, eces, color=cols, edgecolor="white", width=0.65)
+    for i, e in enumerate(eces):
+        ax.text(i, e + 0.005, f"{e:.3f}", ha="center", fontsize=9, fontweight="bold")
+    ax.set_ylabel("ECE (equal-width bins)")
+    style_ax(ax, "ECE on held-out calibration test")
+    ax.text(
+        0.98, 0.92,
+        "Fit calibrator on a held-out set.\nIsotonic can overfit tiny cal sets.\nRecalibration ≠ new causal model.",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Platt vs isotonic recalibration (synthetic; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_platt_isotonic.png")
+
+
+def fig_conformal_coverage():
+    """Ch17/09: split conformal prediction — marginal coverage vs interval width."""
+    rng = np.random.default_rng(17)
+    n = 800
+    x = rng.uniform(-2, 2, size=n)
+    y = 0.5 * x + 0.3 * np.sin(2 * x) + rng.normal(0, 0.4 + 0.15 * np.abs(x), size=n)
+    # split
+    perm = rng.permutation(n)
+    train, cal, te = perm[:400], perm[400:600], perm[600:]
+    # simple linear residual model on train
+    Xtr = np.c_[np.ones(len(train)), x[train]]
+    beta = np.linalg.lstsq(Xtr, y[train], rcond=None)[0]
+
+    def pred(xx):
+        return beta[0] + beta[1] * xx
+
+    # absolute residual scores on cal
+    scores = np.abs(y[cal] - pred(x[cal]))
+    alphas = np.array([0.3, 0.2, 0.1, 0.05])
+    coverages = []
+    widths = []
+    for a in alphas:
+        q = np.quantile(scores, 1 - a, method="higher")
+        lo = pred(x[te]) - q
+        hi = pred(x[te]) + q
+        cov = np.mean((y[te] >= lo) & (y[te] <= hi))
+        coverages.append(cov)
+        widths.append(2 * q)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.1))
+    ax = axes[0]
+    # Show one alpha=0.1 band
+    a = 0.1
+    q = np.quantile(scores, 1 - a, method="higher")
+    order = np.argsort(x[te])
+    xt, yt = x[te][order], y[te][order]
+    pt = pred(xt)
+    ax.fill_between(xt, pt - q, pt + q, color=TEAL, alpha=0.25, label=rf"split conformal band $\alpha$={a}")
+    ax.plot(xt, pt, color=DEEP, lw=2.0, label="point predictor")
+    ax.scatter(xt, yt, s=12, c=GOLD, alpha=0.7, label="test points")
+    ax.set_xlabel("x")
+    ax.set_ylabel("y")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Finite-sample band from cal residuals")
+
+    ax = axes[1]
+    ax.plot(1 - alphas, coverages, "o-", color=TEAL, lw=2.4, markersize=8, label="empirical coverage")
+    ax.plot(1 - alphas, 1 - alphas, ":", color="#94a3b8", lw=1.8, label="target 1−α")
+    ax.set_xlabel("target coverage 1−α")
+    ax.set_ylabel("empirical coverage on test")
+    ax.set_xlim(0.65, 1.0)
+    ax.set_ylim(0.65, 1.02)
+    ax.legend(frameon=False, fontsize=8, loc="lower right")
+    # secondary: width annotation
+    for t, c, w in zip(1 - alphas, coverages, widths):
+        ax.annotate(f"w={w:.2f}", (t, c), textcoords="offset points", xytext=(0, 8),
+                    ha="center", fontsize=7.5, color="#64748b")
+    style_ax(ax, "Coverage tracks target (exchangeability)")
+    ax.text(
+        0.02, 0.08,
+        "Needs exchangeable cal/test.\nShift breaks coverage guarantees.\nIntervals ≠ causal effects.",
+        transform=ax.transAxes, fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Split conformal prediction: coverage vs width (synthetic; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_conformal.png")
+
+
+def fig_glossary_sens_spec_ppv():
+    """Ch18 glossary: visual dictionary of Se/Sp/PPV/NPV with prevalence slider sketch."""
+    sens, spec = 0.90, 0.85
+    prev = np.linspace(0.02, 0.6, 80)
+    # PPV = Se π / (Se π + (1-Sp)(1-π))
+    ppv = (sens * prev) / (sens * prev + (1 - spec) * (1 - prev))
+    npv = (spec * (1 - prev)) / (spec * (1 - prev) + (1 - sens) * prev)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.1))
+    ax = axes[0]
+    # Confusion-matrix style 2x2 with teaching labels
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 8)
+    ax.axis("off")
+    # headers
+    ax.text(3.5, 7.3, "Pred +", ha="center", fontsize=11, fontweight="bold", color=DEEP)
+    ax.text(7.0, 7.3, "Pred −", ha="center", fontsize=11, fontweight="bold", color=DEEP)
+    ax.text(0.9, 5.2, "True +", ha="center", fontsize=11, fontweight="bold", color=INK, rotation=90)
+    ax.text(0.9, 2.2, "True −", ha="center", fontsize=11, fontweight="bold", color=INK, rotation=90)
+    cells = [
+        (2.0, 4.0, 3.0, 2.5, "TP", "Se = TP/(TP+FN)", TEAL),
+        (5.5, 4.0, 3.0, 2.5, "FN", "", "#fecaca"),
+        (2.0, 1.0, 3.0, 2.5, "FP", "", "#fde68a"),
+        (5.5, 1.0, 3.0, 2.5, "TN", "Sp = TN/(TN+FP)", GOLD),
+    ]
+    for x, y, w, h, lab, sub, col in cells:
+        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.03,rounding_size=0.1",
+                                    facecolor=col, edgecolor="white", linewidth=2, alpha=0.9))
+        ax.text(x + w / 2, y + h / 2 + 0.25, lab, ha="center", va="center", fontsize=14,
+                fontweight="bold", color=INK)
+        if sub:
+            ax.text(x + w / 2, y + h / 2 - 0.55, sub, ha="center", va="center", fontsize=8, color="#334155")
+    ax.text(5.0, 0.25, "PPV = TP/(TP+FP)  ·  NPV = TN/(TN+FN)  —  prevalence-dependent",
+            ha="center", fontsize=8, color="#64748b")
+    style_ax(ax, "Confusion cells → Se/Sp/PPV/NPV")
+    ax.set_title("Confusion cells → Se/Sp/PPV/NPV", fontsize=13, fontweight="bold", color=INK, pad=10)
+
+    ax = axes[1]
+    ax.plot(prev, ppv, color=TEAL, lw=2.5, label="PPV")
+    ax.plot(prev, npv, color=GOLD, lw=2.5, label="NPV")
+    ax.axvline(0.15, color="#94a3b8", ls="--", lw=1.3)
+    ax.text(0.16, 0.25, "π=0.15", fontsize=8, color="#64748b")
+    ax.set_xlabel("prevalence π")
+    ax.set_ylabel("predictive value")
+    ax.set_ylim(0, 1)
+    ax.legend(frameon=False, fontsize=9)
+    style_ax(ax, rf"Se={sens}, Sp={spec} fixed")
+    ax.text(
+        0.98, 0.08,
+        "Se/Sp are properties of the test\nat a threshold; PPV/NPV ride π.\nDo not copy a paper’s PPV blindly.",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Glossary visual: sensitivity, specificity, PPV, NPV (original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_se_sp_ppv_vocab.png")
+
+
+def fig_preface_study_design_triad():
+    """Preface: study-design triad — cohort, index time, label legality."""
+    fig, ax = plt.subplots(figsize=(9.2, 4.2))
+    ax.set_xlim(0, 12)
+    ax.set_ylim(0, 7)
+    ax.axis("off")
+    # Three pillars
+    pillars = [
+        (0.5, 2.0, 3.2, 4.0, "Cohort", "Who is eligible?\nInclusion / exclusion\nSite & era", TEAL),
+        (4.4, 2.0, 3.2, 4.0, "Index time", "When is t₀?\nFeatures only ≤ t₀\nNo post-outcome codes", GOLD),
+        (8.3, 2.0, 3.2, 4.0, "Label", "What event?\nWhen ascertained?\nRater reliability", DEEP),
+    ]
+    for x, y, w, h, title, body, col in pillars:
+        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.05,rounding_size=0.18",
+                                    facecolor=SOFT, edgecolor=col, linewidth=2.5))
+        ax.add_patch(FancyBboxPatch((x, y + h - 1.0), w, 1.0, boxstyle="round,pad=0.03,rounding_size=0.12",
+                                    facecolor=col, edgecolor="none"))
+        ax.text(x + w / 2, y + h - 0.5, title, ha="center", va="center", color="white",
+                fontsize=13, fontweight="bold")
+        ax.text(x + w / 2, y + 1.6, body, ha="center", va="center", fontsize=10, color=INK)
+    # Arrow base
+    ax.annotate("", xy=(10.5, 1.2), xytext=(1.5, 1.2),
+                arrowprops=dict(arrowstyle="->", color=INK, lw=2.0))
+    ax.text(6.0, 0.55, "Illegal features after index time → leakage  ·  Fuzzy labels → performance ceiling",
+            ha="center", fontsize=9, color="#64748b")
+    ax.text(6.0, 6.5, "Before algorithm choice: lock the study design triad",
+            ha="center", fontsize=13, fontweight="bold", color=INK)
+    ax.text(6.0, 6.05, "Prediction systems fail more often from design than from optimizer choice",
+            ha="center", fontsize=9, color="#475569")
+    fig.tight_layout()
+    save(fig, "ml_fig_study_design_triad.png")
+
+
 # ---------------------------------------------------------------------------
 # Legacy numbered PNGs (00_*.png … 17_*.png)
 # These files already exist under docs/assets/figures/ and are linked from
@@ -5640,6 +6045,13 @@ def main():
     fig_aspect_ratio_slope()
     fig_bootstrap_auroc_ci()
     fig_umap_neighbors_caricature()
+    # Continuous densify cycle-12 (ch10 / ch13 / ch09 / ch17 / ch18 / preface)
+    fig_dropout_train_test()
+    fig_td_error_backup()
+    fig_platt_isotonic()
+    fig_conformal_coverage()
+    fig_glossary_sens_spec_ppv()
+    fig_preface_study_design_triad()
     print("DONE figures in", OUT)
     missing_legacy = [n for n in LEGACY_NUMBERED_ASSETS if not (OUT / n).exists()]
     if missing_legacy:

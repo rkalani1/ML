@@ -22,6 +22,10 @@
 
 *Six term families: paradigms, mechanics, evaluation, data/time, causal caution, deploy/govern (original).*
 
+![Glossary visual: confusion cells map to Se/Sp/PPV/NPV and prevalence dependence (original).](../assets/figures/ml_fig_se_sp_ppv_vocab.png)
+
+*Figure — Shared lexicon for triage metrics. **Left:** TP/FP/FN/TN cells define sensitivity and specificity at a threshold. **Right:** with Se/Sp fixed, PPV and NPV still move with prevalence π—never copy a paper’s PPV into a different base-rate clinic without recompute.*
+
 ![PPV versus prevalence at fixed sensitivity and specificity (scientific; original).](../assets/figures/ml_fig_ppv_prevalence.png)
 
 *PPV of a fixed screen (sens 0.85, spec 0.70) collapses as prevalence falls — LR+ travels; PPV does not (original).*

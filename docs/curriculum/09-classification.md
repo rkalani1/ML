@@ -248,6 +248,10 @@ ROC curves plot true positive rate versus false positive rate as the threshold v
 
 *Figure — Brier beyond a single number. Overconfidence inflates REL; a near-constant score near prevalence can look “calibrated” with tiny RES. Pair Brier with reliability diagrams and PR/ROC; do not treat a low Brier alone as clinical utility or causation.*
 
+![Platt vs isotonic recalibration: reliability diagrams and ECE (synthetic; original).](../assets/figures/ml_fig_platt_isotonic.png)
+
+*Figure — Post-hoc calibration. Fit a calibrator on a held-out set (never the final test). **Left:** raw overconfident scores pulled toward the diagonal by Platt (logistic on logit-p) and isotonic regression. **Right:** ECE drops after recalibration. Isotonic is flexible but can overfit tiny calibration sets; Platt is parametric and smoother. Recalibration changes probability honesty, not ranking much—and not causation.*
+
 ![Precision–recall and ROC for the same synthetic imbalanced cohort (prevalence ≈ 10%; original).](../assets/figures/ml_fig_precision_recall.png)
 
 *Figure — Precision–recall under imbalance. The PR panel (left) starts near prevalence for a chance classifier and rewards high PPV at useful recall; the ROC panel (right) for the same scores can look deceptively strong because true negatives dominate the FPR denominator. Prefer PR-AUC and operating-point precision when events are rare.*
