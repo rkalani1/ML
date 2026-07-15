@@ -805,3 +805,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c208 teaching panel 18 (original).](../assets/figures/ml_fig_c208_18.png)
 *Figure — Decision curve net benefit band. Synthetic teaching geometry—not a causal claim.*
+
+![c209 teaching panel 18 (original).](../assets/figures/ml_fig_c209_18.png)
+*Figure — Change failure rate monitor. Synthetic teaching geometry—not a causal claim.*

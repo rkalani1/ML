@@ -760,3 +760,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c208 teaching panel 01 (original).](../assets/figures/ml_fig_c208_01.png)
 *Figure — Federated silo average rounds. Synthetic teaching geometry—not a causal claim.*
+
+![c209 teaching panel 01 (original).](../assets/figures/ml_fig_c209_01.png)
+*Figure — Differential privacy budget composition. Synthetic teaching geometry—not a causal claim.*
