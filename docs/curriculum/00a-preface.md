@@ -1537,3 +1537,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c467 teaching panel 01 (original).](../assets/figures/ml_fig_c467_01.png)
 *Figure — SBOM attest ship path c467. Synthetic teaching geometry—not a causal claim.*
+
+![c468 teaching panel 01 (original).](../assets/figures/ml_fig_c468_01.png)
+*Figure — Threat residual risk path c468. Synthetic teaching geometry—not a causal claim.*
