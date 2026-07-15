@@ -876,6 +876,66 @@ Privacy and governance. Federated learning links to the data-governance material
 ![c120 teaching panel 15 (original).](../assets/figures/ml_fig_c120_15.png)
 *Figure — Speculative draft tree. Synthetic teaching geometry—not a causal claim.*
 
+
+![c121 teaching panel 15 (original).](../assets/figures/ml_fig_c121_15.png)
+*Figure — SparseGPT pruning. Synthetic teaching geometry—not a causal claim.*
+
+
+![c122 teaching panel 15 (original).](../assets/figures/ml_fig_c122_15.png)
+*Figure — Wanda prune metric. Synthetic teaching geometry—not a causal claim.*
+
+
+![c123 teaching panel 15 (original).](../assets/figures/ml_fig_c123_15.png)
+*Figure — SmoothQuant scales. Synthetic teaching geometry—not a causal claim.*
+
+
+![c124 teaching panel 15 (original).](../assets/figures/ml_fig_c124_15.png)
+*Figure — QLoRA NF4 storage. Synthetic teaching geometry—not a causal claim.*
+
+
+![c125 teaching panel 15 (original).](../assets/figures/ml_fig_c125_15.png)
+*Figure — Speculative draft tree. Synthetic teaching geometry—not a causal claim.*
+
+
+![c126 teaching panel 15 (original).](../assets/figures/ml_fig_c126_15.png)
+*Figure — SparseGPT pruning. Synthetic teaching geometry—not a causal claim.*
+
+
+![c127 teaching panel 15 (original).](../assets/figures/ml_fig_c127_15.png)
+*Figure — Wanda prune metric. Synthetic teaching geometry—not a causal claim.*
+
+
+![c128 teaching panel 15 (original).](../assets/figures/ml_fig_c128_15.png)
+*Figure — SmoothQuant scales. Synthetic teaching geometry—not a causal claim.*
+
+
+![c129 teaching panel 15 (original).](../assets/figures/ml_fig_c129_15.png)
+*Figure — QLoRA NF4 storage. Synthetic teaching geometry—not a causal claim.*
+
+
+![c130 teaching panel 15 (original).](../assets/figures/ml_fig_c130_15.png)
+*Figure — Speculative draft tree. Synthetic teaching geometry—not a causal claim.*
+
+
+![c131 teaching panel 15 (original).](../assets/figures/ml_fig_c131_15.png)
+*Figure — SparseGPT pruning. Synthetic teaching geometry—not a causal claim.*
+
+
+![c132 teaching panel 15 (original).](../assets/figures/ml_fig_c132_15.png)
+*Figure — Wanda prune metric. Synthetic teaching geometry—not a causal claim.*
+
+
+![c133 teaching panel 15 (original).](../assets/figures/ml_fig_c133_15.png)
+*Figure — SmoothQuant scales. Synthetic teaching geometry—not a causal claim.*
+
+
+![c134 teaching panel 15 (original).](../assets/figures/ml_fig_c134_15.png)
+*Figure — QLoRA NF4 storage. Synthetic teaching geometry—not a causal claim.*
+
+
+![c135 teaching panel 15 (original).](../assets/figures/ml_fig_c135_15.png)
+*Figure — Speculative draft tree. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Lighter models enable bedside, edge, and mobile stroke unit deployment under latency, memory, energy, and privacy constraints. Classical compressors (BPE, bitmaps, Huffman, LZW) and sparse coding reduce data and feature cost; the Huffman worked example shows a prefix code reaching 2.25 bits/symbol against a 3-bit fixed baseline and a 2.20-bit entropy floor. Quantization (including companding intuition, PTQ, QAT, and channel-wise scales) and pruning (magnitude, Hessian-aware OBD/OBS, activation and Taylor scores; structured vs unstructured) shrink networks. LoRA specializes large models cheaply; FlashAttention, MQA/GQA, and sliding windows lighten attention; accumulation and checkpointing lighten training memory. Transfer, multitask, meta, curriculum, and federated learning improve data efficiency; distillation compresses teachers into students; AutoML and NAS search configurations under budget. Clinical notes emphasize on-device measurement, pathology-tail validation, and green AI reporting for equitable multi-site neurology.

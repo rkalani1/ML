@@ -747,6 +747,66 @@ Separate solver convergence issues from statistical bias and confounding.
 ![c120 teaching panel 09 (original).](../assets/figures/ml_fig_c120_09.png)
 *Figure — Partial residual smoother. Synthetic teaching geometry—not a causal claim.*
 
+
+![c121 teaching panel 09 (original).](../assets/figures/ml_fig_c121_09.png)
+*Figure — MM algorithm majorization. Synthetic teaching geometry—not a causal claim.*
+
+
+![c122 teaching panel 09 (original).](../assets/figures/ml_fig_c122_09.png)
+*Figure — IRLS weighted steps. Synthetic teaching geometry—not a causal claim.*
+
+
+![c123 teaching panel 09 (original).](../assets/figures/ml_fig_c123_09.png)
+*Figure — GEE cluster robust SE. Synthetic teaching geometry—not a causal claim.*
+
+
+![c124 teaching panel 09 (original).](../assets/figures/ml_fig_c124_09.png)
+*Figure — Mixed effects random slope. Synthetic teaching geometry—not a causal claim.*
+
+
+![c125 teaching panel 09 (original).](../assets/figures/ml_fig_c125_09.png)
+*Figure — Partial residual smoother. Synthetic teaching geometry—not a causal claim.*
+
+
+![c126 teaching panel 09 (original).](../assets/figures/ml_fig_c126_09.png)
+*Figure — MM algorithm majorization. Synthetic teaching geometry—not a causal claim.*
+
+
+![c127 teaching panel 09 (original).](../assets/figures/ml_fig_c127_09.png)
+*Figure — IRLS weighted steps. Synthetic teaching geometry—not a causal claim.*
+
+
+![c128 teaching panel 09 (original).](../assets/figures/ml_fig_c128_09.png)
+*Figure — GEE cluster robust SE. Synthetic teaching geometry—not a causal claim.*
+
+
+![c129 teaching panel 09 (original).](../assets/figures/ml_fig_c129_09.png)
+*Figure — Mixed effects random slope. Synthetic teaching geometry—not a causal claim.*
+
+
+![c130 teaching panel 09 (original).](../assets/figures/ml_fig_c130_09.png)
+*Figure — Partial residual smoother. Synthetic teaching geometry—not a causal claim.*
+
+
+![c131 teaching panel 09 (original).](../assets/figures/ml_fig_c131_09.png)
+*Figure — MM algorithm majorization. Synthetic teaching geometry—not a causal claim.*
+
+
+![c132 teaching panel 09 (original).](../assets/figures/ml_fig_c132_09.png)
+*Figure — IRLS weighted steps. Synthetic teaching geometry—not a causal claim.*
+
+
+![c133 teaching panel 09 (original).](../assets/figures/ml_fig_c133_09.png)
+*Figure — GEE cluster robust SE. Synthetic teaching geometry—not a causal claim.*
+
+
+![c134 teaching panel 09 (original).](../assets/figures/ml_fig_c134_09.png)
+*Figure — Mixed effects random slope. Synthetic teaching geometry—not a causal claim.*
+
+
+![c135 teaching panel 09 (original).](../assets/figures/ml_fig_c135_09.png)
+*Figure — Partial residual smoother. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Loss measures per-example error; cost averages loss; objectives may add regularization. Univariate and multiple linear regression estimate conditional means by OLS, with closed-form solutions via normal equations; a full numerical NIHSS–volume example computes slopes, intercepts, and fitted values by hand. Polynomial and piecewise/spline models capture nonlinearity while remaining linear in parameters. RSE and RMSE quantify residual scale; residual plots and R² aid diagnosis but holdout metrics govern prediction claims. ARIMA(p,d,q) models temporal dependence after differencing. Logistic and softmax regression link linear predictors to probabilities via logit/softmax and train by likelihood. Evaluation uses CV, learning curves, ROC/AUC (with calibration), Wald and LRTs, information criteria, and pseudo-R². Overfitting and underfitting reflect the bias–variance tradeoff; Ridge, Lasso, elastic net, and the non-negative garrote implement shrinkage and selection. Optimization rests on gradients, Jacobians, Hessians, and Taylor expansions; batch/SGD/mini-batch gradient descent, Newton methods, and early stopping are the workhorse algorithms. Clinical use demands honest validation, calibration, and clear separation of prediction from causal inference.

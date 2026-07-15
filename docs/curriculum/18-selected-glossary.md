@@ -691,3 +691,48 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 ![c120 teaching panel 19 (original).](../assets/figures/ml_fig_c120_19.png)
 *Figure — Glossary epistemic risk. Synthetic teaching geometry—not a causal claim.*
+
+![c121 teaching panel 19 (original).](../assets/figures/ml_fig_c121_19.png)
+*Figure — Glossary support vector. Synthetic teaching geometry—not a causal claim.*
+
+![c122 teaching panel 19 (original).](../assets/figures/ml_fig_c122_19.png)
+*Figure — Glossary inductive bias. Synthetic teaching geometry—not a causal claim.*
+
+![c123 teaching panel 19 (original).](../assets/figures/ml_fig_c123_19.png)
+*Figure — Glossary conformal set. Synthetic teaching geometry—not a causal claim.*
+
+![c124 teaching panel 19 (original).](../assets/figures/ml_fig_c124_19.png)
+*Figure — Glossary aleatoric risk. Synthetic teaching geometry—not a causal claim.*
+
+![c125 teaching panel 19 (original).](../assets/figures/ml_fig_c125_19.png)
+*Figure — Glossary epistemic risk. Synthetic teaching geometry—not a causal claim.*
+
+![c126 teaching panel 19 (original).](../assets/figures/ml_fig_c126_19.png)
+*Figure — Glossary support vector. Synthetic teaching geometry—not a causal claim.*
+
+![c127 teaching panel 19 (original).](../assets/figures/ml_fig_c127_19.png)
+*Figure — Glossary inductive bias. Synthetic teaching geometry—not a causal claim.*
+
+![c128 teaching panel 19 (original).](../assets/figures/ml_fig_c128_19.png)
+*Figure — Glossary conformal set. Synthetic teaching geometry—not a causal claim.*
+
+![c129 teaching panel 19 (original).](../assets/figures/ml_fig_c129_19.png)
+*Figure — Glossary aleatoric risk. Synthetic teaching geometry—not a causal claim.*
+
+![c130 teaching panel 19 (original).](../assets/figures/ml_fig_c130_19.png)
+*Figure — Glossary epistemic risk. Synthetic teaching geometry—not a causal claim.*
+
+![c131 teaching panel 19 (original).](../assets/figures/ml_fig_c131_19.png)
+*Figure — Glossary support vector. Synthetic teaching geometry—not a causal claim.*
+
+![c132 teaching panel 19 (original).](../assets/figures/ml_fig_c132_19.png)
+*Figure — Glossary inductive bias. Synthetic teaching geometry—not a causal claim.*
+
+![c133 teaching panel 19 (original).](../assets/figures/ml_fig_c133_19.png)
+*Figure — Glossary conformal set. Synthetic teaching geometry—not a causal claim.*
+
+![c134 teaching panel 19 (original).](../assets/figures/ml_fig_c134_19.png)
+*Figure — Glossary aleatoric risk. Synthetic teaching geometry—not a causal claim.*
+
+![c135 teaching panel 19 (original).](../assets/figures/ml_fig_c135_19.png)
+*Figure — Glossary epistemic risk. Synthetic teaching geometry—not a causal claim.*

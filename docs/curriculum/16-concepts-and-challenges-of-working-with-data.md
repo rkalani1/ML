@@ -829,6 +829,66 @@ This capstone reuses the whole book. The sampling and MCMC methods (Metropolis-H
 ![c120 teaching panel 17 (original).](../assets/figures/ml_fig_c120_17.png)
 *Figure — Chart review gold labels. Synthetic teaching geometry—not a causal claim.*
 
+
+![c121 teaching panel 17 (original).](../assets/figures/ml_fig_c121_17.png)
+*Figure — Prospective vs retrospective. Synthetic teaching geometry—not a causal claim.*
+
+
+![c122 teaching panel 17 (original).](../assets/figures/ml_fig_c122_17.png)
+*Figure — Index date alignment. Synthetic teaching geometry—not a causal claim.*
+
+
+![c123 teaching panel 17 (original).](../assets/figures/ml_fig_c123_17.png)
+*Figure — Immortal time bias. Synthetic teaching geometry—not a causal claim.*
+
+
+![c124 teaching panel 17 (original).](../assets/figures/ml_fig_c124_17.png)
+*Figure — Competing event censor. Synthetic teaching geometry—not a causal claim.*
+
+
+![c125 teaching panel 17 (original).](../assets/figures/ml_fig_c125_17.png)
+*Figure — Chart review gold labels. Synthetic teaching geometry—not a causal claim.*
+
+
+![c126 teaching panel 17 (original).](../assets/figures/ml_fig_c126_17.png)
+*Figure — Prospective vs retrospective. Synthetic teaching geometry—not a causal claim.*
+
+
+![c127 teaching panel 17 (original).](../assets/figures/ml_fig_c127_17.png)
+*Figure — Index date alignment. Synthetic teaching geometry—not a causal claim.*
+
+
+![c128 teaching panel 17 (original).](../assets/figures/ml_fig_c128_17.png)
+*Figure — Immortal time bias. Synthetic teaching geometry—not a causal claim.*
+
+
+![c129 teaching panel 17 (original).](../assets/figures/ml_fig_c129_17.png)
+*Figure — Competing event censor. Synthetic teaching geometry—not a causal claim.*
+
+
+![c130 teaching panel 17 (original).](../assets/figures/ml_fig_c130_17.png)
+*Figure — Chart review gold labels. Synthetic teaching geometry—not a causal claim.*
+
+
+![c131 teaching panel 17 (original).](../assets/figures/ml_fig_c131_17.png)
+*Figure — Prospective vs retrospective. Synthetic teaching geometry—not a causal claim.*
+
+
+![c132 teaching panel 17 (original).](../assets/figures/ml_fig_c132_17.png)
+*Figure — Index date alignment. Synthetic teaching geometry—not a causal claim.*
+
+
+![c133 teaching panel 17 (original).](../assets/figures/ml_fig_c133_17.png)
+*Figure — Immortal time bias. Synthetic teaching geometry—not a causal claim.*
+
+
+![c134 teaching panel 17 (original).](../assets/figures/ml_fig_c134_17.png)
+*Figure — Competing event censor. Synthetic teaching geometry—not a causal claim.*
+
+
+![c135 teaching panel 17 (original).](../assets/figures/ml_fig_c135_17.png)
+*Figure — Chart review gold labels. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Data quality and design dominate clinical ML outcomes. Problem complexity guides method choice. Sampling designs and MCMC methods (Metropolis-Hastings, Gibbs, importance sampling) support inference under complex distributions. Noise models and filters (Butterworth, Wiener, Kalman) clean signals; imbalance and modality-specific augmentation address skewed outcomes; imputation and interpolation repair missing structure without leakage. Anomaly methods (isolation forest, one-class SVM, LOF, RANSAC) protect integrity. Drift and cold start demand monitoring and recalibration—illustrated by site-level PPV collapse when prevalence and specificity change. Rater agreement metrics quantify label ceilings. LLMs require RAG and disciplined prompting under PHI governance. Fairness metrics, mitigation strategies, and SHAP/LIME explanations complete a professional validation stack for neurologist-epidemiologists.
