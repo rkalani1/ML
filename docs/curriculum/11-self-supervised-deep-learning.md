@@ -290,6 +290,11 @@ Pretext task catalog for unlabeled neuroimaging: rotation prediction, jigsaw puz
 
 *Figure — Continuous densify panel 13. Synthetic teaching geometry—not a causal claim.*
 
+
+![Cycle-35 densify scientific panel 13 (original).](../assets/figures/ml_fig_c35_12.png)
+
+*Figure — Continuous densify panel 13. Synthetic teaching geometry—not a causal claim.*
+
 ## 11.10 Multimodal Alignment Beyond CLIP and Practical Hospital Constraints
 
 CLIP-style contrastive alignment generalizes to ECG–text, EEG–report, and CT–report pairs. Batch construction must avoid false negatives: two images from the same study with different captions should not be forced apart if they share semantics. Hard negatives (similar body region, different finding) improve discrimination. Zero-shot prompts are brittle: ‘intracranial hemorrhage’ vs ‘ICH’ vs ‘hemorrhagic stroke’ can shuffle rankings; ensemble prompts or learned prompt templates reduce variance.
