@@ -1051,3 +1051,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c305 teaching panel 01 (original).](../assets/figures/ml_fig_c305_01.png)
 *Figure — Red-team severity path c305. Synthetic teaching geometry—not a causal claim.*
+
+![c306 teaching panel 01 (original).](../assets/figures/ml_fig_c306_01.png)
+*Figure — Incident SEV ladder path c306. Synthetic teaching geometry—not a causal claim.*
