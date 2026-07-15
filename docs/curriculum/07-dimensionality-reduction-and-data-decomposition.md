@@ -2432,6 +2432,10 @@ Fit projections on training data only; validate k by downstream performance.
 ![c542 teaching panel 08 (original).](../assets/figures/ml_fig_c542_08.png)
 *Figure — PaCMAP mid-near path c542. Synthetic teaching geometry—not a causal claim.*
 
+
+![c543 teaching panel 08 (original).](../assets/figures/ml_fig_c543_08.png)
+*Figure — Isomap geodesic path c543. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 High-dimensional clinical data suffer geometric and statistical curses that motivate reduction and decomposition. PCA finds orthogonal maximum-variance directions; a full numerical example with three points shows centering, covariance eigen-decomposition, scores, and explained variance. SVD implements PCA stably; incremental PCA handles streaming or out-of-core data. LDA/Fisher seeks supervised discriminative projections. Nonlinear methods—LLE, t-SNE, UMAP—preserve local manifold structure for visualization with important interpretive caveats. Fourier and wavelet transforms decompose signals in frequency and time–frequency; aggregation methods compress long series. Matrix tools include Cholesky for SPD linear algebra, NMF for nonnegative parts-based factors, and SVD for optimal low-rank approximation. Topic models apply these ideas to text: LSI via truncated SVD and LDA as a Bayesian generative mixture of topics. Tensors extend factorizations multi-way via mode-n products with CP, Tucker, and tensor-train forms. Clinically, reduce when it denoises and clarifies; refuse reduction when it erases rare signals, harms calibration, or replaces needed interpretable covariates.

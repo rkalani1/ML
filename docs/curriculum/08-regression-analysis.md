@@ -2435,6 +2435,10 @@ Separate solver convergence issues from statistical bias and confounding.
 ![c542 teaching panel 09 (original).](../assets/figures/ml_fig_c542_09.png)
 *Figure — Spline knot residual c542. Synthetic teaching geometry—not a causal claim.*
 
+
+![c543 teaching panel 09 (original).](../assets/figures/ml_fig_c543_09.png)
+*Figure — Heteroscedasticity path c543. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Loss measures per-example error; cost averages loss; objectives may add regularization. Univariate and multiple linear regression estimate conditional means by OLS, with closed-form solutions via normal equations; a full numerical NIHSS–volume example computes slopes, intercepts, and fitted values by hand. Polynomial and piecewise/spline models capture nonlinearity while remaining linear in parameters. RSE and RMSE quantify residual scale; residual plots and R² aid diagnosis but holdout metrics govern prediction claims. ARIMA(p,d,q) models temporal dependence after differencing. Logistic and softmax regression link linear predictors to probabilities via logit/softmax and train by likelihood. Evaluation uses CV, learning curves, ROC/AUC (with calibration), Wald and LRTs, information criteria, and pseudo-R². Overfitting and underfitting reflect the bias–variance tradeoff; Ridge, Lasso, elastic net, and the non-negative garrote implement shrinkage and selection. Optimization rests on gradients, Jacobians, Hessians, and Taylor expansions; batch/SGD/mini-batch gradient descent, Newton methods, and early stopping are the workhorse algorithms. Clinical use demands honest validation, calibration, and clear separation of prediction from causal inference.
