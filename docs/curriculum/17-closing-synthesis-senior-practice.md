@@ -838,3 +838,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c219 teaching panel 18 (original).](../assets/figures/ml_fig_c219_18.png)
 *Figure — SRE on-call response stages. Synthetic teaching geometry—not a causal claim.*
+
+![c220 teaching panel 18 (original).](../assets/figures/ml_fig_c220_18.png)
+*Figure — Engineering toil burn bars. Synthetic teaching geometry—not a causal claim.*
