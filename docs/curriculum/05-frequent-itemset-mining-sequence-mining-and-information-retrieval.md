@@ -882,6 +882,66 @@ Frequent itemset mining discovers co-occurrence structure in baskets; sequence m
 ![c135 teaching panel 06 (original).](../assets/figures/ml_fig_c135_06.png)
 *Figure — Learning sparse retrievers. Synthetic teaching geometry—not a causal claim.*
 
+
+![c136 teaching panel 06 (original).](../assets/figures/ml_fig_c136_06.png)
+*Figure — SpanBERT span masking. Synthetic teaching geometry—not a causal claim.*
+
+
+![c137 teaching panel 06 (original).](../assets/figures/ml_fig_c137_06.png)
+*Figure — Dense passage retrieval. Synthetic teaching geometry—not a causal claim.*
+
+
+![c138 teaching panel 06 (original).](../assets/figures/ml_fig_c138_06.png)
+*Figure — Query likelihood LM. Synthetic teaching geometry—not a causal claim.*
+
+
+![c139 teaching panel 06 (original).](../assets/figures/ml_fig_c139_06.png)
+*Figure — PRF pseudo relevance. Synthetic teaching geometry—not a causal claim.*
+
+
+![c140 teaching panel 06 (original).](../assets/figures/ml_fig_c140_06.png)
+*Figure — Learning sparse retrievers. Synthetic teaching geometry—not a causal claim.*
+
+
+![c141 teaching panel 06 (original).](../assets/figures/ml_fig_c141_06.png)
+*Figure — SpanBERT span masking. Synthetic teaching geometry—not a causal claim.*
+
+
+![c142 teaching panel 06 (original).](../assets/figures/ml_fig_c142_06.png)
+*Figure — Dense passage retrieval. Synthetic teaching geometry—not a causal claim.*
+
+
+![c143 teaching panel 06 (original).](../assets/figures/ml_fig_c143_06.png)
+*Figure — Query likelihood LM. Synthetic teaching geometry—not a causal claim.*
+
+
+![c144 teaching panel 06 (original).](../assets/figures/ml_fig_c144_06.png)
+*Figure — PRF pseudo relevance. Synthetic teaching geometry—not a causal claim.*
+
+
+![c145 teaching panel 06 (original).](../assets/figures/ml_fig_c145_06.png)
+*Figure — Learning sparse retrievers. Synthetic teaching geometry—not a causal claim.*
+
+
+![c146 teaching panel 06 (original).](../assets/figures/ml_fig_c146_06.png)
+*Figure — SpanBERT span masking. Synthetic teaching geometry—not a causal claim.*
+
+
+![c147 teaching panel 06 (original).](../assets/figures/ml_fig_c147_06.png)
+*Figure — Dense passage retrieval. Synthetic teaching geometry—not a causal claim.*
+
+
+![c148 teaching panel 06 (original).](../assets/figures/ml_fig_c148_06.png)
+*Figure — Query likelihood LM. Synthetic teaching geometry—not a causal claim.*
+
+
+![c149 teaching panel 06 (original).](../assets/figures/ml_fig_c149_06.png)
+*Figure — PRF pseudo relevance. Synthetic teaching geometry—not a causal claim.*
+
+
+![c150 teaching panel 06 (original).](../assets/figures/ml_fig_c150_06.png)
+*Figure — Learning sparse retrievers. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Transactional data model co-occurrence. Support measures how often an itemset appears; confidence estimates conditional probability for association rules; lift compares that probability to independence. IR represents documents and queries with TF–IDF (and related) weights, ranks by cosine or BM25-style scores, and evaluates with precision, recall, and MAP; inverted indexes make large-scale search feasible. Hash tables and MinHash support counting and approximate set similarity; trees (binary, 2-3, B/B+, red-black, trie/radix) organize ordered keys and prefixes; BFS, DFS, beam search, and MCTS explore combinatorial trees; Bloom filters, sliding windows, and skip lists handle membership, streams, and ordered maps efficiently. Apriori, FP-Growth, and ECLAT mine frequent itemsets under the Apriori principle; GSP, SPADE, FreeSpan, and PrefixSpan mine sequences. HMMs, as simple PGMs, use the forward algorithm for likelihood, Viterbi for decoding, and Baum–Welch for unsupervised training. Clinically, baskets and sequences describe encounters and pathways; rules must not be read as causal; phenotype mining must avoid label leakage; retrieval supports literature and note search with explicit evaluation. The central engineering tension is combinatorial explosion versus sparsity: good algorithms and good thresholds keep the useful patterns and leave the noise behind.

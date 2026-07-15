@@ -807,6 +807,66 @@ Model selection is a portfolio decision spanning this chapter and the tabular-me
 ![c135 teaching panel 13 (original).](../assets/figures/ml_fig_c135_13.png)
 *Figure — Token merging ToMe. Synthetic teaching geometry—not a causal claim.*
 
+
+![c136 teaching panel 13 (original).](../assets/figures/ml_fig_c136_13.png)
+*Figure — Conformer conv-attn. Synthetic teaching geometry—not a causal claim.*
+
+
+![c137 teaching panel 13 (original).](../assets/figures/ml_fig_c137_13.png)
+*Figure — Whisper encoder stack. Synthetic teaching geometry—not a causal claim.*
+
+
+![c138 teaching panel 13 (original).](../assets/figures/ml_fig_c138_13.png)
+*Figure — Vision language projector. Synthetic teaching geometry—not a causal claim.*
+
+
+![c139 teaching panel 13 (original).](../assets/figures/ml_fig_c139_13.png)
+*Figure — Audio spectrogram CNN. Synthetic teaching geometry—not a causal claim.*
+
+
+![c140 teaching panel 13 (original).](../assets/figures/ml_fig_c140_13.png)
+*Figure — Token merging ToMe. Synthetic teaching geometry—not a causal claim.*
+
+
+![c141 teaching panel 13 (original).](../assets/figures/ml_fig_c141_13.png)
+*Figure — Conformer conv-attn. Synthetic teaching geometry—not a causal claim.*
+
+
+![c142 teaching panel 13 (original).](../assets/figures/ml_fig_c142_13.png)
+*Figure — Whisper encoder stack. Synthetic teaching geometry—not a causal claim.*
+
+
+![c143 teaching panel 13 (original).](../assets/figures/ml_fig_c143_13.png)
+*Figure — Vision language projector. Synthetic teaching geometry—not a causal claim.*
+
+
+![c144 teaching panel 13 (original).](../assets/figures/ml_fig_c144_13.png)
+*Figure — Audio spectrogram CNN. Synthetic teaching geometry—not a causal claim.*
+
+
+![c145 teaching panel 13 (original).](../assets/figures/ml_fig_c145_13.png)
+*Figure — Token merging ToMe. Synthetic teaching geometry—not a causal claim.*
+
+
+![c146 teaching panel 13 (original).](../assets/figures/ml_fig_c146_13.png)
+*Figure — Conformer conv-attn. Synthetic teaching geometry—not a causal claim.*
+
+
+![c147 teaching panel 13 (original).](../assets/figures/ml_fig_c147_13.png)
+*Figure — Whisper encoder stack. Synthetic teaching geometry—not a causal claim.*
+
+
+![c148 teaching panel 13 (original).](../assets/figures/ml_fig_c148_13.png)
+*Figure — Vision language projector. Synthetic teaching geometry—not a causal claim.*
+
+
+![c149 teaching panel 13 (original).](../assets/figures/ml_fig_c149_13.png)
+*Figure — Audio spectrogram CNN. Synthetic teaching geometry—not a causal claim.*
+
+
+![c150 teaching panel 13 (original).](../assets/figures/ml_fig_c150_13.png)
+*Figure — Token merging ToMe. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Modern multimodal deep learning rests on attention and its efficient cousins. Seq2seq models gain from dot-product, additive Bahdanau, Luong, self-, and cross-attention; Transformers industrialize multi-head attention with positional encodings, residual blocks, and causal masking—illustrated by a numerical attention-weight example and a causal mask sketch. S4 and Mamba offer state-space alternatives for long sequences with near-linear scaling ambitions. LLMs span BERT-style encoders and derivatives (RoBERTa, DistilBERT, XLM), T5 text-to-text models, GPT decoder-only generators through instruction-tuned chat systems, and open Llama/Mistral MoE lines, adapted with RLHF, DPO, LoRA, and other PEFT methods and judged on general, coding, medical, and local workflow benchmarks. Systems issues—context length, RAG, quantization, hallucination control—matter as much as weight counts. Vision progresses from LeNet–AlexNet–VGG–Inception–ResNet classifiers to ViTs; detectors from R-CNN through Faster R-CNN to SSD and YOLO; segmenters from FCN/U-Net through Mask R-CNN and DeepLab to promptable SAM, with Dice, Hausdorff, FROC, and mAP interpreted clinically. NeRF and 3D Gaussian splatting synthesize novel views. Audio stacks include WaveNet, Tacotron, wav2vec, and Whisper. Multimodal stroke decision support should remain modular and prospectively evaluated. In stroke imaging and clinical NLP, architecture choice is secondary to labels, leakage control, external validation, MLOps drift monitoring, and safe human–AI workflow design.

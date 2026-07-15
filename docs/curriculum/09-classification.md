@@ -796,6 +796,66 @@ Keep interpretable baselines; match metrics to stroke-system costs of FP versus 
 ![c135 teaching panel 10 (original).](../assets/figures/ml_fig_c135_10.png)
 *Figure — Platt vs isotonic. Synthetic teaching geometry—not a causal claim.*
 
+
+![c136 teaching panel 10 (original).](../assets/figures/ml_fig_c136_10.png)
+*Figure — Ordinal regression thresholds. Synthetic teaching geometry—not a causal claim.*
+
+
+![c137 teaching panel 10 (original).](../assets/figures/ml_fig_c137_10.png)
+*Figure — Multilabel classifier chains. Synthetic teaching geometry—not a causal claim.*
+
+
+![c138 teaching panel 10 (original).](../assets/figures/ml_fig_c138_10.png)
+*Figure — Cost-sensitive weighting. Synthetic teaching geometry—not a causal claim.*
+
+
+![c139 teaching panel 10 (original).](../assets/figures/ml_fig_c139_10.png)
+*Figure — Label powerset reduce. Synthetic teaching geometry—not a causal claim.*
+
+
+![c140 teaching panel 10 (original).](../assets/figures/ml_fig_c140_10.png)
+*Figure — Platt vs isotonic. Synthetic teaching geometry—not a causal claim.*
+
+
+![c141 teaching panel 10 (original).](../assets/figures/ml_fig_c141_10.png)
+*Figure — Ordinal regression thresholds. Synthetic teaching geometry—not a causal claim.*
+
+
+![c142 teaching panel 10 (original).](../assets/figures/ml_fig_c142_10.png)
+*Figure — Multilabel classifier chains. Synthetic teaching geometry—not a causal claim.*
+
+
+![c143 teaching panel 10 (original).](../assets/figures/ml_fig_c143_10.png)
+*Figure — Cost-sensitive weighting. Synthetic teaching geometry—not a causal claim.*
+
+
+![c144 teaching panel 10 (original).](../assets/figures/ml_fig_c144_10.png)
+*Figure — Label powerset reduce. Synthetic teaching geometry—not a causal claim.*
+
+
+![c145 teaching panel 10 (original).](../assets/figures/ml_fig_c145_10.png)
+*Figure — Platt vs isotonic. Synthetic teaching geometry—not a causal claim.*
+
+
+![c146 teaching panel 10 (original).](../assets/figures/ml_fig_c146_10.png)
+*Figure — Ordinal regression thresholds. Synthetic teaching geometry—not a causal claim.*
+
+
+![c147 teaching panel 10 (original).](../assets/figures/ml_fig_c147_10.png)
+*Figure — Multilabel classifier chains. Synthetic teaching geometry—not a causal claim.*
+
+
+![c148 teaching panel 10 (original).](../assets/figures/ml_fig_c148_10.png)
+*Figure — Cost-sensitive weighting. Synthetic teaching geometry—not a causal claim.*
+
+
+![c149 teaching panel 10 (original).](../assets/figures/ml_fig_c149_10.png)
+*Figure — Label powerset reduce. Synthetic teaching geometry—not a causal claim.*
+
+
+![c150 teaching panel 10 (original).](../assets/figures/ml_fig_c150_10.png)
+*Figure — Platt vs isotonic. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Classification maps features to discrete labels using scores or posteriors and a decision rule. Rule-based systems encode transparent logic; Naive Bayes multiplies class-conditional feature likelihoods under a conditional independence assumption, with Gaussian NB for continuous features and worked toy-table posterior and log-score arithmetic; k-NN assigns labels by neighborhood vote with Voronoi geometry and KD-tree or LSH acceleration; SVMs maximize soft margins and extend via kernels, multilabel reductions, and dual prediction over support vectors. Decision trees grow by impurity or statistical criteria in ID3, CHAID, C4.5, and CART lineages, then prune to control variance. Ensembles—bagging, boosting, stacking, random forests, AdaBoost, GBDT, XGBoost, LightGBM, and CatBoost—aggregate unstable or weak learners into strong predictors for tabular clinical data. Model selection needs nested validation and honest baselines. Evaluation must go beyond accuracy to precision, recall, F1, ROC/PR analysis, calibration, and imbalance-aware design. In neurology and epidemiology, labels are phenotypes, features must respect index time, prevalence shifts alter predictive values, and external validation plus calibration determine transportability.

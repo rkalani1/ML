@@ -859,6 +859,66 @@ Clustering sits downstream of the preprocessing and distance choices developed e
 ![c135 teaching panel 05 (original).](../assets/figures/ml_fig_c135_05.png)
 *Figure — COP-kmeans constraints. Synthetic teaching geometry—not a causal claim.*
 
+
+![c136 teaching panel 05 (original).](../assets/figures/ml_fig_c136_05.png)
+*Figure — Fuzzy c-means membership. Synthetic teaching geometry—not a causal claim.*
+
+
+![c137 teaching panel 05 (original).](../assets/figures/ml_fig_c137_05.png)
+*Figure — Self-organizing map grid. Synthetic teaching geometry—not a causal claim.*
+
+
+![c138 teaching panel 05 (original).](../assets/figures/ml_fig_c138_05.png)
+*Figure — Affinity matrix threshold. Synthetic teaching geometry—not a causal claim.*
+
+
+![c139 teaching panel 05 (original).](../assets/figures/ml_fig_c139_05.png)
+*Figure — Consensus clustering. Synthetic teaching geometry—not a causal claim.*
+
+
+![c140 teaching panel 05 (original).](../assets/figures/ml_fig_c140_05.png)
+*Figure — COP-kmeans constraints. Synthetic teaching geometry—not a causal claim.*
+
+
+![c141 teaching panel 05 (original).](../assets/figures/ml_fig_c141_05.png)
+*Figure — Fuzzy c-means membership. Synthetic teaching geometry—not a causal claim.*
+
+
+![c142 teaching panel 05 (original).](../assets/figures/ml_fig_c142_05.png)
+*Figure — Self-organizing map grid. Synthetic teaching geometry—not a causal claim.*
+
+
+![c143 teaching panel 05 (original).](../assets/figures/ml_fig_c143_05.png)
+*Figure — Affinity matrix threshold. Synthetic teaching geometry—not a causal claim.*
+
+
+![c144 teaching panel 05 (original).](../assets/figures/ml_fig_c144_05.png)
+*Figure — Consensus clustering. Synthetic teaching geometry—not a causal claim.*
+
+
+![c145 teaching panel 05 (original).](../assets/figures/ml_fig_c145_05.png)
+*Figure — COP-kmeans constraints. Synthetic teaching geometry—not a causal claim.*
+
+
+![c146 teaching panel 05 (original).](../assets/figures/ml_fig_c146_05.png)
+*Figure — Fuzzy c-means membership. Synthetic teaching geometry—not a causal claim.*
+
+
+![c147 teaching panel 05 (original).](../assets/figures/ml_fig_c147_05.png)
+*Figure — Self-organizing map grid. Synthetic teaching geometry—not a causal claim.*
+
+
+![c148 teaching panel 05 (original).](../assets/figures/ml_fig_c148_05.png)
+*Figure — Affinity matrix threshold. Synthetic teaching geometry—not a causal claim.*
+
+
+![c149 teaching panel 05 (original).](../assets/figures/ml_fig_c149_05.png)
+*Figure — Consensus clustering. Synthetic teaching geometry—not a causal claim.*
+
+
+![c150 teaching panel 05 (original).](../assets/figures/ml_fig_c150_05.png)
+*Figure — COP-kmeans constraints. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Clustering groups unlabeled points under a stated distance and objective. Similarity choices—Euclidean, Manhattan, Mahalanobis, Hamming, Levenshtein, LCS, cosine, Jaccard, DTW, and graph-based measures—reshape results and must be reported with scaling recipes. K-means minimizes WCSS via assignment and mean updates; k-median and k-medoid offer robustness and exemplar centers. A worked six-point example converged to clusters {A,B,C} and {D,E,F} with J=4. DBSCAN and OPTICS find density-connected structure and noise; hierarchical SLINK (single linkage) and DIANA provide agglomerative and divisive trees; BIRCH and CURE scale hierarchical ideas to large n. GMMs and Fuzzy C-means supply soft memberships. Evaluation uses elbow/WSS, silhouette, Dunn, Davies–Bouldin, purity, and Rand-family indices, with stability and external replication outweighing any single geometric score. In stroke and population research, unsupervised structure is not etiology: control leakage, test transportability, and resist reification.

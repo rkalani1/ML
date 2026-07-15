@@ -854,6 +854,66 @@ Visualization is not a standalone topic; it threads through the rest of this boo
 ![c135 teaching panel 03 (original).](../assets/figures/ml_fig_c135_03.png)
 *Figure — Paired slope multiples. Synthetic teaching geometry—not a causal claim.*
 
+
+![c136 teaching panel 03 (original).](../assets/figures/ml_fig_c136_03.png)
+*Figure — Horizon chart density. Synthetic teaching geometry—not a causal claim.*
+
+
+![c137 teaching panel 03 (original).](../assets/figures/ml_fig_c137_03.png)
+*Figure — Dot plot with CI. Synthetic teaching geometry—not a causal claim.*
+
+
+![c138 teaching panel 03 (original).](../assets/figures/ml_fig_c138_03.png)
+*Figure — Marimekko mosaic. Synthetic teaching geometry—not a causal claim.*
+
+
+![c139 teaching panel 03 (original).](../assets/figures/ml_fig_c139_03.png)
+*Figure — Hexbin log counts. Synthetic teaching geometry—not a causal claim.*
+
+
+![c140 teaching panel 03 (original).](../assets/figures/ml_fig_c140_03.png)
+*Figure — Paired slope multiples. Synthetic teaching geometry—not a causal claim.*
+
+
+![c141 teaching panel 03 (original).](../assets/figures/ml_fig_c141_03.png)
+*Figure — Horizon chart density. Synthetic teaching geometry—not a causal claim.*
+
+
+![c142 teaching panel 03 (original).](../assets/figures/ml_fig_c142_03.png)
+*Figure — Dot plot with CI. Synthetic teaching geometry—not a causal claim.*
+
+
+![c143 teaching panel 03 (original).](../assets/figures/ml_fig_c143_03.png)
+*Figure — Marimekko mosaic. Synthetic teaching geometry—not a causal claim.*
+
+
+![c144 teaching panel 03 (original).](../assets/figures/ml_fig_c144_03.png)
+*Figure — Hexbin log counts. Synthetic teaching geometry—not a causal claim.*
+
+
+![c145 teaching panel 03 (original).](../assets/figures/ml_fig_c145_03.png)
+*Figure — Paired slope multiples. Synthetic teaching geometry—not a causal claim.*
+
+
+![c146 teaching panel 03 (original).](../assets/figures/ml_fig_c146_03.png)
+*Figure — Horizon chart density. Synthetic teaching geometry—not a causal claim.*
+
+
+![c147 teaching panel 03 (original).](../assets/figures/ml_fig_c147_03.png)
+*Figure — Dot plot with CI. Synthetic teaching geometry—not a causal claim.*
+
+
+![c148 teaching panel 03 (original).](../assets/figures/ml_fig_c148_03.png)
+*Figure — Marimekko mosaic. Synthetic teaching geometry—not a causal claim.*
+
+
+![c149 teaching panel 03 (original).](../assets/figures/ml_fig_c149_03.png)
+*Figure — Hexbin log counts. Synthetic teaching geometry—not a causal claim.*
+
+
+![c150 teaching panel 03 (original).](../assets/figures/ml_fig_c150_03.png)
+*Figure — Paired slope multiples. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Visualization maps data to perception for exploration, model diagnosis, and communication. Its history runs from Playfair and Nightingale to Tukey’s EDA. Basic charts include pies (rare, few slices), bars and histograms, lines, scatters, and rarely broken axes. Multidimensional views include surfaces, contours, areas, radars, heatmaps, calendar and timeline plots, and box/violin summaries. Hierarchical structure uses dendrograms, treemaps, and sunbursts; networks use node-link, arc, and chord diagrams. Change is shown with divergent bars, dumbbells, waterfalls, and beeswarms. Three-dimensional graphics need interactive justification; choropleths and bubble maps serve spatial epidemiology with rate stability caveats. MDS and related embeddings visualize similarity in high dimensions but do not prove phenotypes. Encoding choice should follow perceptual rankings; misleading axes, dual scales, and decorative 3-D are scientific defects. A worked eight-patient example computed means, IQR, and Pearson r ≈ 0.93 between NIHSS and mRS, and a companion three-class example read recall and precision off a confusion-matrix heatmap—both as practice for honest EDA. Clinical ML inherits Table-1 discipline and adds calibration and error-slice graphics as first-class evidence.

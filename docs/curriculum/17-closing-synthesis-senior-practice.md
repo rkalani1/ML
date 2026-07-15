@@ -586,3 +586,48 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c135 teaching panel 18 (original).](../assets/figures/ml_fig_c135_18.png)
 *Figure — Model retirement criteria. Synthetic teaching geometry—not a causal claim.*
+
+![c136 teaching panel 18 (original).](../assets/figures/ml_fig_c136_18.png)
+*Figure — Value of information. Synthetic teaching geometry—not a causal claim.*
+
+![c137 teaching panel 18 (original).](../assets/figures/ml_fig_c137_18.png)
+*Figure — Decision impact analysis. Synthetic teaching geometry—not a causal claim.*
+
+![c138 teaching panel 18 (original).](../assets/figures/ml_fig_c138_18.png)
+*Figure — Equity slice metrics. Synthetic teaching geometry—not a causal claim.*
+
+![c139 teaching panel 18 (original).](../assets/figures/ml_fig_c139_18.png)
+*Figure — Post-market surveillance. Synthetic teaching geometry—not a causal claim.*
+
+![c140 teaching panel 18 (original).](../assets/figures/ml_fig_c140_18.png)
+*Figure — Model retirement criteria. Synthetic teaching geometry—not a causal claim.*
+
+![c141 teaching panel 18 (original).](../assets/figures/ml_fig_c141_18.png)
+*Figure — Value of information. Synthetic teaching geometry—not a causal claim.*
+
+![c142 teaching panel 18 (original).](../assets/figures/ml_fig_c142_18.png)
+*Figure — Decision impact analysis. Synthetic teaching geometry—not a causal claim.*
+
+![c143 teaching panel 18 (original).](../assets/figures/ml_fig_c143_18.png)
+*Figure — Equity slice metrics. Synthetic teaching geometry—not a causal claim.*
+
+![c144 teaching panel 18 (original).](../assets/figures/ml_fig_c144_18.png)
+*Figure — Post-market surveillance. Synthetic teaching geometry—not a causal claim.*
+
+![c145 teaching panel 18 (original).](../assets/figures/ml_fig_c145_18.png)
+*Figure — Model retirement criteria. Synthetic teaching geometry—not a causal claim.*
+
+![c146 teaching panel 18 (original).](../assets/figures/ml_fig_c146_18.png)
+*Figure — Value of information. Synthetic teaching geometry—not a causal claim.*
+
+![c147 teaching panel 18 (original).](../assets/figures/ml_fig_c147_18.png)
+*Figure — Decision impact analysis. Synthetic teaching geometry—not a causal claim.*
+
+![c148 teaching panel 18 (original).](../assets/figures/ml_fig_c148_18.png)
+*Figure — Equity slice metrics. Synthetic teaching geometry—not a causal claim.*
+
+![c149 teaching panel 18 (original).](../assets/figures/ml_fig_c149_18.png)
+*Figure — Post-market surveillance. Synthetic teaching geometry—not a causal claim.*
+
+![c150 teaching panel 18 (original).](../assets/figures/ml_fig_c150_18.png)
+*Figure — Model retirement criteria. Synthetic teaching geometry—not a causal claim.*

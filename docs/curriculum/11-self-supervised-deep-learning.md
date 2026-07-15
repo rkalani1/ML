@@ -799,6 +799,66 @@ This chapter’s methods are threads that reappear across the book. Supervised d
 ![c135 teaching panel 12 (original).](../assets/figures/ml_fig_c135_12.png)
 *Figure — Temporal order SSL. Synthetic teaching geometry—not a causal claim.*
 
+
+![c136 teaching panel 12 (original).](../assets/figures/ml_fig_c136_12.png)
+*Figure — Masked image modeling. Synthetic teaching geometry—not a causal claim.*
+
+
+![c137 teaching panel 12 (original).](../assets/figures/ml_fig_c137_12.png)
+*Figure — Jigsaw pretext task. Synthetic teaching geometry—not a causal claim.*
+
+
+![c138 teaching panel 12 (original).](../assets/figures/ml_fig_c138_12.png)
+*Figure — Colorization pretext. Synthetic teaching geometry—not a causal claim.*
+
+
+![c139 teaching panel 12 (original).](../assets/figures/ml_fig_c139_12.png)
+*Figure — Rotation prediction. Synthetic teaching geometry—not a causal claim.*
+
+
+![c140 teaching panel 12 (original).](../assets/figures/ml_fig_c140_12.png)
+*Figure — Temporal order SSL. Synthetic teaching geometry—not a causal claim.*
+
+
+![c141 teaching panel 12 (original).](../assets/figures/ml_fig_c141_12.png)
+*Figure — Masked image modeling. Synthetic teaching geometry—not a causal claim.*
+
+
+![c142 teaching panel 12 (original).](../assets/figures/ml_fig_c142_12.png)
+*Figure — Jigsaw pretext task. Synthetic teaching geometry—not a causal claim.*
+
+
+![c143 teaching panel 12 (original).](../assets/figures/ml_fig_c143_12.png)
+*Figure — Colorization pretext. Synthetic teaching geometry—not a causal claim.*
+
+
+![c144 teaching panel 12 (original).](../assets/figures/ml_fig_c144_12.png)
+*Figure — Rotation prediction. Synthetic teaching geometry—not a causal claim.*
+
+
+![c145 teaching panel 12 (original).](../assets/figures/ml_fig_c145_12.png)
+*Figure — Temporal order SSL. Synthetic teaching geometry—not a causal claim.*
+
+
+![c146 teaching panel 12 (original).](../assets/figures/ml_fig_c146_12.png)
+*Figure — Masked image modeling. Synthetic teaching geometry—not a causal claim.*
+
+
+![c147 teaching panel 12 (original).](../assets/figures/ml_fig_c147_12.png)
+*Figure — Jigsaw pretext task. Synthetic teaching geometry—not a causal claim.*
+
+
+![c148 teaching panel 12 (original).](../assets/figures/ml_fig_c148_12.png)
+*Figure — Colorization pretext. Synthetic teaching geometry—not a causal claim.*
+
+
+![c149 teaching panel 12 (original).](../assets/figures/ml_fig_c149_12.png)
+*Figure — Rotation prediction. Synthetic teaching geometry—not a causal claim.*
+
+
+![c150 teaching panel 12 (original).](../assets/figures/ml_fig_c150_12.png)
+*Figure — Temporal order SSL. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Self-supervised and generative deep learning extract structure from unlabeled data. Generative models capture p(x) while discriminative models capture p(y|x); encoders may be deterministic or stochastic. SOMs provide topology-preserving maps; Boltzmann machines and RBMs define energy-based densities trained with contrastive divergence; DBNs and DBMs stack these ideas deeply. Autoencoders reconstruct through bottlenecks with sparse, denoising, contractive, stacked, variational, and U-Net variants. Worked numerical sketches for contrastive pair loss and a univariate VAE KL/ELBO make the objectives concrete. GANs adversarially train generators with challenges of mode collapse, oscillation, slow convergence, and uninformative losses, evaluated by IS and FID, and specialized into CGAN, DCGAN, WGAN/WGAN-GP, Pix2Pix, CycleGAN, and StyleGAN. Contrastive and triplet losses with Siamese networks learn metric embeddings. Text-to-image systems combine zero-shot language alignment (CLIP), discrete codes (VQ-GAN), autoregression, and diffusion (DALL-E, Imagen, Parti, Stable Diffusion). Choosing among VAE, GAN, and diffusion families depends on stability, sharpness, sampling cost, and conditional control needs. In medicine, SSL is a strategy for scarce labels: domain-appropriate pretraining, strict patient-level separation, probing checklists, and skeptical use of synthetic images determine whether these methods aid neurologic care and epidemiologic research.
