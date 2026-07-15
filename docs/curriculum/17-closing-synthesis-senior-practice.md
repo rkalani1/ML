@@ -80,3 +80,15 @@ Ship with a model card stating population, index time, features, calibration, in
 ## What the discipline amounts to
 
 The recurring lesson is not that models are dangerous or magical, but that a prediction is a claim conditioned on a time, a population, and a label, and that most clinical harm follows from forgetting one of those conditions. The competent researcher treats every number as provisional, states plainly what would falsify it, and keeps prediction and intervention in separate mental columns. If the book leaves a single reflex, let it be the pause before belief: what was known, and when; to whom this actually applies; and what, exactly, is being counted.
+
+
+## Pre-deployment checklist (teaching table)
+
+| Gate | Pass looks like |
+|------|-----------------|
+| Question fit | Prediction vs action stated |
+| Leakage audit | Index time fixed; no post-outcome features |
+| Validation | External site or temporal holdout |
+| Calibration | Plot + slope near 1 in target population |
+| Governance | Version, threshold, monitoring owner |
+

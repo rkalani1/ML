@@ -5,6 +5,10 @@
 
 
 ## Opening
+![Confusion matrix with synthetic counts (original).](../assets/figures/ml_fig_confusion_annotated.png)
+
+*Confusion matrix with synthetic counts (original).*
+
 
 A binary classifier flags LVO on CTA with impressive accuracy in the training center. Classification literacy means thresholds, class imbalance, costs of false negatives on the stroke pathway, and external validation—not leaderboard ego.
 

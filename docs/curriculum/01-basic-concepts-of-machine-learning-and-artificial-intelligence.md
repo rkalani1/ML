@@ -5,6 +5,10 @@
 
 
 ## Opening
+![Learning curves vs sample size (synthetic; original).](../assets/figures/ml_fig_learning_curves.png)
+
+*Learning curves vs sample size (synthetic; original).*
+
 
 An overnight resident asks whether ‘AI’ can rule out stroke on non-contrast CT. Before architecture debates begin, this chapter forces the supervised vs unsupervised vs reinforcement taxonomy and the prediction-versus-causation boundary that stroke teams violate most often.
 
