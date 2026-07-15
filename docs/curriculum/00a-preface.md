@@ -1690,3 +1690,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c518 teaching panel 01 (original).](../assets/figures/ml_fig_c518_01.png)
 *Figure — Audit trail control path c518. Synthetic teaching geometry—not a causal claim.*
+
+![c519 teaching panel 01 (original).](../assets/figures/ml_fig_c519_01.png)
+*Figure — Fairness review path c519. Synthetic teaching geometry—not a causal claim.*
