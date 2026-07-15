@@ -889,3 +889,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c251 teaching panel 01 (original).](../assets/figures/ml_fig_c251_01.png)
 *Figure — RDP order optimize curve. Synthetic teaching geometry—not a causal claim.*
+
+![c252 teaching panel 01 (original).](../assets/figures/ml_fig_c252_01.png)
+*Figure — Model card review path. Synthetic teaching geometry—not a causal claim.*

@@ -934,3 +934,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c251 teaching panel 18 (original).](../assets/figures/ml_fig_c251_18.png)
 *Figure — Shadow eval delta path. Synthetic teaching geometry—not a causal claim.*
+
+![c252 teaching panel 18 (original).](../assets/figures/ml_fig_c252_18.png)
+*Figure — Toil hour burn-down. Synthetic teaching geometry—not a causal claim.*
