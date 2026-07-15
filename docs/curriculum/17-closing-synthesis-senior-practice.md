@@ -1105,3 +1105,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c308 teaching panel 18 (original).](../assets/figures/ml_fig_c308_18.png)
 *Figure — Model card gate path c308. Synthetic teaching geometry—not a causal claim.*
+
+![c309 teaching panel 18 (original).](../assets/figures/ml_fig_c309_18.png)
+*Figure — Eval suite residual path c309. Synthetic teaching geometry—not a causal claim.*
