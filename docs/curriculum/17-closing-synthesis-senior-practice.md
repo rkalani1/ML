@@ -496,3 +496,21 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c105 teaching panel 18 (original).](../assets/figures/ml_fig_c105_18.png)
 *Figure — Incident severity matrix. Synthetic teaching geometry—not a causal claim.*
+
+![c106 teaching panel 18 (original).](../assets/figures/ml_fig_c106_18.png)
+*Figure — Value of information. Synthetic teaching geometry—not a causal claim.*
+
+![c107 teaching panel 18 (original).](../assets/figures/ml_fig_c107_18.png)
+*Figure — Decision impact analysis. Synthetic teaching geometry—not a causal claim.*
+
+![c108 teaching panel 18 (original).](../assets/figures/ml_fig_c108_18.png)
+*Figure — Equity slice metrics. Synthetic teaching geometry—not a causal claim.*
+
+![c109 teaching panel 18 (original).](../assets/figures/ml_fig_c109_18.png)
+*Figure — Post-market surveillance. Synthetic teaching geometry—not a causal claim.*
+
+![c110 teaching panel 18 (original).](../assets/figures/ml_fig_c110_18.png)
+*Figure — Model retirement criteria. Synthetic teaching geometry—not a causal claim.*
+
+![c111 teaching panel 18 (original).](../assets/figures/ml_fig_c111_18.png)
+*Figure — Value of information. Synthetic teaching geometry—not a causal claim.*

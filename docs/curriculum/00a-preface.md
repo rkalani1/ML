@@ -451,3 +451,21 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c105 teaching panel 01 (original).](../assets/figures/ml_fig_c105_01.png)
 *Figure — Lineage graph of datasets. Synthetic teaching geometry—not a causal claim.*
+
+![c106 teaching panel 01 (original).](../assets/figures/ml_fig_c106_01.png)
+*Figure — Stakeholder map for data use. Synthetic teaching geometry—not a causal claim.*
+
+![c107 teaching panel 01 (original).](../assets/figures/ml_fig_c107_01.png)
+*Figure — Minimal risk pathway. Synthetic teaching geometry—not a causal claim.*
+
+![c108 teaching panel 01 (original).](../assets/figures/ml_fig_c108_01.png)
+*Figure — Secondary use rules. Synthetic teaching geometry—not a causal claim.*
+
+![c109 teaching panel 01 (original).](../assets/figures/ml_fig_c109_01.png)
+*Figure — De-identification checklist. Synthetic teaching geometry—not a causal claim.*
+
+![c110 teaching panel 01 (original).](../assets/figures/ml_fig_c110_01.png)
+*Figure — Data use agreement boxes. Synthetic teaching geometry—not a causal claim.*
+
+![c111 teaching panel 01 (original).](../assets/figures/ml_fig_c111_01.png)
+*Figure — Stakeholder map for data use. Synthetic teaching geometry—not a causal claim.*
