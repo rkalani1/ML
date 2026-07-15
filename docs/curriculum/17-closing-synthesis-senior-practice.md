@@ -793,3 +793,9 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c204 teaching panel 18 (original).](../assets/figures/ml_fig_c204_18.png)
 *Figure — Silent failure metric vs volume. Synthetic teaching geometry—not a causal claim.*
+
+![c205 teaching panel 18 (original).](../assets/figures/ml_fig_c205_18.png)
+*Figure — Canary release traffic split. Synthetic teaching geometry—not a causal claim.*
+
+![c206 teaching panel 18 (original).](../assets/figures/ml_fig_c206_18.png)
+*Figure — Incident rollback playbook. Synthetic teaching geometry—not a causal claim.*

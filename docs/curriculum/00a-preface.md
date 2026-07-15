@@ -748,3 +748,9 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c204 teaching panel 01 (original).](../assets/figures/ml_fig_c204_01.png)
 *Figure — Dataset card field tiles. Synthetic teaching geometry—not a causal claim.*
+
+![c205 teaching panel 01 (original).](../assets/figures/ml_fig_c205_01.png)
+*Figure — Purpose-limited consent stack. Synthetic teaching geometry—not a causal claim.*
+
+![c206 teaching panel 01 (original).](../assets/figures/ml_fig_c206_01.png)
+*Figure — Fairness slice TPR FPR. Synthetic teaching geometry—not a causal claim.*
