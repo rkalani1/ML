@@ -937,3 +937,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c252 teaching panel 18 (original).](../assets/figures/ml_fig_c252_18.png)
 *Figure — Toil hour burn-down. Synthetic teaching geometry—not a causal claim.*
+
+![c253 teaching panel 18 (original).](../assets/figures/ml_fig_c253_18.png)
+*Figure — Canary promote path. Synthetic teaching geometry—not a causal claim.*

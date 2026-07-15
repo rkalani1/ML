@@ -892,3 +892,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c252 teaching panel 01 (original).](../assets/figures/ml_fig_c252_01.png)
 *Figure — Model card review path. Synthetic teaching geometry—not a causal claim.*
+
+![c253 teaching panel 01 (original).](../assets/figures/ml_fig_c253_01.png)
+*Figure — f-DP Gaussian tradeoff. Synthetic teaching geometry—not a causal claim.*
