@@ -676,3 +676,63 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c180 teaching panel 01 (original).](../assets/figures/ml_fig_c180_01.png)
 *Figure — Data use agreement boxes. Synthetic teaching geometry—not a causal claim.*
+
+![c181 teaching panel 01 (original).](../assets/figures/ml_fig_c181_01.png)
+*Figure — Stakeholder map for data use. Synthetic teaching geometry—not a causal claim.*
+
+![c182 teaching panel 01 (original).](../assets/figures/ml_fig_c182_01.png)
+*Figure — Minimal risk pathway. Synthetic teaching geometry—not a causal claim.*
+
+![c183 teaching panel 01 (original).](../assets/figures/ml_fig_c183_01.png)
+*Figure — Secondary use rules. Synthetic teaching geometry—not a causal claim.*
+
+![c184 teaching panel 01 (original).](../assets/figures/ml_fig_c184_01.png)
+*Figure — De-identification checklist. Synthetic teaching geometry—not a causal claim.*
+
+![c185 teaching panel 01 (original).](../assets/figures/ml_fig_c185_01.png)
+*Figure — Data use agreement boxes. Synthetic teaching geometry—not a causal claim.*
+
+![c186 teaching panel 01 (original).](../assets/figures/ml_fig_c186_01.png)
+*Figure — Stakeholder map for data use. Synthetic teaching geometry—not a causal claim.*
+
+![c187 teaching panel 01 (original).](../assets/figures/ml_fig_c187_01.png)
+*Figure — Minimal risk pathway. Synthetic teaching geometry—not a causal claim.*
+
+![c188 teaching panel 01 (original).](../assets/figures/ml_fig_c188_01.png)
+*Figure — Secondary use rules. Synthetic teaching geometry—not a causal claim.*
+
+![c189 teaching panel 01 (original).](../assets/figures/ml_fig_c189_01.png)
+*Figure — De-identification checklist. Synthetic teaching geometry—not a causal claim.*
+
+![c190 teaching panel 01 (original).](../assets/figures/ml_fig_c190_01.png)
+*Figure — Data use agreement boxes. Synthetic teaching geometry—not a causal claim.*
+
+![c191 teaching panel 01 (original).](../assets/figures/ml_fig_c191_01.png)
+*Figure — Stakeholder map for data use. Synthetic teaching geometry—not a causal claim.*
+
+![c192 teaching panel 01 (original).](../assets/figures/ml_fig_c192_01.png)
+*Figure — Minimal risk pathway. Synthetic teaching geometry—not a causal claim.*
+
+![c193 teaching panel 01 (original).](../assets/figures/ml_fig_c193_01.png)
+*Figure — Secondary use rules. Synthetic teaching geometry—not a causal claim.*
+
+![c194 teaching panel 01 (original).](../assets/figures/ml_fig_c194_01.png)
+*Figure — De-identification checklist. Synthetic teaching geometry—not a causal claim.*
+
+![c195 teaching panel 01 (original).](../assets/figures/ml_fig_c195_01.png)
+*Figure — Data use agreement boxes. Synthetic teaching geometry—not a causal claim.*
+
+![c196 teaching panel 01 (original).](../assets/figures/ml_fig_c196_01.png)
+*Figure — Stakeholder map for data use. Synthetic teaching geometry—not a causal claim.*
+
+![c197 teaching panel 01 (original).](../assets/figures/ml_fig_c197_01.png)
+*Figure — Minimal risk pathway. Synthetic teaching geometry—not a causal claim.*
+
+![c198 teaching panel 01 (original).](../assets/figures/ml_fig_c198_01.png)
+*Figure — Secondary use rules. Synthetic teaching geometry—not a causal claim.*
+
+![c199 teaching panel 01 (original).](../assets/figures/ml_fig_c199_01.png)
+*Figure — De-identification checklist. Synthetic teaching geometry—not a causal claim.*
+
+![c200 teaching panel 01 (original).](../assets/figures/ml_fig_c200_01.png)
+*Figure — Data use agreement boxes. Synthetic teaching geometry—not a causal claim.*

@@ -993,6 +993,86 @@ To evaluation and epidemiology: universal approximation guarantees expressivity,
 ![c180 teaching panel 11 (original).](../assets/figures/ml_fig_c180_11.png)
 *Figure — Deep equilibrium model. Synthetic teaching geometry—not a causal claim.*
 
+
+![c181 teaching panel 11 (original).](../assets/figures/ml_fig_c181_11.png)
+*Figure — Residual stream view. Synthetic teaching geometry—not a causal claim.*
+
+
+![c182 teaching panel 11 (original).](../assets/figures/ml_fig_c182_11.png)
+*Figure — Mixture-of-experts routing. Synthetic teaching geometry—not a causal claim.*
+
+
+![c183 teaching panel 11 (original).](../assets/figures/ml_fig_c183_11.png)
+*Figure — Hypernetworks weights. Synthetic teaching geometry—not a causal claim.*
+
+
+![c184 teaching panel 11 (original).](../assets/figures/ml_fig_c184_11.png)
+*Figure — Neural ODE flow. Synthetic teaching geometry—not a causal claim.*
+
+
+![c185 teaching panel 11 (original).](../assets/figures/ml_fig_c185_11.png)
+*Figure — Deep equilibrium model. Synthetic teaching geometry—not a causal claim.*
+
+
+![c186 teaching panel 11 (original).](../assets/figures/ml_fig_c186_11.png)
+*Figure — Residual stream view. Synthetic teaching geometry—not a causal claim.*
+
+
+![c187 teaching panel 11 (original).](../assets/figures/ml_fig_c187_11.png)
+*Figure — Mixture-of-experts routing. Synthetic teaching geometry—not a causal claim.*
+
+
+![c188 teaching panel 11 (original).](../assets/figures/ml_fig_c188_11.png)
+*Figure — Hypernetworks weights. Synthetic teaching geometry—not a causal claim.*
+
+
+![c189 teaching panel 11 (original).](../assets/figures/ml_fig_c189_11.png)
+*Figure — Neural ODE flow. Synthetic teaching geometry—not a causal claim.*
+
+
+![c190 teaching panel 11 (original).](../assets/figures/ml_fig_c190_11.png)
+*Figure — Deep equilibrium model. Synthetic teaching geometry—not a causal claim.*
+
+
+![c191 teaching panel 11 (original).](../assets/figures/ml_fig_c191_11.png)
+*Figure — Residual stream view. Synthetic teaching geometry—not a causal claim.*
+
+
+![c192 teaching panel 11 (original).](../assets/figures/ml_fig_c192_11.png)
+*Figure — Mixture-of-experts routing. Synthetic teaching geometry—not a causal claim.*
+
+
+![c193 teaching panel 11 (original).](../assets/figures/ml_fig_c193_11.png)
+*Figure — Hypernetworks weights. Synthetic teaching geometry—not a causal claim.*
+
+
+![c194 teaching panel 11 (original).](../assets/figures/ml_fig_c194_11.png)
+*Figure — Neural ODE flow. Synthetic teaching geometry—not a causal claim.*
+
+
+![c195 teaching panel 11 (original).](../assets/figures/ml_fig_c195_11.png)
+*Figure — Deep equilibrium model. Synthetic teaching geometry—not a causal claim.*
+
+
+![c196 teaching panel 11 (original).](../assets/figures/ml_fig_c196_11.png)
+*Figure — Residual stream view. Synthetic teaching geometry—not a causal claim.*
+
+
+![c197 teaching panel 11 (original).](../assets/figures/ml_fig_c197_11.png)
+*Figure — Mixture-of-experts routing. Synthetic teaching geometry—not a causal claim.*
+
+
+![c198 teaching panel 11 (original).](../assets/figures/ml_fig_c198_11.png)
+*Figure — Hypernetworks weights. Synthetic teaching geometry—not a causal claim.*
+
+
+![c199 teaching panel 11 (original).](../assets/figures/ml_fig_c199_11.png)
+*Figure — Neural ODE flow. Synthetic teaching geometry—not a causal claim.*
+
+
+![c200 teaching panel 11 (original).](../assets/figures/ml_fig_c200_11.png)
+*Figure — Deep equilibrium model. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Neural networks compose affine maps and nonlinear activations to learn hierarchical features; universal approximation justifies richness while depth often buys parameter efficiency. Artificial units are useful engineering abstractions, not faithful cortical simulations. Perceptrons and MLPs provide the feedforward backbone; activations (sigmoid, tanh, ReLU family, softmax) control expressivity and gradient flow. Costs include MSE, cross-entropy, KL divergence, and Hellinger distance, each with different geometry. Optimizers range from SGD with momentum and Nesterov acceleration to Adagrad, RMSprop, and Adam. Backpropagation implements the chain rule; a tiny numerical forward/backward example makes gradients concrete. A second worked mini-batch logistic update shows the same gradient arithmetic used inside deep stacks. Training stability uses careful initialization, batch/layer norm, clipping, dropout, schedules, and early stopping to fight vanishing and exploding gradients. CNNs exploit spatial weight sharing with 2D/3D, dilated, depthwise, and transposed convolutions; RNNs, LSTMs, GRUs, and bidirectional/deep stacks model sequences before Transformers take over long-range language tasks. Residual inductive bias and hybrid CNN-plus-tabular pipelines appear throughout clinical imaging. In neurologic imaging and longitudinal care, preprocessing, index time, site structure, calibration, and honest comparison to simple baselines determine whether deep learning helps patients or only leaderboards.

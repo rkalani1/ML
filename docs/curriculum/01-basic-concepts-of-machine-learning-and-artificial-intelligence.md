@@ -1134,6 +1134,86 @@ The clinical and epidemiologic through-line—cohort design, index time, phenoty
 ![c180 teaching panel 02 (original).](../assets/figures/ml_fig_c180_02.png)
 *Figure — Excess risk decomposition. Synthetic teaching geometry—not a causal claim.*
 
+
+![c181 teaching panel 02 (original).](../assets/figures/ml_fig_c181_02.png)
+*Figure — Surrogate loss calibration. Synthetic teaching geometry—not a causal claim.*
+
+
+![c182 teaching panel 02 (original).](../assets/figures/ml_fig_c182_02.png)
+*Figure — Bayes consistency sketch. Synthetic teaching geometry—not a causal claim.*
+
+
+![c183 teaching panel 02 (original).](../assets/figures/ml_fig_c183_02.png)
+*Figure — Agnostic learning setup. Synthetic teaching geometry—not a causal claim.*
+
+
+![c184 teaching panel 02 (original).](../assets/figures/ml_fig_c184_02.png)
+*Figure — Realizable case bound. Synthetic teaching geometry—not a causal claim.*
+
+
+![c185 teaching panel 02 (original).](../assets/figures/ml_fig_c185_02.png)
+*Figure — Excess risk decomposition. Synthetic teaching geometry—not a causal claim.*
+
+
+![c186 teaching panel 02 (original).](../assets/figures/ml_fig_c186_02.png)
+*Figure — Surrogate loss calibration. Synthetic teaching geometry—not a causal claim.*
+
+
+![c187 teaching panel 02 (original).](../assets/figures/ml_fig_c187_02.png)
+*Figure — Bayes consistency sketch. Synthetic teaching geometry—not a causal claim.*
+
+
+![c188 teaching panel 02 (original).](../assets/figures/ml_fig_c188_02.png)
+*Figure — Agnostic learning setup. Synthetic teaching geometry—not a causal claim.*
+
+
+![c189 teaching panel 02 (original).](../assets/figures/ml_fig_c189_02.png)
+*Figure — Realizable case bound. Synthetic teaching geometry—not a causal claim.*
+
+
+![c190 teaching panel 02 (original).](../assets/figures/ml_fig_c190_02.png)
+*Figure — Excess risk decomposition. Synthetic teaching geometry—not a causal claim.*
+
+
+![c191 teaching panel 02 (original).](../assets/figures/ml_fig_c191_02.png)
+*Figure — Surrogate loss calibration. Synthetic teaching geometry—not a causal claim.*
+
+
+![c192 teaching panel 02 (original).](../assets/figures/ml_fig_c192_02.png)
+*Figure — Bayes consistency sketch. Synthetic teaching geometry—not a causal claim.*
+
+
+![c193 teaching panel 02 (original).](../assets/figures/ml_fig_c193_02.png)
+*Figure — Agnostic learning setup. Synthetic teaching geometry—not a causal claim.*
+
+
+![c194 teaching panel 02 (original).](../assets/figures/ml_fig_c194_02.png)
+*Figure — Realizable case bound. Synthetic teaching geometry—not a causal claim.*
+
+
+![c195 teaching panel 02 (original).](../assets/figures/ml_fig_c195_02.png)
+*Figure — Excess risk decomposition. Synthetic teaching geometry—not a causal claim.*
+
+
+![c196 teaching panel 02 (original).](../assets/figures/ml_fig_c196_02.png)
+*Figure — Surrogate loss calibration. Synthetic teaching geometry—not a causal claim.*
+
+
+![c197 teaching panel 02 (original).](../assets/figures/ml_fig_c197_02.png)
+*Figure — Bayes consistency sketch. Synthetic teaching geometry—not a causal claim.*
+
+
+![c198 teaching panel 02 (original).](../assets/figures/ml_fig_c198_02.png)
+*Figure — Agnostic learning setup. Synthetic teaching geometry—not a causal claim.*
+
+
+![c199 teaching panel 02 (original).](../assets/figures/ml_fig_c199_02.png)
+*Figure — Realizable case bound. Synthetic teaching geometry—not a causal claim.*
+
+
+![c200 teaching panel 02 (original).](../assets/figures/ml_fig_c200_02.png)
+*Figure — Excess risk decomposition. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Artificial intelligence aims at systems that act intelligently; machine learning improves task performance by estimating models from data; data mining emphasizes scalable pattern discovery; data science governs measurement and decisions under uncertainty. A short history runs from symbolic AI through statistical learning and data mining to deep learning and generative systems—none fully obsolete. Algorithms are finite procedures; learning algorithms estimate models. Evaluation jointly considers computational complexity, runtime, task accuracy, and accuracy–efficiency trade-offs. Datasets arrive as tables, time series, streams, graphs, text, images/video, and audio, with numerical types that constrain encoding. Tasks include clustering, association and sequence mining, dimensionality reduction, anomaly detection, regression, classification, self-supervision, generative modeling, and reinforcement learning. Ground-truth labels are measurement processes; k-fold and grouped cross-validation support honest internal evaluation but do not replace external validation. A step-by-step workflow ties question framing to monitoring. The worked example selected a simpler model with better validation error over a flexible overfit rule. In neurology and epidemiology, cohort eligibility, index time, phenotype quality, leakage control, calibration, and external validation determine whether ML claims are scientifically meaningful. Recurring failure modes—data leakage, distribution shift, class imbalance, label noise, multiplicity, shortcut learning, and miscalibration—each carry a preventive discipline. Fairness, privacy, and transparency are design constraints to encode from the first workflow step, previewed here and developed in Chapter 16.

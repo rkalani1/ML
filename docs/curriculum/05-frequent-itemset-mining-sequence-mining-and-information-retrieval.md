@@ -1062,6 +1062,86 @@ Frequent itemset mining discovers co-occurrence structure in baskets; sequence m
 ![c180 teaching panel 06 (original).](../assets/figures/ml_fig_c180_06.png)
 *Figure — Learning sparse retrievers. Synthetic teaching geometry—not a causal claim.*
 
+
+![c181 teaching panel 06 (original).](../assets/figures/ml_fig_c181_06.png)
+*Figure — SpanBERT span masking. Synthetic teaching geometry—not a causal claim.*
+
+
+![c182 teaching panel 06 (original).](../assets/figures/ml_fig_c182_06.png)
+*Figure — Dense passage retrieval. Synthetic teaching geometry—not a causal claim.*
+
+
+![c183 teaching panel 06 (original).](../assets/figures/ml_fig_c183_06.png)
+*Figure — Query likelihood LM. Synthetic teaching geometry—not a causal claim.*
+
+
+![c184 teaching panel 06 (original).](../assets/figures/ml_fig_c184_06.png)
+*Figure — PRF pseudo relevance. Synthetic teaching geometry—not a causal claim.*
+
+
+![c185 teaching panel 06 (original).](../assets/figures/ml_fig_c185_06.png)
+*Figure — Learning sparse retrievers. Synthetic teaching geometry—not a causal claim.*
+
+
+![c186 teaching panel 06 (original).](../assets/figures/ml_fig_c186_06.png)
+*Figure — SpanBERT span masking. Synthetic teaching geometry—not a causal claim.*
+
+
+![c187 teaching panel 06 (original).](../assets/figures/ml_fig_c187_06.png)
+*Figure — Dense passage retrieval. Synthetic teaching geometry—not a causal claim.*
+
+
+![c188 teaching panel 06 (original).](../assets/figures/ml_fig_c188_06.png)
+*Figure — Query likelihood LM. Synthetic teaching geometry—not a causal claim.*
+
+
+![c189 teaching panel 06 (original).](../assets/figures/ml_fig_c189_06.png)
+*Figure — PRF pseudo relevance. Synthetic teaching geometry—not a causal claim.*
+
+
+![c190 teaching panel 06 (original).](../assets/figures/ml_fig_c190_06.png)
+*Figure — Learning sparse retrievers. Synthetic teaching geometry—not a causal claim.*
+
+
+![c191 teaching panel 06 (original).](../assets/figures/ml_fig_c191_06.png)
+*Figure — SpanBERT span masking. Synthetic teaching geometry—not a causal claim.*
+
+
+![c192 teaching panel 06 (original).](../assets/figures/ml_fig_c192_06.png)
+*Figure — Dense passage retrieval. Synthetic teaching geometry—not a causal claim.*
+
+
+![c193 teaching panel 06 (original).](../assets/figures/ml_fig_c193_06.png)
+*Figure — Query likelihood LM. Synthetic teaching geometry—not a causal claim.*
+
+
+![c194 teaching panel 06 (original).](../assets/figures/ml_fig_c194_06.png)
+*Figure — PRF pseudo relevance. Synthetic teaching geometry—not a causal claim.*
+
+
+![c195 teaching panel 06 (original).](../assets/figures/ml_fig_c195_06.png)
+*Figure — Learning sparse retrievers. Synthetic teaching geometry—not a causal claim.*
+
+
+![c196 teaching panel 06 (original).](../assets/figures/ml_fig_c196_06.png)
+*Figure — SpanBERT span masking. Synthetic teaching geometry—not a causal claim.*
+
+
+![c197 teaching panel 06 (original).](../assets/figures/ml_fig_c197_06.png)
+*Figure — Dense passage retrieval. Synthetic teaching geometry—not a causal claim.*
+
+
+![c198 teaching panel 06 (original).](../assets/figures/ml_fig_c198_06.png)
+*Figure — Query likelihood LM. Synthetic teaching geometry—not a causal claim.*
+
+
+![c199 teaching panel 06 (original).](../assets/figures/ml_fig_c199_06.png)
+*Figure — PRF pseudo relevance. Synthetic teaching geometry—not a causal claim.*
+
+
+![c200 teaching panel 06 (original).](../assets/figures/ml_fig_c200_06.png)
+*Figure — Learning sparse retrievers. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Transactional data model co-occurrence. Support measures how often an itemset appears; confidence estimates conditional probability for association rules; lift compares that probability to independence. IR represents documents and queries with TF–IDF (and related) weights, ranks by cosine or BM25-style scores, and evaluates with precision, recall, and MAP; inverted indexes make large-scale search feasible. Hash tables and MinHash support counting and approximate set similarity; trees (binary, 2-3, B/B+, red-black, trie/radix) organize ordered keys and prefixes; BFS, DFS, beam search, and MCTS explore combinatorial trees; Bloom filters, sliding windows, and skip lists handle membership, streams, and ordered maps efficiently. Apriori, FP-Growth, and ECLAT mine frequent itemsets under the Apriori principle; GSP, SPADE, FreeSpan, and PrefixSpan mine sequences. HMMs, as simple PGMs, use the forward algorithm for likelihood, Viterbi for decoding, and Baum–Welch for unsupervised training. Clinically, baskets and sequences describe encounters and pathways; rules must not be read as causal; phenotype mining must avoid label leakage; retrieval supports literature and note search with explicit evaluation. The central engineering tension is combinatorial explosion versus sparsity: good algorithms and good thresholds keep the useful patterns and leave the noise behind.

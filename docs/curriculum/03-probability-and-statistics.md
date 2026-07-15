@@ -1006,6 +1006,86 @@ Senior practice is boring in the best way: define the sample space and estimand,
 ![c180 teaching panel 04 (original).](../assets/figures/ml_fig_c180_04.png)
 *Figure — Jeffreys prior sketch. Synthetic teaching geometry—not a causal claim.*
 
+
+![c181 teaching panel 04 (original).](../assets/figures/ml_fig_c181_04.png)
+*Figure — Beta-binomial overdispersion. Synthetic teaching geometry—not a causal claim.*
+
+
+![c182 teaching panel 04 (original).](../assets/figures/ml_fig_c182_04.png)
+*Figure — Empirical Bayes shrink. Synthetic teaching geometry—not a causal claim.*
+
+
+![c183 teaching panel 04 (original).](../assets/figures/ml_fig_c183_04.png)
+*Figure — Posterior predictive check. Synthetic teaching geometry—not a causal claim.*
+
+
+![c184 teaching panel 04 (original).](../assets/figures/ml_fig_c184_04.png)
+*Figure — Credible vs confidence. Synthetic teaching geometry—not a causal claim.*
+
+
+![c185 teaching panel 04 (original).](../assets/figures/ml_fig_c185_04.png)
+*Figure — Jeffreys prior sketch. Synthetic teaching geometry—not a causal claim.*
+
+
+![c186 teaching panel 04 (original).](../assets/figures/ml_fig_c186_04.png)
+*Figure — Beta-binomial overdispersion. Synthetic teaching geometry—not a causal claim.*
+
+
+![c187 teaching panel 04 (original).](../assets/figures/ml_fig_c187_04.png)
+*Figure — Empirical Bayes shrink. Synthetic teaching geometry—not a causal claim.*
+
+
+![c188 teaching panel 04 (original).](../assets/figures/ml_fig_c188_04.png)
+*Figure — Posterior predictive check. Synthetic teaching geometry—not a causal claim.*
+
+
+![c189 teaching panel 04 (original).](../assets/figures/ml_fig_c189_04.png)
+*Figure — Credible vs confidence. Synthetic teaching geometry—not a causal claim.*
+
+
+![c190 teaching panel 04 (original).](../assets/figures/ml_fig_c190_04.png)
+*Figure — Jeffreys prior sketch. Synthetic teaching geometry—not a causal claim.*
+
+
+![c191 teaching panel 04 (original).](../assets/figures/ml_fig_c191_04.png)
+*Figure — Beta-binomial overdispersion. Synthetic teaching geometry—not a causal claim.*
+
+
+![c192 teaching panel 04 (original).](../assets/figures/ml_fig_c192_04.png)
+*Figure — Empirical Bayes shrink. Synthetic teaching geometry—not a causal claim.*
+
+
+![c193 teaching panel 04 (original).](../assets/figures/ml_fig_c193_04.png)
+*Figure — Posterior predictive check. Synthetic teaching geometry—not a causal claim.*
+
+
+![c194 teaching panel 04 (original).](../assets/figures/ml_fig_c194_04.png)
+*Figure — Credible vs confidence. Synthetic teaching geometry—not a causal claim.*
+
+
+![c195 teaching panel 04 (original).](../assets/figures/ml_fig_c195_04.png)
+*Figure — Jeffreys prior sketch. Synthetic teaching geometry—not a causal claim.*
+
+
+![c196 teaching panel 04 (original).](../assets/figures/ml_fig_c196_04.png)
+*Figure — Beta-binomial overdispersion. Synthetic teaching geometry—not a causal claim.*
+
+
+![c197 teaching panel 04 (original).](../assets/figures/ml_fig_c197_04.png)
+*Figure — Empirical Bayes shrink. Synthetic teaching geometry—not a causal claim.*
+
+
+![c198 teaching panel 04 (original).](../assets/figures/ml_fig_c198_04.png)
+*Figure — Posterior predictive check. Synthetic teaching geometry—not a causal claim.*
+
+
+![c199 teaching panel 04 (original).](../assets/figures/ml_fig_c199_04.png)
+*Figure — Credible vs confidence. Synthetic teaching geometry—not a causal claim.*
+
+
+![c200 teaching panel 04 (original).](../assets/figures/ml_fig_c200_04.png)
+*Figure — Jeffreys prior sketch. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Random variables, data types, and independent trials structure probabilistic modeling. Descriptive statistics—means (arithmetic, geometric, harmonic), median, mode, variance/SD/covariance, range/quartiles/boxplots, and degrees of freedom—summarize samples. Joint and conditional probability and Bayes’ theorem convert priors and likelihoods into posteriors; a worked LVO example showed PPV ≈ 41.5% at 20% prevalence with sens 0.85 and spec 0.70, falling to ~13% at 5% prevalence. PDFs, PMFs, and CDFs frame distributions including Normal, Uniform, Beta, Dirichlet, Bernoulli/Binomial/Geometric, Poisson, Weibull, heavy-tailed/Zipf/Pareto families, Chi-square, and Boltzmann/softmax forms; PP/QQ plots check fit. Expectation, z-scores, CLT, LLN, sampling bias, and confidence intervals address estimation and sample size intuition. Hypothesis tests span t-tests, ANOVA-family methods, and nonparametric chi-square, KS, Kruskal–Wallis, and Mann–Whitney procedures, with Bonferroni and Tukey multiplicity control. Effect sizes, correlations, entropy, information gain, KL, cross-entropy, and JS divergences link statistics to modern ML losses. MLE and EM provide core estimation strategies for fully and partially observed models.

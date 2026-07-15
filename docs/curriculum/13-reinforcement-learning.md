@@ -1219,6 +1219,86 @@ Understanding Bellman backups and on- versus off-policy learning is more valuabl
 ![c180 teaching panel 14 (original).](../assets/figures/ml_fig_c180_14.png)
 *Figure — Successor representation. Synthetic teaching geometry—not a causal claim.*
 
+
+![c181 teaching panel 14 (original).](../assets/figures/ml_fig_c181_14.png)
+*Figure — World models dreamer. Synthetic teaching geometry—not a causal claim.*
+
+
+![c182 teaching panel 14 (original).](../assets/figures/ml_fig_c182_14.png)
+*Figure — Model-based MPC loop. Synthetic teaching geometry—not a causal claim.*
+
+
+![c183 teaching panel 14 (original).](../assets/figures/ml_fig_c183_14.png)
+*Figure — Offline RL conservatism. Synthetic teaching geometry—not a causal claim.*
+
+
+![c184 teaching panel 14 (original).](../assets/figures/ml_fig_c184_14.png)
+*Figure — Distributional RL quantiles. Synthetic teaching geometry—not a causal claim.*
+
+
+![c185 teaching panel 14 (original).](../assets/figures/ml_fig_c185_14.png)
+*Figure — Successor representation. Synthetic teaching geometry—not a causal claim.*
+
+
+![c186 teaching panel 14 (original).](../assets/figures/ml_fig_c186_14.png)
+*Figure — World models dreamer. Synthetic teaching geometry—not a causal claim.*
+
+
+![c187 teaching panel 14 (original).](../assets/figures/ml_fig_c187_14.png)
+*Figure — Model-based MPC loop. Synthetic teaching geometry—not a causal claim.*
+
+
+![c188 teaching panel 14 (original).](../assets/figures/ml_fig_c188_14.png)
+*Figure — Offline RL conservatism. Synthetic teaching geometry—not a causal claim.*
+
+
+![c189 teaching panel 14 (original).](../assets/figures/ml_fig_c189_14.png)
+*Figure — Distributional RL quantiles. Synthetic teaching geometry—not a causal claim.*
+
+
+![c190 teaching panel 14 (original).](../assets/figures/ml_fig_c190_14.png)
+*Figure — Successor representation. Synthetic teaching geometry—not a causal claim.*
+
+
+![c191 teaching panel 14 (original).](../assets/figures/ml_fig_c191_14.png)
+*Figure — World models dreamer. Synthetic teaching geometry—not a causal claim.*
+
+
+![c192 teaching panel 14 (original).](../assets/figures/ml_fig_c192_14.png)
+*Figure — Model-based MPC loop. Synthetic teaching geometry—not a causal claim.*
+
+
+![c193 teaching panel 14 (original).](../assets/figures/ml_fig_c193_14.png)
+*Figure — Offline RL conservatism. Synthetic teaching geometry—not a causal claim.*
+
+
+![c194 teaching panel 14 (original).](../assets/figures/ml_fig_c194_14.png)
+*Figure — Distributional RL quantiles. Synthetic teaching geometry—not a causal claim.*
+
+
+![c195 teaching panel 14 (original).](../assets/figures/ml_fig_c195_14.png)
+*Figure — Successor representation. Synthetic teaching geometry—not a causal claim.*
+
+
+![c196 teaching panel 14 (original).](../assets/figures/ml_fig_c196_14.png)
+*Figure — World models dreamer. Synthetic teaching geometry—not a causal claim.*
+
+
+![c197 teaching panel 14 (original).](../assets/figures/ml_fig_c197_14.png)
+*Figure — Model-based MPC loop. Synthetic teaching geometry—not a causal claim.*
+
+
+![c198 teaching panel 14 (original).](../assets/figures/ml_fig_c198_14.png)
+*Figure — Offline RL conservatism. Synthetic teaching geometry—not a causal claim.*
+
+
+![c199 teaching panel 14 (original).](../assets/figures/ml_fig_c199_14.png)
+*Figure — Distributional RL quantiles. Synthetic teaching geometry—not a causal claim.*
+
+
+![c200 teaching panel 14 (original).](../assets/figures/ml_fig_c200_14.png)
+*Figure — Successor representation. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Reinforcement learning studies agents that interact with environments to maximize cumulative reward. Markov decision processes formalize states, actions, transitions, rewards, and discounting. Policies induce value functions V and Q that satisfy Bellman equations; dynamic programming solves small known MDPs via policy and value iteration. Monte Carlo methods average full returns; temporal-difference methods bootstrap, yielding SARSA (on-policy), Q-learning (off-policy), and Dyna-Q planning. Multi-armed bandits isolate exploration via epsilon-greedy, UCB, and Thompson sampling. Function approximation and deep RL scale these ideas: DQN with replay and target networks, DDQN, dueling architectures, prioritized replay, REINFORCE, TRPO, PPO, and actor-critic methods including A3C, DDPG, TD3, and SAC, plus latent world-model Dreamer agents. Careful reward design is essential. Clinical and epidemiologic notes emphasize that sequential care is high-risk RL: reward misspecification rewrites the clinical objective, offline logs lack coverage and are confounded by indication, and ethical constraints sharply limit unsupervised exploration at the bedside.

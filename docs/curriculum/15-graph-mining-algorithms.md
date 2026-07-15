@@ -1133,6 +1133,86 @@ Networks break the independence assumption most models rest on: outcomes spill o
 ![c180 teaching panel 16 (original).](../assets/figures/ml_fig_c180_16.png)
 *Figure — Graph pooling DiffPool. Synthetic teaching geometry—not a causal claim.*
 
+
+![c181 teaching panel 16 (original).](../assets/figures/ml_fig_c181_16.png)
+*Figure — Motif counting graphs. Synthetic teaching geometry—not a causal claim.*
+
+
+![c182 teaching panel 16 (original).](../assets/figures/ml_fig_c182_16.png)
+*Figure — Link prediction scores. Synthetic teaching geometry—not a causal claim.*
+
+
+![c183 teaching panel 16 (original).](../assets/figures/ml_fig_c183_16.png)
+*Figure — Knowledge graph embeds. Synthetic teaching geometry—not a causal claim.*
+
+
+![c184 teaching panel 16 (original).](../assets/figures/ml_fig_c184_16.png)
+*Figure — Hyperbolic graph space. Synthetic teaching geometry—not a causal claim.*
+
+
+![c185 teaching panel 16 (original).](../assets/figures/ml_fig_c185_16.png)
+*Figure — Graph pooling DiffPool. Synthetic teaching geometry—not a causal claim.*
+
+
+![c186 teaching panel 16 (original).](../assets/figures/ml_fig_c186_16.png)
+*Figure — Motif counting graphs. Synthetic teaching geometry—not a causal claim.*
+
+
+![c187 teaching panel 16 (original).](../assets/figures/ml_fig_c187_16.png)
+*Figure — Link prediction scores. Synthetic teaching geometry—not a causal claim.*
+
+
+![c188 teaching panel 16 (original).](../assets/figures/ml_fig_c188_16.png)
+*Figure — Knowledge graph embeds. Synthetic teaching geometry—not a causal claim.*
+
+
+![c189 teaching panel 16 (original).](../assets/figures/ml_fig_c189_16.png)
+*Figure — Hyperbolic graph space. Synthetic teaching geometry—not a causal claim.*
+
+
+![c190 teaching panel 16 (original).](../assets/figures/ml_fig_c190_16.png)
+*Figure — Graph pooling DiffPool. Synthetic teaching geometry—not a causal claim.*
+
+
+![c191 teaching panel 16 (original).](../assets/figures/ml_fig_c191_16.png)
+*Figure — Motif counting graphs. Synthetic teaching geometry—not a causal claim.*
+
+
+![c192 teaching panel 16 (original).](../assets/figures/ml_fig_c192_16.png)
+*Figure — Link prediction scores. Synthetic teaching geometry—not a causal claim.*
+
+
+![c193 teaching panel 16 (original).](../assets/figures/ml_fig_c193_16.png)
+*Figure — Knowledge graph embeds. Synthetic teaching geometry—not a causal claim.*
+
+
+![c194 teaching panel 16 (original).](../assets/figures/ml_fig_c194_16.png)
+*Figure — Hyperbolic graph space. Synthetic teaching geometry—not a causal claim.*
+
+
+![c195 teaching panel 16 (original).](../assets/figures/ml_fig_c195_16.png)
+*Figure — Graph pooling DiffPool. Synthetic teaching geometry—not a causal claim.*
+
+
+![c196 teaching panel 16 (original).](../assets/figures/ml_fig_c196_16.png)
+*Figure — Motif counting graphs. Synthetic teaching geometry—not a causal claim.*
+
+
+![c197 teaching panel 16 (original).](../assets/figures/ml_fig_c197_16.png)
+*Figure — Link prediction scores. Synthetic teaching geometry—not a causal claim.*
+
+
+![c198 teaching panel 16 (original).](../assets/figures/ml_fig_c198_16.png)
+*Figure — Knowledge graph embeds. Synthetic teaching geometry—not a causal claim.*
+
+
+![c199 teaching panel 16 (original).](../assets/figures/ml_fig_c199_16.png)
+*Figure — Hyperbolic graph space. Synthetic teaching geometry—not a causal claim.*
+
+
+![c200 teaching panel 16 (original).](../assets/figures/ml_fig_c200_16.png)
+*Figure — Graph pooling DiffPool. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Graph mining extracts structure from relational data. Classical algorithms include minimum spanning trees (Prim, Kruskal), shortest paths (Dijkstra, A*), matching (Hungarian, Hopcroft-Karp), centrality measures, PageRank and HITS link analysis, and community detection (spectral, Louvain, Leiden). Graph neural networks address learning on graphs via message passing, with GCN, GAT, and GraphSAGE as core architectures, facing challenges of over-smoothing, scalability, and shift. HNSW enables fast approximate nearest-neighbor search on embedding graphs. Clinical applications span referral networks, comorbidity and connectomics, and outbreak contact graphs—always with careful edge definition, privacy, and causal humility.
