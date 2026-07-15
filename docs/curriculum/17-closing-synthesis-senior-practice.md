@@ -439,3 +439,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c86 teaching panel 18 (original).](../assets/figures/ml_fig_c86_18.png)
 *Figure — Validation strength ladder from internal to prospective. Synthetic teaching geometry—not a causal claim.*
+
+![c87 teaching panel 18 (original).](../assets/figures/ml_fig_c87_18.png)
+*Figure — Deployment decision tree: monitor, revise, shadow. Synthetic teaching geometry—not a causal claim.*

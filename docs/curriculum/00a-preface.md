@@ -394,3 +394,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c86 teaching panel 01 (original).](../assets/figures/ml_fig_c86_01.png)
 *Figure — Claim hierarchy: primary endpoint vs exploratory labels. Synthetic teaching geometry—not a causal claim.*
+
+![c87 teaching panel 01 (original).](../assets/figures/ml_fig_c87_01.png)
+*Figure — Prediction box vs causal claim box—keep them separate (pred≠cause). Synthetic teaching geometry—not a causal claim.*
