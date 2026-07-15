@@ -241,6 +241,11 @@ Do not cherry-pick time windows or y-limits to manufacture a policy narrative.
 
 *Figure — Window cherry-picking. **Left:** a wandering door-to-needle series with one bad spike; the red start→end segment through a pre-chosen “improvement” window looks like a policy win. **Right:** random windows of the same series yield a wide distribution of start−end deltas—many “wins” by chance. Pre-specify the comparison window, show the full series, and report uncertainty.*
 
+
+![Histogram binning artifacts on a synthetic two-mode mixture (original).](../assets/figures/ml_fig_binning_artifact.png)
+
+*Figure — Visualization: bin width is a hyperparameter. Too few bins hide modes; too many invent noise spikes. Gold dashed lines mark generating centers. Bin choice is not evidence of clinical subtypes—**display ≠ etiology**.*
+
 Refuse 3-D categorical bars and exploded 3-D pies in scientific communication.
 
 Accessibility expands who can use your work correctly: sufficient luminance contrast, large fonts for projection and photocopy, descriptive captions and alt text, and tabular companions for key plotted values. Accessibility is quality control under time pressure, not only compliance.

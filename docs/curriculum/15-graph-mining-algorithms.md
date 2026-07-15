@@ -421,6 +421,11 @@ Given an undirected similarity graph, form the normalized Laplacian L_sym = I - 
 
 *Figure — Spectral bipartition intuition. **Left:** nodes colored by sign(u₂); Fiedler coordinates annotate each vertex; the bridge sits near the cut. **Right:** eigenvalues of L = D−A with λ₁≈0 and a spectral gap after λ₂; inset shows the 1-D Fiedler embedding. Communities from the spectrum reflect edge structure only—not causal modules of care quality.*
 
+
+![Degree tails and assortativity caricature on synthetic graphs (original).](../assets/figures/ml_fig_degree_assort.png)
+
+*Figure — Network structure diagnostics. Left: heavy-tailed degrees (log count). Right: assortative vs disassortative edge endpoints. Structure guides community and centrality analyses; it does not alone prove clinical **causation** without design and confounders.*
+
 Choosing k: inspect eigenvalue gaps; domain knowledge (expected number of care regions); stability across bootstrap edge subsamples. Spectral methods assume the similarity graph is meaningful—garbage k-NN graphs in high-dimensional noise yield garbage clusters. Compared with Louvain/Leiden, spectral clustering requires choosing k up front and costs eigen-decomposition, but connects cleanly to theoretical graph cuts (RatioCut, NCut).
 
 Clinical connectomes often use partial correlation or streamline counts as weights; thresholding to build A can create or destroy communities. Report sensitivity to threshold and parcellation atlas.

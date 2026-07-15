@@ -269,6 +269,11 @@ As λ goes from large to small along a Lasso path, coefficients enter the model 
 
 *Figure — Regularization path. Lasso (left) yields exact zeros and staggered feature entry; Ridge (right) shrinks coefficients continuously without hard selection. Mark λ_min and λ_1se on the path you report so readers can see the sparsity–fit tradeoff.*
 
+
+![Cook's distance influence diagnostics for synthetic OLS (original).](../assets/figures/ml_fig_cooks_distance.png)
+
+*Figure — Influence vs bulk fit. Left: golden points pull the line; right: Cook's D with a 4/n reference. High influence warrants investigation (data error, rare phenotype), not automatic deletion. **Influence ≠ causation**.*
+
 Elastic net’s mixing parameter α (weight on L1 versus L2) is a second hyperparameter; nest its selection. Grouped clinical features (multiple BP meds, multi-item NIHSS) sometimes use group Lasso variants so that whole groups enter together—beyond this chapter’s core, but aligned with elastic net’s motivation. The non-negative garrote’s c_j path similarly traces shrinkage of an initial fit; if the initial OLS is already nonsense due to p > n, start from Ridge or univariate screens instead.
 
 ## Optimization Practice Notes

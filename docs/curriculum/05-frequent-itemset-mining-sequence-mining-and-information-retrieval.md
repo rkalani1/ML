@@ -239,6 +239,11 @@ Apriori generates candidates of size k from frequent itemsets of size k−1, pru
 
 *Figure — Apriori pruning on the chapter basket (focus {A,B,C}). **Left:** itemset lattice with supports; teal nodes meet minsup = 0.50; the triple ABC (s = 0.40) is infrequent and dashed edges mark the downward closure cut. **Right:** horizontal support bars with the minsup line. Any superset of an infrequent set is infrequent—this is the Apriori principle that prunes candidates before counting. Frequent co-occurrence is not causation or protocol quality.*
 
+
+![Association rules: confidence vs lift with support-sized bubbles (synthetic; original).](../assets/figures/ml_fig_conf_lift_scatter.png)
+
+*Figure — Rule quality plane. High confidence with lift near 1 often reflects a prevalent item, not a discovery. Bubble size tracks support. **Association ≠ causation**; nest mining inside temporal splits when labels are clinical outcomes.*
+
 ```
 Apriori(D, minsup):
  L1 ← frequent 1-itemsets in D

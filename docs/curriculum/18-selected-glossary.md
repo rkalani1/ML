@@ -294,6 +294,8 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 **Leakage** is using information that would not be available at prediction time (or that is a proxy for the outcome created after the fact). It inflates apparent performance and fails in real deployment.
 
-![Leakage taxonomy: temporal, fit/CV, label-proxy, target-encoding (original).](../assets/figures/ml_fig_leakage_taxonomy.png)
+![Leakage taxonomy: temporal, fit/CV, label-proxy, target-encoding (original).](../assets/figures/ml_fig_leakage_taxonomy.png)\n![Bayes update with fixed LR+: prior vs posterior across prevalences (original).](../assets/figures/ml_fig_lr_nomogram.png)
+
+*Figure — Glossary Bayes reminder. Fixed LR+=5 lifts probability differently at π=0.05 vs 0.40. Prevalence is not optional. Likelihood ratios quantify test strength for prediction counseling—they are not causal treatment effects.*\n\n
 
 *Figure — Glossary leakage map. Four common families: **temporal** (post-decision features), **fit/CV** (scaler/vocab/selector fit on the full cohort), **label proxy** (treatment or post-outcome codes as inputs), and **target-encoding** without LOO/OOF. All inflate apparent performance at train time and fail at true index time. Prediction ≠ causation.*

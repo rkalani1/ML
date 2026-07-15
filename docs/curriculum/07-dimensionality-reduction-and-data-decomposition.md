@@ -219,7 +219,9 @@ Any symmetric positive definite matrix A admits a Cholesky factorization A = L L
 
 NMF approximates a nonnegative matrix X ≈ W H with W ≥ 0, H ≥ 0. Nonnegativity often yields parts-based, additive representations: topics as bags of words, imaging basis patterns as positive activations, or lab factors as co-elevated panels. Objectives include Frobenius loss or Kullback–Leibler divergence between X and W H, optimized by multiplicative updates or projected gradient methods. NMF is nonconvex; initializations matter. Rank r is a hyperparameter chosen by stability, held-out reconstruction, or domain interpretability.
 
-![NMF parts-based factorization of a toy nonnegative image (original).](../assets/figures/ml_fig_nmf_parts.png)
+![NMF parts-based factorization of a toy nonnegative image (original).](../assets/figures/ml_fig_nmf_parts.png)\n![PCA scree and cumulative explained variance (synthetic eigenvalues; original).](../assets/figures/ml_fig_pca_scree_cumvar.png)
+
+*Figure — Rank choice heuristics. Bars are per-component variance fractions; gold curve is cumulative mass with a 90% guide line. Elbows and thresholds are teaching tools—principal axes are not automatically clinical factors without labels. **Geometry ≠ etiology**.*\n\n
 
 *Figure — NMF teaching panel. A synthetic 16×16 nonnegative “map” is a sum of three blob parts. Multiplicative-update NMF recovers additive parts \(H\) and sample loadings \(W\); reconstruction error falls with rank and plateaus near the true \(r=3\). Parts are ≥0 and additive—useful for territories or topics—but solutions are non-unique, depend on initialization, and do not license causal anatomy labels without external validation.*
 

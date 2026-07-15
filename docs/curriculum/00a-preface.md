@@ -81,7 +81,9 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 *Figure — Preface: shipping starts evaluation. Versioned monitor → investigate → rollback/retrain loop; silent auto-retrain without governance is a hazard. Lifecycle hygiene keeps a prediction service safe—it is not causal discovery.*
 
-![Three leakage modes: timing, fit, and label leakage (original).](../assets/figures/ml_fig_three_leakage_modes.png)
+![Three leakage modes: timing, fit, and label leakage (original).](../assets/figures/ml_fig_three_leakage_modes.png)\n![Evidence stack for clinical ML claims (original teaching).](../assets/figures/ml_fig_evidence_stack.png)
+
+*Figure — Preface evidence stack. Internal AUROC alone licenses only ranking talk; calibration and prevalence enable probability counseling; external and silent trials raise ops safety; decision impact needs prospective design. Climbing the stack is required for stronger claims—**prediction is not causation** without confounders and design.*\n\n
 
 *Figure — Preface leakage triad. Timing (features after t₀), fit (scalers/vocab fit on full cohort), and label leakage (proxies that are the outcome) are the three modes to hunt in every methods section. Leakage inflates prediction metrics—not causal truth.*
 

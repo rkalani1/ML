@@ -453,6 +453,11 @@ which removes incentives to push r_t far outside [1-epsilon, 1+epsilon]. An alte
 
 *Figure — Why the clip exists. Horizontal axis is the importance ratio \(r=\pi_\theta(a|s)/\pi_{\mathrm{old}}(a|s)\); shaded band is \([1-\varepsilon,1+\varepsilon]\). **Left:** when advantage \(A>0\), the PPO min objective stops rewarding ever-larger \(r\) past \(1+\varepsilon\). **Right:** when \(A<0\), clipping limits how hard a single batch can drive probability mass toward zero. PPO is a trust-region heuristic for on-policy control—not a license for bedside exploration with irreversible actions.*
 
+
+![ε-greedy exploration schedules: linear, exponential, constant (original).](../assets/figures/ml_fig_epsilon_decay.png)
+
+*Figure — Exploration design. Linear anneal, exponential decay, and constant ε trade early search against later exploitation. Schedules are policy choices for simulated MDPs—not maps of clinical cause-effect paths. Constrain unsafe actions before any bedside trial.*
+
 # REINFORCE with baseline (conceptual)
 # logp: log pi(a_t|s_t); returns: return-to-go; baseline: V(s_t)
 def reinforce_loss(logp, returns, baseline):

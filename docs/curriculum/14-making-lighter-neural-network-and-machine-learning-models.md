@@ -332,6 +332,11 @@ Knowledge distillation trains a smaller student model to mimic a larger teacher.
 
 *Figure — Soft targets carry dark knowledge. **Left:** softmax(z/T) at T=1 vs T=4 for logits [2.8, 1.1, −0.4]. **Right:** entropy H(p_T) rises and peak probability falls as T grows; the usual KD loss scales soft CE by T² so gradients stay comparable. Tune T and α on a validation set that matches the edge deployment distribution—not only average accuracy.*
 
+
+![INT quantization: relative MSE vs synthetic accuracy by bit width (original).](../assets/figures/ml_fig_int8_quantize.png)
+
+*Figure — Compression trade-offs. Coarser bits raise quantizer MSE while task accuracy often plateaus near INT8 on teaching curves. Recalibrate probabilities after quantize. Lighter models change **compute**, not the causal status of a prediction.*
+
 Training recipe: train teacher well; choose student architecture that fits the edge budget; run distillation on a transfer set representative of deployment; tune T and alpha; validate student calibration and failure modes. Architectures include response-based distillation (logits), feature-based (match intermediate maps), and relation-based (match pairwise structures). For stroke imaging, a heavy ensemble teacher can distill into a single student deployable on MSU hardware—if the transfer set includes the MSU’s scanner characteristics.
 
 ```

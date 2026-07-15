@@ -237,7 +237,9 @@ Within-cluster sum of squares (WSS/WCSS) decreases as k grows; the elbow method 
 
 *Figure — Gap as another k heuristic. **Left:** three-blob synthetic geometry. **Right:** \(\mathrm{Gap}(k)=E^*[\log W_k]-\log W_k\) peaks near the generating \(k\). Compare observed within-cluster dispersion to a uniform reference; still a geometric score, not etiology. Pair gap/elbow/silhouette with stability and a pre-registered use case—clusters remain hypothesis generators, not causal subtypes.*
 
-![Density clustering with noise points and stability scores (synthetic; original).](../assets/figures/ml_fig_density_stability.png)
+![Density clustering with noise points and stability scores (synthetic; original).](../assets/figures/ml_fig_density_stability.png)\n![Bootstrap co-association frequency heatmap (synthetic; original).](../assets/figures/ml_fig_coassociation.png)
+
+*Figure — Co-association stability. Entry (i,j) is how often points co-cluster across bootstrap restarts. Block-diagonal structure signals geometric reproducibility, not named disease subtypes. **Clusters ≠ causal labels**.*\n\n
 
 *Figure — Not every point needs a cluster. **Left:** two dense groups plus noise. **Right:** teaching stability bars—prefer persistent clusters over ephemeral splits. Stability is geometric; noise points need review paths, not forced labels. Clusters ≠ etiologic subtypes.*
 

@@ -277,7 +277,11 @@ y_hat = pipe.predict(X_test)
 
 Blanks are not merely a nuisance to be silently filled; they are data whose reason for absence changes the correct engineering choice. Rubin’s taxonomy names three mechanisms, and each licenses a different legitimate handling—and a different leakage risk.
 
-![6.6: Rubin's missingness mechanisms. MCAR: absence is driven by chance, independent of all data. MAR: absence in x3 is explai](../assets/figures/ml_concept_6.6_59c3837d.png)
+![Cyclic sin/cos encoding for hour-of-day vs ordinal trap (original).](../assets/figures/ml_fig_cyclic_encoding.png)
+
+*Figure — Periodic features. Ordinal hour distance wrongly separates 23 from 0; circular distance and the unit-circle (sin, cos) embedding preserve midnight continuity. Encoding choices change models—they do not by themselves establish **causal** time-of-day effects.*
+
+\n![6.6: Rubin's missingness mechanisms. MCAR: absence is driven by chance, independent of all data. MAR: absence in x3 is explai](../assets/figures/ml_concept_6.6_59c3837d.png)
 
 *Figure 6.6 — original teaching graphic.*
 
