@@ -784,3 +784,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c216 teaching panel 01 (original).](../assets/figures/ml_fig_c216_01.png)
 *Figure — Immutable audit trail fields. Synthetic teaching geometry—not a causal claim.*
+
+![c217 teaching panel 01 (original).](../assets/figures/ml_fig_c217_01.png)
+*Figure — Breach notify seventy-two hour. Synthetic teaching geometry—not a causal claim.*
