@@ -1837,3 +1837,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c552 teaching panel 18 (original).](../assets/figures/ml_fig_c552_18.png)
 *Figure — Capacity headroom path c552. Synthetic teaching geometry—not a causal claim.*
+
+![c553 teaching panel 18 (original).](../assets/figures/ml_fig_c553_18.png)
+*Figure — Cost per query path c553. Synthetic teaching geometry—not a causal claim.*
