@@ -896,6 +896,66 @@ Feature engineering is the hinge between raw data and every later method. Select
 ![c150 teaching panel 07 (original).](../assets/figures/ml_fig_c150_07.png)
 *Figure — Ordinal encoding ranks. Synthetic teaching geometry—not a causal claim.*
 
+
+![c151 teaching panel 07 (original).](../assets/figures/ml_fig_c151_07.png)
+*Figure — Polynomial basis explosion. Synthetic teaching geometry—not a causal claim.*
+
+
+![c152 teaching panel 07 (original).](../assets/figures/ml_fig_c152_07.png)
+*Figure — Spline knot placement. Synthetic teaching geometry—not a causal claim.*
+
+
+![c153 teaching panel 07 (original).](../assets/figures/ml_fig_c153_07.png)
+*Figure — Feature crosses cardinality. Synthetic teaching geometry—not a causal claim.*
+
+
+![c154 teaching panel 07 (original).](../assets/figures/ml_fig_c154_07.png)
+*Figure — Hashing vs embedding IDs. Synthetic teaching geometry—not a causal claim.*
+
+
+![c155 teaching panel 07 (original).](../assets/figures/ml_fig_c155_07.png)
+*Figure — Ordinal encoding ranks. Synthetic teaching geometry—not a causal claim.*
+
+
+![c156 teaching panel 07 (original).](../assets/figures/ml_fig_c156_07.png)
+*Figure — Polynomial basis explosion. Synthetic teaching geometry—not a causal claim.*
+
+
+![c157 teaching panel 07 (original).](../assets/figures/ml_fig_c157_07.png)
+*Figure — Spline knot placement. Synthetic teaching geometry—not a causal claim.*
+
+
+![c158 teaching panel 07 (original).](../assets/figures/ml_fig_c158_07.png)
+*Figure — Feature crosses cardinality. Synthetic teaching geometry—not a causal claim.*
+
+
+![c159 teaching panel 07 (original).](../assets/figures/ml_fig_c159_07.png)
+*Figure — Hashing vs embedding IDs. Synthetic teaching geometry—not a causal claim.*
+
+
+![c160 teaching panel 07 (original).](../assets/figures/ml_fig_c160_07.png)
+*Figure — Ordinal encoding ranks. Synthetic teaching geometry—not a causal claim.*
+
+
+![c161 teaching panel 07 (original).](../assets/figures/ml_fig_c161_07.png)
+*Figure — Polynomial basis explosion. Synthetic teaching geometry—not a causal claim.*
+
+
+![c162 teaching panel 07 (original).](../assets/figures/ml_fig_c162_07.png)
+*Figure — Spline knot placement. Synthetic teaching geometry—not a causal claim.*
+
+
+![c163 teaching panel 07 (original).](../assets/figures/ml_fig_c163_07.png)
+*Figure — Feature crosses cardinality. Synthetic teaching geometry—not a causal claim.*
+
+
+![c164 teaching panel 07 (original).](../assets/figures/ml_fig_c164_07.png)
+*Figure — Hashing vs embedding IDs. Synthetic teaching geometry—not a causal claim.*
+
+
+![c165 teaching panel 07 (original).](../assets/figures/ml_fig_c165_07.png)
+*Figure — Ordinal encoding ranks. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Feature engineering designs the matrix models actually learn from. Selection methods include filters (fast statistical scores), wrappers (SFS, SBS, genetic search optimizing a model’s validation metric), and embedded approaches (L1, tree importance). Numerical pipelines use min–max scaling, z-score standardization, L1/L2 norms, and log/Box–Cox transforms—always fit on train. Categorical encodings include one-hot, dummy, effect coding, feature hashing, bin counting, and target encoding; each invents geometry and some leak labels if misused. Text features span bags-of-words, subwords, n-grams, POS tags, Word2Vec/GloVe/FastText embeddings, and keyword methods (TF–IDF, TextRank, RAKE, YAKE). Image descriptors include Harris corners, MSER, HOG, SIFT, and watershed segments; video adds motion vectors, optical flow, 3D CNNs, and graph-based pose/region models. Time series and signals contribute stationarity checks, seasonal and trend components, motifs, lags, change points, and carefully chosen smoothers. Missingness is itself a feature decision: whether a blank is MCAR, MAR, or MNAR dictates whether to impute, impute-and-flag, or model the absence, and an informative-missingness indicator is lawful only when it is knowable at t₀. In clinical data, leakage is the cardinal sin: features must be knowable at decision time, and pipelines must enforce fit-on-train discipline end to end.

@@ -864,6 +864,66 @@ Fit projections on training data only; validate k by downstream performance.
 ![c150 teaching panel 08 (original).](../assets/figures/ml_fig_c150_08.png)
 *Figure — ICA independence axes. Synthetic teaching geometry—not a causal claim.*
 
+
+![c151 teaching panel 08 (original).](../assets/figures/ml_fig_c151_08.png)
+*Figure — Nonnegative matrix parts. Synthetic teaching geometry—not a causal claim.*
+
+
+![c152 teaching panel 08 (original).](../assets/figures/ml_fig_c152_08.png)
+*Figure — Dictionary learning atoms. Synthetic teaching geometry—not a causal claim.*
+
+
+![c153 teaching panel 08 (original).](../assets/figures/ml_fig_c153_08.png)
+*Figure — Tensor CP decomposition. Synthetic teaching geometry—not a causal claim.*
+
+
+![c154 teaching panel 08 (original).](../assets/figures/ml_fig_c154_08.png)
+*Figure — CCA shared views. Synthetic teaching geometry—not a causal claim.*
+
+
+![c155 teaching panel 08 (original).](../assets/figures/ml_fig_c155_08.png)
+*Figure — ICA independence axes. Synthetic teaching geometry—not a causal claim.*
+
+
+![c156 teaching panel 08 (original).](../assets/figures/ml_fig_c156_08.png)
+*Figure — Nonnegative matrix parts. Synthetic teaching geometry—not a causal claim.*
+
+
+![c157 teaching panel 08 (original).](../assets/figures/ml_fig_c157_08.png)
+*Figure — Dictionary learning atoms. Synthetic teaching geometry—not a causal claim.*
+
+
+![c158 teaching panel 08 (original).](../assets/figures/ml_fig_c158_08.png)
+*Figure — Tensor CP decomposition. Synthetic teaching geometry—not a causal claim.*
+
+
+![c159 teaching panel 08 (original).](../assets/figures/ml_fig_c159_08.png)
+*Figure — CCA shared views. Synthetic teaching geometry—not a causal claim.*
+
+
+![c160 teaching panel 08 (original).](../assets/figures/ml_fig_c160_08.png)
+*Figure — ICA independence axes. Synthetic teaching geometry—not a causal claim.*
+
+
+![c161 teaching panel 08 (original).](../assets/figures/ml_fig_c161_08.png)
+*Figure — Nonnegative matrix parts. Synthetic teaching geometry—not a causal claim.*
+
+
+![c162 teaching panel 08 (original).](../assets/figures/ml_fig_c162_08.png)
+*Figure — Dictionary learning atoms. Synthetic teaching geometry—not a causal claim.*
+
+
+![c163 teaching panel 08 (original).](../assets/figures/ml_fig_c163_08.png)
+*Figure — Tensor CP decomposition. Synthetic teaching geometry—not a causal claim.*
+
+
+![c164 teaching panel 08 (original).](../assets/figures/ml_fig_c164_08.png)
+*Figure — CCA shared views. Synthetic teaching geometry—not a causal claim.*
+
+
+![c165 teaching panel 08 (original).](../assets/figures/ml_fig_c165_08.png)
+*Figure — ICA independence axes. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 High-dimensional clinical data suffer geometric and statistical curses that motivate reduction and decomposition. PCA finds orthogonal maximum-variance directions; a full numerical example with three points shows centering, covariance eigen-decomposition, scores, and explained variance. SVD implements PCA stably; incremental PCA handles streaming or out-of-core data. LDA/Fisher seeks supervised discriminative projections. Nonlinear methods—LLE, t-SNE, UMAP—preserve local manifold structure for visualization with important interpretive caveats. Fourier and wavelet transforms decompose signals in frequency and time–frequency; aggregation methods compress long series. Matrix tools include Cholesky for SPD linear algebra, NMF for nonnegative parts-based factors, and SVD for optimal low-rank approximation. Topic models apply these ideas to text: LSI via truncated SVD and LDA as a Bayesian generative mixture of topics. Tensors extend factorizations multi-way via mode-n products with CP, Tucker, and tensor-train forms. Clinically, reduce when it denoises and clarifies; refuse reduction when it erases rare signals, harms calibration, or replaces needed interpretable covariates.

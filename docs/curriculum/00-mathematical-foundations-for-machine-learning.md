@@ -3467,6 +3467,66 @@ This section is a reference. The first table lists the symbols used throughout t
 ![c150 teaching panel 00 (original).](../assets/figures/ml_fig_c150_00.png)
 *Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
 
+
+![c151 teaching panel 00 (original).](../assets/figures/ml_fig_c151_00.png)
+*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
+
+
+![c152 teaching panel 00 (original).](../assets/figures/ml_fig_c152_00.png)
+*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
+
+
+![c153 teaching panel 00 (original).](../assets/figures/ml_fig_c153_00.png)
+*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
+
+
+![c154 teaching panel 00 (original).](../assets/figures/ml_fig_c154_00.png)
+*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
+
+
+![c155 teaching panel 00 (original).](../assets/figures/ml_fig_c155_00.png)
+*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
+
+
+![c156 teaching panel 00 (original).](../assets/figures/ml_fig_c156_00.png)
+*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
+
+
+![c157 teaching panel 00 (original).](../assets/figures/ml_fig_c157_00.png)
+*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
+
+
+![c158 teaching panel 00 (original).](../assets/figures/ml_fig_c158_00.png)
+*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
+
+
+![c159 teaching panel 00 (original).](../assets/figures/ml_fig_c159_00.png)
+*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
+
+
+![c160 teaching panel 00 (original).](../assets/figures/ml_fig_c160_00.png)
+*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
+
+
+![c161 teaching panel 00 (original).](../assets/figures/ml_fig_c161_00.png)
+*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
+
+
+![c162 teaching panel 00 (original).](../assets/figures/ml_fig_c162_00.png)
+*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
+
+
+![c163 teaching panel 00 (original).](../assets/figures/ml_fig_c163_00.png)
+*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
+
+
+![c164 teaching panel 00 (original).](../assets/figures/ml_fig_c164_00.png)
+*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
+
+
+![c165 teaching panel 00 (original).](../assets/figures/ml_fig_c165_00.png)
+*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Mathematics is the compression format of machine learning: a page of symbols stands in for pages of prose, and fluency with the symbols is what makes the rest of the book legible. This chapter rebuilt that fluency from an elementary base. It began with the language itself — sets, functions, and logic — and the algebra of numbers, exponents, and logarithms, then cataloged the handful of functions (linear, polynomial, exponential, logarithmic, sigmoid, softmax, ReLU) that recur everywhere in modeling. Summation and counting supplied the combinatorics behind probability; trigonometry and the unit circle supplied the sinusoids behind Fourier features, positional encodings, and cosine similarity.

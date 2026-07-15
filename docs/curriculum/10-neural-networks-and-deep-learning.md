@@ -873,6 +873,66 @@ To evaluation and epidemiology: universal approximation guarantees expressivity,
 ![c150 teaching panel 11 (original).](../assets/figures/ml_fig_c150_11.png)
 *Figure — Deep equilibrium model. Synthetic teaching geometry—not a causal claim.*
 
+
+![c151 teaching panel 11 (original).](../assets/figures/ml_fig_c151_11.png)
+*Figure — Residual stream view. Synthetic teaching geometry—not a causal claim.*
+
+
+![c152 teaching panel 11 (original).](../assets/figures/ml_fig_c152_11.png)
+*Figure — Mixture-of-experts routing. Synthetic teaching geometry—not a causal claim.*
+
+
+![c153 teaching panel 11 (original).](../assets/figures/ml_fig_c153_11.png)
+*Figure — Hypernetworks weights. Synthetic teaching geometry—not a causal claim.*
+
+
+![c154 teaching panel 11 (original).](../assets/figures/ml_fig_c154_11.png)
+*Figure — Neural ODE flow. Synthetic teaching geometry—not a causal claim.*
+
+
+![c155 teaching panel 11 (original).](../assets/figures/ml_fig_c155_11.png)
+*Figure — Deep equilibrium model. Synthetic teaching geometry—not a causal claim.*
+
+
+![c156 teaching panel 11 (original).](../assets/figures/ml_fig_c156_11.png)
+*Figure — Residual stream view. Synthetic teaching geometry—not a causal claim.*
+
+
+![c157 teaching panel 11 (original).](../assets/figures/ml_fig_c157_11.png)
+*Figure — Mixture-of-experts routing. Synthetic teaching geometry—not a causal claim.*
+
+
+![c158 teaching panel 11 (original).](../assets/figures/ml_fig_c158_11.png)
+*Figure — Hypernetworks weights. Synthetic teaching geometry—not a causal claim.*
+
+
+![c159 teaching panel 11 (original).](../assets/figures/ml_fig_c159_11.png)
+*Figure — Neural ODE flow. Synthetic teaching geometry—not a causal claim.*
+
+
+![c160 teaching panel 11 (original).](../assets/figures/ml_fig_c160_11.png)
+*Figure — Deep equilibrium model. Synthetic teaching geometry—not a causal claim.*
+
+
+![c161 teaching panel 11 (original).](../assets/figures/ml_fig_c161_11.png)
+*Figure — Residual stream view. Synthetic teaching geometry—not a causal claim.*
+
+
+![c162 teaching panel 11 (original).](../assets/figures/ml_fig_c162_11.png)
+*Figure — Mixture-of-experts routing. Synthetic teaching geometry—not a causal claim.*
+
+
+![c163 teaching panel 11 (original).](../assets/figures/ml_fig_c163_11.png)
+*Figure — Hypernetworks weights. Synthetic teaching geometry—not a causal claim.*
+
+
+![c164 teaching panel 11 (original).](../assets/figures/ml_fig_c164_11.png)
+*Figure — Neural ODE flow. Synthetic teaching geometry—not a causal claim.*
+
+
+![c165 teaching panel 11 (original).](../assets/figures/ml_fig_c165_11.png)
+*Figure — Deep equilibrium model. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Neural networks compose affine maps and nonlinear activations to learn hierarchical features; universal approximation justifies richness while depth often buys parameter efficiency. Artificial units are useful engineering abstractions, not faithful cortical simulations. Perceptrons and MLPs provide the feedforward backbone; activations (sigmoid, tanh, ReLU family, softmax) control expressivity and gradient flow. Costs include MSE, cross-entropy, KL divergence, and Hellinger distance, each with different geometry. Optimizers range from SGD with momentum and Nesterov acceleration to Adagrad, RMSprop, and Adam. Backpropagation implements the chain rule; a tiny numerical forward/backward example makes gradients concrete. A second worked mini-batch logistic update shows the same gradient arithmetic used inside deep stacks. Training stability uses careful initialization, batch/layer norm, clipping, dropout, schedules, and early stopping to fight vanishing and exploding gradients. CNNs exploit spatial weight sharing with 2D/3D, dilated, depthwise, and transposed convolutions; RNNs, LSTMs, GRUs, and bidirectional/deep stacks model sequences before Transformers take over long-range language tasks. Residual inductive bias and hybrid CNN-plus-tabular pipelines appear throughout clinical imaging. In neurologic imaging and longitudinal care, preprocessing, index time, site structure, calibration, and honest comparison to simple baselines determine whether deep learning helps patients or only leaderboards.

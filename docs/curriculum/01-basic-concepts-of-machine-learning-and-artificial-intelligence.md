@@ -1014,6 +1014,66 @@ The clinical and epidemiologic through-line—cohort design, index time, phenoty
 ![c150 teaching panel 02 (original).](../assets/figures/ml_fig_c150_02.png)
 *Figure — Excess risk decomposition. Synthetic teaching geometry—not a causal claim.*
 
+
+![c151 teaching panel 02 (original).](../assets/figures/ml_fig_c151_02.png)
+*Figure — Surrogate loss calibration. Synthetic teaching geometry—not a causal claim.*
+
+
+![c152 teaching panel 02 (original).](../assets/figures/ml_fig_c152_02.png)
+*Figure — Bayes consistency sketch. Synthetic teaching geometry—not a causal claim.*
+
+
+![c153 teaching panel 02 (original).](../assets/figures/ml_fig_c153_02.png)
+*Figure — Agnostic learning setup. Synthetic teaching geometry—not a causal claim.*
+
+
+![c154 teaching panel 02 (original).](../assets/figures/ml_fig_c154_02.png)
+*Figure — Realizable case bound. Synthetic teaching geometry—not a causal claim.*
+
+
+![c155 teaching panel 02 (original).](../assets/figures/ml_fig_c155_02.png)
+*Figure — Excess risk decomposition. Synthetic teaching geometry—not a causal claim.*
+
+
+![c156 teaching panel 02 (original).](../assets/figures/ml_fig_c156_02.png)
+*Figure — Surrogate loss calibration. Synthetic teaching geometry—not a causal claim.*
+
+
+![c157 teaching panel 02 (original).](../assets/figures/ml_fig_c157_02.png)
+*Figure — Bayes consistency sketch. Synthetic teaching geometry—not a causal claim.*
+
+
+![c158 teaching panel 02 (original).](../assets/figures/ml_fig_c158_02.png)
+*Figure — Agnostic learning setup. Synthetic teaching geometry—not a causal claim.*
+
+
+![c159 teaching panel 02 (original).](../assets/figures/ml_fig_c159_02.png)
+*Figure — Realizable case bound. Synthetic teaching geometry—not a causal claim.*
+
+
+![c160 teaching panel 02 (original).](../assets/figures/ml_fig_c160_02.png)
+*Figure — Excess risk decomposition. Synthetic teaching geometry—not a causal claim.*
+
+
+![c161 teaching panel 02 (original).](../assets/figures/ml_fig_c161_02.png)
+*Figure — Surrogate loss calibration. Synthetic teaching geometry—not a causal claim.*
+
+
+![c162 teaching panel 02 (original).](../assets/figures/ml_fig_c162_02.png)
+*Figure — Bayes consistency sketch. Synthetic teaching geometry—not a causal claim.*
+
+
+![c163 teaching panel 02 (original).](../assets/figures/ml_fig_c163_02.png)
+*Figure — Agnostic learning setup. Synthetic teaching geometry—not a causal claim.*
+
+
+![c164 teaching panel 02 (original).](../assets/figures/ml_fig_c164_02.png)
+*Figure — Realizable case bound. Synthetic teaching geometry—not a causal claim.*
+
+
+![c165 teaching panel 02 (original).](../assets/figures/ml_fig_c165_02.png)
+*Figure — Excess risk decomposition. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Artificial intelligence aims at systems that act intelligently; machine learning improves task performance by estimating models from data; data mining emphasizes scalable pattern discovery; data science governs measurement and decisions under uncertainty. A short history runs from symbolic AI through statistical learning and data mining to deep learning and generative systems—none fully obsolete. Algorithms are finite procedures; learning algorithms estimate models. Evaluation jointly considers computational complexity, runtime, task accuracy, and accuracy–efficiency trade-offs. Datasets arrive as tables, time series, streams, graphs, text, images/video, and audio, with numerical types that constrain encoding. Tasks include clustering, association and sequence mining, dimensionality reduction, anomaly detection, regression, classification, self-supervision, generative modeling, and reinforcement learning. Ground-truth labels are measurement processes; k-fold and grouped cross-validation support honest internal evaluation but do not replace external validation. A step-by-step workflow ties question framing to monitoring. The worked example selected a simpler model with better validation error over a flexible overfit rule. In neurology and epidemiology, cohort eligibility, index time, phenotype quality, leakage control, calibration, and external validation determine whether ML claims are scientifically meaningful. Recurring failure modes—data leakage, distribution shift, class imbalance, label noise, multiplicity, shortcut learning, and miscalibration—each carry a preventive discipline. Fairness, privacy, and transparency are design constraints to encode from the first workflow step, previewed here and developed in Chapter 16.
