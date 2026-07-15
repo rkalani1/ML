@@ -4895,6 +4895,10 @@ This section is a reference. The first table lists the symbols used throughout t
 ![c507 teaching panel 00 (original).](../assets/figures/ml_fig_c507_00.png)
 *Figure — Deflated CG residual path c507. Synthetic teaching geometry—not a causal claim.*
 
+
+![c508 teaching panel 00 (original).](../assets/figures/ml_fig_c508_00.png)
+*Figure — Block CG residual path c508. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Mathematics is the compression format of machine learning: a page of symbols stands in for pages of prose, and fluency with the symbols is what makes the rest of the book legible. This chapter rebuilt that fluency from an elementary base. It began with the language itself — sets, functions, and logic — and the algebra of numbers, exponents, and logarithms, then cataloged the handful of functions (linear, polynomial, exponential, logarithmic, sigmoid, softmax, ReLU) that recur everywhere in modeling. Summation and counting supplied the combinatorics behind probability; trigonometry and the unit circle supplied the sinusoids behind Fourier features, positional encodings, and cosine similarity.
