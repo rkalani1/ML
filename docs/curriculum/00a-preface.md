@@ -415,3 +415,12 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c93 teaching panel 01 (original).](../assets/figures/ml_fig_c93_01.png)
 *Figure — Preanalysis plan version control. Synthetic teaching geometry—not a causal claim.*
+
+![c94 teaching panel 01 (original).](../assets/figures/ml_fig_c94_01.png)
+*Figure — Protocol deviation log. Synthetic teaching geometry—not a causal claim.*
+
+![c95 teaching panel 01 (original).](../assets/figures/ml_fig_c95_01.png)
+*Figure — Registered analysis time-lock. Synthetic teaching geometry—not a causal claim.*
+
+![c96 teaching panel 01 (original).](../assets/figures/ml_fig_c96_01.png)
+*Figure — Data provenance ledger chain. Synthetic teaching geometry—not a causal claim.*

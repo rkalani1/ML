@@ -610,3 +610,12 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 ![c93 teaching panel 19 (original).](../assets/figures/ml_fig_c93_19.png)
 *Figure — Inequality strip: Jensen, Hoeffding. Synthetic teaching geometry—not a causal claim.*
+
+![c94 teaching panel 19 (original).](../assets/figures/ml_fig_c94_19.png)
+*Figure — Loss zoo strip: CE MSE Huber. Synthetic teaching geometry—not a causal claim.*
+
+![c95 teaching panel 19 (original).](../assets/figures/ml_fig_c95_19.png)
+*Figure — Metric strip: recall F1 MCC. Synthetic teaching geometry—not a causal claim.*
+
+![c96 teaching panel 19 (original).](../assets/figures/ml_fig_c96_19.png)
+*Figure — Bound strip: VC, Rademacher. Synthetic teaching geometry—not a causal claim.*

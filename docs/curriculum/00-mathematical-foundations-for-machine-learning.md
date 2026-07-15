@@ -3239,6 +3239,18 @@ This section is a reference. The first table lists the symbols used throughout t
 ![c93 teaching panel 00 (original).](../assets/figures/ml_fig_c93_00.png)
 *Figure — SVD singular values decay. Synthetic teaching geometry—not a causal claim.*
 
+
+![c94 teaching panel 00 (original).](../assets/figures/ml_fig_c94_00.png)
+*Figure — Cholesky factor triangle idea. Synthetic teaching geometry—not a causal claim.*
+
+
+![c95 teaching panel 00 (original).](../assets/figures/ml_fig_c95_00.png)
+*Figure — Pseudoinverse least-squares map. Synthetic teaching geometry—not a causal claim.*
+
+
+![c96 teaching panel 00 (original).](../assets/figures/ml_fig_c96_00.png)
+*Figure — Householder reflection sketch. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Mathematics is the compression format of machine learning: a page of symbols stands in for pages of prose, and fluency with the symbols is what makes the rest of the book legible. This chapter rebuilt that fluency from an elementary base. It began with the language itself — sets, functions, and logic — and the algebra of numbers, exponents, and logarithms, then cataloged the handful of functions (linear, polynomial, exponential, logarithmic, sigmoid, softmax, ReLU) that recur everywhere in modeling. Summation and counting supplied the combinatorics behind probability; trigonometry and the unit circle supplied the sinusoids behind Fourier features, positional encodings, and cosine similarity.

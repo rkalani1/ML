@@ -460,3 +460,12 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c93 teaching panel 18 (original).](../assets/figures/ml_fig_c93_18.png)
 *Figure — Shadow deployment traffic split. Synthetic teaching geometry—not a causal claim.*
+
+![c94 teaching panel 18 (original).](../assets/figures/ml_fig_c94_18.png)
+*Figure — Model card risk tier matrix. Synthetic teaching geometry—not a causal claim.*
+
+![c95 teaching panel 18 (original).](../assets/figures/ml_fig_c95_18.png)
+*Figure — Canary deployment percent ramp. Synthetic teaching geometry—not a causal claim.*
+
+![c96 teaching panel 18 (original).](../assets/figures/ml_fig_c96_18.png)
+*Figure — Rollback criteria dashboard. Synthetic teaching geometry—not a causal claim.*
