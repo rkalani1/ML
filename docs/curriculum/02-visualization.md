@@ -276,6 +276,11 @@ Do not cherry-pick time windows or y-limits to manufacture a policy narrative.
 
 *Figure — Colormaps can invent false edges. Colormap rainbow vs sequential caution Pred != cause without design.*
 
+
+![logscale teaching panel (original).](../assets/figures/ml_fig_log_scale.png)
+
+*Figure — Teaching panel for logscale. Pred != cause without design.*
+
 Refuse 3-D categorical bars and exploded 3-D pies in scientific communication.
 
 Accessibility expands who can use your work correctly: sufficient luminance contrast, large fonts for projection and photocopy, descriptive captions and alt text, and tabular companions for key plotted values. Accessibility is quality control under time pressure, not only compliance.

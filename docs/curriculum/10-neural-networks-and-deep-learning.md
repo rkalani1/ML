@@ -234,6 +234,11 @@ Dropout randomly zeroes activations during training with probability p, forcing 
 
 *Figure — Clip prevents explode; does not invent causes. Gradient clipping threshold Pred != cause without design.*
 
+
+![initscale teaching panel (original).](../assets/figures/ml_fig_init_scale.png)
+
+*Figure — Teaching panel for initscale. Pred != cause without design.*
+
 Start with a simple MLP or linear baseline before complex architectures.
 
 Monitor train versus validation loss to detect under/overfitting.

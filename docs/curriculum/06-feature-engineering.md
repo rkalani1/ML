@@ -311,6 +311,11 @@ Blanks are not merely a nuisance to be silently filled; they are data whose reas
 
 *Figure — Dense embeddings compress high-card cats. One-hot vs embedding size trade-off Pred != cause without design.*
 
+
+![binedges teaching panel (original).](../assets/figures/ml_fig_bin_edges_cv.png)
+
+*Figure — Teaching panel for binedges. Pred != cause without design.*
+
 \n![6.6: Rubin's missingness mechanisms. MCAR: absence is driven by chance, independent of all data. MAR: absence in x3 is explai](../assets/figures/ml_concept_6.6_59c3837d.png)
 
 *Figure 6.6 — original teaching graphic.*

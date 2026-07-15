@@ -274,6 +274,11 @@ Apriori generates candidates of size k from frequent itemsets of size k−1, pru
 
 *Figure — Higher n-grams get sparser. n-gram count decay with order Pred != cause without design.*
 
+
+![inverted teaching panel (original).](../assets/figures/ml_fig_inverted_index.png)
+
+*Figure — Teaching panel for inverted. Pred != cause without design.*
+
 ```
 Apriori(D, minsup):
  L1 ← frequent 1-itemsets in D

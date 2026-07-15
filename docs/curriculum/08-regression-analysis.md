@@ -304,6 +304,11 @@ As λ goes from large to small along a Lasso path, coefficients enter the model 
 
 *Figure — Shrinkage stabilizes OLS under collinearity. Ridge coefficient shrink vs lambda Pred != cause without design.*
 
+
+![addedvar teaching panel (original).](../assets/figures/ml_fig_added_variable.png)
+
+*Figure — Teaching panel for addedvar. Pred != cause without design.*
+
 Elastic net’s mixing parameter α (weight on L1 versus L2) is a second hyperparameter; nest its selection. Grouped clinical features (multiple BP meds, multi-item NIHSS) sometimes use group Lasso variants so that whole groups enter together—beyond this chapter’s core, but aligned with elastic net’s motivation. The non-negative garrote’s c_j path similarly traces shrinkage of an initial fit; if the initial OLS is already nonsense due to p > n, start from Ridge or univariate screens instead.
 
 ## Optimization Practice Notes

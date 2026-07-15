@@ -431,6 +431,11 @@ Worked illustration (bias–variance). Let the true mean response at some input 
 
 *Figure — Capacity enables approximation; not causation. Pred != cause without design.*
 
+
+![inductive teaching panel (original).](../assets/figures/ml_fig_inductive_bias.png)
+
+*Figure — Teaching panel for inductive. Pred != cause without design.*
+
 ## Common Pitfalls and Failure Modes
 
 The failure modes below recur across projects and modalities. Each has a mechanism, a warning sign, and a discipline that prevents it. Treat this as a checklist to run against any pipeline before you believe its numbers.

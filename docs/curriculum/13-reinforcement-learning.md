@@ -488,6 +488,11 @@ which removes incentives to push r_t far outside [1-epsilon, 1+epsilon]. An alte
 
 *Figure — Off-policy reuse needs care for safety. Replay buffer sample composition Pred != cause without design.*
 
+
+![discount teaching panel (original).](../assets/figures/ml_fig_discount_horizon.png)
+
+*Figure — Teaching panel for discount. Pred != cause without design.*
+
 # REINFORCE with baseline (conceptual)
 # logp: log pi(a_t|s_t); returns: return-to-go; baseline: V(s_t)
 def reinforce_loss(logp, returns, baseline):

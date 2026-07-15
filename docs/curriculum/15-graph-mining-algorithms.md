@@ -456,6 +456,11 @@ Given an undirected similarity graph, form the normalized Laplacian L_sym = I - 
 
 *Figure — Community sizes are graph summaries. Community size distribution Pred != cause without design.*
 
+
+![edgebet teaching panel (original).](../assets/figures/ml_fig_edge_between.png)
+
+*Figure — Teaching panel for edgebet. Pred != cause without design.*
+
 Choosing k: inspect eigenvalue gaps; domain knowledge (expected number of care regions); stability across bootstrap edge subsamples. Spectral methods assume the similarity graph is meaningful—garbage k-NN graphs in high-dimensional noise yield garbage clusters. Compared with Louvain/Leiden, spectral clustering requires choosing k up front and costs eigen-decomposition, but connects cleanly to theoretical graph cuts (RatioCut, NCut).
 
 Clinical connectomes often use partial correlation or streamline counts as weights; thresholding to build A can create or destroy communities. Report sensitivity to threshold and parcellation atlas.
