@@ -737,6 +737,14 @@ GNNs generalize the convolutions used for images from a fixed pixel grid to arbi
 
 Networks break the independence assumption most models rest on: outcomes spill over along edges (interference), and shared network position confounds associations. Contact graphs feed transmission models; comorbidity graphs are descriptive, not causal. Here graph structure is often the mechanism of confounding and interference you must reason about explicitly, not a nuisance to average away — the same causal humility this book applies to observational tabular data.
 
+
+![c82 teaching panel 16 (original).](../assets/figures/ml_fig_c82_16.png)
+*Figure — Graphs: random-walk exploration vs one-shot message passing. Synthetic teaching geometry—not a causal claim.*
+
+
+![c83 teaching panel 16 (original).](../assets/figures/ml_fig_c83_16.png)
+*Figure — PageRank mass on a small directed graph. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Graph mining extracts structure from relational data. Classical algorithms include minimum spanning trees (Prim, Kruskal), shortest paths (Dijkstra, A*), matching (Hungarian, Hopcroft-Karp), centrality measures, PageRank and HITS link analysis, and community detection (spectral, Louvain, Leiden). Graph neural networks address learning on graphs via message passing, with GCN, GAT, and GraphSAGE as core architectures, facing challenges of over-smoothing, scalability, and shift. HNSW enables fast approximate nearest-neighbor search on embedding graphs. Clinical applications span referral networks, comorbidity and connectomics, and outbreak contact graphs—always with careful edge definition, privacy, and causal humility.

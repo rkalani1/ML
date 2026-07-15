@@ -823,6 +823,14 @@ A practical workflow for an RL problem is: (1) define observations, actions, epi
 
 Understanding Bellman backups and on- versus off-policy learning is more valuable than memorizing every acronym: new algorithms almost always remix these ingredients. Relative to supervised learning, expect higher variance across seeds, greater sensitivity to implementation details, and a larger role for domain knowledge in reward and state design. Relative to planning with a perfect model, expect sample inefficiency when learning from scratch in high dimensions—hence the importance of simulation, demonstration data, and transfer.
 
+
+![c82 teaching panel 14 (original).](../assets/figures/ml_fig_c82_14.png)
+*Figure — Bandit cumulative regret: greedy lock-in vs ε-greedy vs UCB sketch. Synthetic teaching geometry—not a causal claim.*
+
+
+![c83 teaching panel 14 (original).](../assets/figures/ml_fig_c83_14.png)
+*Figure — Temporal-difference backup and TD error δ. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Reinforcement learning studies agents that interact with environments to maximize cumulative reward. Markov decision processes formalize states, actions, transitions, rewards, and discounting. Policies induce value functions V and Q that satisfy Bellman equations; dynamic programming solves small known MDPs via policy and value iteration. Monte Carlo methods average full returns; temporal-difference methods bootstrap, yielding SARSA (on-policy), Q-learning (off-policy), and Dyna-Q planning. Multi-armed bandits isolate exploration via epsilon-greedy, UCB, and Thompson sampling. Function approximation and deep RL scale these ideas: DQN with replay and target networks, DDQN, dueling architectures, prioritized replay, REINFORCE, TRPO, PPO, and actor-critic methods including A3C, DDPG, TD3, and SAC, plus latent world-model Dreamer agents. Careful reward design is essential. Clinical and epidemiologic notes emphasize that sequential care is high-risk RL: reward misspecification rewrites the clinical objective, offline logs lack coverage and are confounded by indication, and ethical constraints sharply limit unsupervised exploration at the bedside.

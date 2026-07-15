@@ -643,6 +643,14 @@ When communicating to clinical audiences, lead with the question (‘Can we desc
 
 Clustering sits downstream of the preprocessing and distance choices developed earlier: standardization, encoding, and dimensionality reduction (PCA or nonlinear embeddings) reshape the geometry every algorithm here optimizes, so a partition is only as meaningful as the feature space feeding it. It is kin to the mixture-model and EM machinery of latent-variable estimation—k-means is a hard, spherical special case of the Gaussian mixture, and GMM responsibilities are its soft generalization. It connects forward to supervised learning twice over: cluster IDs or distances-to-medoids can become engineered features (only when built from pre-index data, to block leakage), and the same held-out and external-validation discipline used for classifiers decides whether a partition transports. DBSCAN noise ties clustering to anomaly and novelty detection, and DTW ties it to trajectory and time-series modeling. Finally, the chapter’s recurring caution—unsupervised separation is not etiology—connects to the causal-inference material: moving a patient between clusters is a counterfactual claim that clustering alone can never license.
 
+
+![c82 teaching panel 05 (original).](../assets/figures/ml_fig_c82_05.png)
+*Figure — Choosing k: inertia elbow plus silhouette separation check. Synthetic teaching geometry—not a causal claim.*
+
+
+![c83 teaching panel 05 (original).](../assets/figures/ml_fig_c83_05.png)
+*Figure — DBSCAN idea: dense cores, borders, and noise points. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Clustering groups unlabeled points under a stated distance and objective. Similarity choices—Euclidean, Manhattan, Mahalanobis, Hamming, Levenshtein, LCS, cosine, Jaccard, DTW, and graph-based measures—reshape results and must be reported with scaling recipes. K-means minimizes WCSS via assignment and mean updates; k-median and k-medoid offer robustness and exemplar centers. A worked six-point example converged to clusters {A,B,C} and {D,E,F} with J=4. DBSCAN and OPTICS find density-connected structure and noise; hierarchical SLINK (single linkage) and DIANA provide agglomerative and divisive trees; BIRCH and CURE scale hierarchical ideas to large n. GMMs and Fuzzy C-means supply soft memberships. Evaluation uses elbow/WSS, silhouette, Dunn, Davies–Bouldin, purity, and Rand-family indices, with stability and external replication outweighing any single geometric score. In stroke and population research, unsupervised structure is not etiology: control leakage, test transportability, and resist reification.

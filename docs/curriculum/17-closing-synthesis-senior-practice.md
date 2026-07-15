@@ -425,3 +425,8 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 | 10 | Deploy card | Version, threshold, intended and prohibited uses | Score used as sole withdrawal trigger |
 | 11 | Monitor drift | Owner, metrics, rollback triggers | Ship-and-forget after a conference abstract |
 
+![c82 teaching panel 18 (original).](../assets/figures/ml_fig_c82_18.png)
+*Figure — Senior appraisal diamond: question, leakage, validation, utility. Synthetic teaching geometry—not a causal claim.*
+
+![c83 teaching panel 18 (original).](../assets/figures/ml_fig_c83_18.png)
+*Figure — Transportability: AUROC may hold while calibration error rises. Synthetic teaching geometry—not a causal claim.*

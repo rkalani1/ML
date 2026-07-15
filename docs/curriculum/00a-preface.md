@@ -379,3 +379,9 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 | Deep, SSL, RL | 10–14 | Architectures, pretrain/fine-tune, sequential decisions, lighter models |
 | Graphs & data risks | 15–16 | Network structure plus leakage, shift, missingness, governance |
 | Senior practice | 17–18 | One-paragraph synthesis; shared metric and appraisal vocabulary |
+
+![c82 teaching panel 01 (original).](../assets/figures/ml_fig_c82_01.png)
+*Figure — Reproducible ML study loop; pred ≠ cause at the center. Synthetic teaching geometry—not a causal claim.*
+
+![c83 teaching panel 01 (original).](../assets/figures/ml_fig_c83_01.png)
+*Figure — Temporal train/val/test split—do not shuffle across deployment time. Synthetic teaching geometry—not a causal claim.*

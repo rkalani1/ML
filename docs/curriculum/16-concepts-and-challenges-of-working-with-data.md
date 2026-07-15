@@ -673,6 +673,14 @@ Separate prediction from causation. Nothing in a well-calibrated predictor licen
 
 This capstone reuses the whole book. The sampling and MCMC methods (Metropolis-Hastings, Gibbs, Hamiltonian Monte Carlo) are the inference engines behind the Bayesian and probabilistic-modeling chapters; disease-mapping and hierarchical pooling for cold start are the same machinery applied to geography and to sites. The importance-sampling ESS collapse in Section 16.17 is the identical pathology as off-policy correction in reinforcement learning—reweighting data drawn from the wrong distribution is fragile everywhere it appears. RAG retrieval stands on the approximate-nearest-neighbor indexes (HNSW) from Chapter 15, and its embeddings are the representation-learning thread. Anomaly detection and drift monitoring are the operational face of the deployment and edge-model chapters, where compressed models meet nonstationary inputs. Big-O reasoning about O(n^2) distances and O(N^2) attention is the algorithmic-efficiency thread deciding what is computable at cohort scale. Fairness, calibration, and interpretability extend the evaluation chapter from average accuracy toward who is helped and who is harmed. The unifying move is the one this chapter argues throughout: the algorithm is rarely the bottleneck—the data, its provenance, and its governance are.
 
+
+![c82 teaching panel 17 (original).](../assets/figures/ml_fig_c82_17.png)
+*Figure — Missingness mechanisms MCAR / MAR / MNAR change recoverable structure. Synthetic teaching geometry—not a causal claim.*
+
+
+![c83 teaching panel 17 (original).](../assets/figures/ml_fig_c83_17.png)
+*Figure — Cohort selection funnel—document every exclusion. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Data quality and design dominate clinical ML outcomes. Problem complexity guides method choice. Sampling designs and MCMC methods (Metropolis-Hastings, Gibbs, importance sampling) support inference under complex distributions. Noise models and filters (Butterworth, Wiener, Kalman) clean signals; imbalance and modality-specific augmentation address skewed outcomes; imputation and interpolation repair missing structure without leakage. Anomaly methods (isolation forest, one-class SVM, LOF, RANSAC) protect integrity. Drift and cold start demand monitoring and recalibration—illustrated by site-level PPV collapse when prevalence and specificity change. Rater agreement metrics quantify label ceilings. LLMs require RAG and disciplined prompting under PHI governance. Fairness metrics, mitigation strategies, and SHAP/LIME explanations complete a professional validation stack for neurologist-epidemiologists.
