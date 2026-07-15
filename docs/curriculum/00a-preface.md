@@ -1432,3 +1432,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c432 teaching panel 01 (original).](../assets/figures/ml_fig_c432_01.png)
 *Figure — Human oversight gate path c432. Synthetic teaching geometry—not a causal claim.*
+
+![c433 teaching panel 01 (original).](../assets/figures/ml_fig_c433_01.png)
+*Figure — Red-team severity path c433. Synthetic teaching geometry—not a causal claim.*
