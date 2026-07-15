@@ -184,6 +184,10 @@ Consider a decoder step with query q = [1.0, 0.0] and three encoder keys k1=[1.0
 
 Causal mask example for length 3: the allowed attention pattern is lower-triangular—each position attends to itself and earlier positions only. Position 0 attends to key 0; position 1 attends to keys 0 and 1, with key 2 (a future token) masked; position 2 attends to keys 0, 1, and 2. Masked entries are set to −∞ before the softmax so their weight α=0 (since exp(−∞)=0). During training of GPT-style models, this same triangular mask is applied at every layer and every position in parallel, so the prediction at position t never sees tokens after t—essential for valid next-token likelihoods, and the reason a single forward pass yields a training signal for all positions at once.
 
+![Causal attention mask for decoder-only language models (scientific; original).](../assets/figures/ml_fig_causal_mask.png)
+
+*Lower-triangular causal mask: query position t may attend only to keys ≤ t; future positions receive −∞ before softmax so their weight is zero (original).*
+
 ## 12.11 Systems, Context Length, Retrieval, and Hallucination Control
 
 Production LLMs are systems, not only weight matrices. Context windows limit how many tokens of chart, guideline, and user text can be considered; hierarchical summarization or retrieval-augmented generation (RAG) pulls relevant passages from a vector index of notes or PDFs. RAG reduces some hallucinations when citations are required, but retrieved wrong notes can still mislead—retrieval precision/recall belong in evaluation. Chunking strategies, embedding model choice, and metadata filters (date, service line) dominate quality for stroke pathway Q&A bots.
@@ -197,6 +201,20 @@ Hallucination control patterns: force structured outputs (JSON schemas for med l
 Bounding-box mAP averages precision across recall levels and classes, often at IoU≥0.5 or a range (COCO-style). For tiny intracranial findings, IoU thresholds and center-distance criteria may better match clinical usefulness than strict overlap. Free-response ROC (FROC) plots lesion-level sensitivity against false positives per image—standard in CAD literature and preferable to image-level AUROC alone when multiple findings exist.
 
 Segmentation Dice = 2|A∩B|/(|A|+|B|) emphasizes overlap; Hausdorff distance emphasizes worst-case boundary errors that matter for eloquent cortex. Volume error and relative volume difference matter for edema growth studies. Always pair geometric metrics with reader studies when claims enter care pathways. An example reporting table for DWI lesion models should include Dice, volume MAE, site-stratified results, and failure cases (small cortical dots, motion, craniotomy hardware).
+
+![Dice versus IoU on synthetic lesion masks (scientific; original).](../assets/figures/ml_fig_dice_iou.png)
+
+*Same predicted/GT pair: Dice = 2|A∩B|/(|A|+|B|) and IoU = |A∩B|/|A∪B| are monotone transforms of each other (Dice = 2·IoU/(1+IoU)); both punish boundary misses that matter near eloquent cortex (original).*
+
+### Architecture family quick map (teaching table)
+
+| Family | Core motif | Stroke-system use case | Failure mode to demand evidence on |
+|--------|------------|------------------------|-------------------------------------|
+| Encoder-only (BERT-line) | Bidirectional self-attention | Note phenotyping, NER, coding assist | Negation/temporality errors; site note-style shift |
+| Decoder-only (GPT-line) | Causal mask + next-token | Draft summaries, guideline Q&A with RAG | Hallucinated meds/laterality; citation invention |
+| Encoder–decoder (T5-line) | Cross-attention conditional gen | Impression → structured codes | Length/format drift; rare-entity collapse |
+| CNN / U-Net | Local filters + skips | DWI lesion seg, ICH detection | Domain shift (scanner/protocol); tiny-lesion miss |
+| ViT / multimodal | Patch or token fusion | Joint note+image demos | Data hunger; uncalibrated cross-modal confidence |
 
 Class imbalance in detection: most anchors or pixels are background. Focal loss, online hard-example mining, and balanced sampling of positive slices (many CT slices have no lesion) are engineering necessities. Slice-level models need study-level aggregation rules defined a priori (max score, noisy-OR, learned pooling) so validation matches deployment.
 

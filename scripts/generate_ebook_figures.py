@@ -1092,6 +1092,292 @@ def fig_regularization_path():
 
 
 # ---------------------------------------------------------------------------
+# Swarm 3h cycle-1 densify (preface / glossary / ch12 / ch13)
+# ---------------------------------------------------------------------------
+
+
+def fig_claim_types():
+    """Preface: three clinical claim types readers must keep separate."""
+    fig, ax = plt.subplots(figsize=(8.6, 3.4))
+    ax.set_xlim(0, 12)
+    ax.set_ylim(0, 4.2)
+    ax.axis("off")
+    boxes = [
+        (0.35, 1.0, 3.5, 2.4, "Prediction", TEAL, "Will this event\nhappen?\n(score / risk)"),
+        (4.25, 1.0, 3.5, 2.4, "Etiology", GOLD, "Why did it\nhappen?\n(cause / mechanism)"),
+        (8.15, 1.0, 3.5, 2.4, "Decision support", DEEP, "What should we\ndo next?\n(action / utility)"),
+    ]
+    for x, y, w, h, title, c, body in boxes:
+        ax.add_patch(
+            FancyBboxPatch(
+                (x, y),
+                w,
+                h,
+                boxstyle="round,pad=0.04,rounding_size=0.16",
+                facecolor=c,
+                edgecolor="none",
+                alpha=0.95,
+            )
+        )
+        ax.text(x + w / 2, y + h - 0.45, title, ha="center", va="center", color="white", fontsize=12, fontweight="bold")
+        ax.text(x + w / 2, y + 0.85, body, ha="center", va="center", color="white", fontsize=10)
+    ax.text(6, 3.85, "Three claim types — do not swap them mid-journal-club", ha="center", fontsize=12, color=INK, fontweight="bold")
+    ax.text(6, 0.35, "A high AUROC predicts; it does not prove cause or mandate action", ha="center", fontsize=9, color="#64748b")
+    save(fig, "ml_fig_claim_types.png")
+
+
+def fig_accuracy_trap():
+    """Glossary scientific: accuracy looks fine while sensitivity collapses (imbalance)."""
+    # Fixed sens/spec vs prevalence; accuracy = sens*p + spec*(1-p)
+    sens_bad, spec_good = 0.40, 0.98  # majority-class-leaning classifier
+    sens_bal, spec_bal = 0.85, 0.85
+    prev = np.linspace(0.01, 0.50, 200)
+    acc_bad = sens_bad * prev + spec_good * (1 - prev)
+    acc_bal = sens_bal * prev + spec_bal * (1 - prev)
+    fig, axes = plt.subplots(1, 2, figsize=(9.0, 3.9))
+    ax = axes[0]
+    ax.plot(prev, acc_bad, color=GOLD, lw=2.5, label=f"majority-leaning (sens={sens_bad}, spec={spec_good})")
+    ax.plot(prev, acc_bal, color=TEAL, lw=2.5, label=f"balanced (sens=spec={sens_bal})")
+    ax.axvline(0.08, color="#94a3b8", ls="--", lw=1.3)
+    ax.text(0.085, 0.72, "stroke LVO-like\nprevalence ≈ 8%", fontsize=8, color="#64748b")
+    ax.set_xlabel("prevalence")
+    ax.set_ylabel("accuracy")
+    ax.set_ylim(0.55, 1.02)
+    ax.legend(frameon=False, fontsize=7.5, loc="lower left")
+    style_ax(ax, "Accuracy can flatter a weak screen")
+    # Right: 2x2 counts at prev=8%, n=1000
+    ax2 = axes[1]
+    n, p = 1000, 0.08
+    tp = int(round(sens_bad * n * p))
+    fn = int(round(n * p)) - tp
+    tn = int(round(spec_good * n * (1 - p)))
+    fp = int(round(n * (1 - p))) - tn
+    mat = np.array([[tn, fp], [fn, tp]], dtype=float)
+    im = ax2.imshow(mat, cmap="YlGnBu", vmin=0, vmax=mat.max())
+    labels = [["TN", "FP"], ["FN", "TP"]]
+    for i in range(2):
+        for j in range(2):
+            ax2.text(
+                j,
+                i,
+                f"{labels[i][j]}\n{int(mat[i, j])}",
+                ha="center",
+                va="center",
+                color="white" if mat[i, j] > mat.max() * 0.45 else INK,
+                fontsize=11,
+                fontweight="bold",
+            )
+    ax2.set_xticks([0, 1], ["Pred−", "Pred+"])
+    ax2.set_yticks([0, 1], ["True−", "True+"])
+    acc = (tp + tn) / n
+    style_ax(ax2, f"n=1000, prev=8%: acc≈{acc:.0%} but sens={sens_bad:.0%}")
+    fig.suptitle("The accuracy trap under class imbalance (synthetic screen)", color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_accuracy_trap.png")
+
+
+def fig_causal_mask():
+    """Ch12 scientific: causal (lower-triangular) attention mask for decoder LM."""
+    n = 6
+    # Allowed = 0 (attend), blocked = -inf visualized as 1
+    mask = np.triu(np.ones((n, n)), k=1)  # 1 = future (blocked)
+    allowed = 1.0 - mask
+    fig, axes = plt.subplots(1, 2, figsize=(9.0, 3.8))
+    ax = axes[0]
+    im = ax.imshow(allowed, cmap="YlGnBu", vmin=0, vmax=1)
+    for i in range(n):
+        for j in range(n):
+            lab = "✓" if allowed[i, j] > 0.5 else "−∞"
+            ax.text(
+                j,
+                i,
+                lab,
+                ha="center",
+                va="center",
+                color="white" if allowed[i, j] > 0.5 else "#94a3b8",
+                fontsize=11,
+                fontweight="bold",
+            )
+    ax.set_xticks(range(n), [f"k{j}" for j in range(n)])
+    ax.set_yticks(range(n), [f"q{i}" for i in range(n)])
+    ax.set_xlabel("key position (past → future)")
+    ax.set_ylabel("query position")
+    style_ax(ax, "Causal mask: query t sees keys ≤ t only")
+    # Right: softmax after mask on one row
+    ax2 = axes[1]
+    # toy scores for q3 attending to keys 0..5; future masked
+    scores = np.array([0.4, 1.1, 0.2, 0.9, 2.5, 3.0])
+    scores_masked = scores.copy()
+    scores_masked[4:] = -1e9
+    exp = np.exp(scores_masked - scores_masked.max())
+    alpha = exp / exp.sum()
+    x = np.arange(n)
+    bars = ax2.bar(x, alpha, color=[TEAL if i <= 3 else "#cbd5e1" for i in range(n)], edgecolor="none")
+    ax2.set_xticks(x, [f"t{i}" for i in range(n)])
+    ax2.set_ylabel(r"attention weight $\alpha$")
+    ax2.set_ylim(0, 1.05)
+    ax2.axvline(3.5, color="#dc2626", ls="--", lw=1.5)
+    ax2.text(3.6, 0.85, "future\nmasked", color="#dc2626", fontsize=9)
+    style_ax(ax2, r"Softmax row for $q_3$ after causal mask")
+    fig.suptitle("Decoder causal masking (GPT-style next-token training)", color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_causal_mask.png")
+
+
+def fig_dice_iou():
+    """Ch12 scientific: Dice vs IoU on two synthetic lesion masks."""
+    # Build two binary masks on a small grid
+    h, w = 48, 48
+    yy, xx = np.mgrid[0:h, 0:w]
+    # Ground truth: ellipse center-left
+    gt = (((xx - 18) / 10) ** 2 + ((yy - 24) / 14) ** 2) <= 1.0
+    # Prediction: shifted ellipse (partial overlap)
+    pr = (((xx - 24) / 11) ** 2 + ((yy - 26) / 13) ** 2) <= 1.0
+    inter = gt & pr
+    union = gt | pr
+    only_gt = gt & ~pr
+    only_pr = pr & ~gt
+    dice = 2 * inter.sum() / (gt.sum() + pr.sum())
+    iou = inter.sum() / union.sum()
+    # Panel image: color code regions
+    rgb = np.ones((h, w, 3))
+    rgb[only_gt] = np.array([13, 148, 136]) / 255.0  # teal GT only
+    rgb[only_pr] = np.array([201, 162, 39]) / 255.0  # gold pred only
+    rgb[inter] = np.array([15, 118, 110]) / 255.0  # deep overlap
+    fig, axes = plt.subplots(1, 2, figsize=(8.8, 3.9))
+    ax = axes[0]
+    ax.imshow(rgb, origin="upper")
+    ax.set_xticks([])
+    ax.set_yticks([])
+    style_ax(ax, "Lesion masks: GT (teal) ∩ pred (gold)")
+    ax.text(0.02, 0.05, "overlap = deep teal", transform=ax.transAxes, fontsize=8, color=INK)
+    ax2 = axes[1]
+    ax2.axis("off")
+    ax2.set_xlim(0, 10)
+    ax2.set_ylim(0, 6)
+    ax2.text(5, 5.3, "Overlap metrics (same pair)", ha="center", fontsize=12, fontweight="bold", color=DEEP)
+    ax2.text(5, 4.1, rf"IoU = $|A\cap B|/|A\cup B|$  ≈  {iou:.3f}", ha="center", fontsize=12, color=INK)
+    ax2.text(5, 3.2, rf"Dice = $2|A\cap B|/(|A|+|B|)$  ≈  {dice:.3f}", ha="center", fontsize=12, color=INK)
+    ax2.text(5, 2.2, rf"Identity: Dice = $2\,\mathrm{{IoU}}/(1+\mathrm{{IoU}})$", ha="center", fontsize=11, color=TEAL, fontweight="bold")
+    check = 2 * iou / (1 + iou)
+    ax2.text(5, 1.4, f"check: 2·IoU/(1+IoU) ≈ {check:.3f}", ha="center", fontsize=10, color="#64748b")
+    ax2.text(5, 0.5, "Dice ≥ IoU always; both punish missed boundary", ha="center", fontsize=9, color="#64748b")
+    style_ax(ax2, "Dice vs IoU numerics")
+    fig.suptitle("Segmentation overlap metrics (synthetic DWI-like masks)", color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_dice_iou.png")
+
+
+def fig_discount_gamma():
+    """Ch13 scientific: present value of a delayed unit reward under γ."""
+    t = np.arange(0, 41)
+    gammas = [0.5, 0.9, 0.95, 0.99]
+    colors = [GOLD, TEAL, DEEP, "#b45309"]
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 3.9))
+    ax = axes[0]
+    for g, c in zip(gammas, colors):
+        ax.plot(t, g**t, color=c, lw=2.3, label=rf"$\gamma={g}$")
+    ax.set_xlabel("delay t (steps)")
+    ax.set_ylabel(r"discount factor $\gamma^t$")
+    ax.set_ylim(0, 1.05)
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, r"Present value of +1 reward at time $t$")
+    # Right: infinite-horizon constant reward R each step → R/(1-γ)
+    ax2 = axes[1]
+    g_grid = np.linspace(0.5, 0.995, 200)
+    R = 1.0
+    v = R / (1.0 - g_grid)
+    ax2.plot(g_grid, v, color=TEAL, lw=2.5)
+    for g, lab in [(0.9, r"$\gamma=0.9$ → 10"), (0.99, r"$\gamma=0.99$ → 100")]:
+        ax2.plot(g, R / (1 - g), "o", color=GOLD, markersize=8, zorder=4)
+        ax2.annotate(lab, xy=(g, R / (1 - g)), xytext=(g - 0.18, R / (1 - g) + 8 if g < 0.95 else R / (1 - g) - 25),
+                     fontsize=8, color=DEEP, arrowprops=dict(arrowstyle="->", color=DEEP, lw=1.2))
+    ax2.set_xlabel(r"discount $\gamma$")
+    ax2.set_ylabel(r"$V = R/(1-\gamma)$ for constant $R=1$")
+    ax2.set_ylim(0, 120)
+    style_ax(ax2, "Far-sighted agents value the stream more")
+    fig.suptitle("Discounting in MDPs (why γ near 1 is far-sighted)", color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_discount_gamma.png")
+
+
+def fig_bandit_explore():
+    """Ch13 scientific: ε-greedy vs UCB cumulative regret on 5-arm Bernoulli bandit."""
+    rng = np.random.default_rng(42)
+    means = np.array([0.25, 0.40, 0.55, 0.50, 0.35])  # arm 2 is best
+    K = len(means)
+    T = 800
+    n_runs = 80
+    c_ucb = np.sqrt(2.0)
+
+    def run_eps(eps: float) -> np.ndarray:
+        regrets = np.zeros((n_runs, T))
+        best = means.max()
+        for r in range(n_runs):
+            counts = np.zeros(K)
+            values = np.zeros(K)
+            cum = 0.0
+            for t in range(1, T + 1):
+                if rng.random() < eps or counts.min() == 0:
+                    a = int(rng.integers(0, K)) if counts.min() > 0 else int(np.argmin(counts))
+                else:
+                    a = int(np.argmax(values))
+                rew = float(rng.random() < means[a])
+                counts[a] += 1
+                values[a] += (rew - values[a]) / counts[a]
+                cum += best - means[a]
+                regrets[r, t - 1] = cum
+        return regrets.mean(axis=0)
+
+    def run_ucb() -> np.ndarray:
+        regrets = np.zeros((n_runs, T))
+        best = means.max()
+        for r in range(n_runs):
+            counts = np.zeros(K)
+            values = np.zeros(K)
+            cum = 0.0
+            for t in range(1, T + 1):
+                if counts.min() == 0:
+                    a = int(np.argmin(counts))
+                else:
+                    bonus = c_ucb * np.sqrt(np.log(t) / counts)
+                    a = int(np.argmax(values + bonus))
+                rew = float(rng.random() < means[a])
+                counts[a] += 1
+                values[a] += (rew - values[a]) / counts[a]
+                cum += best - means[a]
+                regrets[r, t - 1] = cum
+        return regrets.mean(axis=0)
+
+    r_greedy = run_eps(0.0)
+    r_eps = run_eps(0.10)
+    r_ucb = run_ucb()
+    steps = np.arange(1, T + 1)
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 3.9))
+    ax = axes[0]
+    ax.plot(steps, r_greedy, color="#94a3b8", lw=2.0, label=r"greedy $\varepsilon=0$")
+    ax.plot(steps, r_eps, color=GOLD, lw=2.2, label=r"$\varepsilon$-greedy $\varepsilon=0.1$")
+    ax.plot(steps, r_ucb, color=TEAL, lw=2.2, label="UCB1")
+    ax.set_xlabel("pull t")
+    ax.set_ylabel("mean cumulative regret")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, f"5-arm Bernoulli bandit ({n_runs} runs)")
+    # Right: true means
+    ax2 = axes[1]
+    x = np.arange(K)
+    ax2.bar(x, means, color=[GOLD if m == means.max() else TEAL for m in means], edgecolor="none")
+    ax2.set_xticks(x, [f"arm {i}" for i in range(K)])
+    ax2.set_ylabel(r"true mean $\mu_a$")
+    ax2.set_ylim(0, 0.75)
+    for i, m in enumerate(means):
+        ax2.text(i, m + 0.03, f"{m:.2f}", ha="center", fontsize=9, color=INK)
+    style_ax(ax2, "True arm means (best = arm 2)")
+    fig.suptitle("Exploration pays: ε-greedy and UCB vs pure greedy (synthetic)", color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_bandit_explore.png")
+
+
+# ---------------------------------------------------------------------------
 # Legacy numbered PNGs (00_*.png … 17_*.png)
 # These files already exist under docs/assets/figures/ and are linked from
 # chapter openings. They are FROZEN historical assets — not regenerated here.
@@ -1159,6 +1445,13 @@ def main():
     fig_early_stopping()
     fig_gradient_noise()
     fig_regularization_path()
+    # Swarm 3h cycle-1 densify (preface / glossary / ch12 / ch13)
+    fig_claim_types()
+    fig_accuracy_trap()
+    fig_causal_mask()
+    fig_dice_iou()
+    fig_discount_gamma()
+    fig_bandit_explore()
     print("DONE figures in", OUT)
     missing_legacy = [n for n in LEGACY_NUMBERED_ASSETS if not (OUT / n).exists()]
     if missing_legacy:

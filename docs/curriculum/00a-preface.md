@@ -26,6 +26,10 @@
 
 *Curriculum map: math → unsupervised/features → supervised → deep/SSL/RL → graphs & data risks → senior practice (original).*
 
+![Three clinical claim types: prediction, etiology, decision support (original).](../assets/figures/ml_fig_claim_types.png)
+
+*Keep claim types separate in journal club: a high AUROC predicts; it does not prove cause or mandate action (original).*
+
 
 A telestroke consult ends. The hub radiologist mentions a new large-vessel occlusion detector with a ‘state-of-the-art AUROC.’ The spoke hospital asks whether to buy it this quarter. This book exists so that conversation starts with definitions, data, and decision impact—not vendor vocabulary.
 

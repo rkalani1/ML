@@ -26,6 +26,10 @@
 
 *PPV of a fixed screen (sens 0.85, spec 0.70) collapses as prevalence falls — LR+ travels; PPV does not (original).*
 
+![The accuracy trap under class imbalance (scientific; original).](../assets/figures/ml_fig_accuracy_trap.png)
+
+*Accuracy can look excellent while sensitivity collapses under low prevalence — report sens/spec/PPV at the decision threshold (original).*
+
 
 Journal club language collapses when people use ‘AI,’ ‘algorithm,’ and ‘model’ interchangeably. The glossary is a shared lexicon for stroke services that want precise disagreement rather than vague awe.
 

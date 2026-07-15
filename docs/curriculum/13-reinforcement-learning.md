@@ -72,6 +72,10 @@ The Markov property states that the future depends on the past only through the 
 
 Discounting serves two purposes. First, it makes infinite-horizon returns finite when rewards are bounded: if |R| <= R_max then the return is at most R_max / (1 - gamma). Second, it encodes a preference for sooner rewards over later ones. Setting gamma close to 1 makes the agent far-sighted; gamma near 0 makes it myopic. For episodic tasks one may use gamma = 1 if every episode ends almost surely and total reward is bounded.
 
+![Discount factor γ: present value of delayed rewards (scientific; original).](../assets/figures/ml_fig_discount_gamma.png)
+
+*Left: γ^t decays a unit reward delayed t steps. Right: constant reward stream R=1 has value R/(1−γ), so γ=0.9 → 10 while γ=0.99 → 100 — far-sighted policies care about long horizons (original).*
+
 ### Gridworld as the Pedagogic MDP
 
 A classic teaching environment is a small grid of cells. Each cell is a state; actions are the four compass moves {N, S, E, W}; some cells are walls; one cell is a terminal goal with reward +1; stepping into a pit yields -1 and terminates. A small living reward (for example -0.04 per step) encourages shorter paths. Transitions may be deterministic (intended move always succeeds) or stochastic (with probability p the agent slips sideways). With a known transition model, dynamic programming produces a value heat map and arrows for the greedy policy. Students should implement a 4x3 or 5x5 grid, run value iteration with gamma = 0.9, and verify that values decrease with distance from the goal and that the policy points along shortest safe paths. Stochastic slips create a risk-reward trade-off: a path hugging a cliff may be shorter in expectation under deterministic dynamics but catastrophic under slip noise—an analogy to aggressive versus conservative clinical pathways under outcome uncertainty.
@@ -192,6 +196,10 @@ A multi-armed bandit is an MDP with a single state (or i.i.d. rounds): each acti
 ### Epsilon-Greedy
 
 With probability epsilon, choose a uniform random arm; otherwise choose argmax_a Q_hat(a), where Q_hat is the sample mean of rewards for arm a. Simple and robust; suboptimal logarithmic constants compared with UCB, but easy to anneal (decay epsilon over time). Constant epsilon wastes a fixed fraction of pulls forever; decaying schedules such as epsilon_t = c/t improve asymptotics but need tuning for finite horizons.
+
+![ε-greedy vs UCB cumulative regret on a five-arm Bernoulli bandit (scientific; original).](../assets/figures/ml_fig_bandit_explore.png)
+
+*Mean cumulative regret over 80 simulated runs: pure greedy locks onto a suboptimal arm; ε=0.1 and UCB1 keep exploring and lower long-run regret (synthetic means; original).*
 
 ### Upper Confidence Bound (UCB1)
 
