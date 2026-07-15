@@ -1366,3 +1366,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c410 teaching panel 01 (original).](../assets/figures/ml_fig_c410_01.png)
 *Figure — Kill-switch runbook path c410. Synthetic teaching geometry—not a causal claim.*
+
+![c411 teaching panel 01 (original).](../assets/figures/ml_fig_c411_01.png)
+*Figure — Rollback decision path c411. Synthetic teaching geometry—not a causal claim.*
