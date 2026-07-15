@@ -503,6 +503,21 @@ Return to the LVO screen with prevalence 0.20, sensitivity 0.85, and specificity
 
 *Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
 
+
+![c77 densify panel 5 (original).](../assets/figures/ml_fig_c77_04.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c78 densify panel 5 (original).](../assets/figures/ml_fig_c78_04.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c79 densify panel 5 (original).](../assets/figures/ml_fig_c79_04.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
 *Figure — LR+ ≈ 2.83 and LR− ≈ 0.214 travel across base rates; PPV/NPV do not. **Left:** PPV after a positive screen as a function of pre-test prevalence π (vertical mark at the chapter’s π=0.20 ED example). **Right:** residual disease probability after a negative screen. Copying a paper’s PPV into a different prevalence is a base-rate error.*
 
 Now connect to information theory with a tiny discrete example, using natural logs throughout so the units are nats. Suppose a binary outcome Y with P(Y=1)=0.2 and a binary feature X = screen result, with P(X=1)=0.41 (the positive-screen rate above) carrying the conditional probabilities from the screening table. The outcome’s entropy is H(Y) = −0.2 ln 0.2 − 0.8 ln 0.8 ≈ 0.500 nats. (Watch the units: the same quantity is 0.722 bits, because bits = nats / ln 2 = 0.500 / 0.6931; the numeral 0.7219 is the value in bits, not nats.) After observing X, the expected conditional entropy H(Y|X) is the screen-rate-weighted average of binary entropies at the posteriors 0.415 (screen +) and 0.051 (screen −): H(Y|X=1) ≈ 0.678 nats and H(Y|X=0) ≈ 0.201 nats; with P(X=1)=0.41 and P(X=0)=0.59, H(Y|X) ≈ 0.41·0.678 + 0.59·0.201 ≈ 0.397 nats. Information gain IG = H(Y) − H(Y|X) ≈ 0.500 − 0.397 ≈ 0.104 nats (about 0.15 bits). The screen cuts outcome uncertainty by roughly a fifth—a moderate, not decisive, reduction, consistent with a moderate LR+.
