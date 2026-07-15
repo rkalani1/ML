@@ -781,3 +781,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c215 teaching panel 01 (original).](../assets/figures/ml_fig_c215_01.png)
 *Figure — Re-consent protocol change gate. Synthetic teaching geometry—not a causal claim.*
+
+![c216 teaching panel 01 (original).](../assets/figures/ml_fig_c216_01.png)
+*Figure — Immutable audit trail fields. Synthetic teaching geometry—not a causal claim.*
