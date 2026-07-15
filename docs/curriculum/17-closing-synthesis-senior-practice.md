@@ -817,3 +817,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c212 teaching panel 18 (original).](../assets/figures/ml_fig_c212_18.png)
 *Figure — Feature-flag rollout ramp. Synthetic teaching geometry—not a causal claim.*
+
+![c213 teaching panel 18 (original).](../assets/figures/ml_fig_c213_18.png)
+*Figure — Incident runbook stage tiles. Synthetic teaching geometry—not a causal claim.*

@@ -772,3 +772,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c212 teaching panel 01 (original).](../assets/figures/ml_fig_c212_01.png)
 *Figure — Consent window timeline markers. Synthetic teaching geometry—not a causal claim.*
+
+![c213 teaching panel 01 (original).](../assets/figures/ml_fig_c213_01.png)
+*Figure — HIPAA Safe Harbor ID strip. Synthetic teaching geometry—not a causal claim.*
