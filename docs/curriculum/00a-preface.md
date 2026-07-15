@@ -1639,3 +1639,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c501 teaching panel 01 (original).](../assets/figures/ml_fig_c501_01.png)
 *Figure — Policy exception path c501. Synthetic teaching geometry—not a causal claim.*
+
+![c502 teaching panel 01 (original).](../assets/figures/ml_fig_c502_01.png)
+*Figure — Audit trail control path c502. Synthetic teaching geometry—not a causal claim.*
