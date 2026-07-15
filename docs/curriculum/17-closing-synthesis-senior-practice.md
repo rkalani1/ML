@@ -469,3 +469,12 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c96 teaching panel 18 (original).](../assets/figures/ml_fig_c96_18.png)
 *Figure — Rollback criteria dashboard. Synthetic teaching geometry—not a causal claim.*
+
+![c97 teaching panel 18 (original).](../assets/figures/ml_fig_c97_18.png)
+*Figure — Human-in-loop escalation ladder. Synthetic teaching geometry—not a causal claim.*
+
+![c98 teaching panel 18 (original).](../assets/figures/ml_fig_c98_18.png)
+*Figure — Blue/green deploy switch. Synthetic teaching geometry—not a causal claim.*
+
+![c99 teaching panel 18 (original).](../assets/figures/ml_fig_c99_18.png)
+*Figure — Kill-switch criteria board. Synthetic teaching geometry—not a causal claim.*

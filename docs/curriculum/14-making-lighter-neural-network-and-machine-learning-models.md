@@ -780,6 +780,18 @@ Privacy and governance. Federated learning links to the data-governance material
 ![c96 teaching panel 15 (original).](../assets/figures/ml_fig_c96_15.png)
 *Figure — Medusa multi-head drafting. Synthetic teaching geometry—not a causal claim.*
 
+
+![c97 teaching panel 15 (original).](../assets/figures/ml_fig_c97_15.png)
+*Figure — Product quantization codebooks. Synthetic teaching geometry—not a causal claim.*
+
+
+![c98 teaching panel 15 (original).](../assets/figures/ml_fig_c98_15.png)
+*Figure — Paged attention block tables. Synthetic teaching geometry—not a causal claim.*
+
+
+![c99 teaching panel 15 (original).](../assets/figures/ml_fig_c99_15.png)
+*Figure — Lookahead decoding verify. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Lighter models enable bedside, edge, and mobile stroke unit deployment under latency, memory, energy, and privacy constraints. Classical compressors (BPE, bitmaps, Huffman, LZW) and sparse coding reduce data and feature cost; the Huffman worked example shows a prefix code reaching 2.25 bits/symbol against a 3-bit fixed baseline and a 2.20-bit entropy floor. Quantization (including companding intuition, PTQ, QAT, and channel-wise scales) and pruning (magnitude, Hessian-aware OBD/OBS, activation and Taylor scores; structured vs unstructured) shrink networks. LoRA specializes large models cheaply; FlashAttention, MQA/GQA, and sliding windows lighten attention; accumulation and checkpointing lighten training memory. Transfer, multitask, meta, curriculum, and federated learning improve data efficiency; distillation compresses teachers into students; AutoML and NAS search configurations under budget. Clinical notes emphasize on-device measurement, pathology-tail validation, and green AI reporting for equitable multi-site neurology.

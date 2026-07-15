@@ -424,3 +424,12 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c96 teaching panel 01 (original).](../assets/figures/ml_fig_c96_01.png)
 *Figure — Data provenance ledger chain. Synthetic teaching geometry—not a causal claim.*
+
+![c97 teaching panel 01 (original).](../assets/figures/ml_fig_c97_01.png)
+*Figure — Ethics review amendment trail. Synthetic teaching geometry—not a causal claim.*
+
+![c98 teaching panel 01 (original).](../assets/figures/ml_fig_c98_01.png)
+*Figure — FAIR data principles tiles. Synthetic teaching geometry—not a causal claim.*
+
+![c99 teaching panel 01 (original).](../assets/figures/ml_fig_c99_01.png)
+*Figure — Versioned feature store timeline. Synthetic teaching geometry—not a causal claim.*
