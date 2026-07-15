@@ -1342,3 +1342,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c402 teaching panel 01 (original).](../assets/figures/ml_fig_c402_01.png)
 *Figure — Incident SEV ladder path c402. Synthetic teaching geometry—not a causal claim.*
+
+![c403 teaching panel 01 (original).](../assets/figures/ml_fig_c403_01.png)
+*Figure — SBOM attest ship path c403. Synthetic teaching geometry—not a causal claim.*
