@@ -37,6 +37,10 @@ You finish a model paper and a methods appendix in one sitting. Synthesis means 
 
 *Figure — Eleven-gate appraisal flow for clinical prediction systems: question fit → index/legality → leakage → cohort/label → fit/capacity → discrimination → calibration → utility → external test → deploy card → drift monitor. Skip a gate only with a written reason. Prediction success never licenses a causal claim or sole-trigger withdrawal of care.*
 
+![Prediction ≠ causation: confounder sketch and claim boxes (synthetic; original).](../assets/figures/ml_fig_pred_not_cause.png)
+
+*Figure — Closing discipline for claim type. **Left:** synthetic data where confounder *U* drives both *X* and *Y*; a strong observational fit of *Y* on *X* coexists with no *X*→*Y* edge in the DGP. **Right:** prediction systems may use *X* lawfully when calibrated and useful; causal claims need design or identification assumptions. Senior practice states which claim is being made before acting on a score.*
+
 The book has moved from describing data to deploying systems, but the through-argument was never really about algorithms. For a neurologist–epidemiologist, the machinery of gradient descent or attention is the tractable part; the demanding part is the reasoning that surrounds a model — what question it answers, when it is permitted to see each variable, and whether its numbers mean what a clinician assumes they mean. Senior competence is the habit of interrogating those surroundings before trusting any output. This chapter gathers the disciplines that outlived the chapters that introduced them, then walks a single clinical prediction study from raw data to post-deployment monitoring so the abstractions have somewhere concrete to land.
 
 ## Disciplines that recur across every chapter

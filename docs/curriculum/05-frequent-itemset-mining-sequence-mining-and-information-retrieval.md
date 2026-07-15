@@ -105,6 +105,10 @@ d2: (0.405, 0.405, 0.405, 0, 0)
 d3: (0.405, 0, 0, 1.099, 0.405)
 Query q = “machine learning” as TF–IDF: q = (0, 0.405, 0.405, 0, 0). ‖q‖ ≈ 0.573. ‖d1‖ ≈ 0.701; q·d1 ≈ 0.328; cos(q,d1) ≈ 0.816. Similarly cos(q,d2) ≈ 0.816; cos(q,d3) = 0. Ranking for q: d1 and d2 tie first, d3 last. The rare term mining in d3 does not help this query; it would dominate a query containing “mining.”
 
+![TF–IDF coordinates and cosine ranking for the chapter three-document corpus (scientific; original).](../assets/figures/ml_fig_tfidf_cosine.png)
+
+*Figure — Vector-space IR on the worked corpus. **Left:** TF–IDF weights for documents d1–d3 and query *q* = “machine learning” over vocabulary {data, learning, machine, mining, models}; rare *mining* receives the largest idf. **Right:** cosine similarity cos(*q*, *d*) = (*q*·*d*)/(‖*q*‖‖*d*‖) ranks d1 and d2 first (≈0.82) and d3 last (0). Cosine is a geometric score for ranking, not a clinical relevance judgment or a causal claim about terms.*
+
 Precision at rank k is the fraction of the top-k returned documents that are relevant. Recall at rank k is the fraction of all relevant documents that appear in the top k. Average precision (AP) for one query integrates precision at each rank where a relevant document is retrieved; MAP averages AP across a query set. Offline IR evaluation requires a labeled test collection; online systems also use click models and A/B tests, which introduce position bias.
 
 ### The Inverted Index
@@ -210,6 +214,10 @@ Apriori generates candidates of size k from frequent itemsets of size k−1, pru
 ![5.5: The subset lattice of itemsets over {A, B, C, D}. At minsup = 0.6 on the five-transaction basket, six itemsets are frequ](../assets/figures/ml_concept_5.5_a6a3912b.png)
 
 *Figure 5.5 — original teaching graphic.*
+
+![Apriori support lattice for {A,B,C} on the five-transaction basket with minsup=0.5 (scientific; original).](../assets/figures/ml_fig_apriori_lattice.png)
+
+*Figure — Apriori pruning on the chapter basket (focus {A,B,C}). **Left:** itemset lattice with supports; teal nodes meet minsup = 0.50; the triple ABC (s = 0.40) is infrequent and dashed edges mark the downward closure cut. **Right:** horizontal support bars with the minsup line. Any superset of an infrequent set is infrequent—this is the Apriori principle that prunes candidates before counting. Frequent co-occurrence is not causation or protocol quality.*
 
 ```
 Apriori(D, minsup):

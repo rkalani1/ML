@@ -16,6 +16,7 @@ MAP = {
         ("../assets/figures/ml_fig_how_to_read.png", "How to read this open-source ebook (original)."),
         ("../assets/figures/ml_fig_appraisal_scorecard.png", "Model appraisal scorecard (original)."),
         ("../assets/figures/ml_fig_curriculum_map.png", "Curriculum map — open-source ML ebook path (original)."),
+        ("../assets/figures/ml_fig_pred_not_cause.png", "Prediction ≠ causation: confounder sketch and claim boxes (synthetic; original)."),
     ],
     "01-basic": [
         ("../assets/figures/ml_fig_learning_curves.png", "Learning curves vs sample size (synthetic; original)."),
@@ -41,6 +42,8 @@ MAP = {
     "05-frequent": [
         ("../assets/figures/ml_fig_association_rules.png", "Support, confidence, and lift for the chapter’s five-transaction toy basket (original)."),
         ("../assets/figures/ml_fig_supervised_unsupervised_map.png", "Pattern mining sits on the unsupervised exploration path (original)."),
+        ("../assets/figures/ml_fig_tfidf_cosine.png", "TF–IDF coordinates and cosine ranking for the chapter three-document corpus (scientific; original)."),
+        ("../assets/figures/ml_fig_apriori_lattice.png", "Apriori support lattice for {A,B,C} on the five-transaction basket with minsup=0.5 (scientific; original)."),
     ],
     "06-feature": [
         ("../assets/figures/ml_fig_feature_pipeline.png", "Feature pipeline: raw → impute → encode → scale → select → model (original)."),
@@ -69,6 +72,7 @@ MAP = {
     "11-self-supervised": [
         ("../assets/figures/ml_fig_pretrain_finetune.png", "Pretrain then fine-tune pipeline (original teaching graphic)."),
         ("../assets/figures/ml_fig_triplet_ssl.png", "Triplet loss with chapter worked numbers (original)."),
+        ("../assets/figures/ml_fig_infonce_temp.png", "InfoNCE temperature τ: positive-pair softmax mass and class probabilities (synthetic; original)."),
     ],
     "12-deep-learning": [
         ("../assets/figures/ml_fig_attention.png", "Self-attention weights for the three-token worked example (original)."),
@@ -82,10 +86,12 @@ MAP = {
     "14-making-lighter": [
         ("../assets/figures/ml_fig_distill_prune.png", "Distill/prune teaching sketch (original)."),
         ("../assets/figures/ml_fig_mlp.png", "Smaller deployed nets still need appraisal discipline (original)."),
+        ("../assets/figures/ml_fig_quant_bits.png", "Quantization bit-width vs relative size, latency proxy, and synthetic accuracy (scientific; original)."),
     ],
     "15-graph": [
         ("../assets/figures/ml_fig_graph_toy.png", "Toy patient-similarity graph (original)."),
         ("../assets/figures/ml_fig_site_shift.png", "Graph/embedding geometry can drift across sites (original)."),
+        ("../assets/figures/ml_fig_pagerank_iter.png", "PageRank power iteration on the chapter four-node digraph with α=0.85 (scientific; original)."),
     ],
     "16-concepts": [
         ("../assets/figures/ml_fig_leakage_timeline.png", "Data challenges often reduce to time and shift (original)."),
@@ -97,12 +103,14 @@ MAP = {
         ("../assets/figures/ml_fig_metric_map.png", "Discrimination vs calibration vs utility (original)."),
         ("../assets/figures/ml_fig_lifecycle_deploy.png", "Senior practice lifecycle — design to drift (original)."),
         ("../assets/figures/ml_fig_decision_curve.png", "Decision curve: net benefit vs threshold (synthetic; original)."),
+        ("../assets/figures/ml_fig_pred_not_cause.png", "Prediction ≠ causation: confounder sketch and claim boxes (synthetic; original)."),
     ],
     "18-selected": [
         ("../assets/figures/ml_fig_metric_map.png", "Metric families: discrimination, calibration, utility (original)."),
         ("../assets/figures/ml_fig_appraisal_scorecard.png", "Appraisal orientation graphic (original)."),
         ("../assets/figures/ml_fig_glossary_families.png", "Glossary term families — teaching taxonomy (original)."),
         ("../assets/figures/ml_fig_ppv_prevalence.png", "PPV versus prevalence at fixed sens/spec (scientific; original)."),
+        ("../assets/figures/ml_fig_pred_not_cause.png", "Prediction ≠ causation: confounder sketch and claim boxes (synthetic; original)."),
     ],
 }
 

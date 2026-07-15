@@ -34,6 +34,10 @@
 
 *Figure — Reliability diagram on one synthetic low-prevalence risk cohort. Points on the diagonal are honest probabilities; overconfident models bow above/below the line and inflate expected calibration error (ECE = Σ (n_b/n)·|obs_b − conf_b|). Score histograms (right) show overconfidence piling mass at the extremes. Calibration is a distinct claim from AUC.*
 
+![Prediction ≠ causation: confounder sketch and claim boxes (synthetic; original).](../assets/figures/ml_fig_pred_not_cause.png)
+
+*Figure — Glossary anchor for causal caution. A high-ranking feature *X* can predict outcome *Y* through shared dependence on confounder *U* without *X* causing *Y*. Keep prediction, etiology, and decision-support claims in separate boxes when reading papers or appraising tools.*
+
 
 Journal club language collapses when people use ‘AI,’ ‘algorithm,’ and ‘model’ interchangeably. The glossary is a shared lexicon for stroke services that want precise disagreement rather than vague awe.
 

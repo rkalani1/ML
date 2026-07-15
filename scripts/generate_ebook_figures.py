@@ -2090,6 +2090,421 @@ def fig_drift_monitor():
     save(fig, "ml_fig_drift_monitor.png")
 
 
+def fig_tfidf_cosine():
+    """Ch05 scientific: TF–IDF vectors + cosine ranking from chapter toy corpus."""
+    # Chapter worked example: N=3 docs, vocab order data, learning, machine, mining, models
+    # idf = ln(N/df): data/learning/machine/models ≈0.405, mining ≈1.099
+    terms = ["data", "learning", "machine", "mining", "models"]
+    d1 = np.array([0.0, 0.405, 0.405, 0.0, 0.405])
+    d2 = np.array([0.405, 0.405, 0.405, 0.0, 0.0])
+    d3 = np.array([0.405, 0.0, 0.0, 1.099, 0.405])
+    q = np.array([0.0, 0.405, 0.405, 0.0, 0.0])  # "machine learning"
+
+    def cos(a, b):
+        na, nb = np.linalg.norm(a), np.linalg.norm(b)
+        return float(a @ b / (na * nb + 1e-12))
+
+    scores = [cos(q, d1), cos(q, d2), cos(q, d3)]
+    docs = [d1, d2, d3]
+    labels = ["d1: ML models", "d2: ML data", "d3: data mining models"]
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 4.0), gridspec_kw={"width_ratios": [1.35, 1.0]})
+
+    # Left: grouped bar of TF–IDF weights + query overlay
+    ax = axes[0]
+    x = np.arange(len(terms))
+    w = 0.18
+    colors = [TEAL, DEEP, GOLD, "#64748b"]
+    for i, (vec, lab, c) in enumerate(zip(docs + [q], labels + ["query q"], colors)):
+        ax.bar(x + (i - 1.5) * w, vec, width=w, color=c, alpha=0.9, label=lab)
+    ax.set_xticks(x)
+    ax.set_xticklabels(terms, rotation=15, ha="right")
+    ax.set_ylabel("TF–IDF weight")
+    ax.legend(frameon=False, fontsize=7.5, loc="upper left")
+    style_ax(ax, "Chapter toy corpus · TF–IDF coordinates")
+
+    # Right: cosine bars for ranking
+    ax = axes[1]
+    order = np.argsort(scores)[::-1]
+    y = np.arange(3)
+    ranked_scores = [scores[i] for i in order]
+    ranked_labs = [labels[i] for i in order]
+    cols = [TEAL if i < 2 else GOLD for i in range(3)]
+    ax.barh(y, ranked_scores, color=cols, alpha=0.9, height=0.55)
+    ax.set_yticks(y)
+    ax.set_yticklabels(ranked_labs, fontsize=9)
+    ax.set_xlabel("cos(q, d) = (q·d) / (‖q‖‖d‖)")
+    ax.set_xlim(0, 1.05)
+    for i, s in enumerate(ranked_scores):
+        ax.text(s + 0.02, i, f"{s:.3f}", va="center", fontsize=10, fontweight="bold", color=INK)
+    style_ax(ax, "Ranked retrieval for q = “machine learning”")
+    ax.text(
+        0.98, 0.08,
+        "Rare term “mining” boosts d3 on other queries;\nnot this one. Cosine ≠ clinical relevance.",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.tight_layout()
+    save(fig, "ml_fig_tfidf_cosine.png")
+
+
+def fig_infonce_temperature():
+    """Ch11 scientific: InfoNCE / softmax weights vs temperature τ."""
+    # Synthetic similarity logits: one positive, many negatives
+    rng = np.random.default_rng(7)
+    pos = 2.4
+    neg = rng.normal(-0.3, 0.9, size=7)
+    logits = np.concatenate([[pos], neg])  # index 0 = positive pair
+    labels = ["pos"] + [f"n{i}" for i in range(1, 8)]
+    taus = [0.07, 0.20, 0.50, 1.50]
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 4.0))
+
+    # Left: softmax mass on positive vs τ
+    ax = axes[0]
+    tau_grid = np.linspace(0.05, 2.0, 120)
+    p_pos = []
+    for t in tau_grid:
+        z = logits / t
+        z = z - z.max()
+        p = np.exp(z)
+        p = p / p.sum()
+        p_pos.append(p[0])
+    p_pos = np.asarray(p_pos)
+    ax.plot(tau_grid, p_pos, color=TEAL, lw=2.5)
+    for t in taus:
+        z = logits / t
+        z = z - z.max()
+        p = np.exp(z) / np.exp(z).sum()
+        ax.scatter([t], [p[0]], s=55, zorder=5, color=GOLD if t < 0.3 else DEEP)
+        ax.annotate(f"τ={t:g}", (t, p[0]), textcoords="offset points", xytext=(6, 4),
+                    fontsize=8, color=INK)
+    ax.set_xlabel("temperature τ")
+    ax.set_ylabel("softmax weight on positive pair")
+    ax.set_ylim(0, 1.05)
+    style_ax(ax, "InfoNCE: low τ sharpens the positive")
+    ax.text(
+        0.98, 0.12,
+        "L = −log  p_pos   (single positive)",
+        transform=ax.transAxes, ha="right", fontsize=9, color="#475569",
+        family="monospace",
+    )
+
+    # Right: bar of class probabilities at two temperatures
+    ax = axes[1]
+    x = np.arange(len(logits))
+    w = 0.38
+    for j, (t, c) in enumerate([(0.07, TEAL), (1.50, GOLD)]):
+        z = logits / t
+        z = z - z.max()
+        p = np.exp(z) / np.exp(z).sum()
+        ax.bar(x + (j - 0.5) * w, p, width=w, color=c, alpha=0.9, label=f"τ={t:g}")
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+    ax.set_ylabel("softmax probability")
+    ax.set_ylim(0, 1.05)
+    ax.legend(frameon=False, fontsize=9)
+    style_ax(ax, "Mass concentrates as τ → 0")
+    ax.text(
+        0.98, 0.90,
+        "Hard negatives dominate gradients at low τ;\nhigh τ softens and can under-use hard pairs",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Contrastive InfoNCE temperature (synthetic similarities)", color=INK,
+                 fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_infonce_temp.png")
+
+
+def fig_quant_bits_tradeoff():
+    """Ch14 scientific: bit-width vs model size and synthetic accuracy (tiny ICH CNN stack)."""
+    # Teaching curve inspired by chapter tiny CNN compression stack (not a real model dump)
+    bits = np.array([32, 16, 8, 4, 2])
+    # Relative size vs FP32 (idealized; int8 ≈ 1/4, etc.)
+    size_rel = bits / 32.0
+    # Synthetic held-out accuracy (percentage points) — mild drop then cliff at 2-bit
+    acc = np.array([0.912, 0.910, 0.901, 0.868, 0.742])
+    # Latency proxy (relative; lower bits often faster on supported HW)
+    lat = np.array([1.00, 0.72, 0.48, 0.41, 0.38])
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 4.0))
+
+    # Left: accuracy vs relative size (log x)
+    ax = axes[0]
+    ax.plot(size_rel, acc, "o-", color=TEAL, lw=2.4, markersize=9, zorder=3)
+    for b, s, a in zip(bits, size_rel, acc):
+        ax.annotate(f"{b}-bit", (s, a), textcoords="offset points",
+                    xytext=(6, 6 if b != 2 else -14), fontsize=9, color=INK, fontweight="bold")
+    ax.axhline(0.88, color=GOLD, ls="--", lw=1.4, label="clinical floor (teaching)")
+    ax.set_xscale("log")
+    ax.set_xlabel("relative weight storage (vs FP32)")
+    ax.set_ylabel("held-out accuracy (synthetic)")
+    ax.set_ylim(0.70, 0.95)
+    ax.set_xlim(0.04, 1.3)
+    ax.legend(frameon=False, fontsize=9, loc="lower right")
+    style_ax(ax, "Accuracy–size trade-off under quantization")
+    ax.text(
+        0.02, 0.06,
+        "PTQ vs QAT not shown — measure both;\nsubgroup AUROC can fall before global acc",
+        transform=ax.transAxes, fontsize=8, color="#64748b",
+    )
+
+    # Right: size + latency dual view by bit-width
+    ax = axes[1]
+    x = np.arange(len(bits))
+    bars = ax.bar(x - 0.18, size_rel, width=0.36, color=TEAL, alpha=0.9, label="size / FP32")
+    ax2 = ax.twinx()
+    ax2.plot(x, lat, "D-", color=GOLD, lw=2.2, markersize=8, label="latency proxy")
+    ax2.plot(x, acc, "s--", color=DEEP, lw=1.8, markersize=7, label="accuracy")
+    ax.set_xticks(x)
+    ax.set_xticklabels([f"{b}" for b in bits])
+    ax.set_xlabel("weight bit-width")
+    ax.set_ylabel("relative size", color=TEAL)
+    ax2.set_ylabel("latency proxy / accuracy", color=INK)
+    ax2.set_ylim(0.3, 1.05)
+    # Combined legend
+    h1, l1 = ax.get_legend_handles_labels()
+    h2, l2 = ax2.get_legend_handles_labels()
+    ax.legend(h1 + h2, l1 + l2, frameon=False, fontsize=8, loc="center right")
+    style_ax(ax, "Bits, bytes, and wall-clock (device-dependent)")
+    ax.text(
+        0.98, 0.08,
+        "FLOPs ≠ latency; benchmark the edge device",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Making lighter models: quantization is a clinical constraint curve", color=INK,
+                 fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_quant_bits.png")
+
+
+def fig_pagerank_iteration():
+    """Ch15 scientific: PageRank power iteration on chapter 4-node digraph."""
+    # Edges: A→B, A→C, B→C, C→A, D→C. Order A,B,C,D
+    # Row-stochastic P:
+    # A: 0, 1/2, 1/2, 0
+    # B: 0, 0, 1, 0
+    # C: 1, 0, 0, 0
+    # D: 0, 0, 1, 0
+    P = np.array([
+        [0.0, 0.5, 0.5, 0.0],
+        [0.0, 0.0, 1.0, 0.0],
+        [1.0, 0.0, 0.0, 0.0],
+        [0.0, 0.0, 1.0, 0.0],
+    ])
+    alpha = 0.85
+    v = np.ones(4) / 4.0
+    r = v.copy()
+    hist = [r.copy()]
+    for _ in range(25):
+        r = alpha * (P.T @ r) + (1 - alpha) * v
+        hist.append(r.copy())
+    hist = np.asarray(hist)
+    names = ["A", "B", "C", "D"]
+    colors = [TEAL, GOLD, DEEP, "#64748b"]
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 4.0))
+
+    # Left: graph schematic with final PR as node size
+    ax = axes[0]
+    pos = {"A": (0.2, 0.75), "B": (0.75, 0.85), "C": (0.55, 0.35), "D": (0.15, 0.2)}
+    edges = [("A", "B"), ("A", "C"), ("B", "C"), ("C", "A"), ("D", "C")]
+    for u, w in edges:
+        x0, y0 = pos[u]
+        x1, y1 = pos[w]
+        ax.annotate(
+            "", xy=(x1, y1), xytext=(x0, y0),
+            arrowprops=dict(arrowstyle="->", color="#94a3b8", lw=1.6,
+                            connectionstyle="arc3,rad=0.08",
+                            shrinkA=14, shrinkB=14),
+        )
+    r_final = hist[-1]
+    for i, n in enumerate(names):
+        x, y = pos[n]
+        s = 900 + 4200 * r_final[i]
+        ax.scatter([x], [y], s=s, c=colors[i], zorder=3, edgecolors="white", linewidths=1.5)
+        ax.text(x, y, n, ha="center", va="center", color="white", fontsize=12, fontweight="bold", zorder=4)
+        ax.text(x, y - 0.12, f"π≈{r_final[i]:.3f}", ha="center", fontsize=8, color=INK)
+    ax.set_xlim(-0.05, 1.0)
+    ax.set_ylim(0.0, 1.05)
+    ax.axis("off")
+    ax.set_title("Directed graph · node size ∝ PageRank", fontsize=12, fontweight="bold", color=INK, pad=8)
+    ax.text(0.5, 0.02, "α=0.85 · uniform teleport · D only via teleport", ha="center",
+            fontsize=8, color="#64748b", transform=ax.transAxes)
+
+    # Right: convergence trajectories
+    ax = axes[1]
+    for i, n in enumerate(names):
+        ax.plot(np.arange(hist.shape[0]), hist[:, i], "o-", color=colors[i],
+                lw=2.0, markersize=3.5, label=n)
+    # Mark chapter iteration 1 values approximately
+    ax.axvline(1, color="#cbd5e1", ls=":", lw=1.2)
+    ax.text(1.15, 0.62, "iter 1", fontsize=8, color="#64748b")
+    ax.set_xlabel("power iteration k")
+    ax.set_ylabel("r_k (PageRank mass)")
+    ax.set_ylim(0, 0.75)
+    ax.legend(frameon=False, fontsize=9, ncol=2, loc="upper right")
+    style_ax(ax, "r ← α Pᵀ r + (1−α) v  converges")
+    ax.text(
+        0.98, 0.08,
+        "High PR ≠ causal importance;\nedges encode link structure only",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("PageRank on the chapter four-node digraph (A→B,A→C,B→C,C→A,D→C)", color=INK,
+                 fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_pagerank_iter.png")
+
+
+def fig_pred_not_cause():
+    """Preface / closing / glossary: prediction scores ≠ causal structure (scientific teaching)."""
+    rng = np.random.default_rng(42)
+    # Confounder U drives both treatment-like exposure X and outcome Y;
+    # a pure predictor of Y can use X without X causing Y.
+    n = 400
+    U = rng.normal(0, 1, size=n)
+    X = 0.9 * U + rng.normal(0, 0.55, size=n)
+    Y = 1.1 * U + rng.normal(0, 0.6, size=n)  # no direct X→Y
+    # Fit naive linear association Y ~ X (observational)
+    coef = np.polyfit(X, Y, 1)
+    xline = np.linspace(X.min(), X.max(), 100)
+    yhat = coef[0] * xline + coef[1]
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 4.0))
+
+    # Left: scatter with predictive fit (association ≠ causation)
+    ax = axes[0]
+    sc = ax.scatter(X, Y, c=U, cmap="viridis", s=16, alpha=0.75, edgecolors="none")
+    ax.plot(xline, yhat, color=GOLD, lw=2.4, label=f"naive fit  Ŷ = {coef[0]:.2f}X + …")
+    ax.set_xlabel("feature X (e.g., co-med / order code)")
+    ax.set_ylabel("outcome Y")
+    ax.legend(frameon=False, fontsize=9, loc="upper left")
+    style_ax(ax, "Strong prediction from X — but Y ⊥ X | U")
+    cbar = fig.colorbar(sc, ax=ax, fraction=0.046, pad=0.04)
+    cbar.set_label("confounder U", fontsize=9)
+    ax.text(
+        0.98, 0.06,
+        "Color = U. Conditioning on U removes X→Y association.",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+
+    # Right: two DAGs — predictive vs causal claim
+    ax = axes[1]
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 6)
+    ax.axis("off")
+    # Predictive system box
+    ax.add_patch(FancyBboxPatch((0.4, 3.2), 4.2, 2.3, boxstyle="round,pad=0.04,rounding_size=0.15",
+                                facecolor=SOFT, edgecolor=TEAL, linewidth=1.6))
+    ax.text(2.5, 5.15, "Prediction claim", ha="center", fontsize=11, fontweight="bold", color=DEEP)
+    for (x, y, t) in [(1.3, 4.2, "X"), (2.5, 4.2, "model"), (3.7, 4.2, "Ŷ")]:
+        ax.add_patch(Circle((x, y), 0.38, facecolor=TEAL, edgecolor="none"))
+        ax.text(x, y, t, ha="center", va="center", color="white", fontsize=10, fontweight="bold")
+    ax.annotate("", xy=(2.05, 4.2), xytext=(1.7, 4.2), arrowprops=dict(arrowstyle="->", color=INK, lw=1.5))
+    ax.annotate("", xy=(3.25, 4.2), xytext=(2.95, 4.2), arrowprops=dict(arrowstyle="->", color=INK, lw=1.5))
+    ax.text(2.5, 3.5, "OK if calibrated & useful\n(not a mechanism)", ha="center", fontsize=8, color="#475569")
+
+    # Causal system box
+    ax.add_patch(FancyBboxPatch((5.4, 3.2), 4.2, 2.3, boxstyle="round,pad=0.04,rounding_size=0.15",
+                                facecolor="#fff7ed", edgecolor=GOLD, linewidth=1.6))
+    ax.text(7.5, 5.15, "Causal claim", ha="center", fontsize=11, fontweight="bold", color="#b45309")
+    # U at top, X and Y below
+    ax.add_patch(Circle((7.5, 4.55), 0.35, facecolor=GOLD, edgecolor="none"))
+    ax.text(7.5, 4.55, "U", ha="center", va="center", color="white", fontsize=10, fontweight="bold")
+    ax.add_patch(Circle((6.4, 3.7), 0.35, facecolor=DEEP, edgecolor="none"))
+    ax.text(6.4, 3.7, "X", ha="center", va="center", color="white", fontsize=10, fontweight="bold")
+    ax.add_patch(Circle((8.6, 3.7), 0.35, facecolor=DEEP, edgecolor="none"))
+    ax.text(8.6, 3.7, "Y", ha="center", va="center", color="white", fontsize=10, fontweight="bold")
+    ax.annotate("", xy=(6.55, 3.95), xytext=(7.25, 4.35), arrowprops=dict(arrowstyle="->", color=INK, lw=1.5))
+    ax.annotate("", xy=(8.45, 3.95), xytext=(7.75, 4.35), arrowprops=dict(arrowstyle="->", color=INK, lw=1.5))
+    ax.text(7.5, 3.35, "No X→Y edge in DGP", ha="center", fontsize=8, color="#b45309")
+
+    ax.text(5, 2.6, "Do not swap claims mid–journal club", ha="center", fontsize=12,
+            fontweight="bold", color=INK)
+    bullets = [
+        "High AUROC / low MSE ⇒ ranking or fit quality",
+        "Intervention effect needs design / identification",
+        "Association rules & PR scores share this trap",
+    ]
+    for i, b in enumerate(bullets):
+        ax.text(0.6, 2.0 - i * 0.55, "•  " + b, fontsize=10, color="#334155", ha="left")
+    ax.set_title("Prediction ≠ causation (synthetic confounder sketch)", fontsize=12,
+                 fontweight="bold", color=INK, pad=6)
+    fig.tight_layout()
+    save(fig, "ml_fig_pred_not_cause.png")
+
+
+def fig_apriori_support_lattice():
+    """Ch05 scientific: support on itemset lattice + Apriori pruning (chapter basket)."""
+    # n=5 transactions from chapter; supports for subsets of {A,B,C}
+    # s(A)=0.8, s(B)=0.8, s(C)=0.8, s(AB)=0.6, s(AC)=0.6, s(BC)=0.6, s(ABC)=0.40
+    minsup = 0.50
+    nodes = {
+        "∅": (0.5, 0.92, 1.0),
+        "A": (0.18, 0.68, 0.80),
+        "B": (0.50, 0.68, 0.80),
+        "C": (0.82, 0.68, 0.80),
+        "AB": (0.18, 0.40, 0.60),
+        "AC": (0.50, 0.40, 0.60),
+        "BC": (0.82, 0.40, 0.60),
+        "ABC": (0.50, 0.12, 0.40),
+    }
+    edges = [
+        ("∅", "A"), ("∅", "B"), ("∅", "C"),
+        ("A", "AB"), ("A", "AC"), ("B", "AB"), ("B", "BC"), ("C", "AC"), ("C", "BC"),
+        ("AB", "ABC"), ("AC", "ABC"), ("BC", "ABC"),
+    ]
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 4.2), gridspec_kw={"width_ratios": [1.15, 1.0]})
+
+    ax = axes[0]
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.axis("off")
+    for u, v in edges:
+        x0, y0, s0 = nodes[u]
+        x1, y1, s1 = nodes[v]
+        # dashed if child would be pruned under minsup when parent rare (here all parents frequent)
+        prune = s1 < minsup
+        ax.plot([x0, x1], [y0, y1], color="#cbd5e1" if not prune else "#fca5a5",
+                lw=1.4, ls="-" if not prune else "--", zorder=1)
+    for name, (x, y, s) in nodes.items():
+        frequent = s >= minsup
+        fac = TEAL if frequent else "#fecaca"
+        ec = DEEP if frequent else "#dc2626"
+        ax.scatter([x], [y], s=1400 if name != "∅" else 900, c=fac, edgecolors=ec,
+                   linewidths=1.8, zorder=2)
+        ax.text(x, y + 0.01, name, ha="center", va="center", fontsize=10,
+                fontweight="bold", color="white" if frequent or name == "∅" else "#7f1d1d", zorder=3)
+        if name != "∅":
+            ax.text(x, y - 0.055, f"s={s:.2f}", ha="center", fontsize=8,
+                    color="#134e4a" if frequent else "#991b1b", zorder=3)
+    ax.text(0.5, 0.98, f"Itemset lattice · minsup = {minsup:.2f}", ha="center",
+            fontsize=12, fontweight="bold", color=INK)
+    ax.text(0.5, 0.01, "Apriori: if X is infrequent, all supersets of X are infrequent",
+            ha="center", fontsize=8, color="#64748b")
+
+    # Right: bar of supports with threshold
+    ax = axes[1]
+    order = ["A", "B", "C", "AB", "AC", "BC", "ABC"]
+    sups = [nodes[k][2] for k in order]
+    cols = [TEAL if s >= minsup else "#f87171" for s in sups]
+    ax.barh(np.arange(len(order)), sups, color=cols, height=0.65)
+    ax.axvline(minsup, color=GOLD, ls="--", lw=2, label=f"minsup={minsup}")
+    ax.set_yticks(np.arange(len(order)))
+    ax.set_yticklabels(order)
+    ax.set_xlabel("support s(X) = count(X) / n   (n=5)")
+    ax.set_xlim(0, 1.05)
+    ax.legend(frameon=False, fontsize=9, loc="lower right")
+    style_ax(ax, "Chapter basket supports (A,B,C focus)")
+    ax.text(
+        0.98, 0.92,
+        "Frequent ≠ causal co-prescription\nLift still required for rules",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    fig.tight_layout()
+    save(fig, "ml_fig_apriori_lattice.png")
+
+
 # ---------------------------------------------------------------------------
 # Legacy numbered PNGs (00_*.png … 17_*.png)
 # These files already exist under docs/assets/figures/ and are linked from
@@ -2177,6 +2592,13 @@ def main():
     fig_silhouette_k()
     fig_token_neighbors()
     fig_drift_monitor()
+    # Continuous densify cycle-4 (preface / ch05 / ch11 / ch14 / ch15 / ch17 / glossary)
+    fig_tfidf_cosine()
+    fig_infonce_temperature()
+    fig_quant_bits_tradeoff()
+    fig_pagerank_iteration()
+    fig_pred_not_cause()
+    fig_apriori_support_lattice()
     print("DONE figures in", OUT)
     missing_legacy = [n for n in LEGACY_NUMBERED_ASSETS if not (OUT / n).exists()]
     if missing_legacy:

@@ -189,6 +189,10 @@ r_1(D) = 0.85(0) + 0.0375 = 0.03750
 
 r_1 = (0.25000, 0.14375, 0.56875, 0.03750), and 0.25000 + 0.14375 + 0.56875 + 0.03750 = 1.00000. Mass is conserved because P is row-stochastic with no dangling nodes: the alpha-scaled flow retains exactly the fraction alpha, and teleport restores the remaining 1 - alpha.
 
+![PageRank power iteration on the chapter four-node digraph with α=0.85 (scientific; original).](../assets/figures/ml_fig_pagerank_iter.png)
+
+*Figure — PageRank as iterative mass flow. **Left:** the directed graph A→B, A→C, B→C, C→A, D→C; node size scales with the converged PageRank π (D is fed only by teleport, so its mass stays near (1−α)/n). **Right:** trajectories of r_k under r ← α Pᵀ r + (1−α)v from a uniform start; mass concentrates on well-linked nodes (especially C and A) within a few iterations. High PageRank ranks link structure—it is not causal importance, clinical priority, or equity of access.*
+
 Iteration 2. P^T r_1:
 A-entry = r_1(C) = 0.56875
 B-entry = 0.5 r_1(A) = 0.12500

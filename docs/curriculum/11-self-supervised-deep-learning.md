@@ -170,6 +170,10 @@ L = mean over all 2N views of L_i # every other view in the batch is a negative
 
 The denominator sums over all other views, so a large batch supplies many negatives “for free”—the reason contrastive SSL is batch-size hungry. Lowering τ sharpens the softmax and penalizes hard negatives more aggressively.
 
+![InfoNCE temperature τ: positive-pair softmax mass and class probabilities (synthetic; original).](../assets/figures/ml_fig_infonce_temp.png)
+
+*Figure — Temperature in InfoNCE. **Left:** for fixed synthetic similarities (one positive, seven negatives), the softmax weight on the positive pair falls as temperature τ rises—low τ sharpens the distribution and makes the loss sensitive to hard negatives. **Right:** probability mass at τ = 0.07 vs τ = 1.5. InfoNCE is L = −log p_pos with p ∝ exp(sim/τ); choose τ as a training hyperparameter and validate transfer, not just pretext accuracy. Pretext geometry is not a causal map of disease.*
+
 ### Siamese networks
 
 Siamese architectures run twin networks with shared weights on two inputs, then compare embeddings with distance metrics or a small classifier head. Training uses pair or triplet sampling: balanced similar/dissimilar clinical pairs, or carefully constructed triplets. Testing embeds a probe and retrieves nearest neighbors or thresholds distance for verification (same patient / same lesion type). Data preparation dominates success: noisy similarity labels and trivial positives (identical images) collapse learning. In neurology, Siamese models support longitudinal CT matching, near-duplicate note detection, and few-shot rare disease retrieval when classes are too sparse for standard softmax classifiers.

@@ -30,6 +30,10 @@
 
 *Keep claim types separate in journal club: a high AUROC predicts; it does not prove cause or mandate action (original).*
 
+![Prediction ≠ causation: confounder sketch and claim boxes (synthetic; original).](../assets/figures/ml_fig_pred_not_cause.png)
+
+*Figure — Prediction is not causation. **Left:** synthetic scatter of feature *X* vs outcome *Y* colored by latent confounder *U*. A naive linear fit of *Y* on *X* looks strong, yet the data-generating process has no *X*→*Y* edge—only *U*→*X* and *U*→*Y*. **Right:** keep claim types separate—a calibrated predictor that uses *X* can be clinically useful without licensing an interventional “change *X* to change *Y*” story. Association rules, PageRank, and high AUROC all share this trap.*
+
 
 A telestroke consult ends. The hub radiologist mentions a new large-vessel occlusion detector with a ‘state-of-the-art AUROC.’ The spoke hospital asks whether to buy it this quarter. This book exists so that conversation starts with definitions, data, and decision impact—not vendor vocabulary.
 
