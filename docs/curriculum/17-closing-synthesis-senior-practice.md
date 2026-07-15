@@ -478,3 +478,12 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c99 teaching panel 18 (original).](../assets/figures/ml_fig_c99_18.png)
 *Figure — Kill-switch criteria board. Synthetic teaching geometry—not a causal claim.*
+
+![c100 teaching panel 18 (original).](../assets/figures/ml_fig_c100_18.png)
+*Figure — Safety case structure. Synthetic teaching geometry—not a causal claim.*
+
+![c101 teaching panel 18 (original).](../assets/figures/ml_fig_c101_18.png)
+*Figure — Feature flag gradual expose. Synthetic teaching geometry—not a causal claim.*
+
+![c102 teaching panel 18 (original).](../assets/figures/ml_fig_c102_18.png)
+*Figure — On-call runbook gates. Synthetic teaching geometry—not a causal claim.*

@@ -433,3 +433,12 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c99 teaching panel 01 (original).](../assets/figures/ml_fig_c99_01.png)
 *Figure — Versioned feature store timeline. Synthetic teaching geometry—not a causal claim.*
+
+![c100 teaching panel 01 (original).](../assets/figures/ml_fig_c100_01.png)
+*Figure — Assent vs consent documentation. Synthetic teaching geometry—not a causal claim.*
+
+![c101 teaching panel 01 (original).](../assets/figures/ml_fig_c101_01.png)
+*Figure — CARE checklist tiles. Synthetic teaching geometry—not a causal claim.*
+
+![c102 teaching panel 01 (original).](../assets/figures/ml_fig_c102_01.png)
+*Figure — Audit trail hash chain. Synthetic teaching geometry—not a causal claim.*

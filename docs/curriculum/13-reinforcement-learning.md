@@ -895,6 +895,18 @@ Understanding Bellman backups and on- versus off-policy learning is more valuabl
 ![c99 teaching panel 14 (original).](../assets/figures/ml_fig_c99_14.png)
 *Figure — RND prediction error bonus. Synthetic teaching geometry—not a causal claim.*
 
+
+![c100 teaching panel 14 (original).](../assets/figures/ml_fig_c100_14.png)
+*Figure — Successor features RL. Synthetic teaching geometry—not a causal claim.*
+
+
+![c101 teaching panel 14 (original).](../assets/figures/ml_fig_c101_14.png)
+*Figure — GRPO group relative policy. Synthetic teaching geometry—not a causal claim.*
+
+
+![c102 teaching panel 14 (original).](../assets/figures/ml_fig_c102_14.png)
+*Figure — ICM inverse curriculum. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Reinforcement learning studies agents that interact with environments to maximize cumulative reward. Markov decision processes formalize states, actions, transitions, rewards, and discounting. Policies induce value functions V and Q that satisfy Bellman equations; dynamic programming solves small known MDPs via policy and value iteration. Monte Carlo methods average full returns; temporal-difference methods bootstrap, yielding SARSA (on-policy), Q-learning (off-policy), and Dyna-Q planning. Multi-armed bandits isolate exploration via epsilon-greedy, UCB, and Thompson sampling. Function approximation and deep RL scale these ideas: DQN with replay and target networks, DDQN, dueling architectures, prioritized replay, REINFORCE, TRPO, PPO, and actor-critic methods including A3C, DDPG, TD3, and SAC, plus latent world-model Dreamer agents. Careful reward design is essential. Clinical and epidemiologic notes emphasize that sequential care is high-risk RL: reward misspecification rewrites the clinical objective, offline logs lack coverage and are confounded by indication, and ethical constraints sharply limit unsupervised exploration at the bedside.

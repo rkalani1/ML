@@ -628,3 +628,12 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 ![c99 teaching panel 19 (original).](../assets/figures/ml_fig_c99_19.png)
 *Figure — Inequality strip II: Bernstein. Synthetic teaching geometry—not a causal claim.*
+
+![c100 teaching panel 19 (original).](../assets/figures/ml_fig_c100_19.png)
+*Figure — Eval strip: ID OOD stress. Synthetic teaching geometry—not a causal claim.*
+
+![c101 teaching panel 19 (original).](../assets/figures/ml_fig_c101_19.png)
+*Figure — Info strip: MI KL JS. Synthetic teaching geometry—not a causal claim.*
+
+![c102 teaching panel 19 (original).](../assets/figures/ml_fig_c102_19.png)
+*Figure — Concentration strip: Chernoff. Synthetic teaching geometry—not a causal claim.*

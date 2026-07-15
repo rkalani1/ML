@@ -745,6 +745,18 @@ This capstone reuses the whole book. The sampling and MCMC methods (Metropolis-H
 ![c99 teaching panel 17 (original).](../assets/figures/ml_fig_c99_17.png)
 *Figure — Reconstruction attack risk. Synthetic teaching geometry—not a causal claim.*
 
+
+![c100 teaching panel 17 (original).](../assets/figures/ml_fig_c100_17.png)
+*Figure — Label delay in production. Synthetic teaching geometry—not a causal claim.*
+
+
+![c101 teaching panel 17 (original).](../assets/figures/ml_fig_c101_17.png)
+*Figure — Secure aggregation federated. Synthetic teaching geometry—not a causal claim.*
+
+
+![c102 teaching panel 17 (original).](../assets/figures/ml_fig_c102_17.png)
+*Figure — Model inversion attack. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Data quality and design dominate clinical ML outcomes. Problem complexity guides method choice. Sampling designs and MCMC methods (Metropolis-Hastings, Gibbs, importance sampling) support inference under complex distributions. Noise models and filters (Butterworth, Wiener, Kalman) clean signals; imbalance and modality-specific augmentation address skewed outcomes; imputation and interpolation repair missing structure without leakage. Anomaly methods (isolation forest, one-class SVM, LOF, RANSAC) protect integrity. Drift and cold start demand monitoring and recalibration—illustrated by site-level PPV collapse when prevalence and specificity change. Rater agreement metrics quantify label ceilings. LLMs require RAG and disciplined prompting under PHI governance. Fairness metrics, mitigation strategies, and SHAP/LIME explanations complete a professional validation stack for neurologist-epidemiologists.
