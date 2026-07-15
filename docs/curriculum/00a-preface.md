@@ -904,3 +904,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c256 teaching panel 01 (original).](../assets/figures/ml_fig_c256_01.png)
 *Figure — Threat model path. Synthetic teaching geometry—not a causal claim.*
+
+![c257 teaching panel 01 (original).](../assets/figures/ml_fig_c257_01.png)
+*Figure — Red-team severity path c257. Synthetic teaching geometry—not a causal claim.*
