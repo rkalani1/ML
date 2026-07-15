@@ -127,6 +127,10 @@ Linear Discriminant Analysis (LDA) for dimensionality reduction is supervised: i
 
 Unlike PCA, LDA can discard high-variance directions that do not separate labels and amplify low-variance directions that do. It assumes roughly shared within-class covariances and needs enough samples per class to estimate S_W stably—problematic for rare stroke subtypes. Regularized or shrinkage LDA helps. Use LDA projections for visualization and as features for simple classifiers; do not confuse LDA-as-reduction with LDA-as-classifier, though they share mathematics.
 
+![LDA vs PCA projection on elongated two-class data (synthetic; original).](../assets/figures/ml_fig_lda_vs_pca.png)
+
+*Figure — Supervised vs unsupervised axes. **Left:** two classes share a high-variance diagonal; PC1 (deep) follows variance while Fisher/LDA (red) aims at class-mean separation. **Right:** 1-D projections—LDA often unmixes classes that PC1 still overlaps. LDA needs labels and enough per-class samples for S_W; PCA is not a classifier. Neither projection is a causal mechanism map.*
+
 ### Worked Example: Fisher’s Linear Discriminant on Two Small Classes
 
 The exposition above states Fisher’s criterion abstractly; here we drive the whole computation on two tiny, clearly separable classes so every matrix is checkable by hand. Let Class A = {(1, 1), (2, 1), (1, 2)} and Class B = {(4, 4), (5, 4), (4, 5)}—two small triangular clouds sitting at opposite ends of the (1, 1) diagonal.
@@ -166,6 +170,10 @@ Caveats are essential for scientific use. t-SNE does not preserve global distanc
 ### UMAP
 
 Uniform Manifold Approximation and Projection (UMAP) constructs a fuzzy topological representation of the high-dimensional data and finds a low-dimensional layout that preserves that structure, grounded in Riemannian geometry and algebraic topology motivations. Empirically UMAP often preserves more global structure than t-SNE, scales better, and supports transform of new points more naturally. Hyperparameters (n_neighbors, min_dist, metric) still strongly affect plots. The same scientific cautions apply: embeddings are hypotheses generators, not automatic cluster proofs.
+
+![n_neighbors caricature: local vs global neighbor-embedding layouts (teaching force sketch; original).](../assets/figures/ml_fig_umap_neighbors.png)
+
+*Figure — n_neighbors tradeoff (force-layout caricature of the hyperparameter, **not** a production UMAP run). **Left:** original 2-D moons + blob. **Middle:** small neighborhoods emphasize local patches and can tear global arrangement. **Right:** large neighborhoods keep more global placement but blur fine structure. Always confirm candidate clusters in original/PCA space; map distances are not effect sizes and not causal subtypes.*
 
 ### How Neighbor Embeddings Mislead: A Reading Guide
 

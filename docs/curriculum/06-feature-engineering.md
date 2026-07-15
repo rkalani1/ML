@@ -125,6 +125,10 @@ Effect (sum-to-zero) coding contrasts each non-reference level with the grand me
 
 The hashing trick maps category strings (or tokens) through a hash function into a fixed number of buckets m, typically with a sign hash to reduce bias. Collisions mix distinct categories into the same column—acceptable when m is large and models are regularized. Hashing enables streaming and memory-fixed pipelines for high-cardinality medication names without maintaining a growing vocabulary. Collisions are not clinically interpretable; do not use hashed columns as standalone audit trails for which drug drove a prediction.
 
+![Feature hashing: collision probability and recoverable R² vs hash width m (synthetic; original).](../assets/figures/ml_fig_hash_collisions.png)
+
+*Figure — Hash width is a capacity knob. **Left:** approximate birthday collision probability among k actives falls as m grows. **Right:** a signed-hash linear model’s recoverable signal (in-sample R²) collapses when m is too small. Choose m on validation; hashed columns are not causal feature selection and are poor audit trails for “which drug drove the score.”*
+
 ### Bin Counting
 
 Bin counting replaces a categorical level with historical counts or rates: how often this hospital saw LVO, how often this code co-occurred with the label in past data. It compresses high cardinality into numeric summaries. Like all history-based features, bin counts must be computed with time-aware or out-of-fold discipline so that a row does not use its own future outcomes. Supervised bin counts that use the label are a short step from target encoding and inherit the same leakage risks.

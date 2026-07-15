@@ -207,6 +207,10 @@ Human perception ranks visual channels roughly as: position along a common scale
 
 Three deceptions deserve mechanical understanding, because they fool careful readers, not only careless ones. First, the truncated baseline: when a bar’s value axis does not start at zero, bar length no longer encodes magnitude, so a door-to-needle change from 60 to 58 minutes can be drawn to look like a near-halving simply by starting the axis at 55. A bar implies a zero; if you must zoom, switch to a dot or line that does not carry a length cue, and label the zoom. Second, dual y-axes: overlaying two series on independently chosen left and right scales invites the eye to read their crossings and co-movement as a relationship, but there is no canonical alignment—by rescaling one axis you can make stroke volume and mortality appear to track together or diverge at will, and the “crossover point” is a pure artifact of the chosen limits. Prefer two aligned panels sharing an x-axis. Third, cherry-picking the window: a metric that wanders will always contain some start-and-end pair that shows the story you want, so reporting door-to-needle “improvement” measured from the single worst month manufactures a trend that the full series would erase. State the whole period, fix the comparison window before looking, and show the surrounding context.
 
+![Aspect ratio changes perceived trend slope (same series; original).](../assets/figures/ml_fig_aspect_ratio.png)
+
+*Figure — Banking and aspect ratio. **Left:** a tall y-span flattens seasonal slopes. **Right:** a tight y-span makes the same series look dramatic. Cleveland’s banking-to-45° is a default hygiene for slope comparison—not a license to deceive. Always report absolute change and units alongside the picture.*
+
 Start count/rate bars at zero unless you explicitly justify a zoomed scale and label it loudly.
 
 Avoid dual y-axes that force false alignment between unrelated series; use aligned small multiples.

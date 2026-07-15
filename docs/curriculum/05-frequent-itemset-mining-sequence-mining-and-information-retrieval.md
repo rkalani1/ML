@@ -54,6 +54,10 @@ Frequent itemset: s(X) ≥ minsup; the primary output of frequent pattern mining
 
 Association rules turn frequent itemsets into predictive statements. A rule is X → Y where X and Y are disjoint nonempty itemsets. Confidence of the rule is conf(X → Y) = s(X ∪ Y) / s(X), the empirical conditional probability that Y appears given X. Lift is lift(X → Y) = conf(X → Y) / s(Y) = s(X ∪ Y) / (s(X) s(Y)). Lift equals 1 under independence of X and Y; lift > 1 indicates positive association; lift < 1 indicates negative association. High confidence with lift near 1 can be misleading: if Y is almost always present, any antecedent may appear to “predict” Y.
 
+![Association-rule support–confidence cloud colored by lift (synthetic; original).](../assets/figures/ml_fig_lift_frontier.png)
+
+*Figure — Rule frontier. **Left:** support vs confidence with color = lift; minsup/minconf lines illustrate filtering. **Right:** high lift often lives at low support—interesting but unstable under small n and brutal multiple testing. Mine for hypotheses, not causation; still apply domain judgment after minsup/minconf/minlift filters.*
+
 ### Worked Example: Support, Confidence, and Lift
 
 Consider a tiny store with n = 5 transactions over items {A, B, C, D}:

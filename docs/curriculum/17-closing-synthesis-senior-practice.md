@@ -51,6 +51,10 @@ The book has moved from describing data to deploying systems, but the through-ar
 
 **Discrimination is not calibration, and neither is utility.** AUC measures ranking: the chance a random case outranks a random non-case. It says nothing about whether a predicted 0.20 corresponds to a 20% event rate, yet decisions are made at thresholds where calibration governs behavior. A modestly discriminating but well-calibrated model can outperform a sharper, miscalibrated one for a specific decision, which is why decision-analytic net benefit belongs beside the ROC curve.
 
+![Bootstrap uncertainty for AUROC: percentile CI and width vs n (synthetic; original).](../assets/figures/ml_fig_bootstrap_auroc.png)
+
+*Figure — Point AUROC is not enough. **Left:** bootstrap distribution of AUROC with percentile 95% CI around a single point estimate. **Right:** mean CI width shrinks with n—small cohorts license wide uncertainty. Bootstrap CIs still do not prove transportability; external validation remains the real examination. High AUROC is not causation.*
+
 **Prevalence, imbalance, and predictive value.** Identical sensitivity and specificity yield wildly different positive predictive value as the base rate moves. A model tuned on a case-enriched development sample will disappoint in a low-prevalence clinic unless its probabilities are mapped back to the deployment prevalence. Resampling to balance classes is a modeling convenience that silently rewrites the base rate; the calibration must be restored afterward.
 
 **External validation and dataset shift.** Internal cross-validation estimates reproducibility, not transportability. Scanners, coding systems (an ICD transition, a local phenotype definition), and case mix all differ between sites, so a model can be internally excellent and externally useless. Geographic and temporal external validation, not a tighter internal fold, is the real examination.

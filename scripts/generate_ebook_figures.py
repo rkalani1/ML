@@ -5112,6 +5112,390 @@ def fig_adjusted_rand_stability():
     save(fig, "ml_fig_adjusted_rand.png")
 
 
+def fig_feature_hash_collisions():
+    """Ch06: feature hashing — collision rate and linear model SNR vs hash dimension."""
+    rng = np.random.default_rng(15)
+    # V true sparse features; hash to m bins
+    V = 5000
+    # active features per example ~ Poisson
+    n = 3000
+    true_w = rng.normal(0, 1, size=V)
+    true_w[rng.random(V) > 0.02] = 0  # sparse signal
+    dims = np.array([16, 32, 64, 128, 256, 512, 1024, 2048])
+    # Expected collision fraction among nonzeros (approx birthday) for k active
+    k_active = 40
+    # Prob two distinct active features share a bin (approx)
+    coll_rate = 1 - np.exp(-k_active * (k_active - 1) / (2 * dims))
+
+    # Simulate signed hashing + ridge-ish linear recovery of R^2
+    r2s = []
+    for m in dims:
+        # generate design via hashing
+        Xh = np.zeros((n, m))
+        y = np.zeros(n)
+        for i in range(n):
+            feats = rng.choice(V, size=k_active, replace=False)
+            signs = rng.choice([-1.0, 1.0], size=k_active)
+            bins = feats % m
+            for f, s, b in zip(feats, signs, bins):
+                Xh[i, b] += s
+            y[i] = true_w[feats] @ np.ones(k_active) * 0.15 + rng.normal(0, 0.5)
+        # least squares with ridge
+        XtX = Xh.T @ Xh + 1e-2 * np.eye(m)
+        beta = np.linalg.solve(XtX, Xh.T @ y)
+        yhat = Xh @ beta
+        ss_res = ((y - yhat) ** 2).sum()
+        ss_tot = ((y - y.mean()) ** 2).sum()
+        r2s.append(1 - ss_res / ss_tot)
+    r2s = np.array(r2s)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.1))
+    ax = axes[0]
+    ax.plot(dims, coll_rate, "o-", color=TEAL, lw=2.4, markersize=7)
+    ax.set_xscale("log", base=2)
+    ax.set_xlabel("hash dimension m")
+    ax.set_ylabel(f"approx collision prob (k={k_active} actives)")
+    ax.set_xticks(dims)
+    ax.set_xticklabels([str(d) for d in dims], fontsize=8, rotation=30)
+    style_ax(ax, "Birthday collisions fall as m grows")
+    ax.text(
+        0.98, 0.92,
+        "Signed hash mitigates bias;\ncollisions still mix signals.",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+
+    ax = axes[1]
+    ax.plot(dims, r2s, "s-", color=GOLD, lw=2.4, markersize=7)
+    ax.set_xscale("log", base=2)
+    ax.set_xlabel("hash dimension m")
+    ax.set_ylabel(r"in-sample $R^2$ of hashed linear model")
+    ax.set_xticks(dims)
+    ax.set_xticklabels([str(d) for d in dims], fontsize=8, rotation=30)
+    style_ax(ax, "Too-small m destroys recoverable signal")
+    ax.text(
+        0.98, 0.08,
+        "Pick m from validation, not folklore.\nHashing ≠ causal feature selection.",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Feature hashing: collisions vs hash width (synthetic; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_hash_collisions.png")
+
+
+def fig_lda_vs_pca():
+    """Ch07: LDA (supervised) vs PCA (unsupervised) projection on two classes."""
+    rng = np.random.default_rng(5)
+    n = 120
+    # Classes elongated along a direction that is NOT the best separator
+    mean0 = np.array([-0.6, 0.0])
+    mean1 = np.array([0.6, 0.0])
+    # Shared cov: large variance along y=x-ish diagonal
+    R = np.array([[1.0, 0.85], [0.85, 1.0]])
+    X0 = rng.multivariate_normal(mean0, R, size=n)
+    X1 = rng.multivariate_normal(mean1, R, size=n)
+    X = np.vstack([X0, X1])
+    y = np.array([0] * n + [1] * n)
+
+    # PCA first component
+    Xc = X - X.mean(axis=0)
+    _, _, Vt = np.linalg.svd(Xc, full_matrices=False)
+    w_pca = Vt[0]
+    # LDA (Fisher) for 2-class equal cov: Σ^{-1}(μ1-μ0)
+    Sw = R  # known generative
+    w_lda = np.linalg.solve(Sw, mean1 - mean0)
+    w_lda = w_lda / np.linalg.norm(w_lda)
+    w_pca = w_pca / np.linalg.norm(w_pca)
+
+    def project(w):
+        return X @ w
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.1))
+    ax = axes[0]
+    ax.scatter(X0[:, 0], X0[:, 1], s=16, c=TEAL, alpha=0.75, label="class 0")
+    ax.scatter(X1[:, 0], X1[:, 1], s=16, c=GOLD, alpha=0.75, label="class 1")
+    # Draw direction lines through origin of data mean
+    mu = X.mean(axis=0)
+    for w, col, lab in [(w_pca, DEEP, "PC1"), (w_lda, "#dc2626", "LDA")]:
+        t = np.linspace(-3.5, 3.5, 50)
+        line = mu + t[:, None] * w
+        ax.plot(line[:, 0], line[:, 1], color=col, lw=2.2, label=lab)
+    ax.set_xlabel("x1")
+    ax.set_ylabel("x2")
+    ax.set_aspect("equal", adjustable="box")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Same data; different axes")
+    ax.text(0.02, 0.05, "PCA follows variance;\nLDA follows class means",
+            transform=ax.transAxes, fontsize=8, color="#64748b")
+
+    ax = axes[1]
+    # 1D histograms of projections
+    bins = np.linspace(-4, 4, 28)
+    p_pca0 = project(w_pca)[:n]
+    p_pca1 = project(w_pca)[n:]
+    p_lda0 = project(w_lda)[:n]
+    p_lda1 = project(w_lda)[n:]
+    ax.hist(p_pca0, bins=bins, density=True, alpha=0.45, color=TEAL, label="PCA · c0")
+    ax.hist(p_pca1, bins=bins, density=True, alpha=0.45, color=GOLD, label="PCA · c1")
+    ax.hist(p_lda0, bins=bins, density=True, histtype="step", linewidth=2.0, color=DEEP, label="LDA · c0")
+    ax.hist(p_lda1, bins=bins, density=True, histtype="step", linewidth=2.0, color="#dc2626", label="LDA · c1")
+    ax.set_xlabel("projected coordinate")
+    ax.set_ylabel("density")
+    ax.legend(frameon=False, fontsize=7.5, ncol=2)
+    style_ax(ax, "LDA separates; PC1 can mix classes")
+    ax.text(
+        0.98, 0.92,
+        "Need labels for LDA.\nPCA is not a classifier.",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("LDA vs PCA projection (synthetic two-class; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_lda_vs_pca.png")
+
+
+def fig_rule_lift_frontier():
+    """Ch05: association-rule support–confidence–lift frontier (synthetic market basket)."""
+    rng = np.random.default_rng(2)
+    # Simulate many itemset rules with noise
+    n_rules = 200
+    support = rng.beta(2, 12, size=n_rules) * 0.35 + 0.01
+    # confidence correlated loosely with support but with noise
+    confidence = np.clip(0.35 + 0.9 * support + rng.normal(0, 0.12, size=n_rules), 0.05, 0.98)
+    # base rate of consequent
+    p_y = 0.22
+    lift = confidence / p_y
+    # A few "interesting" high-lift low-support rules
+    support = support.copy()
+    confidence = confidence.copy()
+    support[:8] = rng.uniform(0.02, 0.06, size=8)
+    confidence[:8] = rng.uniform(0.55, 0.85, size=8)
+    lift = confidence / p_y
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.1))
+    ax = axes[0]
+    sc = ax.scatter(support, confidence, c=lift, cmap="viridis", s=28, alpha=0.85, edgecolors="none")
+    ax.axhline(0.5, color="#94a3b8", ls="--", lw=1.2, label="conf min 0.50")
+    ax.axvline(0.05, color=GOLD, ls="--", lw=1.2, label="sup min 0.05")
+    fig.colorbar(sc, ax=ax, fraction=0.046, pad=0.04, label="lift")
+    ax.set_xlabel("support")
+    ax.set_ylabel("confidence")
+    ax.legend(frameon=False, fontsize=8, loc="lower right")
+    style_ax(ax, "Rule cloud colored by lift")
+
+    ax = axes[1]
+    # Pareto-ish: for each support bin max lift
+    order = np.argsort(support)
+    # Keep rules with conf>=0.5
+    mask = confidence >= 0.5
+    ax.scatter(support[mask], lift[mask], s=30, c=TEAL, alpha=0.75, label="conf ≥ 0.5")
+    ax.scatter(support[~mask], lift[~mask], s=20, c="#cbd5e1", alpha=0.7, label="conf < 0.5")
+    ax.axhline(1.0, color="#dc2626", ls=":", lw=1.5, label="lift = 1 (independence)")
+    ax.set_xlabel("support")
+    ax.set_ylabel("lift = conf / P(consequent)")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "High lift often lives at low support")
+    ax.text(
+        0.98, 0.92,
+        "Mine for hypotheses, not causality.\nMultiple testing is fierce.",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Association rules: support–confidence–lift frontier (synthetic; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_lift_frontier.png")
+
+
+def fig_aspect_ratio_slope():
+    """Ch02: aspect-ratio / banking-to-45° teaching — same series, misleading slopes."""
+    t = np.arange(0, 24)
+    # seasonal-ish rate
+    y = 12 + 0.15 * t + 1.8 * np.sin(2 * np.pi * t / 12) + 0.3 * np.cos(2 * np.pi * t / 6)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.1))
+    ax = axes[0]
+    ax.plot(t, y, "o-", color=TEAL, lw=2.3, markersize=5)
+    ax.set_ylim(0, 40)  # flattened
+    ax.set_xlabel("month index")
+    ax.set_ylabel("event rate (per 100)")
+    style_ax(ax, "Tall y-span → slopes look flat")
+    ax.text(0.5, 0.08, "Same data as right panel", transform=ax.transAxes,
+            ha="center", fontsize=8, color="#64748b")
+
+    ax = axes[1]
+    ax.plot(t, y, "o-", color=TEAL, lw=2.3, markersize=5)
+    pad = 0.5
+    ax.set_ylim(y.min() - pad, y.max() + pad)
+    ax.set_xlabel("month index")
+    ax.set_ylabel("event rate (per 100)")
+    style_ax(ax, "Tight y-span → slopes look dramatic")
+    ax.text(
+        0.98, 0.92,
+        "Banking to 45° (Cleveland) is a\nhygiene default—not deception.\nReport absolute change too.",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Aspect ratio changes perceived trend (same series; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_aspect_ratio.png")
+
+
+def fig_bootstrap_auroc_ci():
+    """Ch17: bootstrap CI for AUROC — optimism of a single point estimate."""
+    rng = np.random.default_rng(19)
+    n = 180
+    y = rng.binomial(1, 0.28, size=n)
+    score = 0.9 * y + rng.normal(0, 0.7, size=n)
+
+    def auroc(y, s):
+        # Mann-Whitney form
+        pos = s[y == 1]
+        neg = s[y == 0]
+        if len(pos) == 0 or len(neg) == 0:
+            return 0.5
+        # P(score_pos > score_neg) + 0.5 P(tie)
+        # vectorized
+        # compare all pairs
+        gt = (pos[:, None] > neg[None, :]).sum()
+        eq = (pos[:, None] == neg[None, :]).sum()
+        return (gt + 0.5 * eq) / (len(pos) * len(neg))
+
+    point = auroc(y, score)
+    B = 400
+    boots = []
+    for _ in range(B):
+        idx = rng.integers(0, n, size=n)
+        boots.append(auroc(y[idx], score[idx]))
+    boots = np.array(boots)
+    lo, hi = np.percentile(boots, [2.5, 97.5])
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.1))
+    ax = axes[0]
+    ax.hist(boots, bins=28, color=TEAL, alpha=0.85, edgecolor="white", density=True)
+    ax.axvline(point, color=GOLD, lw=2.2, label=f"point AUROC={point:.3f}")
+    ax.axvline(lo, color="#dc2626", ls="--", lw=1.6, label=f"2.5%={lo:.3f}")
+    ax.axvline(hi, color="#dc2626", ls="--", lw=1.6, label=f"97.5%={hi:.3f}")
+    ax.set_xlabel("bootstrap AUROC")
+    ax.set_ylabel("density")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, f"Percentile CI width ≈ {hi - lo:.3f}")
+
+    ax = axes[1]
+    # Show how CI shrinks with n (synthetic curve)
+    ns = np.array([40, 60, 80, 120, 180, 300, 500])
+    widths = []
+    for nn in ns:
+        ws = []
+        for _ in range(30):
+            yy = rng.binomial(1, 0.28, size=nn)
+            ss = 0.9 * yy + rng.normal(0, 0.7, size=nn)
+            bb = []
+            for _ in range(120):
+                idx = rng.integers(0, nn, size=nn)
+                bb.append(auroc(yy[idx], ss[idx]))
+            bb = np.array(bb)
+            ws.append(np.percentile(bb, 97.5) - np.percentile(bb, 2.5))
+        widths.append(np.mean(ws))
+    ax.plot(ns, widths, "o-", color=TEAL, lw=2.4, markersize=7)
+    ax.set_xlabel("sample size n")
+    ax.set_ylabel("mean bootstrap 95% CI width")
+    style_ax(ax, "Small n → wide AUROC uncertainty")
+    ax.text(
+        0.98, 0.92,
+        "External validation still required.\nCI ≠ transportability.",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Bootstrap uncertainty for AUROC (synthetic; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_bootstrap_auroc.png")
+
+
+def fig_umap_neighbors_caricature():
+    """Ch07: neighbor-embedding n_neighbors caricature (local vs global structure)."""
+    rng = np.random.default_rng(8)
+    # Two moons-ish + a distant cluster
+    n = 100
+    theta = np.linspace(0, np.pi, n)
+    moon1 = np.c_[np.cos(theta), np.sin(theta)] + rng.normal(0, 0.06, size=(n, 2))
+    moon2 = np.c_[1 - np.cos(theta), 0.5 - np.sin(theta)] + rng.normal(0, 0.06, size=(n, 2))
+    blob = rng.normal(loc=[3.5, 1.5], scale=0.2, size=(40, 2))
+    X = np.vstack([moon1, moon2, blob])
+    labels = np.array([0] * n + [1] * n + [2] * 40)
+
+    def knn_graph_layout(X, k, steps=80, lr=0.05):
+        # Toy force layout: attract kNN, mild repel — caricature of neighbor embeddings
+        n = len(X)
+        d2 = ((X[:, None, :] - X[None, :, :]) ** 2).sum(axis=2)
+        np.fill_diagonal(d2, np.inf)
+        knn = np.argsort(d2, axis=1)[:, :k]
+        Y = X[:, :2].copy() + rng.normal(0, 0.05, size=(n, 2))
+        for _ in range(steps):
+            grad = np.zeros_like(Y)
+            # attract neighbors toward a small target distance
+            for i in range(n):
+                for j in knn[i]:
+                    diff = Y[i] - Y[j]
+                    dist = float(np.linalg.norm(diff)) + 1e-3
+                    # spring: pull if far, mild push if too close
+                    grad[i] += 0.4 * (dist - 0.35) * (diff / dist)
+            # global repel sample
+            for i in range(n):
+                js = rng.choice(n, size=min(15, n - 1), replace=False)
+                for j in js:
+                    if i == j:
+                        continue
+                    diff = Y[i] - Y[j]
+                    dist = float(np.linalg.norm(diff)) + 1e-3
+                    grad[i] -= 0.08 * (diff / dist) / dist  # repel
+            # clip gradient for stability
+            gn = np.linalg.norm(grad, axis=1, keepdims=True) + 1e-9
+            grad = grad * np.minimum(1.0, 2.0 / gn)
+            Y -= lr * grad
+            Y -= Y.mean(axis=0)
+            # soft bound
+            Y = np.clip(Y, -6, 6)
+        return Y
+
+    Y_local = knn_graph_layout(X, k=5)
+    Y_global = knn_graph_layout(X, k=45)
+
+    cols = [TEAL, GOLD, DEEP]
+    fig, axes = plt.subplots(1, 3, figsize=(10.2, 3.6))
+    ax = axes[0]
+    for j in range(3):
+        m = labels == j
+        ax.scatter(X[m, 0], X[m, 1], s=14, c=cols[j], alpha=0.85)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    style_ax(ax, "Original (2D toy)")
+
+    ax = axes[1]
+    for j in range(3):
+        m = labels == j
+        ax.scatter(Y_local[m, 0], Y_local[m, 1], s=14, c=cols[j], alpha=0.85)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    style_ax(ax, "Small n_neighbors (local)")
+    ax.text(0.5, -0.12, "can tear global layout", transform=ax.transAxes,
+            ha="center", fontsize=8, color="#64748b")
+
+    ax = axes[2]
+    for j in range(3):
+        m = labels == j
+        ax.scatter(Y_global[m, 0], Y_global[m, 1], s=14, c=cols[j], alpha=0.85)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    style_ax(ax, "Large n_neighbors (global-ish)")
+    ax.text(0.5, -0.12, "may blur fine clusters", transform=ax.transAxes,
+            ha="center", fontsize=8, color="#64748b")
+
+    fig.suptitle("Neighbor embeddings: n_neighbors trades local vs global (caricature; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.05)
+    fig.tight_layout()
+    save(fig, "ml_fig_umap_neighbors.png")
+
+
 # ---------------------------------------------------------------------------
 # Legacy numbered PNGs (00_*.png … 17_*.png)
 # These files already exist under docs/assets/figures/ and are linked from
@@ -5249,6 +5633,13 @@ def main():
     fig_positional_encoding_heatmap()
     fig_fairness_tradeoff()
     fig_adjusted_rand_stability()
+    # Continuous densify cycle-11 (ch06 / ch07 / ch05 / ch02 / ch17)
+    fig_feature_hash_collisions()
+    fig_lda_vs_pca()
+    fig_rule_lift_frontier()
+    fig_aspect_ratio_slope()
+    fig_bootstrap_auroc_ci()
+    fig_umap_neighbors_caricature()
     print("DONE figures in", OUT)
     missing_legacy = [n for n in LEGACY_NUMBERED_ASSETS if not (OUT / n).exists()]
     if missing_legacy:
