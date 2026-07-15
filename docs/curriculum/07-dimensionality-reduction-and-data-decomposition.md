@@ -66,7 +66,23 @@ Principal component analysis (PCA) finds orthogonal directions that capture maxi
 
 *Figure 7.2 — original teaching graphic.*
 
+![PCA: cumulative variance explained and reconstruction error vs k (synthetic spectrum; original).](../assets/figures/ml_fig_pca_variance_recon.png)
+
+*Figure — PCA compression curves on a synthetic eigenvalue spectrum. Left: per-component and cumulative fraction of variance; the 80% guideline marks a common default k, not a clinical warranty. Right: relative Frobenius reconstruction error falls as rank grows (Eckart–Young residual energy). Variance retained is a reconstruction metric—it does not guarantee better prediction of mRS, infarct growth, or any downstream label.*
+
 If C = V Λ Vᵀ with eigenvalues λ₁ ≥ λ₂ ≥ ⋯ ≥ λ_d ≥ 0 and orthonormal eigenvectors as columns of V, then the k-dimensional PCA scores are Z = X_c V_k where V_k holds the top k eigenvectors. The fraction of variance explained by component j is λ_j / ∑_i λ_i. Cumulative explained variance guides the choice of k—but “80% variance retained” is not a guarantee of predictive utility for mRS or infarct growth. PCA assumes that large-variance directions are interesting, which fails when the signal is low-variance or when units of measurement arbitrarily inflate variance—hence the common practice of standardizing features before PCA when panels mix mg/dL, mmHg, and seconds.
+
+### Teaching table: choosing k in PCA (compression vs claim)
+
+| Criterion | What it optimizes | Safe clinical reading | Common failure |
+|---|---|---|---|
+| Cumulative variance (e.g. 80–95%) | Reconstruction energy of X | Good for denoising / visualization budgets | Treats large-variance noise as “signal” |
+| Reconstruction error vs k (elbow) | Frobenius residual of rank-k map | Useful when the goal is compression | Elbow is subjective; not a p-value |
+| Cross-validated downstream loss | Task error (AUC, RMSE, net benefit) | Correct when PCA is a **pipeline step** | Tuning k on the test set = leakage |
+| Fixed k from prior study | Reproducibility of a published pipeline | OK only if features and units match | Silent shift when labs or scanners change |
+| Supervised alternative (LDA / PLS) | Label separation, not variance | Prefer when phenotype labels exist and n/class is adequate | Unstable with rare subtypes |
+
+Rule of thumb: pick k for the **claim you will make**. If the claim is “compressed representation for a predictor,” validate the full pipeline—including the choice of k—inside patient-grouped cross-validation, never on the locked test set.
 
 Interpretation: loadings (entries of eigenvectors) show how original features contribute to each component. A first PC of a metabolic panel might load on renal function tests together; a first PC of voxelwise DWI intensities might reflect overall lesion burden. Loadings are not causal path coefficients.
 

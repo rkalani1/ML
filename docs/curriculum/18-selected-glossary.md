@@ -30,6 +30,10 @@
 
 *Accuracy can look excellent while sensitivity collapses under low prevalence — report sens/spec/PPV at the decision threshold (original).*
 
+![Reliability diagram and ECE for calibrated vs miscalibrated scores (synthetic; original).](../assets/figures/ml_fig_reliability_ece.png)
+
+*Figure — Reliability diagram on one synthetic low-prevalence risk cohort. Points on the diagonal are honest probabilities; overconfident models bow above/below the line and inflate expected calibration error (ECE = Σ (n_b/n)·|obs_b − conf_b|). Score histograms (right) show overconfidence piling mass at the extremes. Calibration is a distinct claim from AUC.*
+
 
 Journal club language collapses when people use ‘AI,’ ‘algorithm,’ and ‘model’ interchangeably. The glossary is a shared lexicon for stroke services that want precise disagreement rather than vague awe.
 

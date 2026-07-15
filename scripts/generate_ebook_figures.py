@@ -1377,6 +1377,321 @@ def fig_bandit_explore():
     save(fig, "ml_fig_bandit_explore.png")
 
 
+def fig_pca_variance_recon():
+    """Ch07 scientific: cumulative variance explained + reconstruction error vs k (synthetic)."""
+    # Synthetic eigenvalue spectrum (power-law-ish radiomics / lab panel)
+    rng = np.random.default_rng(21)
+    d = 20
+    lam = 8.0 * np.exp(-0.35 * np.arange(d)) + 0.08 * rng.random(d)
+    lam = np.sort(lam)[::-1]
+    total = lam.sum()
+    frac = lam / total
+    cum = np.cumsum(frac)
+    # Reconstruction MSE proxy = residual variance fraction (Eckart–Young / Frobenius)
+    recon_err = 1.0 - cum
+    k = np.arange(1, d + 1)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 3.9))
+    ax = axes[0]
+    ax.bar(k, frac, color=TEAL, alpha=0.75, edgecolor="none", label="per-component fraction")
+    ax.plot(k, cum, "o-", color=GOLD, lw=2.2, markersize=4, label="cumulative")
+    ax.axhline(0.80, color=DEEP, ls="--", lw=1.4, label="80% guideline (not a guarantee)")
+    k80 = int(np.searchsorted(cum, 0.80) + 1)
+    ax.axvline(k80, color=DEEP, ls=":", lw=1.3, alpha=0.8)
+    ax.annotate(
+        f"k≈{k80} for 80%",
+        xy=(k80, 0.80),
+        xytext=(k80 + 2.5, 0.55),
+        fontsize=9,
+        color=DEEP,
+        arrowprops=dict(arrowstyle="->", color=DEEP, lw=1.2),
+    )
+    ax.set_xlabel("number of components k")
+    ax.set_ylabel("fraction of variance")
+    ax.set_xlim(0.5, d + 0.5)
+    ax.set_ylim(0, 1.05)
+    ax.legend(frameon=False, fontsize=7.5, loc="upper right")
+    style_ax(ax, "Explained variance vs k (synthetic spectrum)")
+
+    ax2 = axes[1]
+    ax2.plot(k, recon_err, "o-", color=TEAL, lw=2.3, markersize=4.5, label=r"relative $\|X-X_k\|_F^2/\|X\|_F^2$")
+    ax2.fill_between(k, recon_err, color=TEAL, alpha=0.15)
+    ax2.axhline(0.20, color=GOLD, ls="--", lw=1.4, label="20% residual energy")
+    ax2.set_xlabel("rank-k truncation")
+    ax2.set_ylabel("relative reconstruction error")
+    ax2.set_xlim(0.5, d + 0.5)
+    ax2.set_ylim(0, 1.05)
+    ax2.legend(frameon=False, fontsize=8)
+    style_ax(ax2, "Reconstruction error falls as rank grows")
+    fig.suptitle(
+        "PCA: variance explained ≠ clinical utility; k is a compression choice (synthetic)",
+        color=INK,
+        fontsize=11,
+        fontweight="bold",
+        y=1.02,
+    )
+    fig.tight_layout()
+    save(fig, "ml_fig_pca_variance_recon.png")
+
+
+def fig_vanishing_residual():
+    """Ch10 scientific: vanishing gradients in deep sigmoid stacks vs residual skip highway."""
+    depth = np.arange(1, 21)
+    # Product of |σ'(z)| factors: each layer multiplies by ~0.25 (sigmoid mid) or smaller
+    g_sig = 0.22 ** (depth - 1)  # geometric decay of backprop signal
+    g_tanh = 0.55 ** (depth - 1)
+    g_relu = np.ones_like(depth, dtype=float) * 0.95 ** 0  # roughly unit through open ReLUs
+    g_relu = 0.92 ** (0.15 * (depth - 1))  # mild decay from weight scale
+    # Residual: additive path keeps a floor on gradient magnitude
+    g_res = 0.35 + 0.55 * np.exp(-0.08 * (depth - 1))
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.0))
+    ax = axes[0]
+    ax.semilogy(depth, g_sig, "o-", color=GOLD, lw=2.2, markersize=4, label=r"sigmoid stack ($\times\sim0.22$/layer)")
+    ax.semilogy(depth, g_tanh, "s-", color="#b45309", lw=2.0, markersize=4, label=r"tanh stack ($\times\sim0.55$/layer)")
+    ax.semilogy(depth, g_relu, "^-", color=TEAL, lw=2.0, markersize=4, label="ReLU (mild decay)")
+    ax.set_xlabel("layer depth (from output backward)")
+    ax.set_ylabel(r"relative $|\partial L / \partial h|$ (log scale)")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Vanishing: product of Jacobians shrinks early-layer signal")
+    ax.text(
+        0.98,
+        0.08,
+        "Early layers starve when many factors < 1",
+        transform=ax.transAxes,
+        ha="right",
+        fontsize=8,
+        color="#64748b",
+    )
+
+    ax2 = axes[1]
+    # Residual block schematic + gradient floor curve
+    ax2.set_xlim(0, 10)
+    ax2.set_ylim(0, 6.2)
+    ax2.axis("off")
+    # Main path boxes
+    for x, lab in [(0.6, "h"), (3.6, "F(h)\n(weight layers)"), (7.0, "h+F(h)")]:
+        ax2.add_patch(
+            FancyBboxPatch(
+                (x, 3.2),
+                2.0 if "F" not in lab else 2.4,
+                1.5,
+                boxstyle="round,pad=0.04,rounding_size=0.12",
+                facecolor=TEAL if "F" not in lab else DEEP,
+                edgecolor="none",
+                alpha=0.92,
+            )
+        )
+        ax2.text(x + (1.0 if "F" not in lab else 1.2), 3.95, lab, ha="center", va="center", color="white", fontsize=10, fontweight="bold")
+    ax2.annotate("", xy=(3.5, 3.95), xytext=(2.65, 3.95), arrowprops=dict(arrowstyle="->", color=INK, lw=1.8))
+    ax2.annotate("", xy=(6.9, 3.95), xytext=(6.1, 3.95), arrowprops=dict(arrowstyle="->", color=INK, lw=1.8))
+    # Skip arc
+    ax2.annotate(
+        "",
+        xy=(7.2, 4.85),
+        xytext=(1.6, 4.85),
+        arrowprops=dict(arrowstyle="->", color=GOLD, lw=2.4, connectionstyle="arc3,rad=-0.35"),
+    )
+    ax2.text(4.4, 5.55, "identity skip (+)", ha="center", color=GOLD, fontsize=11, fontweight="bold")
+    ax2.text(5, 2.4, r"Backprop: $\partial L/\partial h$ keeps a direct $+1$ path", ha="center", fontsize=10, color=DEEP)
+    ax2.text(5, 1.6, "Residual nets start near identity maps; deep stacks train", ha="center", fontsize=9, color="#64748b")
+    ax2.text(5, 0.9, "without pure multiplicative collapse of gradient scale", ha="center", fontsize=9, color="#64748b")
+    ax2.set_title("Residual skip = additive gradient highway", fontsize=12, fontweight="bold", color=INK, pad=8)
+    # Mini inset: gradient floor
+    inset = ax2.inset_axes([0.08, 0.02, 0.38, 0.28])
+    inset.plot(depth, g_sig, color=GOLD, lw=1.5)
+    inset.plot(depth, g_res, color=TEAL, lw=1.8)
+    inset.set_yscale("log")
+    inset.set_xticks([])
+    inset.set_yticks([])
+    inset.set_title("sig vs residual floor", fontsize=7, color=INK)
+    for s in inset.spines.values():
+        s.set_color("#cbd5e1")
+    fig.suptitle("Why depth needs architecture: vanishing gradients vs residual skips (teaching)", color=INK, fontsize=11, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_vanishing_residual.png")
+
+
+def fig_appraisal_checklist():
+    """Ch17 closing: full ML appraisal checklist flowchart (teaching graphic)."""
+    fig, ax = plt.subplots(figsize=(9.6, 6.4))
+    ax.set_xlim(0, 12)
+    ax.set_ylim(0, 10)
+    ax.axis("off")
+
+    # Two columns of sequential gates + final deploy row
+    steps = [
+        # (x, y, w, h, title, sub, color)
+        (0.4, 8.2, 3.4, 1.3, "1. Question fit", "Prediction ≠ etiology\n≠ decision support", TEAL),
+        (4.3, 8.2, 3.4, 1.3, "2. Index & legality", "Timestamp every feature\nvs prediction time", DEEP),
+        (8.2, 8.2, 3.4, 1.3, "3. Leakage audit", "No post-outcome proxies\ngrouped splits", GOLD),
+        (0.4, 6.2, 3.4, 1.3, "4. Cohort & label", "Who / when / how labeled\nmissingness plan", TEAL),
+        (4.3, 6.2, 3.4, 1.3, "5. Fit & capacity", "Match n to model class\nregularize + early stop", DEEP),
+        (8.2, 6.2, 3.4, 1.3, "6. Discrimination", "AUC / PR at prevalence\nnot accuracy alone", GOLD),
+        (0.4, 4.2, 3.4, 1.3, "7. Calibration", "Reliability plot\nslope & intercept", TEAL),
+        (4.3, 4.2, 3.4, 1.3, "8. Utility", "Net benefit / DCA\nat clinical thresholds", DEEP),
+        (8.2, 4.2, 3.4, 1.3, "9. External test", "Site / temporal holdout\nexpect recalibration", GOLD),
+        (2.0, 1.8, 3.6, 1.5, "10. Deploy card", "Version · threshold ·\nprohibited uses", TEAL),
+        (6.4, 1.8, 3.6, 1.5, "11. Monitor drift", "Inputs · scores · labels\nrollback triggers", DEEP),
+    ]
+    for x, y, w, h, title, sub, c in steps:
+        ax.add_patch(
+            FancyBboxPatch(
+                (x, y), w, h, boxstyle="round,pad=0.03,rounding_size=0.12", facecolor=c, edgecolor="none", alpha=0.92
+            )
+        )
+        ax.text(x + w / 2, y + h * 0.68, title, ha="center", va="center", color="white", fontsize=10, fontweight="bold")
+        ax.text(x + w / 2, y + h * 0.32, sub, ha="center", va="center", color="white", fontsize=7.8, alpha=0.95)
+
+    # Flow arrows row-wise
+    for y in (8.85, 6.85, 4.85):
+        for x0, x1 in ((3.85, 4.25), (7.75, 8.15)):
+            ax.annotate("", xy=(x1, y), xytext=(x0, y), arrowprops=dict(arrowstyle="->", color=INK, lw=1.5))
+    # Down from row ends to next row starts (simplified vertical cues)
+    ax.annotate("", xy=(2.1, 7.55), xytext=(9.9, 8.15), arrowprops=dict(arrowstyle="->", color="#94a3b8", lw=1.2, connectionstyle="arc3,rad=0.15"))
+    ax.annotate("", xy=(2.1, 5.55), xytext=(9.9, 6.15), arrowprops=dict(arrowstyle="->", color="#94a3b8", lw=1.2, connectionstyle="arc3,rad=0.15"))
+    ax.annotate("", xy=(3.8, 3.35), xytext=(2.1, 4.15), arrowprops=dict(arrowstyle="->", color=INK, lw=1.5))
+    ax.annotate("", xy=(6.35, 2.55), xytext=(5.65, 2.55), arrowprops=dict(arrowstyle="->", color=INK, lw=1.8))
+
+    ax.text(6, 9.7, "Senior ML appraisal checklist (clinical prediction systems)", ha="center", fontsize=13, fontweight="bold", color=INK)
+    ax.text(
+        6,
+        0.55,
+        "Skip a gate → document why. Prediction success never licenses a causal or sole-care-withdrawal claim.",
+        ha="center",
+        fontsize=9,
+        color="#64748b",
+    )
+    save(fig, "ml_fig_appraisal_checklist.png")
+
+
+def fig_reliability_ece():
+    """Glossary / evaluation: multi-model reliability diagram + ECE (synthetic)."""
+    rng = np.random.default_rng(9)
+    n = 2000
+    # Latent risk then three score systems
+    true_p = rng.beta(2.0, 5.0, n)  # low-prevalence-ish clinical risk
+    y = rng.random(n) < true_p
+
+    def bin_reliability(scores, y, n_bins=10):
+        edges = np.linspace(0, 1, n_bins + 1)
+        centers, obs, confs, counts = [], [], [], []
+        for i in range(n_bins):
+            m = (scores >= edges[i]) & (scores < edges[i + 1] if i < n_bins - 1 else scores <= edges[i + 1])
+            if m.sum() == 0:
+                continue
+            centers.append(0.5 * (edges[i] + edges[i + 1]))
+            confs.append(scores[m].mean())
+            obs.append(y[m].mean())
+            counts.append(m.sum())
+        centers, obs, confs, counts = map(np.array, (centers, obs, confs, counts))
+        ece = np.sum(counts / counts.sum() * np.abs(obs - confs))
+        return centers, obs, confs, counts, ece
+
+    # Well-calibrated: scores ≈ true_p with mild noise
+    s_cal = np.clip(true_p + rng.normal(0, 0.04, n), 0.02, 0.98)
+    # Overconfident: push toward 0/1
+    s_over = np.clip(0.5 + 1.6 * (true_p - 0.5) + rng.normal(0, 0.03, n), 0.02, 0.98)
+    # Underconfident: shrink toward 0.5
+    s_under = np.clip(0.5 + 0.45 * (true_p - 0.5) + rng.normal(0, 0.03, n), 0.02, 0.98)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 4.1))
+    ax = axes[0]
+    ax.plot([0, 1], [0, 1], "--", color="#94a3b8", lw=1.5, label="perfect calibration")
+    for scores, color, name in (
+        (s_cal, TEAL, "well-calibrated"),
+        (s_over, GOLD, "overconfident"),
+        (s_under, DEEP, "underconfident"),
+    ):
+        centers, obs, confs, counts, ece = bin_reliability(scores, y.astype(float))
+        ax.plot(confs, obs, "o-", color=color, lw=2.0, markersize=5, label=f"{name}  ECE≈{ece:.3f}")
+    ax.set_xlabel("Mean predicted probability (bin)")
+    ax.set_ylabel("Observed event frequency")
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.legend(frameon=False, fontsize=8, loc="upper left")
+    style_ax(ax, "Reliability diagram (synthetic neuro risk cohort)")
+
+    ax2 = axes[1]
+    # Histogram of predicted scores for overconfident vs calibrated
+    bins = np.linspace(0, 1, 21)
+    ax2.hist(s_cal, bins=bins, density=True, alpha=0.55, color=TEAL, label="well-calibrated scores", edgecolor="none")
+    ax2.hist(s_over, bins=bins, density=True, alpha=0.45, color=GOLD, label="overconfident scores", edgecolor="none")
+    ax2.set_xlabel("Predicted probability")
+    ax2.set_ylabel("density")
+    ax2.legend(frameon=False, fontsize=8)
+    style_ax(ax2, "Score histograms: overconfidence piles at extremes")
+    ax2.text(
+        0.98,
+        0.92,
+        "ECE = Σ (n_b/n)·|obs_b − conf_b|",
+        transform=ax2.transAxes,
+        ha="right",
+        fontsize=9,
+        color=DEEP,
+        fontweight="bold",
+    )
+    fig.suptitle(
+        "Calibration is not AUC: reliability + ECE on one synthetic cohort",
+        color=INK,
+        fontsize=11,
+        fontweight="bold",
+        y=1.02,
+    )
+    fig.tight_layout()
+    save(fig, "ml_fig_reliability_ece.png")
+
+
+def fig_capacity_vs_n():
+    """Ch10 scientific: validation error vs sample size for low / medium / high capacity."""
+    n = np.array([50, 100, 200, 400, 800, 1600, 3200], dtype=float)
+    # Synthetic generalization curves (teaching sketch, not a fit to real data)
+    # Low capacity: high bias floor, little variance
+    err_low = 0.28 + 0.12 * np.sqrt(50 / n) + 0.01 * np.sin(np.log(n))
+    # Medium capacity: good tradeoff at moderate n
+    err_med = 0.14 + 0.22 * np.sqrt(80 / n) + 0.04 * (50 / n)
+    # High capacity: terrible at small n, best at large n
+    err_high = 0.08 + 0.55 * np.sqrt(120 / n) + 0.15 * (80 / n) ** 0.9
+
+    fig, ax = plt.subplots(figsize=(7.0, 4.2))
+    ax.plot(n, err_low, "o-", color=GOLD, lw=2.3, markersize=7, label="low capacity (e.g. ridge)")
+    ax.plot(n, err_med, "s-", color=TEAL, lw=2.3, markersize=7, label="medium capacity (e.g. modest MLP)")
+    ax.plot(n, err_high, "^-", color=DEEP, lw=2.3, markersize=7, label="high capacity (deep / unregularized)")
+    ax.set_xscale("log")
+    ax.set_xlabel("training sample size n (log scale)")
+    ax.set_ylabel("validation error (synthetic)")
+    ax.set_ylim(0.05, 0.75)
+    ax.legend(frameon=False, fontsize=9)
+    style_ax(ax, "Capacity must match data: deeper is not free")
+    # annotate crossover
+    ax.annotate(
+        "small-n: simple wins",
+        xy=(80, err_low[1]),
+        xytext=(120, 0.62),
+        fontsize=9,
+        color=GOLD,
+        arrowprops=dict(arrowstyle="->", color=GOLD, lw=1.2),
+    )
+    ax.annotate(
+        "large-n: capacity pays",
+        xy=(2500, err_high[-1]),
+        xytext=(500, 0.12),
+        fontsize=9,
+        color=DEEP,
+        arrowprops=dict(arrowstyle="->", color=DEEP, lw=1.2),
+    )
+    ax.text(
+        0.98,
+        0.06,
+        "Clinical cohorts often live on the left half of this plot",
+        transform=ax.transAxes,
+        ha="right",
+        fontsize=8,
+        color="#64748b",
+    )
+    save(fig, "ml_fig_capacity_vs_n.png")
+
+
 # ---------------------------------------------------------------------------
 # Legacy numbered PNGs (00_*.png … 17_*.png)
 # These files already exist under docs/assets/figures/ and are linked from
@@ -1452,6 +1767,12 @@ def main():
     fig_dice_iou()
     fig_discount_gamma()
     fig_bandit_explore()
+    # Swarm 3h cycle-2 densify (ch07 / ch10 / ch17 / glossary)
+    fig_pca_variance_recon()
+    fig_vanishing_residual()
+    fig_appraisal_checklist()
+    fig_reliability_ece()
+    fig_capacity_vs_n()
     print("DONE figures in", OUT)
     missing_legacy = [n for n in LEGACY_NUMBERED_ASSETS if not (OUT / n).exists()]
     if missing_legacy:

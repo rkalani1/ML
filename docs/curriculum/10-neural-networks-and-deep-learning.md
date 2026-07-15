@@ -156,6 +156,14 @@ Every clinical safeguard maps to a line here: the split that produces X_val must
 
 Error signals flow backward multiplied by local Jacobians of activations and weight matrices. Vanishing gradients occur when many factors have magnitude less than one (deep sigmoid stacks, long unrolled RNNs), starving early layers of learning signal. Exploding gradients occur when factors exceed one, causing NaNs and divergent updates. Architectural choices—ReLU, residual links, normalization, gated RNNs, careful initialization—stabilize scales. Gradient clipping caps update magnitude before the optimizer consumes the gradient. Clipping by global norm rescales the entire gradient vector when it grows too long: if ‖g‖₂ > c, set g ← g · (c / ‖g‖₂), which preserves the descent direction while bounding the step; clipping by value instead clamps each component into [−c, c], which can distort direction. The global-norm form is standard in recurrent and language models, where a single exploding step could otherwise overwrite weights learned across many good steps. Choose c by inspecting the empirical distribution of gradient norms early in training rather than by folklore.
 
+![Vanishing gradients vs residual skip highway (synthetic teaching; original).](../assets/figures/ml_fig_vanishing_residual.png)
+
+*Figure — Left: relative backprop signal versus depth on a log scale. A deep sigmoid stack multiplies many factors ≪ 1, so early-layer gradients collapse; tanh decays more slowly; open ReLUs keep more signal. Right: a residual block adds an identity skip, so ∂L/∂h retains a direct +1 path and deep stacks can start near identity maps. Residual links do not license unlimited depth on a 200-patient MRI cohort—capacity still needs data (next figure).*
+
+![Capacity vs sample size: validation error for low / medium / high capacity (synthetic; original).](../assets/figures/ml_fig_capacity_vs_n.png)
+
+*Figure — Synthetic validation-error curves against training n (log scale). At small n, low-capacity regularized models win; high-capacity nets only pull ahead once n is large. Many stroke and single-center imaging cohorts live on the left half of this plot—depth is not free.*
+
 ### Weight initialization
 
 Initialization sets signal scale at the start of training. Too-large weights explode activations; too-small vanish. Xavier/Glorot initialization scales variance from fan-in and fan-out for tanh-like activations; He/Kaiming initialization accounts for ReLU’s half-rectification. Residual branches are sometimes initialized near zero so deep nets start close to identity maps. When transferring ImageNet-pretrained weights to head CT, input-channel adaptation (replicating grayscale to three channels or reinitializing the first layer) must be intentional.

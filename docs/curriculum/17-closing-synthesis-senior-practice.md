@@ -33,6 +33,10 @@ You finish a model paper and a methods appendix in one sitting. Synthesis means 
 
 *Net benefit is threshold-specific. A model can dominate treat-all/none on a range and still fail outside it (original scientific sketch).*
 
+![Full senior ML appraisal checklist flowchart (original teaching graphic).](../assets/figures/ml_fig_appraisal_checklist.png)
+
+*Figure — Eleven-gate appraisal flow for clinical prediction systems: question fit → index/legality → leakage → cohort/label → fit/capacity → discrimination → calibration → utility → external test → deploy card → drift monitor. Skip a gate only with a written reason. Prediction success never licenses a causal claim or sole-trigger withdrawal of care.*
+
 The book has moved from describing data to deploying systems, but the through-argument was never really about algorithms. For a neurologist–epidemiologist, the machinery of gradient descent or attention is the tractable part; the demanding part is the reasoning that surrounds a model — what question it answers, when it is permitted to see each variable, and whether its numbers mean what a clinician assumes they mean. Senior competence is the habit of interrogating those surroundings before trusting any output. This chapter gathers the disciplines that outlived the chapters that introduced them, then walks a single clinical prediction study from raw data to post-deployment monitoring so the abstractions have somewhere concrete to land.
 
 ## Disciplines that recur across every chapter
@@ -99,4 +103,20 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 | Validation | External site or temporal holdout |
 | Calibration | Plot + slope near 1 in target population |
 | Governance | Version, threshold, monitoring owner |
+
+## Full appraisal gate map (aligned to the flowchart)
+
+| # | Gate | Pass criterion | Fail / stop rule |
+|---|------|----------------|------------------|
+| 1 | Question fit | Claim typed as prediction, etiology, or decision support | Marketing language blurs prediction with “what to do” |
+| 2 | Index & legality | Every feature timestamped ≤ index time | Any post-outcome or post-decision column |
+| 3 | Leakage audit | Patient- (and often site-) grouped splits; no outcome proxies | Random row split on longitudinal rows |
+| 4 | Cohort & label | Inclusion, label source, missingness plan written | Convenience sample with silent label drift |
+| 5 | Fit & capacity | Model class matched to n; regularization + early stop | Deep net on n ≪ parameters without strong pretrain |
+| 6 | Discrimination | AUC and/or PR reported at deployment prevalence | Accuracy alone on imbalanced labels |
+| 7 | Calibration | Reliability plot; slope/intercept in target mix | “AUC is high” used as probability honesty |
+| 8 | Utility | Net benefit / decision curve over clinical thresholds | Threshold chosen only to maximize Youden on test |
+| 9 | External test | Geographic or temporal holdout; expect recalibration | Internal CV sold as transportability |
+| 10 | Deploy card | Version, threshold, intended and prohibited uses | Score used as sole withdrawal trigger |
+| 11 | Monitor drift | Owner, metrics, rollback triggers | Ship-and-forget after a conference abstract |
 
