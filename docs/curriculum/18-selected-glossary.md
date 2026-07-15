@@ -580,3 +580,6 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 ![c83 teaching panel 19 (original).](../assets/figures/ml_fig_c83_19.png)
 *Figure — Core notation strip shared across the glossary. Synthetic teaching geometry—not a causal claim.*
+
+![c84 teaching panel 19 (original).](../assets/figures/ml_fig_c84_19.png)
+*Figure — DAG reminder: a confounder U can make association non-causal (pred ≠ cause). Synthetic teaching geometry—not a causal claim.*

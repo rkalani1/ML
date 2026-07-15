@@ -385,3 +385,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c83 teaching panel 01 (original).](../assets/figures/ml_fig_c83_01.png)
 *Figure — Temporal train/val/test split—do not shuffle across deployment time. Synthetic teaching geometry—not a causal claim.*
+
+![c84 teaching panel 01 (original).](../assets/figures/ml_fig_c84_01.png)
+*Figure — Preregistration boxes for honest analytic claims. Synthetic teaching geometry—not a causal claim.*

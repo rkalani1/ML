@@ -430,3 +430,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c83 teaching panel 18 (original).](../assets/figures/ml_fig_c83_18.png)
 *Figure — Transportability: AUROC may hold while calibration error rises. Synthetic teaching geometry—not a causal claim.*
+
+![c84 teaching panel 18 (original).](../assets/figures/ml_fig_c84_18.png)
+*Figure — Decision curve net benefit vs threshold probability. Synthetic teaching geometry—not a causal claim.*
