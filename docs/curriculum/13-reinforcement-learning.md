@@ -693,6 +693,21 @@ which removes incentives to push r_t far outside [1-epsilon, 1+epsilon]. An alte
 
 *Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
 
+
+![c74 densify panel 15 (original).](../assets/figures/ml_fig_c74_14.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c75 densify panel 15 (original).](../assets/figures/ml_fig_c75_14.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c76 densify panel 15 (original).](../assets/figures/ml_fig_c76_14.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
 # REINFORCE with baseline (conceptual)
 # logp: log pi(a_t|s_t); returns: return-to-go; baseline: V(s_t)
 def reinforce_loss(logp, returns, baseline):

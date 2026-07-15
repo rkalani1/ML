@@ -467,6 +467,21 @@ Segmentation Dice = 2|A∩B|/(|A|+|B|) emphasizes overlap; Hausdorff distance em
 
 *Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
 
+
+![c74 densify panel 14 (original).](../assets/figures/ml_fig_c74_13.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c75 densify panel 14 (original).](../assets/figures/ml_fig_c75_13.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c76 densify panel 14 (original).](../assets/figures/ml_fig_c76_13.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
 *Same predicted/GT pair: Dice = 2|A∩B|/(|A|+|B|) and IoU = |A∩B|/|A∪B| are monotone transforms of each other (Dice = 2·IoU/(1+IoU)); both punish boundary misses that matter near eloquent cortex (original).*
 
 ### Architecture family quick map (teaching table)
