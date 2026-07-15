@@ -838,3 +838,9 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c234 teaching panel 01 (original).](../assets/figures/ml_fig_c234_01.png)
 *Figure — DPIA control sign-off path. Synthetic teaching geometry—not a causal claim.*
+
+![c235 teaching panel 01 (original).](../assets/figures/ml_fig_c235_01.png)
+*Figure — Advanced composition epsilon curve. Synthetic teaching geometry—not a causal claim.*
+
+![c236 teaching panel 01 (original).](../assets/figures/ml_fig_c236_01.png)
+*Figure — Model risk review path. Synthetic teaching geometry—not a causal claim.*
