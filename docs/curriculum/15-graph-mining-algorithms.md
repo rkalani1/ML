@@ -2793,6 +2793,10 @@ Networks break the independence assumption most models rest on: outcomes spill o
 ![c595 teaching panel 16 (original).](../assets/figures/ml_fig_c595_16.png)
 *Figure — Label prop harmonic path c595. Synthetic teaching geometry—not a causal claim.*
 
+
+![c596 teaching panel 16 (original).](../assets/figures/ml_fig_c596_16.png)
+*Figure — GCN message path c596. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Graph mining extracts structure from relational data. Classical algorithms include minimum spanning trees (Prim, Kruskal), shortest paths (Dijkstra, A*), matching (Hungarian, Hopcroft-Karp), centrality measures, PageRank and HITS link analysis, and community detection (spectral, Louvain, Leiden). Graph neural networks address learning on graphs via message passing, with GCN, GAT, and GraphSAGE as core architectures, facing challenges of over-smoothing, scalability, and shift. HNSW enables fast approximate nearest-neighbor search on embedding graphs. Clinical applications span referral networks, comorbidity and connectomics, and outbreak contact graphs—always with careful edge definition, privacy, and causal humility.
