@@ -898,3 +898,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c254 teaching panel 01 (original).](../assets/figures/ml_fig_c254_01.png)
 *Figure — Incident SEV path. Synthetic teaching geometry—not a causal claim.*
+
+![c255 teaching panel 01 (original).](../assets/figures/ml_fig_c255_01.png)
+*Figure — zCDP composition map. Synthetic teaching geometry—not a causal claim.*
