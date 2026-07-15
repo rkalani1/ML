@@ -811,3 +811,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c210 teaching panel 18 (original).](../assets/figures/ml_fig_c210_18.png)
 *Figure — SLO error budget burn chart. Synthetic teaching geometry—not a causal claim.*
+
+![c211 teaching panel 18 (original).](../assets/figures/ml_fig_c211_18.png)
+*Figure — Blue-green deploy cutover. Synthetic teaching geometry—not a causal claim.*

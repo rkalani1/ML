@@ -766,3 +766,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c210 teaching panel 01 (original).](../assets/figures/ml_fig_c210_01.png)
 *Figure — Model card risk field tiles. Synthetic teaching geometry—not a causal claim.*
+
+![c211 teaching panel 01 (original).](../assets/figures/ml_fig_c211_01.png)
+*Figure — DPIA residual risk workflow. Synthetic teaching geometry—not a causal claim.*
