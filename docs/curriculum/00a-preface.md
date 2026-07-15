@@ -1573,3 +1573,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c479 teaching panel 01 (original).](../assets/figures/ml_fig_c479_01.png)
 *Figure — Model risk tier path c479. Synthetic teaching geometry—not a causal claim.*
+
+![c480 teaching panel 01 (original).](../assets/figures/ml_fig_c480_01.png)
+*Figure — Human oversight gate path c480. Synthetic teaching geometry—not a causal claim.*
