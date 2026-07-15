@@ -388,3 +388,9 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c84 teaching panel 01 (original).](../assets/figures/ml_fig_c84_01.png)
 *Figure — Preregistration boxes for honest analytic claims. Synthetic teaching geometry—not a causal claim.*
+
+![c85 teaching panel 01 (original).](../assets/figures/ml_fig_c85_01.png)
+*Figure — Five-box protocol spine for transparent ML reporting. Synthetic teaching geometry—not a causal claim.*
+
+![c86 teaching panel 01 (original).](../assets/figures/ml_fig_c86_01.png)
+*Figure — Claim hierarchy: primary endpoint vs exploratory labels. Synthetic teaching geometry—not a causal claim.*

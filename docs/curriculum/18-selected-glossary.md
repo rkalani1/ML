@@ -583,3 +583,9 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 ![c84 teaching panel 19 (original).](../assets/figures/ml_fig_c84_19.png)
 *Figure — DAG reminder: a confounder U can make association non-causal (pred ≠ cause). Synthetic teaching geometry—not a causal claim.*
+
+![c85 teaching panel 19 (original).](../assets/figures/ml_fig_c85_19.png)
+*Figure — Metric glossary strip: AUROC, ECE, PPV, F1, NLL. Synthetic teaching geometry—not a causal claim.*
+
+![c86 teaching panel 19 (original).](../assets/figures/ml_fig_c86_19.png)
+*Figure — Bayesian glossary chain: prior→likelihood→posterior. Synthetic teaching geometry—not a causal claim.*

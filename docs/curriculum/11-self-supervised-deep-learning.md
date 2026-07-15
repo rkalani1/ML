@@ -595,6 +595,14 @@ This chapter’s methods are threads that reappear across the book. Supervised d
 ![c84 teaching panel 12 (original).](../assets/figures/ml_fig_c84_12.png)
 *Figure — SimCLR-style dual augmentation contrastive graph. Synthetic teaching geometry—not a causal claim.*
 
+
+![c85 teaching panel 12 (original).](../assets/figures/ml_fig_c85_12.png)
+*Figure — SSL pretrain can improve downstream sample efficiency. Synthetic teaching geometry—not a causal claim.*
+
+
+![c86 teaching panel 12 (original).](../assets/figures/ml_fig_c86_12.png)
+*Figure — Multi-view SSL shared encoder between views. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Self-supervised and generative deep learning extract structure from unlabeled data. Generative models capture p(x) while discriminative models capture p(y|x); encoders may be deterministic or stochastic. SOMs provide topology-preserving maps; Boltzmann machines and RBMs define energy-based densities trained with contrastive divergence; DBNs and DBMs stack these ideas deeply. Autoencoders reconstruct through bottlenecks with sparse, denoising, contractive, stacked, variational, and U-Net variants. Worked numerical sketches for contrastive pair loss and a univariate VAE KL/ELBO make the objectives concrete. GANs adversarially train generators with challenges of mode collapse, oscillation, slow convergence, and uninformative losses, evaluated by IS and FID, and specialized into CGAN, DCGAN, WGAN/WGAN-GP, Pix2Pix, CycleGAN, and StyleGAN. Contrastive and triplet losses with Siamese networks learn metric embeddings. Text-to-image systems combine zero-shot language alignment (CLIP), discrete codes (VQ-GAN), autoregression, and diffusion (DALL-E, Imagen, Parti, Stable Diffusion). Choosing among VAE, GAN, and diffusion families depends on stability, sharpness, sampling cost, and conditional control needs. In medicine, SSL is a strategy for scarce labels: domain-appropriate pretraining, strict patient-level separation, probing checklists, and skeptical use of synthetic images determine whether these methods aid neurologic care and epidemiologic research.

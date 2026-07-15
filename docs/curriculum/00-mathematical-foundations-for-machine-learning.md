@@ -3203,6 +3203,14 @@ This section is a reference. The first table lists the symbols used throughout t
 ![c84 teaching panel 00 (original).](../assets/figures/ml_fig_c84_00.png)
 *Figure — L1 / L2 / L∞ unit balls—geometry behind regularizers. Synthetic teaching geometry—not a causal claim.*
 
+
+![c85 teaching panel 00 (original).](../assets/figures/ml_fig_c85_00.png)
+*Figure — Activation shapes control gradient flow through deep stacks. Synthetic teaching geometry—not a causal claim.*
+
+
+![c86 teaching panel 00 (original).](../assets/figures/ml_fig_c86_00.png)
+*Figure — Lp penalty shapes (|x|, x², x⁴) alter solution geometry. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Mathematics is the compression format of machine learning: a page of symbols stands in for pages of prose, and fluency with the symbols is what makes the rest of the book legible. This chapter rebuilt that fluency from an elementary base. It began with the language itself — sets, functions, and logic — and the algebra of numbers, exponents, and logarithms, then cataloged the handful of functions (linear, polynomial, exponential, logarithmic, sigmoid, softmax, ReLU) that recur everywhere in modeling. Summation and counting supplied the combinatorics behind probability; trigonometry and the unit circle supplied the sinusoids behind Fourier features, positional encodings, and cosine similarity.

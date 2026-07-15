@@ -433,3 +433,9 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c84 teaching panel 18 (original).](../assets/figures/ml_fig_c84_18.png)
 *Figure — Decision curve net benefit vs threshold probability. Synthetic teaching geometry—not a causal claim.*
+
+![c85 teaching panel 18 (original).](../assets/figures/ml_fig_c85_18.png)
+*Figure — Senior go/no-go checklist tiles before sign-off. Synthetic teaching geometry—not a causal claim.*
+
+![c86 teaching panel 18 (original).](../assets/figures/ml_fig_c86_18.png)
+*Figure — Validation strength ladder from internal to prospective. Synthetic teaching geometry—not a causal claim.*

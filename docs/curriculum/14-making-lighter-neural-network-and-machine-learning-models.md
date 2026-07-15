@@ -732,6 +732,14 @@ Privacy and governance. Federated learning links to the data-governance material
 ![c84 teaching panel 15 (original).](../assets/figures/ml_fig_c84_15.png)
 *Figure — Quantization maps continuous activations to discrete levels. Synthetic teaching geometry—not a causal claim.*
 
+
+![c85 teaching panel 15 (original).](../assets/figures/ml_fig_c85_15.png)
+*Figure — Quantization bit-width trades size against accuracy. Synthetic teaching geometry—not a causal claim.*
+
+
+![c86 teaching panel 15 (original).](../assets/figures/ml_fig_c86_15.png)
+*Figure — Structured pruning reduces parameters by layer. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Lighter models enable bedside, edge, and mobile stroke unit deployment under latency, memory, energy, and privacy constraints. Classical compressors (BPE, bitmaps, Huffman, LZW) and sparse coding reduce data and feature cost; the Huffman worked example shows a prefix code reaching 2.25 bits/symbol against a 3-bit fixed baseline and a 2.20-bit entropy floor. Quantization (including companding intuition, PTQ, QAT, and channel-wise scales) and pruning (magnitude, Hessian-aware OBD/OBS, activation and Taylor scores; structured vs unstructured) shrink networks. LoRA specializes large models cheaply; FlashAttention, MQA/GQA, and sliding windows lighten attention; accumulation and checkpointing lighten training memory. Transfer, multitask, meta, curriculum, and federated learning improve data efficiency; distillation compresses teachers into students; AutoML and NAS search configurations under budget. Clinical notes emphasize on-device measurement, pathology-tail validation, and green AI reporting for equitable multi-site neurology.
