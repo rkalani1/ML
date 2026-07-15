@@ -1073,6 +1073,66 @@ Networks break the independence assumption most models rest on: outcomes spill o
 ![c165 teaching panel 16 (original).](../assets/figures/ml_fig_c165_16.png)
 *Figure — Graph pooling DiffPool. Synthetic teaching geometry—not a causal claim.*
 
+
+![c166 teaching panel 16 (original).](../assets/figures/ml_fig_c166_16.png)
+*Figure — Motif counting graphs. Synthetic teaching geometry—not a causal claim.*
+
+
+![c167 teaching panel 16 (original).](../assets/figures/ml_fig_c167_16.png)
+*Figure — Link prediction scores. Synthetic teaching geometry—not a causal claim.*
+
+
+![c168 teaching panel 16 (original).](../assets/figures/ml_fig_c168_16.png)
+*Figure — Knowledge graph embeds. Synthetic teaching geometry—not a causal claim.*
+
+
+![c169 teaching panel 16 (original).](../assets/figures/ml_fig_c169_16.png)
+*Figure — Hyperbolic graph space. Synthetic teaching geometry—not a causal claim.*
+
+
+![c170 teaching panel 16 (original).](../assets/figures/ml_fig_c170_16.png)
+*Figure — Graph pooling DiffPool. Synthetic teaching geometry—not a causal claim.*
+
+
+![c171 teaching panel 16 (original).](../assets/figures/ml_fig_c171_16.png)
+*Figure — Motif counting graphs. Synthetic teaching geometry—not a causal claim.*
+
+
+![c172 teaching panel 16 (original).](../assets/figures/ml_fig_c172_16.png)
+*Figure — Link prediction scores. Synthetic teaching geometry—not a causal claim.*
+
+
+![c173 teaching panel 16 (original).](../assets/figures/ml_fig_c173_16.png)
+*Figure — Knowledge graph embeds. Synthetic teaching geometry—not a causal claim.*
+
+
+![c174 teaching panel 16 (original).](../assets/figures/ml_fig_c174_16.png)
+*Figure — Hyperbolic graph space. Synthetic teaching geometry—not a causal claim.*
+
+
+![c175 teaching panel 16 (original).](../assets/figures/ml_fig_c175_16.png)
+*Figure — Graph pooling DiffPool. Synthetic teaching geometry—not a causal claim.*
+
+
+![c176 teaching panel 16 (original).](../assets/figures/ml_fig_c176_16.png)
+*Figure — Motif counting graphs. Synthetic teaching geometry—not a causal claim.*
+
+
+![c177 teaching panel 16 (original).](../assets/figures/ml_fig_c177_16.png)
+*Figure — Link prediction scores. Synthetic teaching geometry—not a causal claim.*
+
+
+![c178 teaching panel 16 (original).](../assets/figures/ml_fig_c178_16.png)
+*Figure — Knowledge graph embeds. Synthetic teaching geometry—not a causal claim.*
+
+
+![c179 teaching panel 16 (original).](../assets/figures/ml_fig_c179_16.png)
+*Figure — Hyperbolic graph space. Synthetic teaching geometry—not a causal claim.*
+
+
+![c180 teaching panel 16 (original).](../assets/figures/ml_fig_c180_16.png)
+*Figure — Graph pooling DiffPool. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Graph mining extracts structure from relational data. Classical algorithms include minimum spanning trees (Prim, Kruskal), shortest paths (Dijkstra, A*), matching (Hungarian, Hopcroft-Karp), centrality measures, PageRank and HITS link analysis, and community detection (spectral, Louvain, Leiden). Graph neural networks address learning on graphs via message passing, with GCN, GAT, and GraphSAGE as core architectures, facing challenges of over-smoothing, scalability, and shift. HNSW enables fast approximate nearest-neighbor search on embedding graphs. Clinical applications span referral networks, comorbidity and connectomics, and outbreak contact graphs—always with careful edge definition, privacy, and causal humility.
