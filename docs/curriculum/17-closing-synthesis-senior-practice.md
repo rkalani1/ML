@@ -1216,3 +1216,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c345 teaching panel 18 (original).](../assets/figures/ml_fig_c345_18.png)
 *Figure — Cost per query path c345. Synthetic teaching geometry—not a causal claim.*
+
+![c346 teaching panel 18 (original).](../assets/figures/ml_fig_c346_18.png)
+*Figure — Canary promote path c346. Synthetic teaching geometry—not a causal claim.*
