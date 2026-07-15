@@ -1954,3 +1954,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c606 teaching panel 01 (original).](../assets/figures/ml_fig_c606_01.png)
 *Figure — Consent scope control path c606. Synthetic teaching geometry—not a causal claim.*
+
+![c607 teaching panel 01 (original).](../assets/figures/ml_fig_c607_01.png)
+*Figure — Model risk tier path c607. Synthetic teaching geometry—not a causal claim.*
