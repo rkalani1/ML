@@ -781,3 +781,9 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c200 teaching panel 18 (original).](../assets/figures/ml_fig_c200_18.png)
 *Figure — Model retirement criteria. Synthetic teaching geometry—not a causal claim.*
+
+![c201 teaching panel 18 (original).](../assets/figures/ml_fig_c201_18.png)
+*Figure — Population stability index bins. Synthetic teaching geometry—not a causal claim.*
+
+![c202 teaching panel 18 (original).](../assets/figures/ml_fig_c202_18.png)
+*Figure — Decision curve net benefit. Synthetic teaching geometry—not a causal claim.*

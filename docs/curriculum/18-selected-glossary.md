@@ -931,3 +931,9 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 ![c200 teaching panel 19 (original).](../assets/figures/ml_fig_c200_19.png)
 *Figure — Glossary epistemic risk. Synthetic teaching geometry—not a causal claim.*
+
+![c201 teaching panel 19 (original).](../assets/figures/ml_fig_c201_19.png)
+*Figure — Bias variance irreducible strip. Synthetic teaching geometry—not a causal claim.*
+
+![c202 teaching panel 19 (original).](../assets/figures/ml_fig_c202_19.png)
+*Figure — Glossary margin support kernel. Synthetic teaching geometry—not a causal claim.*

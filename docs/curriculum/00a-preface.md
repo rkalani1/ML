@@ -736,3 +736,9 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c200 teaching panel 01 (original).](../assets/figures/ml_fig_c200_01.png)
 *Figure — Data use agreement boxes. Synthetic teaching geometry—not a causal claim.*
+
+![c201 teaching panel 01 (original).](../assets/figures/ml_fig_c201_01.png)
+*Figure — Intended use statement blocks. Synthetic teaching geometry—not a causal claim.*
+
+![c202 teaching panel 01 (original).](../assets/figures/ml_fig_c202_01.png)
+*Figure — Risk tier control ladder. Synthetic teaching geometry—not a causal claim.*
