@@ -805,3 +805,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c223 teaching panel 01 (original).](../assets/figures/ml_fig_c223_01.png)
 *Figure — Model card section map. Synthetic teaching geometry—not a causal claim.*
+
+![c224 teaching panel 01 (original).](../assets/figures/ml_fig_c224_01.png)
+*Figure — Red-team probe patch loop. Synthetic teaching geometry—not a causal claim.*

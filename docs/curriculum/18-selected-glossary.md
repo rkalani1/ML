@@ -1000,3 +1000,6 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 ![c223 teaching panel 19 (original).](../assets/figures/ml_fig_c223_19.png)
 *Figure — Glossary clustering family strip. Synthetic teaching geometry—not a causal claim.*
+
+![c224 teaching panel 19 (original).](../assets/figures/ml_fig_c224_19.png)
+*Figure — Glossary self-supervised strip. Synthetic teaching geometry—not a causal claim.*

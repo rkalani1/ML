@@ -850,3 +850,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c223 teaching panel 18 (original).](../assets/figures/ml_fig_c223_18.png)
 *Figure — SRE error budget burn. Synthetic teaching geometry—not a causal claim.*
+
+![c224 teaching panel 18 (original).](../assets/figures/ml_fig_c224_18.png)
+*Figure — Incident runbook ladder. Synthetic teaching geometry—not a causal claim.*
