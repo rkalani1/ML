@@ -184,6 +184,10 @@ Dropout randomly zeroes activations during training with probability p, forcing 
 
 *Figure — \(\eta(t)\) is a first-class hyperparameter. **Left:** step decay, cosine annealing, and warmup+cosine traces. **Right:** synthetic training loss under an overly large early LR (unstable) versus a warmup schedule that settles. Retune when batch size or AMP changes; low train loss is not clinical validation, and schedule choice does not create causal effects.*
 
+![Label smoothing softens one-hot targets and eases overconfidence (original).](../assets/figures/ml_fig_label_smoothing.png)
+
+*Figure — Soft targets. **Left:** mass \(1-\varepsilon\) on the true class and \(\varepsilon/(K-1)\) on others. **Right:** smoothed cross-entropy penalizes extreme confidence less harshly than hard CE. Label smoothing is a regularizer—not a fix for noisy phenotyping—and recalibration should be re-checked afterward. Soft labels do not create causal effects.*
+
 ![Dropout: stochastic train masks vs test-time expectation (synthetic; original).](../assets/figures/ml_fig_dropout.png)
 
 *Figure — Dropout as implicit ensemble. **Left:** each forward pass uses a random mask (thin gold curves = sub-networks). **Right:** test-time prediction approximates the mean of those sub-networks (scaled full net); inverted dropout scales during training so serve-time needs no special factor. Leave dropout off at deployment unless you intentionally run MC-dropout for uncertainty. Regularization ≠ causal identification.*

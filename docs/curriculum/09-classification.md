@@ -262,6 +262,14 @@ ROC curves plot true positive rate versus false positive rate as the threshold v
 
 Class imbalance remedies include resampling (oversample minority, undersample majority, or synthetic methods like SMOTE used carefully inside folds only), class-weighted losses, threshold tuning, and metrics aligned with the minority class (recall, PR-AUC, balanced accuracy). Multiclass reduction: one-vs-rest trains K binary classifiers; one-vs-one trains K(K−1)/2 pairwise classifiers; softmax models handle multiclass natively. Always nest preprocessing in cross-validation; leakage—scaling with test statistics, using future information, or tuning on the test set—is the most common source of unrealistically good reported accuracy.
 
+![Focal loss: modulating factor (1−p_t)^γ down-weights easy examples (original).](../assets/figures/ml_fig_focal_loss.png)
+
+*Figure — Focal loss \(FL=(1-p_t)^\gamma(-\log p_t)\). **Left:** loss vs true-class probability for increasing \(\gamma\). **Right:** the modulating factor collapses toward zero for easy, high-\(p_t\) cases so hard minorities dominate the gradient. Still tune operating thresholds, report PR metrics, and recalibrate if absolute risk is used—loss design is not causation.*
+
+![Calibration slope and intercept after logistic recalibration (synthetic; original).](../assets/figures/ml_fig_calibration_slope.png)
+
+*Figure — Slope/intercept as a miscalibration diagnosis. **Left:** reliability before vs after fitting \(a + b\,\mathrm{logit}(p)\) on a held-out calibration set. **Right:** ideal \(a\approx 0\), \(b\approx 1\); \(b<1\) flags overconfident raw scores. Fit only on calibration data—never the final test—and remember recalibration improves probability honesty, not causal interpretability.*
+
 ## Clinical and Epidemiologic Notes
 
 Classification is the workhorse of predictive modeling in neurology: large-vessel occlusion (LVO) versus not, hemorrhagic versus ischemic pathways, TOAST or CCS stroke subtype, malignant MCA edema risk, 90-day functional independence (mRS 0–2), or detection of atrial fibrillation on extended monitoring. Scientific quality depends as much on cohort design and metrics as on the choice among logistic regression, forests, or boosting.

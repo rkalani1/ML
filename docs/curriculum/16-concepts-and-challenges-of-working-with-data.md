@@ -184,6 +184,10 @@ def ransac_line(points, n_iter=200, thresh=1.0):
 
 Dataset shift occurs when training and target distributions differ. Covariate shift changes P(X); label shift changes P(Y); concept drift changes P(Y|X)—the relationship itself. Scanner upgrades, ICD-9 to ICD-10 transitions, new order sets, earlier thrombectomy eligibility, and tele-stroke routing all induce shift. Model performance can collapse silently if only average AUC on last year’s holdout is tracked.
 
+![Temporal CV: random fold interleaving vs forward-chaining splits (original).](../assets/figures/ml_fig_temporal_cv.png)
+
+*Figure — Time is not exchangeable. **Left:** shuffled K-fold paints future encounters into training folds—optimistic leakage on longitudinal EHR. **Right:** forward-chaining keeps train in the past and validation/test in the future. Prefer temporal or site-blocked splits whenever care pathways evolve; random CV estimates are not external validation and not causal proof.*
+
 ![16.4: Monitoring for dataset shift across deployment windows. (a) Live AUROC is tracked monthly; concept drift (a change in P(](../assets/figures/ml_concept_16.4_6c511648.png)
 
 *Figure 16.4 — original teaching graphic.*

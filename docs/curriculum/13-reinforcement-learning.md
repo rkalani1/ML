@@ -387,6 +387,10 @@ Each state (or state-action pair) maintains a trace e(s) that spikes when visite
 
 In deep RL, classical eligibility traces are less common in pure form, but n-step returns and generalized advantage estimation (GAE) play related roles in actor-critic algorithms such as A3C and PPO. GAE computes advantages as an exponentially weighted mixture of multi-step TD residuals, controlled by a lambda-like parameter that again trades bias and variance.
 
+![GAE λ mixes multi-step TD residuals (synthetic; original).](../assets/figures/ml_fig_gae_lambda.png)
+
+*Figure — Generalized Advantage Estimation. **Left:** synthetic TD residuals \(\delta_t\). **Right:** GAE advantages for \(\lambda\in\{0,0.5,0.95,1\}\)—low \(\lambda\) is nearly one-step (higher bias, lower variance); \(\lambda\to 1\) is Monte-Carlo-like. Same bias–variance knob as eligibility traces; still not a license for bedside exploration with irreversible actions.*
+
 ## 13.13 Function Approximation and Continuous Spaces
 
 Tabular methods store a number per state or state-action pair. In large or continuous spaces this is impossible. Function approximation represents V(s; w) or Q(s,a; w) with parameters w (linear features, trees, or neural networks) and updates w by gradient steps on a squared Bellman error or related loss. Linear TD with appropriate step-sizes has convergence theory; nonlinear approximators can diverge if care is not taken—the deadly triad of off-policy learning + bootstrapping + function approximation.

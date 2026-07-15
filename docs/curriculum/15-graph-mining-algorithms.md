@@ -303,6 +303,10 @@ Graph Attention Network (GAT). GAT replaces uniform neighbor averaging with lear
 
 GraphSAGE. GraphSAGE samples a fixed-size neighborhood and aggregates with mean, LSTM, or pooling functions, enabling inductive learning on previously unseen nodes by using features. Sampling makes large graphs tractable. For multi-site hospital networks where new facilities appear, inductive models are preferable to purely transductive embeddings tied to a fixed node set.
 
+![GraphSAGE neighborhood sampling fanout and cost vs depth (schematic; original).](../assets/figures/ml_fig_graphsage_sampling.png)
+
+*Figure — Fixed fanout sampling. **Left:** target node samples \(k_1\) neighbors, then each samples \(k_2\)—a two-layer computational graph. **Right:** nodes touched grow roughly \(k+k^2+k^3\) with depth for fanout \(k=5\) (teaching counts). Inductive embeddings help new hospitals appear; graph proximity still is not causation or infection risk without a separate design.*
+
 Training tips: use early stopping against over-smoothing; try 2-3 layers before going deep; regularize; evaluate on held-out nodes or temporal splits; beware label leakage through edges constructed with future information.
 
 # One GCN layer (dense educational form)
