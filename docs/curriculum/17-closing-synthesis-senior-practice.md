@@ -859,3 +859,9 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c226 teaching panel 18 (original).](../assets/figures/ml_fig_c226_18.png)
 *Figure — Blameless incident timeline. Synthetic teaching geometry—not a causal claim.*
+
+![c227 teaching panel 18 (original).](../assets/figures/ml_fig_c227_18.png)
+*Figure — Chaos game-day drill stages. Synthetic teaching geometry—not a causal claim.*
+
+![c228 teaching panel 18 (original).](../assets/figures/ml_fig_c228_18.png)
+*Figure — Game-day readiness scorecard. Synthetic teaching geometry—not a causal claim.*

@@ -1009,3 +1009,9 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 ![c226 teaching panel 19 (original).](../assets/figures/ml_fig_c226_19.png)
 *Figure — Glossary RL algorithm strip. Synthetic teaching geometry—not a causal claim.*
+
+![c227 teaching panel 19 (original).](../assets/figures/ml_fig_c227_19.png)
+*Figure — Glossary dim-reduction strip. Synthetic teaching geometry—not a causal claim.*
+
+![c228 teaching panel 19 (original).](../assets/figures/ml_fig_c228_19.png)
+*Figure — Glossary compression strip. Synthetic teaching geometry—not a causal claim.*

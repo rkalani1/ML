@@ -1218,6 +1218,14 @@ Visualization is not a standalone topic; it threads through the rest of this boo
 ![c226 teaching panel 03 (original).](../assets/figures/ml_fig_c226_03.png)
 *Figure — Split violin group comparison. Synthetic teaching geometry—not a causal claim.*
 
+
+![c227 teaching panel 03 (original).](../assets/figures/ml_fig_c227_03.png)
+*Figure — Beeswarm group comparison. Synthetic teaching geometry—not a causal claim.*
+
+
+![c228 teaching panel 03 (original).](../assets/figures/ml_fig_c228_03.png)
+*Figure — Filled contour density field. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Visualization maps data to perception for exploration, model diagnosis, and communication. Its history runs from Playfair and Nightingale to Tukey’s EDA. Basic charts include pies (rare, few slices), bars and histograms, lines, scatters, and rarely broken axes. Multidimensional views include surfaces, contours, areas, radars, heatmaps, calendar and timeline plots, and box/violin summaries. Hierarchical structure uses dendrograms, treemaps, and sunbursts; networks use node-link, arc, and chord diagrams. Change is shown with divergent bars, dumbbells, waterfalls, and beeswarms. Three-dimensional graphics need interactive justification; choropleths and bubble maps serve spatial epidemiology with rate stability caveats. MDS and related embeddings visualize similarity in high dimensions but do not prove phenotypes. Encoding choice should follow perceptual rankings; misleading axes, dual scales, and decorative 3-D are scientific defects. A worked eight-patient example computed means, IQR, and Pearson r ≈ 0.93 between NIHSS and mRS, and a companion three-class example read recall and precision off a confusion-matrix heatmap—both as practice for honest EDA. Clinical ML inherits Table-1 discipline and adds calibration and error-slice graphics as first-class evidence.
