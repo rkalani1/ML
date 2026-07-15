@@ -281,6 +281,11 @@ Blanks are not merely a nuisance to be silently filled; they are data whose reas
 
 *Figure — Periodic features. Ordinal hour distance wrongly separates 23 from 0; circular distance and the unit-circle (sin, cos) embedding preserve midnight continuity. Encoding choices change models—they do not by themselves establish **causal** time-of-day effects.*
 
+
+![Supervised bin rates and WoE-style log-odds lift (synthetic; original).](../assets/figures/ml_fig_woe_binning.png)
+
+*Figure — Supervised binning caution. Event rates by age bin and a WoE-style lift can look decisive—but bin edges must live inside CV or they leak. Association with outcome is not a causal effect.*
+
 \n![6.6: Rubin's missingness mechanisms. MCAR: absence is driven by chance, independent of all data. MAR: absence in x3 is explai](../assets/figures/ml_concept_6.6_59c3837d.png)
 
 *Figure 6.6 — original teaching graphic.*

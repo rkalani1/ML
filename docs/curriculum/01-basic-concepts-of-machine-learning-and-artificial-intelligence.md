@@ -396,6 +396,11 @@ Worked illustration (bias–variance). Let the true mean response at some input 
 
 *Figure — Bias–variance sketch. As capacity rises, (bias)² falls while variance rises; irreducible noise is a floor. The vertical line marks the capacity that minimizes the sum—the teaching “sweet spot,” not a number you always compute from one fit.*
 
+
+![Bias–variance–noise error stack vs capacity (synthetic; original).](../assets/figures/ml_fig_bias_variance_stack.png)
+
+*Figure — Classic decomposition sketch. Bias falls then variance rises with capacity; irreducible noise sets a floor. The U-shaped total risk is about prediction error under a sampling model—not proof of a causal story.*
+
 ## Common Pitfalls and Failure Modes
 
 The failure modes below recur across projects and modalities. Each has a mechanism, a warning sign, and a discipline that prevents it. Treat this as a checklist to run against any pipeline before you believe its numbers.

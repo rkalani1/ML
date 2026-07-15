@@ -204,6 +204,11 @@ Dropout randomly zeroes activations during training with probability p, forcing 
 
 *Figure — Early stopping in deep training. Validation loss bottoms while training loss keeps falling; restore the best-validation checkpoint. On small multi-site MRI or tabular cohorts, patient-grouped validation and early stopping often beat architectural cleverness.*
 
+
+![Softmax temperature softens or sharpens class mass (synthetic logits; original).](../assets/figures/ml_fig_softmax_temp.png)
+
+*Figure — Temperature as a knob. Low T peaks on the max logit; high T flattens the distribution. Useful for distillation and calibration experiments—not a measure of disease severity or causation.*
+
 Start with a simple MLP or linear baseline before complex architectures.
 
 Monitor train versus validation loss to detect under/overfitting.

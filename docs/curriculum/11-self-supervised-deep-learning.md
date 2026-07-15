@@ -250,6 +250,11 @@ Pretext task catalog for unlabeled neuroimaging: rotation prediction, jigsaw puz
 
 *Figure — MAE teaching panel. **Left:** a patch grid with ~75% masked (dark)—the encoder sees visible patches; the decoder reconstructs masked ones. **Right:** synthetic curves where reconstruction MSE rises with mask ratio, while linear-probe AUROC peaks at intermediate masks and can fall if the pretext becomes too hard or too easy. Always validate transfer (probe/fine-tune), not pretext loss alone. Pretext geometry is not a clinical label and not a causal map.*
 
+
+![Contrastive embedding: pull positives, push negatives (synthetic; original).](../assets/figures/ml_fig_contrastive_pull.png)
+
+*Figure — Contrastive geometry. Anchor pulls positives and repels a sample of negatives. Embedding structure is task-shaped—**not automatic causal structure** in the world.*
+
 ## 11.10 Multimodal Alignment Beyond CLIP and Practical Hospital Constraints
 
 CLIP-style contrastive alignment generalizes to ECG–text, EEG–report, and CT–report pairs. Batch construction must avoid false negatives: two images from the same study with different captions should not be forced apart if they share semantics. Hard negatives (similar body region, different finding) improve discrimination. Zero-shot prompts are brittle: ‘intracranial hemorrhage’ vs ‘ICH’ vs ‘hemorrhagic stroke’ can shuffle rankings; ensemble prompts or learned prompt templates reduce variance.

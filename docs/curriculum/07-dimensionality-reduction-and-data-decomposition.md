@@ -223,6 +223,11 @@ NMF approximates a nonnegative matrix X ≈ W H with W ≥ 0, H ≥ 0. Nonnegati
 
 *Figure — Rank choice heuristics. Bars are per-component variance fractions; gold curve is cumulative mass with a 90% guide line. Elbows and thresholds are teaching tools—principal axes are not automatically clinical factors without labels. **Geometry ≠ etiology**.*\n\n
 
+
+![Random projection distance preservation at k=5,20,50 (synthetic; original).](../assets/figures/ml_fig_random_projection.png)
+
+*Figure — JL-style intuition. Pairwise distances recover better as projection dimension grows. Preserving distances is a geometric guarantee—not semantic or causal meaning of axes.*
+
 *Figure — NMF teaching panel. A synthetic 16×16 nonnegative “map” is a sum of three blob parts. Multiplicative-update NMF recovers additive parts \(H\) and sample loadings \(W\); reconstruction error falls with rank and plateaus near the true \(r=3\). Parts are ≥0 and additive—useful for territories or topics—but solutions are non-unique, depend on initialization, and do not license causal anatomy labels without external validation.*
 
 ### Singular Value Decomposition (SVD)

@@ -241,6 +241,11 @@ Within-cluster sum of squares (WSS/WCSS) decreases as k grows; the elbow method 
 
 *Figure — Co-association stability. Entry (i,j) is how often points co-cluster across bootstrap restarts. Block-diagonal structure signals geometric reproducibility, not named disease subtypes. **Clusters ≠ causal labels**.*\n\n
 
+
+![1-D GMM density and soft responsibilities (synthetic; original).](../assets/figures/ml_fig_gmm_responsibilities.png)
+
+*Figure — Soft clustering. Top: mixture and weighted components; bottom: E-step responsibilities. Probabilistic membership is geometric—not etiologic certainty. **Clusters ≠ causal subtypes**.*
+
 *Figure — Not every point needs a cluster. **Left:** two dense groups plus noise. **Right:** teaching stability bars—prefer persistent clusters over ephemeral splits. Stability is geometric; noise points need review paths, not forced labels. Clusters ≠ etiologic subtypes.*
 
 ### Extrinsic methods: purity and Rand index

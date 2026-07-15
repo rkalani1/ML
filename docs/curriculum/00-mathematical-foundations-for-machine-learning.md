@@ -305,6 +305,11 @@ Logs are not decoration; they are structural. First, models multiply many probab
 
 *Figure 0.2. The core functions of machine learning: linear, quadratic, exponential, logarithmic, sigmoid, and ReLU.*
 
+
+![Gradient magnitude vs depth: plain stack vs residual floor (teaching; original).](../assets/figures/ml_fig_gradient_flow_depth.png)
+
+*Figure — Optimization geometry. Plain deep stacks can drive gradients toward zero; residual-style paths keep a teaching floor. Curves are schematic—not a map of clinical mechanisms. **Architecture ≠ causation**.*
+
 ### What a function is, and how to read its graph
 
 Recall from Section 0.1 that a function maps each input to exactly one output. The domain is the set of allowed inputs; the range is the set of outputs actually produced. We picture a function by its graph: plot the input x horizontally and the output y = f(x) vertically, and mark every point (x, f(x)). Reading a graph is then physical: left-to-right is increasing input, height is output, and the “exactly one output” rule shows up as the vertical line test — any vertical line crosses the curve at most once.

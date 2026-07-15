@@ -246,6 +246,11 @@ Do not cherry-pick time windows or y-limits to manufacture a policy narrative.
 
 *Figure — Visualization: bin width is a hyperparameter. Too few bins hide modes; too many invent noise spikes. Gold dashed lines mark generating centers. Bin choice is not evidence of clinical subtypes—**display ≠ etiology**.*
 
+
+![ECDF comparison of two synthetic site distributions (original).](../assets/figures/ml_fig_ecdf_compare.png)
+
+*Figure — ECDFs avoid arbitrary histogram bins. Vertical gaps flag location/scale shift between sites. Shift detection supports monitoring—not a causal claim about site quality without design.*
+
 Refuse 3-D categorical bars and exploded 3-D pies in scientific communication.
 
 Accessibility expands who can use your work correctly: sufficient luminance contrast, large fonts for projection and photocopy, descriptive captions and alt text, and tabular companions for key plotted values. Accessibility is quality control under time pressure, not only compliance.

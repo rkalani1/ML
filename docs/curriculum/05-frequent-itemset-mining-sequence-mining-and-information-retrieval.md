@@ -244,6 +244,11 @@ Apriori generates candidates of size k from frequent itemsets of size k−1, pru
 
 *Figure — Rule quality plane. High confidence with lift near 1 often reflects a prevalent item, not a discovery. Bubble size tracks support. **Association ≠ causation**; nest mining inside temporal splits when labels are clinical outcomes.*
 
+
+![Sparse bag-of-words presence vs TF–IDF toy weights (original).](../assets/figures/ml_fig_tfidf_sparsity.png)
+
+*Figure — Text matrices are sparse. IDF up-weights rare terms; high weight is not automatic clinical importance without a labeled task. Retrieval scores **rank**, they do not establish causation.*
+
 ```
 Apriori(D, minsup):
  L1 ← frequent 1-itemsets in D

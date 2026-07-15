@@ -232,6 +232,11 @@ Segmentation Dice = 2|A∩B|/(|A|+|B|) emphasizes overlap; Hausdorff distance em
 
 ![Dice versus IoU on synthetic lesion masks (scientific; original).](../assets/figures/ml_fig_dice_iou.png)
 
+
+![Multi-head attention pattern schematics (causal, local, CLS, mixed; original).](../assets/figures/ml_fig_multihead_patterns.png)
+
+*Figure — Different heads implement different dependency biases. Attention maps are computational, not clinical causal diagrams. Always re-check calibration and subgroups after fine-tuning.*
+
 *Same predicted/GT pair: Dice = 2|A∩B|/(|A|+|B|) and IoU = |A∩B|/|A∪B| are monotone transforms of each other (Dice = 2·IoU/(1+IoU)); both punish boundary misses that matter near eloquent cortex (original).*
 
 ### Architecture family quick map (teaching table)
