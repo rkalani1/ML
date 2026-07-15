@@ -256,6 +256,11 @@ Do not cherry-pick time windows or y-limits to manufacture a policy narrative.
 
 *Figure — Parallel coordinates can reveal bundles but overplot quickly; axis order changes perception. Visual clusters remain geometry—not etiologic subtypes.*
 
+
+![Boxplots vs violins for unimodal vs bimodal synthetic data (original).](../assets/figures/ml_fig_box_vs_violin.png)
+
+*Figure — Boxplots can hide multimodality that violins reveal. Choose displays that match the question. Visual form is not etiology.*
+
 Refuse 3-D categorical bars and exploded 3-D pies in scientific communication.
 
 Accessibility expands who can use your work correctly: sufficient luminance contrast, large fonts for projection and photocopy, descriptive captions and alt text, and tabular companions for key plotted values. Accessibility is quality control under time pressure, not only compliance.

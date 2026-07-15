@@ -214,6 +214,11 @@ Dropout randomly zeroes activations during training with probability p, forcing 
 
 *Figure — Train/eval statistics. Running averages stabilize evaluation; mismatches freeze wrong moments. Normalization is an optimization device—not a causal layer in physiology.*
 
+
+![Dropout rate vs train/test accuracy (synthetic; original).](../assets/figures/ml_fig_dropout_rate.png)
+
+*Figure — Moderate dropout can help generalization; excessive rates hurt. Regularizers are optimization tools—not causal mechanisms.*
+
 Start with a simple MLP or linear baseline before complex architectures.
 
 Monitor train versus validation loss to detect under/overfitting.

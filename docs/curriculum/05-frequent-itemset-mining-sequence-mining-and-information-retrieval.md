@@ -254,6 +254,11 @@ Apriori generates candidates of size k from frequent itemsets of size k−1, pru
 
 *Figure — Retrieval ranking quality as k grows. Always compare to prevalence baselines. High precision@k ranks documents—it does not prove causal importance of terms.*
 
+
+![BM25-like term weights for a synthetic document (original).](../assets/figures/ml_fig_bm25_terms.png)
+
+*Figure — IR weights up-rank rare informative tokens and down-weight stopwords. Retrieval relevance is not a causal claim about outcomes.*
+
 ```
 Apriori(D, minsup):
  L1 ← frequent 1-itemsets in D

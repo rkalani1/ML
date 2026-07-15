@@ -233,6 +233,11 @@ NMF approximates a nonnegative matrix X ≈ W H with W ≥ 0, H ≥ 0. Nonnegati
 
 *Figure — Blind source separation cartoon. Recovered components can look like generators under independence assumptions—they are statistical, not automatic clinical mechanisms.*
 
+
+![Kernel PCA-style unwrap of a circular manifold (synthetic; original).](../assets/figures/ml_fig_kpca_unwrap.png)
+
+*Figure — Nonlinear dim-reduction cartoon. Input ring becomes an unwrapped coordinate plus noise. Coordinates are features for models—not causes.*
+
 *Figure — NMF teaching panel. A synthetic 16×16 nonnegative “map” is a sum of three blob parts. Multiplicative-update NMF recovers additive parts \(H\) and sample loadings \(W\); reconstruction error falls with rank and plateaus near the true \(r=3\). Parts are ≥0 and additive—useful for territories or topics—but solutions are non-unique, depend on initialization, and do not license causal anatomy labels without external validation.*
 
 ### Singular Value Decomposition (SVD)

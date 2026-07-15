@@ -260,6 +260,11 @@ Pretext task catalog for unlabeled neuroimaging: rotation prediction, jigsaw puz
 
 *Figure — Pretext hyperparameter. Common ~15% mask is a teaching default; probe scores measure transfer under a label—not clinical utility or causation by themselves.*
 
+
+![Label efficiency: scratch vs linear probe vs fine-tune (synthetic; original).](../assets/figures/ml_fig_ssl_label_efficiency.png)
+
+*Figure — Pretraining helps most when labels are scarce. Label efficiency is an empirical learning benefit—not causal identification of disease mechanisms.*
+
 ## 11.10 Multimodal Alignment Beyond CLIP and Practical Hospital Constraints
 
 CLIP-style contrastive alignment generalizes to ECG–text, EEG–report, and CT–report pairs. Batch construction must avoid false negatives: two images from the same study with different captions should not be forced apart if they share semantics. Hard negatives (similar body region, different finding) improve discrimination. Zero-shot prompts are brittle: ‘intracranial hemorrhage’ vs ‘ICH’ vs ‘hemorrhagic stroke’ can shuffle rankings; ensemble prompts or learned prompt templates reduce variance.

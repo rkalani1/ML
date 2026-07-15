@@ -291,6 +291,11 @@ Blanks are not merely a nuisance to be silently filled; they are data whose reas
 
 *Figure — Target encoding hygiene. Full-data category means leak labels into features; out-of-fold encodings are safer. Encoded values are predictive transforms—not causal effects.*
 
+
+![Statistical interaction surface for x1·x2 (synthetic; original).](../assets/figures/ml_fig_interaction_surface.png)
+
+*Figure — Interaction contours. Product terms change predictions non-additively. Statistical interactions need design before biological causal stories.*
+
 \n![6.6: Rubin's missingness mechanisms. MCAR: absence is driven by chance, independent of all data. MAR: absence in x3 is explai](../assets/figures/ml_concept_6.6_59c3837d.png)
 
 *Figure 6.6 — original teaching graphic.*

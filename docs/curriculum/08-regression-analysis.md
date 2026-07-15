@@ -284,6 +284,11 @@ As λ goes from large to small along a Lasso path, coefficients enter the model 
 
 *Figure — Residual normality check. Departures from the diagonal flag assumption stress for inference. Diagnostics improve modeling honesty—they do not prove causal effects.*
 
+
+![GLM link functions: logit and log mean maps (original).](../assets/figures/ml_fig_glm_links.png)
+
+*Figure — Link functions map linear predictors to means. Coefficient interpretation depends on the link. Modeling choices precede any careful causal contrast.*
+
 Elastic net’s mixing parameter α (weight on L1 versus L2) is a second hyperparameter; nest its selection. Grouped clinical features (multiple BP meds, multi-item NIHSS) sometimes use group Lasso variants so that whole groups enter together—beyond this chapter’s core, but aligned with elastic net’s motivation. The non-negative garrote’s c_j path similarly traces shrinkage of an initial fit; if the initial OLS is already nonsense due to p > n, start from Ridge or univariate screens instead.
 
 ## Optimization Practice Notes

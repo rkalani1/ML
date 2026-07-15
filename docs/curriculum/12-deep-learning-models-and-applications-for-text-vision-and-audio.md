@@ -242,6 +242,11 @@ Segmentation Dice = 2|A∩B|/(|A|+|B|) emphasizes overlap; Hausdorff distance em
 
 *Figure — Time–frequency features feed audio/vision models. Pretty maps still need validated labels and calibration before any care claim. Features ≠ diagnosis; pred ≠ cause.*
 
+
+![Toy 2D token embedding neighborhoods (synthetic; original).](../assets/figures/ml_fig_token_embed_2d.png)
+
+*Figure — Embedding clusters reflect corpus co-occurrence geometry. Neighbor tokens are not automatically clinical synonyms or causal partners.*
+
 *Same predicted/GT pair: Dice = 2|A∩B|/(|A|+|B|) and IoU = |A∩B|/|A∪B| are monotone transforms of each other (Dice = 2·IoU/(1+IoU)); both punish boundary misses that matter near eloquent cortex (original).*
 
 ### Architecture family quick map (teaching table)
