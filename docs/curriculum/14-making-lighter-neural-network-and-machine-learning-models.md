@@ -507,6 +507,21 @@ Knowledge distillation trains a smaller student model to mimic a larger teacher.
 
 *Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
 
+
+![c61 densify panel 16 (original).](../assets/figures/ml_fig_c61_15.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c62 densify panel 16 (original).](../assets/figures/ml_fig_c62_15.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c63 densify panel 16 (original).](../assets/figures/ml_fig_c63_15.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
 Training recipe: train teacher well; choose student architecture that fits the edge budget; run distillation on a transfer set representative of deployment; tune T and alpha; validate student calibration and failure modes. Architectures include response-based distillation (logits), feature-based (match intermediate maps), and relation-based (match pairwise structures). For stroke imaging, a heavy ensemble teacher can distill into a single student deployable on MSU hardware—if the transfer set includes the MSU’s scanner characteristics.
 
 ```

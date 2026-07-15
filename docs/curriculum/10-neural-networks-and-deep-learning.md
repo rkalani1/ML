@@ -374,6 +374,21 @@ Dropout randomly zeroes activations during training with probability p, forcing 
 
 *Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
 
+
+![c61 densify panel 12 (original).](../assets/figures/ml_fig_c61_11.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c62 densify panel 12 (original).](../assets/figures/ml_fig_c62_11.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c63 densify panel 12 (original).](../assets/figures/ml_fig_c63_11.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
 Start with a simple MLP or linear baseline before complex architectures.
 
 Monitor train versus validation loss to detect under/overfitting.
