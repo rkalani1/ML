@@ -576,6 +576,21 @@ Given an undirected similarity graph, form the normalized Laplacian L_sym = I - 
 
 *Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
 
+
+![c57 densify panel 17 (original).](../assets/figures/ml_fig_c57_16.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c58 densify panel 17 (original).](../assets/figures/ml_fig_c58_16.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c59 densify panel 17 (original).](../assets/figures/ml_fig_c59_16.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
 Choosing k: inspect eigenvalue gaps; domain knowledge (expected number of care regions); stability across bootstrap edge subsamples. Spectral methods assume the similarity graph is meaningful—garbage k-NN graphs in high-dimensional noise yield garbage clusters. Compared with Louvain/Leiden, spectral clustering requires choosing k up front and costs eigen-decomposition, but connects cleanly to theoretical graph cuts (RatioCut, NCut).
 
 Clinical connectomes often use partial correlation or streamline counts as weights; thresholding to build A can create or destroy communities. Report sensitivity to threshold and parcellation atlas.

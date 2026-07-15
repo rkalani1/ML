@@ -373,6 +373,21 @@ NMF approximates a nonnegative matrix X ≈ W H with W ≥ 0, H ≥ 0. Nonnegati
 
 *Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
 
+
+![c57 densify panel 9 (original).](../assets/figures/ml_fig_c57_08.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c58 densify panel 9 (original).](../assets/figures/ml_fig_c58_08.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c59 densify panel 9 (original).](../assets/figures/ml_fig_c59_08.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
 *Figure — NMF teaching panel. A synthetic 16×16 nonnegative “map” is a sum of three blob parts. Multiplicative-update NMF recovers additive parts \(H\) and sample loadings \(W\); reconstruction error falls with rank and plateaus near the true \(r=3\). Parts are ≥0 and additive—useful for territories or topics—but solutions are non-unique, depend on initialization, and do not license causal anatomy labels without external validation.*
 
 ### Singular Value Decomposition (SVD)

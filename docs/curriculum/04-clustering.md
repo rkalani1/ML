@@ -454,6 +454,21 @@ Beyond the TOC core, several variants appear in clinical papers. Spectral cluste
 
 *Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
 
+
+![c57 densify panel 6 (original).](../assets/figures/ml_fig_c57_05.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c58 densify panel 6 (original).](../assets/figures/ml_fig_c58_05.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c59 densify panel 6 (original).](../assets/figures/ml_fig_c59_05.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
 Mean-shift finds modes of a kernel density estimate without fixing k, related in spirit to density methods. Hierarchical density methods (HDBSCAN) combine ideas from OPTICS and hierarchy to extract stable clusters across density levels. Constrained clustering incorporates must-link and cannot-link hints from partial labels—semi-supervised structure discovery when experts can say ‘these two cases should not share a phenotype’ without full labeling.
 
 Biclustering and co-clustering simultaneously cluster rows and columns of a matrix—patients and genes, or patients and sparse code sets—producing blocks of co-behavior. Topic models on clinical text are soft co-clustering cousins. Subspace clustering seeks clusters that exist only in feature subsets, relevant when different stroke mechanisms live in different biomarker panels. These methods multiply researcher degrees of freedom; pre-registration of analytic choices becomes even more important.
