@@ -239,6 +239,11 @@ Dropout randomly zeroes activations during training with probability p, forcing 
 
 *Figure — Teaching panel for initscale. Pred != cause without design.*
 
+
+![Cycle-34 densify scientific panel 12 (original).](../assets/figures/ml_fig_c34_11.png)
+
+*Figure — Continuous densify panel 12. Synthetic teaching geometry—not a causal claim.*
+
 Start with a simple MLP or linear baseline before complex architectures.
 
 Monitor train versus validation loss to detect under/overfitting.
