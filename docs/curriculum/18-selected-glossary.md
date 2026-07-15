@@ -1111,3 +1111,6 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 ![c260 teaching panel 19 (original).](../assets/figures/ml_fig_c260_19.png)
 *Figure — Glossary cluster strip c260. Synthetic teaching geometry—not a causal claim.*
+
+![c261 teaching panel 19 (original).](../assets/figures/ml_fig_c261_19.png)
+*Figure — Glossary IR strip c261. Synthetic teaching geometry—not a causal claim.*
