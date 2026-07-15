@@ -868,3 +868,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c244 teaching panel 01 (original).](../assets/figures/ml_fig_c244_01.png)
 *Figure — Incident response control path. Synthetic teaching geometry—not a causal claim.*
+
+![c245 teaching panel 01 (original).](../assets/figures/ml_fig_c245_01.png)
+*Figure — GDP mu-GDP conversion curve. Synthetic teaching geometry—not a causal claim.*
