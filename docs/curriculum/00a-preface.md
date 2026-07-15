@@ -81,7 +81,9 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 *Figure — Preface: shipping starts evaluation. Versioned monitor → investigate → rollback/retrain loop; silent auto-retrain without governance is a hazard. Lifecycle hygiene keeps a prediction service safe—it is not causal discovery.*
 
-## Reader’s map (teaching table)
+![Three leakage modes: timing, fit, and label leakage (original).](../assets/figures/ml_fig_three_leakage_modes.png)
+
+*Figure — Preface leakage triad. Timing (features after t₀), fit (scalers/vocab fit on full cohort), and label leakage (proxies that are the outcome) are the three modes to hunt in every methods section. Leakage inflates prediction metrics—not causal truth.*
 
 | Habit | What you do | What it prevents |
 |-------|-------------|------------------|

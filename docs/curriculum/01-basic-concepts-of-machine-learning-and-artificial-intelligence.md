@@ -230,6 +230,10 @@ Regression predicts a continuous (or conditionally continuous) target from featu
 
 *Figure — Expected test error ≈ bias² + variance + irreducible noise. Underfit sits left (high bias); overfit sits right (high variance). Regularization and more data move the curves; the “sweet spot” is task- and sample-size specific. Lower prediction error still does not establish causation.*
 
+![Learning-curve signatures of underfit, overfit, and better capacity match (synthetic; original).](../assets/figures/ml_fig_learning_signatures.png)
+
+*Figure — Read the train/val pair. **Left:** both errors high → underfit. **Middle:** large optimistic train–val gap → overfit. **Right:** both fall with n → capacity better matched. Curves diagnose fit—not causation.*
+
 ### Classification
 
 Classification predicts discrete labels: stroke versus mimic, LVO versus no LVO, mRS 0–2 versus 3–6. Binary, multiclass, and multi-label settings differ in loss design and metrics. Logistic regression, linear discriminants, trees and forests, boosting, support vector machines, and deep networks are standard tools. Class imbalance, label noise, and calibration deserve first-class attention in medicine.

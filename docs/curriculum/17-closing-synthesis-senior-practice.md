@@ -37,6 +37,10 @@ You finish a model paper and a methods appendix in one sitting. Synthesis means 
 
 *Figure — Closing utility panel. **Left:** model net benefit vs treat-all and treat-none across threshold probabilities. **Right:** ΔNB versus the better default highlights the clinical range where the model helps. Net benefit is not AUROC and not a causal treatment effect—choose pt with domain experts.*
 
+![Model card minimum gates checklist (teaching; original).](../assets/figures/ml_fig_model_card_gates.png)
+
+*Figure — Closing governance panel. Intended use, training data, metrics+slices, calibration, limits, and monitor plan are non-optional gates for shipping a prediction service. Cards document predictors—not causal claims.*
+
 ![Full senior ML appraisal checklist flowchart (original teaching graphic).](../assets/figures/ml_fig_appraisal_checklist.png)
 
 *Figure — Eleven-gate appraisal flow for clinical prediction systems: question fit → index/legality → leakage → cohort/label → fit/capacity → discrimination → calibration → utility → external test → deploy card → drift monitor. Skip a gate only with a written reason. Prediction success never licenses a causal claim or sole-trigger withdrawal of care.*

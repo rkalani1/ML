@@ -237,6 +237,10 @@ Within-cluster sum of squares (WSS/WCSS) decreases as k grows; the elbow method 
 
 *Figure — Gap as another k heuristic. **Left:** three-blob synthetic geometry. **Right:** \(\mathrm{Gap}(k)=E^*[\log W_k]-\log W_k\) peaks near the generating \(k\). Compare observed within-cluster dispersion to a uniform reference; still a geometric score, not etiology. Pair gap/elbow/silhouette with stability and a pre-registered use case—clusters remain hypothesis generators, not causal subtypes.*
 
+![Density clustering with noise points and stability scores (synthetic; original).](../assets/figures/ml_fig_density_stability.png)
+
+*Figure — Not every point needs a cluster. **Left:** two dense groups plus noise. **Right:** teaching stability bars—prefer persistent clusters over ephemeral splits. Stability is geometric; noise points need review paths, not forced labels. Clusters ≠ etiologic subtypes.*
+
 ### Extrinsic methods: purity and Rand index
 
 When reference labels exist for audit (for example, known TOAST codes), purity measures the fraction of points in each cluster belonging to its majority class, aggregated—high purity can coexist with over-fragmentation (many tiny pure clusters). The Rand index is the fraction of point pairs on which the clustering and the reference agree about being same-cluster vs different-cluster; adjusted Rand corrects for chance. External indices validate recovery of a reference ontology; they do not prove the reference is the right biology.

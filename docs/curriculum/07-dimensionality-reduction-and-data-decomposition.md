@@ -74,6 +74,10 @@ Principal component analysis (PCA) finds orthogonal directions that capture maxi
 
 *Figure — Parallel analysis as a retention check. **Left:** data eigenvalues vs mean eigenvalues of column-shuffled null matrices. **Right:** retain components above the null mean (teal bars). Still a geometric heuristic—PCA axes are not causal factors and need not be the best inputs for a clinical predictor.*
 
+![NMF as nonnegative additive parts X≈WH (synthetic; original).](../assets/figures/ml_fig_nmf_parts_matrix.png)
+
+*Figure — Nonnegative matrix factorization. **Left:** reconstructed data. **Middle/Right:** parts W and coefficients H. Additive parts aid interpretability for count-like panels but are still latent factors—not proven causal disease modules.*
+
 If C = V Λ Vᵀ with eigenvalues λ₁ ≥ λ₂ ≥ ⋯ ≥ λ_d ≥ 0 and orthonormal eigenvectors as columns of V, then the k-dimensional PCA scores are Z = X_c V_k where V_k holds the top k eigenvectors. The fraction of variance explained by component j is λ_j / ∑_i λ_i. Cumulative explained variance guides the choice of k—but “80% variance retained” is not a guarantee of predictive utility for mRS or infarct growth. PCA assumes that large-variance directions are interesting, which fails when the signal is low-variance or when units of measurement arbitrarily inflate variance—hence the common practice of standardizing features before PCA when panels mix mg/dL, mmHg, and seconds.
 
 ### Teaching table: choosing k in PCA (compression vs claim)

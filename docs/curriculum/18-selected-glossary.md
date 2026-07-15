@@ -22,6 +22,10 @@
 
 *Figure — Glossary utility vocab. **Left:** absolute risk reduction ARR = p₀ − p₁. **Right:** NNT = 1/ARR. Relative metrics (OR/RR) alone cannot yield NNT; calibrated absolute risks are required. Model AUROC does not equal ARR, and ARR from observational scores is not automatically a causal treatment effect.*
 
+![Youden J = Se+Sp−1 vs threshold (original).](../assets/figures/ml_fig_youden_j.png)
+
+*Figure — Glossary: Youden’s J peaks where Se+Sp−1 is maximized. It ignores prevalence and misclassification costs—so the clinical operating point may differ. Threshold choice is a decision, not a causal estimate.*
+
 ![Appraisal orientation graphic (original).](../assets/figures/ml_fig_appraisal_scorecard.png)
 
 *Teaching orientation for metrics and appraisal terms (original).*

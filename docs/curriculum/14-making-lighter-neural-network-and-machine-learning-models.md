@@ -288,6 +288,10 @@ Full fine-tuning of large language or vision models updates all parameters and s
 
 *Figure — PEFT economics. **Left:** LoRA trainable fraction of one square layer vs rank r (log scale) versus 100% full FT. **Right:** synthetic task score rises then plateaus while full FT sits higher—validate rare phenotypes and safety after merge. Adapters specialize a predictor; they do not prove causal site effects.*
 
+![KV-cache memory grows with context length while weights stay fixed (original).](../assets/figures/ml_fig_kv_cache.png)
+
+*Figure — Decode-time memory. Weights are roughly fixed; KV cache scales with N (and layers/heads). MQA/GQA shrink caches. Long context is a systems lever—not automatic clinical benefit without retrieval hygiene.*
+
 LoRA is a parameter-efficient fine-tuning method, not a general compressor of the base model, but it makes specialization light: many small adapters can sit on one frozen backbone. Variants include QLoRA (LoRA on quantized bases), higher-rank or adaptive-rank schemes, and related adapters (prefix tuning, which prepends trainable key/value vectors to each attention layer; (IA)^3, which learns per-channel rescaling vectors). For multi-hospital NLP, train a shared clinical LLM backbone once, then LoRA-adapt to local note styles without shipping full model copies. Evaluate whether adapter merge preserves safety behaviors and whether low rank underfits rare local phenotypes.
 
 ## 14.8 Lighter Self-Attention: FlashAttention, MQA/GQA, Sliding Windows

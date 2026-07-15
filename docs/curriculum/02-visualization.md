@@ -87,6 +87,10 @@ A broken (or discontinuous) axis omits a middle range of values, often to zoom o
 
 *Figure — Heatmap color encodes magnitude. **Left:** rainbow (jet) invents false boundaries and is hard for color-vision deficiency. **Right:** a sequential teal map preserves order and prints more safely. Prefer sequential or diverging perceptually uniform maps for clinical matrices.*
 
+![Dual axis vs indexed comparable series (original).](../assets/figures/ml_fig_dual_vs_index.png)
+
+*Figure — Dual axes invite false parallels between series on different scales. Prefer indexing each series to a common baseline (or small multiples with shared axes) so slopes remain honest. Visual rhetoric is not evidence of causation.*
+
 ## More Than One-Dimensional Data Visualizations
 
 ### Surface plot

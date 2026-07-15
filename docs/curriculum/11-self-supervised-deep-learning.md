@@ -156,6 +156,10 @@ A classic contrastive loss for pairs (x_i, x_j) with binary similarity s_{ij} pu
 
 *Figure — Hard negatives dominate the gradient. **Left:** anchor (\*), positives (teal), easy far negatives (gray), and hard near-boundary negatives (gold). **Right:** relative InfoNCE-style pull rises sharply with cosine similarity of a negative—so near-misses matter most. False hard negatives (same patient, different view labeled negative) poison SSL; keep probe labels out of pretraining. Embedding geometry is not a disease causal map.*
 
+![SimCLR-style two-view pipeline into InfoNCE (original).](../assets/figures/ml_fig_simclr_pipeline.png)
+
+*Figure — Shared encoder f and projection g on two augmentations of x; InfoNCE with temperature τ pulls views together and pushes other batch items apart. Pipeline for representation learning—not a causal model of disease.*
+
 ![Triplet loss with chapter worked numbers (original).](../assets/figures/ml_fig_triplet_ssl.png)
 
 *Figure 11.3. Triplet loss in embedding space, drawn with the chapter's worked numbers. With anchor a=(0,0), positive p=(0.3,0.4) and margin m=0.2, the loss L = max(0, d(a,p) − d(a,n) + m) requires negatives to lie beyond the dashed boundary at radius d(a,p)+m = 0.7. The easy negative n=(0.8,0.6) at distance 1.0 is inactive (L=0), whereas the hard negative n′=(0.4,0.3) at distance 0.5 falls inside the margin and is active (L=0.2); the emerald arrow pulls the positive inward and the rose arrow pushes the hard negative outward.*

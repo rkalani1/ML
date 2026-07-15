@@ -155,6 +155,10 @@ In practice one uses k hash functions h₁, …, h_k from integers to integers a
 
 *Figure — Rule mining plane. Points are candidate rules; dashed lines mark minsup/minconf; color encodes lift (confidence / P(consequent)). High lift with tiny support is often sampling noise. Co-occurrence in orders or notes is association—not a causal pathway.*
 
+![IDF curve: common terms downweighted as document frequency rises (original).](../assets/figures/ml_fig_idf_curve.png)
+
+*Figure — idf(t)=log(N/df(t)) shrinks ubiquitous tokens. TF–IDF is a retrieval weighting—not a clinical importance ranking and not a causal claim about disease terms.*
+
 Clinical and epidemiologic note: MinHash and LSH can cluster near-duplicate discharge summaries or flag copy-forward notes, but similarity is not clinical correctness. Two notes with high Jaccard may both omit a critical negation (“no hemorrhage”). Always combine set-similarity retrieval with section-aware and negation-aware NLP when the use case is safety-critical case finding.
 
 ## Tree Data Structures for Search and Indexing

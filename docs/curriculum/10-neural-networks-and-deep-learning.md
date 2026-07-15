@@ -188,6 +188,10 @@ Dropout randomly zeroes activations during training with probability p, forcing 
 
 *Figure — Soft targets. **Left:** mass \(1-\varepsilon\) on the true class and \(\varepsilon/(K-1)\) on others. **Right:** smoothed cross-entropy penalizes extreme confidence less harshly than hard CE. Label smoothing is a regularizer—not a fix for noisy phenotyping—and recalibration should be re-checked afterward. Soft labels do not create causal effects.*
 
+![Residual block: identity skip plus F(x) (original).](../assets/figures/ml_fig_residual_block.png)
+
+*Figure — Residual learning. Stacks fit F(x) while the identity path carries x → x+F(x), easing gradient flow in deep nets. Architectural residuals are optimization geometry—not biological residual disease effects.*
+
 ![Dropout: stochastic train masks vs test-time expectation (synthetic; original).](../assets/figures/ml_fig_dropout.png)
 
 *Figure — Dropout as implicit ensemble. **Left:** each forward pass uses a random mask (thin gold curves = sub-networks). **Right:** test-time prediction approximates the mean of those sub-networks (scaled full net); inverted dropout scales during training so serve-time needs no special factor. Leave dropout off at deployment unless you intentionally run MC-dropout for uncertainty. Regularization ≠ causal identification.*

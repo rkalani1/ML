@@ -142,6 +142,10 @@ Receiver Operating Characteristic (ROC) curves plot true positive rate versus fa
 
 *Figure — Brier components. Murphy’s decomposition writes BS = REL − RES + UNC. **Left:** an overconfident model inflates reliability (miscalibration penalty); a near-constant predictor is “calibrated” to prevalence but has almost no resolution—low Brier for the wrong reason. **Right:** reliability diagrams for the same labels. Always pair Brier with a reliability plot and a discrimination metric; Brier is not a causal effect and is prevalence-dependent via UNC = π(1−π).*
 
+![Residual histogram and QQ plot for heavy-tailed errors (synthetic; original).](../assets/figures/ml_fig_residual_qq.png)
+
+*Figure — Gaussian residual assumptions are checkable. **Left:** heavy-tailed residual histogram. **Right:** QQ plot bows in the tails. Prefer robust SEs, transforms, or GLMs when tails dominate; diagnostics police intervals—not causation.*
+
 ![8.3: Discrimination is not calibration. (a) An ROC curve traced by sweeping the probability threshold, with the shaded area u](../assets/figures/ml_concept_8.3_6c89e5db.png)
 
 *Figure 8.3 — original teaching graphic.*
