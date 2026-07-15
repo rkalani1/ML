@@ -901,3 +901,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c255 teaching panel 01 (original).](../assets/figures/ml_fig_c255_01.png)
 *Figure — zCDP composition map. Synthetic teaching geometry—not a causal claim.*
+
+![c256 teaching panel 01 (original).](../assets/figures/ml_fig_c256_01.png)
+*Figure — Threat model path. Synthetic teaching geometry—not a causal claim.*
