@@ -270,6 +270,10 @@ Class imbalance remedies include resampling (oversample minority, undersample ma
 
 *Figure — Slope/intercept as a miscalibration diagnosis. **Left:** reliability before vs after fitting \(a + b\,\mathrm{logit}(p)\) on a held-out calibration set. **Right:** ideal \(a\approx 0\), \(b\approx 1\); \(b<1\) flags overconfident raw scores. Fit only on calibration data—never the final test—and remember recalibration improves probability honesty, not causal interpretability.*
 
+![ECE bin contributions on a reliability diagram (synthetic; original).](../assets/figures/ml_fig_ece_bins.png)
+
+*Figure — ECE = Σ mass_b · |acc_b − conf_b|. **Left:** equal-width reliability bars. **Right:** per-bin contributions—large mass in a miscalibrated bin dominates the scalar. Inspect tails; one ECE number can hide clinically critical high-risk bins. ECE is not a causal metric.*
+
 ## Clinical and Epidemiologic Notes
 
 Classification is the workhorse of predictive modeling in neurology: large-vessel occlusion (LVO) versus not, hemorrhagic versus ischemic pathways, TOAST or CCS stroke subtype, malignant MCA edema risk, 90-day functional independence (mRS 0–2), or detection of atrial fibrillation on extended monitoring. Scientific quality depends as much on cohort design and metrics as on the choice among logistic regression, forests, or boosting.

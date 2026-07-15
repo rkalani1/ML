@@ -108,6 +108,10 @@ Multi-head attention runs h parallel attention heads with different learned proj
 
 *Figure — Same softmax attention math, different memory traffic. **Left:** naive score-matrix storage grows ~N² while tiled IO grows much slower (teaching curves). **Right:** Q/K/V tiles → on-chip SRAM → accumulated output. Faster long-context serving still needs retrieval hygiene for longitudinal notes; speed is not causation.*
 
+![RoPE: rotary positional embedding relative geometry (original).](../assets/figures/ml_fig_rope.png)
+
+*Figure — Position as rotation. **Left:** queries/keys at positions t and t+Δ are rotated in a plane. **Right:** relative score contribution depends on Δ through cos(Δ·ω), aiding length extrapolation versus pure absolute PE. Positional geometry is still not a clinical causal graph.*
+
 ## 12.3 Structured State-Space Models and Mamba
 
 Quadratic cost of self-attention in sequence length motivates efficient sequence layers. State-space models (SSMs) describe continuous-time latent dynamics h’(t) = A h(t) + B x(t), y(t) = C h(t) + D x(t), discretized for sequences. Linear time-invariant SSMs can be written as convolutions, enabling fast training with FFT-based methods while retaining recurrent inference.

@@ -188,6 +188,10 @@ Dataset shift occurs when training and target distributions differ. Covariate sh
 
 *Figure — Time is not exchangeable. **Left:** shuffled K-fold paints future encounters into training folds—optimistic leakage on longitudinal EHR. **Right:** forward-chaining keeps train in the past and validation/test in the future. Prefer temporal or site-blocked splits whenever care pathways evolve; random CV estimates are not external validation and not causal proof.*
 
+![Sinkhorn optimal transport: cost matrix and entropy-regularized coupling (original).](../assets/figures/ml_fig_sinkhorn_ot.png)
+
+*Figure — Aligning distributions. **Left:** pairwise cost C between source and target bins. **Right:** Sinkhorn coupling P moves mass with entropy regularization. OT appears in domain adaptation and batch correction; the coupling is a transport plan—not a causal map between patients or sites.*
+
 ![16.4: Monitoring for dataset shift across deployment windows. (a) Live AUROC is tracked monthly; concept drift (a change in P(](../assets/figures/ml_concept_16.4_6c511648.png)
 
 *Figure 16.4 — original teaching graphic.*

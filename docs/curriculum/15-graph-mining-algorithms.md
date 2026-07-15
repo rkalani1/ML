@@ -307,6 +307,10 @@ GraphSAGE. GraphSAGE samples a fixed-size neighborhood and aggregates with mean,
 
 *Figure — Fixed fanout sampling. **Left:** target node samples \(k_1\) neighbors, then each samples \(k_2\)—a two-layer computational graph. **Right:** nodes touched grow roughly \(k+k^2+k^3\) with depth for fanout \(k=5\) (teaching counts). Inductive embeddings help new hospitals appear; graph proximity still is not causation or infection risk without a separate design.*
 
+![Label propagation from few seeds on a similarity graph (synthetic; original).](../assets/figures/ml_fig_label_propagation.png)
+
+*Figure — Semi-supervised graph labels. **Left:** two seeds per class amid unlabeled points. **Right:** soft scores after distance-weighted propagation caricature. Edges encode similarity you chose—not disease transmission. Sensitive to graph construction; not a causal infection model.*
+
 Training tips: use early stopping against over-smoothing; try 2-3 layers before going deep; regularize; evaluate on held-out nodes or temporal splits; beware label leakage through edges constructed with future information.
 
 # One GCN layer (dense educational form)

@@ -61,6 +61,10 @@ Feature selection reduces dimensionality, lowers overfitting risk, speeds traini
 
 Filters score each feature (or small groups) independently of a specific downstream model using statistical or information-theoretic criteria: variance thresholds, Pearson or Spearman correlation with y, mutual information, chi-square tests for categorical associations, ANOVA F-scores, and relief-style neighbor methods. Filters are fast and model-agnostic, making them good first screens on wide EHR or omics tables.
 
+![Mutual-information filter scores vs downstream utility (synthetic; original).](../assets/figures/ml_fig_mi_filter.png)
+
+*Figure — High MI is not a free pass. **Left:** synthetic MI bars—gold marks high MI but low task utility (zip/scanner-style proxies). **Right:** MI vs downstream ΔAUROC scatter. Nest filters inside CV; association with y is not causation and can encode site leakage.*
+
 Limitations are real. Univariate filters miss synergistic pairs (two weak features that jointly predict). Correlation with y is not causation and can select mediators or colliders inappropriately for etiologic models. Highly redundant features may all pass a univariate threshold. Always re-evaluate selected sets inside cross-validation; selecting on the full sample before splitting leaks selection decisions into every fold.
 
 ### Wrapper Methods: SFS, SBS, and Genetic Algorithms
