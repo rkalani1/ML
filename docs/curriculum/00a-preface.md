@@ -100,6 +100,11 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 *Figure — Preface: optimism shrinks under transport. Dev AUROC overstates site B/C and next-year performance. External checks are mandatory; scores remain predictive, not causal, without design.*
 
+
+![Pre-deploy readiness bars for claim, split, calib, slices, monitor, rollback (original).](../assets/figures/ml_fig_readiness_bars.png)
+
+*Figure — Preface ops checklist as bars. Weak slices/monitor/rollback block shipping. Checklists enforce process—they do not convert predictions into causal effects.*
+
 *Figure — Preface leakage triad. Timing (features after t₀), fit (scalers/vocab fit on full cohort), and label leakage (proxies that are the outcome) are the three modes to hunt in every methods section. Leakage inflates prediction metrics—not causal truth.*
 
 | Habit | What you do | What it prevents |

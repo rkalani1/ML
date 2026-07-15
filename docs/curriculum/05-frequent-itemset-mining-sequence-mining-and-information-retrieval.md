@@ -259,6 +259,11 @@ Apriori generates candidates of size k from frequent itemsets of size k−1, pru
 
 *Figure — IR weights up-rank rare informative tokens and down-weight stopwords. Retrieval relevance is not a causal claim about outcomes.*
 
+
+![Recall@k saturation curve for synthetic retrieval (original).](../assets/figures/ml_fig_recall_at_k.png)
+
+*Figure — Recall@k rises then plateaus as the ranked list lengthens. Pair with precision@k. Retrieval metrics rank content—they do not prove causal importance.*
+
 ```
 Apriori(D, minsup):
  L1 ← frequent 1-itemsets in D

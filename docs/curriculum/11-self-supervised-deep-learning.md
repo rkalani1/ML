@@ -265,6 +265,11 @@ Pretext task catalog for unlabeled neuroimaging: rotation prediction, jigsaw puz
 
 *Figure — Pretraining helps most when labels are scarce. Label efficiency is an empirical learning benefit—not causal identification of disease mechanisms.*
 
+
+![Contrastive probe accuracy vs negative queue size (synthetic; original).](../assets/figures/ml_fig_contrastive_queue.png)
+
+*Figure — Larger negative sets often improve contrastive representation quality in teaching curves. Embedding quality is not clinical causation.*
+
 ## 11.10 Multimodal Alignment Beyond CLIP and Practical Hospital Constraints
 
 CLIP-style contrastive alignment generalizes to ECG–text, EEG–report, and CT–report pairs. Batch construction must avoid false negatives: two images from the same study with different captions should not be forced apart if they share semantics. Hard negatives (similar body region, different finding) improve discrimination. Zero-shot prompts are brittle: ‘intracranial hemorrhage’ vs ‘ICH’ vs ‘hemorrhagic stroke’ can shuffle rankings; ensemble prompts or learned prompt templates reduce variance.

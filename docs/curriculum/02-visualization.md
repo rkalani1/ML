@@ -261,6 +261,11 @@ Do not cherry-pick time windows or y-limits to manufacture a policy narrative.
 
 *Figure — Boxplots can hide multimodality that violins reveal. Choose displays that match the question. Visual form is not etiology.*
 
+
+![Same series with honest vs zoomed y-limits (original).](../assets/figures/ml_fig_axis_limits.png)
+
+*Figure — Axis limits manufacture drama. Always inspect scale choices. Visualization ethics are part of scientific honesty—not etiology.*
+
 Refuse 3-D categorical bars and exploded 3-D pies in scientific communication.
 
 Accessibility expands who can use your work correctly: sufficient luminance contrast, large fonts for projection and photocopy, descriptive captions and alt text, and tabular companions for key plotted values. Accessibility is quality control under time pressure, not only compliance.

@@ -219,6 +219,11 @@ Dropout randomly zeroes activations during training with probability p, forcing 
 
 *Figure — Moderate dropout can help generalization; excessive rates hurt. Regularizers are optimization tools—not causal mechanisms.*
 
+
+![Residual skip connection schematic (original).](../assets/figures/ml_fig_skip_connection.png)
+
+*Figure — Identity skip plus residual branch eases optimization depth. Architectural devices are not physiological causal pathways.*
+
 Start with a simple MLP or linear baseline before complex architectures.
 
 Monitor train versus validation loss to detect under/overfitting.

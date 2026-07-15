@@ -238,6 +238,11 @@ NMF approximates a nonnegative matrix X ≈ W H with W ≥ 0, H ≥ 0. Nonnegati
 
 *Figure — Nonlinear dim-reduction cartoon. Input ring becomes an unwrapped coordinate plus noise. Coordinates are features for models—not causes.*
 
+
+![Autoencoder reconstruction error vs bottleneck dimension (synthetic; original).](../assets/figures/ml_fig_ae_bottleneck.png)
+
+*Figure — Larger latents reduce recon error with diminishing returns. Compression quality is not semantic or causal meaning.*
+
 *Figure — NMF teaching panel. A synthetic 16×16 nonnegative “map” is a sum of three blob parts. Multiplicative-update NMF recovers additive parts \(H\) and sample loadings \(W\); reconstruction error falls with rank and plateaus near the true \(r=3\). Parts are ≥0 and additive—useful for territories or topics—but solutions are non-unique, depend on initialization, and do not license causal anatomy labels without external validation.*
 
 ### Singular Value Decomposition (SVD)
