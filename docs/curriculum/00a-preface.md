@@ -979,3 +979,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c281 teaching panel 01 (original).](../assets/figures/ml_fig_c281_01.png)
 *Figure — Vendor risk path c281. Synthetic teaching geometry—not a causal claim.*
+
+![c282 teaching panel 01 (original).](../assets/figures/ml_fig_c282_01.png)
+*Figure — Kill-switch runbook path c282. Synthetic teaching geometry—not a causal claim.*
