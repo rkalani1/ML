@@ -757,3 +757,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c207 teaching panel 01 (original).](../assets/figures/ml_fig_c207_01.png)
 *Figure — Minimal risk de-identification map. Synthetic teaching geometry—not a causal claim.*
+
+![c208 teaching panel 01 (original).](../assets/figures/ml_fig_c208_01.png)
+*Figure — Federated silo average rounds. Synthetic teaching geometry—not a causal claim.*
