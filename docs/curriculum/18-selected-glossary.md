@@ -2191,3 +2191,6 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 ![c620 teaching panel 19 (original).](../assets/figures/ml_fig_c620_19.png)
 *Figure — Glossary graph strip c620. Synthetic teaching geometry—not a causal claim.*
+
+![c621 teaching panel 19 (original).](../assets/figures/ml_fig_c621_19.png)
+*Figure — Glossary calib strip c621. Synthetic teaching geometry—not a causal claim.*
