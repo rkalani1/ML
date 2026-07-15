@@ -2227,6 +2227,10 @@ Clustering sits downstream of the preprocessing and distance choices developed e
 ![c477 teaching panel 05 (original).](../assets/figures/ml_fig_c477_05.png)
 *Figure — Cluster validity bars c477. Synthetic teaching geometry—not a causal claim.*
 
+
+![c478 teaching panel 05 (original).](../assets/figures/ml_fig_c478_05.png)
+*Figure — Gap statistic path c478. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Clustering groups unlabeled points under a stated distance and objective. Similarity choices—Euclidean, Manhattan, Mahalanobis, Hamming, Levenshtein, LCS, cosine, Jaccard, DTW, and graph-based measures—reshape results and must be reported with scaling recipes. K-means minimizes WCSS via assignment and mean updates; k-median and k-medoid offer robustness and exemplar centers. A worked six-point example converged to clusters {A,B,C} and {D,E,F} with J=4. DBSCAN and OPTICS find density-connected structure and noise; hierarchical SLINK (single linkage) and DIANA provide agglomerative and divisive trees; BIRCH and CURE scale hierarchical ideas to large n. GMMs and Fuzzy C-means supply soft memberships. Evaluation uses elbow/WSS, silhouette, Dunn, Davies–Bouldin, purity, and Rand-family indices, with stability and external replication outweighing any single geometric score. In stroke and population research, unsupervised structure is not etiology: control leakage, test transportability, and resist reification.
