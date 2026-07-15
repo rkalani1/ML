@@ -871,3 +871,9 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c230 teaching panel 18 (original).](../assets/figures/ml_fig_c230_18.png)
 *Figure — Ops review agenda strip. Synthetic teaching geometry—not a causal claim.*
+
+![c231 teaching panel 18 (original).](../assets/figures/ml_fig_c231_18.png)
+*Figure — On-call handoff checklist. Synthetic teaching geometry—not a causal claim.*
+
+![c232 teaching panel 18 (original).](../assets/figures/ml_fig_c232_18.png)
+*Figure — Runbook severity decision tree. Synthetic teaching geometry—not a causal claim.*

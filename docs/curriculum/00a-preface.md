@@ -826,3 +826,9 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c230 teaching panel 01 (original).](../assets/figures/ml_fig_c230_01.png)
 *Figure — Incident severity histogram. Synthetic teaching geometry—not a causal claim.*
+
+![c231 teaching panel 01 (original).](../assets/figures/ml_fig_c231_01.png)
+*Figure — Model evaluation card grid. Synthetic teaching geometry—not a causal claim.*
+
+![c232 teaching panel 01 (original).](../assets/figures/ml_fig_c232_01.png)
+*Figure — Threat model asset map. Synthetic teaching geometry—not a causal claim.*
