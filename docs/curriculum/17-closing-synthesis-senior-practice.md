@@ -1834,3 +1834,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c551 teaching panel 18 (original).](../assets/figures/ml_fig_c551_18.png)
 *Figure — Rollback trigger path c551. Synthetic teaching geometry—not a causal claim.*
+
+![c552 teaching panel 18 (original).](../assets/figures/ml_fig_c552_18.png)
+*Figure — Capacity headroom path c552. Synthetic teaching geometry—not a causal claim.*
