@@ -246,6 +246,10 @@ def affine_quantize(x, n_bits=8):
 
 Pruning sets selected weights or structures to zero (or removes them) so that computation and storage shrink. Key design choices: what to prune (weights, neurons, channels, heads, blocks), when to prune (one-shot after training, iterative prune-retrain, or during training), and structured versus unstructured sparsity.
 
+![Magnitude pruning: accuracy and realized FLOPs vs sparsity (synthetic; original).](../assets/figures/ml_fig_magnitude_prune.png)
+
+*Figure — Unstructured vs structured pruning. **Left:** validation accuracy vs sparsity with a clinical floor at 0.80; structured channel pruning often loses accuracy earlier. **Right:** relative compute—unstructured zeros rarely deliver proportional FLOP/latency cuts without sparse kernels; structured pruning maps more honestly to hardware. Always measure latency on the target device and check rare pathology subgroups.*
+
 ![14.3: Magnitude pruning of a small fully-connected network (4-6-3 units, 42 weights). On the left every weight is drawn with w](../assets/figures/ml_concept_14.3_b3c32e6a.png)
 
 *Figure 14.3 — original teaching graphic.*

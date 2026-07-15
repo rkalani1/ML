@@ -4196,8 +4196,6 @@ def fig_cost_threshold_utility():
         spec_list.append(tn / n_neg)
     exp_cost = np.array(exp_cost)
     t_star = thresholds[int(np.argmin(exp_cost))]
-    # Bayes-ish threshold for equal class from costs: p* = c_fp/(c_fp+c_fn)=1/6≈0.167
-    # With prevalence adjust: more subtle; still show 0.5 vs cost-aware
 
     fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.0))
     ax = axes[0]
@@ -4228,6 +4226,354 @@ def fig_cost_threshold_utility():
                  color=INK, fontsize=12, fontweight="bold", y=1.02)
     fig.tight_layout()
     save(fig, "ml_fig_cost_threshold.png")
+
+
+def fig_modularity_communities():
+    """Ch15: modularity Q vs number of communities on a planted partition graph."""
+    rng = np.random.default_rng(12)
+    # Build simple SBM-like adjacency: 3 communities of 8 nodes
+    n_c, c = 8, 3
+    n = n_c * c
+    A = np.zeros((n, n))
+    for ci in range(c):
+        nodes = np.arange(ci * n_c, (ci + 1) * n_c)
+        for i in nodes:
+            for j in nodes:
+                if i < j and rng.random() < 0.55:
+                    A[i, j] = A[j, i] = 1
+    # sparse between
+    for i in range(n):
+        for j in range(i + 1, n):
+            if A[i, j] == 0 and (i // n_c) != (j // n_c) and rng.random() < 0.05:
+                A[i, j] = A[j, i] = 1
+    m = A.sum() / 2
+    k = A.sum(axis=1)
+    # Modularity for a partition labels
+    def modularity(labels):
+        Q = 0.0
+        for i in range(n):
+            for j in range(n):
+                if labels[i] == labels[j]:
+                    Q += A[i, j] - (k[i] * k[j]) / (2 * m)
+        return Q / (2 * m)
+
+    # Partitions: all one; random; true 3; oversplit each community in half (k=6)
+    lab1 = np.zeros(n, dtype=int)
+    lab_true = np.repeat(np.arange(c), n_c)
+    lab_rand = rng.integers(0, 3, size=n)
+    lab6 = np.repeat(np.arange(6), n // 6)
+    # k from 1..6 by merging true labels randomly for intermediate
+    Qs = []
+    ks = [1, 2, 3, 4, 5, 6]
+    for kk in ks:
+        if kk == 1:
+            labs = lab1
+        elif kk == 3:
+            labs = lab_true
+        elif kk == 6:
+            labs = lab6
+        elif kk == 2:
+            labs = lab_true.copy()
+            labs[labs == 2] = 1  # merge 2 into 1
+        else:
+            # random assignment into kk communities (noisy)
+            labs = rng.integers(0, kk, size=n)
+        Qs.append(modularity(labs))
+    Qs = np.array(Qs)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.0))
+    ax = axes[0]
+    # spring-ish layout by community blocks
+    pos = {}
+    centers = [(-1.2, 0), (1.2, 0.3), (0, 1.4)]
+    for i in range(n):
+        ci = i // n_c
+        ang = 2 * np.pi * (i % n_c) / n_c
+        pos[i] = centers[ci] + 0.35 * np.array([np.cos(ang), np.sin(ang)])
+    cols = [TEAL, GOLD, DEEP]
+    for i in range(n):
+        for j in range(i + 1, n):
+            if A[i, j]:
+                same = (i // n_c) == (j // n_c)
+                ax.plot([pos[i][0], pos[j][0]], [pos[i][1], pos[j][1]],
+                        color="#cbd5e1" if not same else "#99f6e4", lw=0.7 if not same else 1.0, zorder=1)
+    for i in range(n):
+        ax.scatter(pos[i][0], pos[i][1], c=cols[i // n_c], s=55, zorder=2, edgecolors="white", linewidths=0.5)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    ax.set_aspect("equal")
+    style_ax(ax, "Planted 3-community graph (synthetic)")
+    ax.text(0.5, -0.05, "dense within · sparse between", transform=ax.transAxes,
+            ha="center", fontsize=8, color="#64748b")
+
+    ax = axes[1]
+    ax.plot(ks, Qs, "o-", color=TEAL, lw=2.4, markersize=8)
+    ax.axvline(3, color=GOLD, ls="--", lw=1.5, label="true k=3")
+    ax.set_xlabel("number of communities in partition")
+    ax.set_ylabel("modularity Q")
+    ax.set_xticks(ks)
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, r"$Q$ peaks near true modules (teaching)")
+    ax.text(
+        0.98, 0.08,
+        "Max Q ≠ guaranteed clinical modules\nEdge definition injects artifacts",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Community modularity on a planted partition (original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_modularity_q.png")
+
+
+def fig_magnitude_prune():
+    """Ch14: magnitude pruning — sparsity vs accuracy and FLOPs proxy."""
+    sparsity = np.array([0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9])
+    # Synthetic teaching curves
+    acc_unstruct = 0.86 - 0.02 * sparsity - 0.25 * np.maximum(sparsity - 0.7, 0) ** 2
+    acc_struct = 0.86 - 0.05 * sparsity - 0.4 * np.maximum(sparsity - 0.5, 0) ** 2
+    flops_proxy = 1.0 - 0.85 * sparsity  # unstructured rarely realizes full FLOP cut
+    flops_struct = 1.0 - sparsity
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.0))
+    ax = axes[0]
+    ax.plot(sparsity, acc_unstruct, "o-", color=TEAL, lw=2.3, label="unstructured magnitude")
+    ax.plot(sparsity, acc_struct, "s-", color=GOLD, lw=2.3, label="structured (channels)")
+    ax.axhline(0.80, color="#dc2626", ls="--", lw=1.4, label="clinical floor 0.80")
+    ax.set_xlabel("sparsity (fraction zeros)")
+    ax.set_ylabel("validation accuracy (synthetic)")
+    ax.set_ylim(0.55, 0.92)
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Accuracy vs sparsity")
+    ax.text(0.02, 0.08, "Rewind/fine-tune not shown; lottery ticket optional",
+            transform=ax.transAxes, fontsize=8, color="#64748b")
+
+    ax = axes[1]
+    ax.plot(sparsity, flops_proxy, "o-", color=TEAL, lw=2.3, label="unstructured FLOPs (realized)")
+    ax.plot(sparsity, flops_struct, "s-", color=GOLD, lw=2.3, label="structured FLOPs")
+    ax.set_xlabel("sparsity")
+    ax.set_ylabel("relative compute (1 = dense)")
+    ax.set_ylim(0, 1.05)
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Hardware only loves structured zeros")
+    ax.text(
+        0.98, 0.92,
+        "Sparse masks need sparse kernels.\nMeasure latency on target device.",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Magnitude pruning: accuracy and compute vs sparsity (synthetic; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_magnitude_prune.png")
+
+
+def fig_lr_prevalence():
+    """Ch03: likelihood ratios map pre-test odds → post-test odds across prevalence."""
+    sens, spec = 0.85, 0.70  # match glossary teaching screen
+    lr_pos = sens / (1 - spec)
+    lr_neg = (1 - sens) / spec
+    pi = np.linspace(0.02, 0.80, 80)
+    # odds
+    pre_odds = pi / (1 - pi)
+    post_pos = pre_odds * lr_pos
+    post_neg = pre_odds * lr_neg
+    ppv = post_pos / (1 + post_pos)
+    npv = 1 - post_neg / (1 + post_neg)  # 1 - P(Y=1|neg) = NPV if binary
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.0))
+    ax = axes[0]
+    ax.plot(pi, ppv, color=TEAL, lw=2.5, label="PPV after + test")
+    ax.plot(pi, pi, color="#94a3b8", ls=":", lw=1.5, label="pre-test = prevalence")
+    ax.axvline(0.20, color=GOLD, ls="--", lw=1.4)
+    ax.text(0.21, 0.15, "π=0.20\n(ch. LVO ED)", fontsize=8, color=GOLD)
+    ax.set_xlabel("pre-test prevalence π")
+    ax.set_ylabel("post-test probability")
+    ax.set_ylim(0, 1)
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, rf"LR+ = {lr_pos:.2f}  (sens={sens}, spec={spec})")
+    ax.text(0.98, 0.92, r"post odds = pre odds $\times$ LR+",
+            transform=ax.transAxes, ha="right", va="top", fontsize=9, color="#475569",
+            family="monospace")
+
+    ax = axes[1]
+    ax.plot(pi, 1 - npv, color="#dc2626", lw=2.3, label="P(Y=1 | −) = 1−NPV")
+    ax.plot(pi, pi, color="#94a3b8", ls=":", lw=1.5, label="prevalence")
+    ax.set_xlabel("pre-test prevalence π")
+    ax.set_ylabel("post-test P(disease)")
+    ax.set_ylim(0, 1)
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, rf"LR− = {lr_neg:.2f}  (negative test)")
+    ax.text(
+        0.98, 0.08,
+        "Same sens/spec → different PPV/NPV\nwhen base rate moves. Copying a paper’s\nPPV is a prevalence error.",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Likelihood ratios and prevalence (Bayes; teaching numbers; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_lr_prevalence.png")
+
+
+def fig_batchnorm_train_eval():
+    """Ch10: batch norm — batch stats vs running mean; train/eval mismatch."""
+    rng = np.random.default_rng(6)
+    # Population N(0,1); small batches estimate mean/var noisily
+    pop = rng.normal(0, 1, size=5000)
+    batch_sizes = [2, 4, 8, 16, 32, 64, 128]
+    mean_err = []
+    var_err = []
+    for B in batch_sizes:
+        errs_m, errs_v = [], []
+        for _ in range(200):
+            b = rng.choice(pop, size=B, replace=False)
+            errs_m.append(abs(b.mean() - 0.0))
+            errs_v.append(abs(b.var(ddof=0) - 1.0))
+        mean_err.append(np.mean(errs_m))
+        var_err.append(np.mean(errs_v))
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.0))
+    ax = axes[0]
+    ax.plot(batch_sizes, mean_err, "o-", color=TEAL, lw=2.3, label=r"E[|μ_B − μ|]")
+    ax.plot(batch_sizes, var_err, "s-", color=GOLD, lw=2.3, label=r"E[|σ²_B − σ²|]")
+    ax.set_xscale("log", base=2)
+    ax.set_xticks(batch_sizes)
+    ax.set_xticklabels([str(b) for b in batch_sizes])
+    ax.set_xlabel("batch size B")
+    ax.set_ylabel("mean absolute error of batch moments")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Small batches → noisy BN stats")
+
+    ax = axes[1]
+    # Train uses batch; eval uses running — show schematic distribution shift of normalized z
+    x = np.linspace(-3, 3, 200)
+    # train normalize with batch mean offset
+    z_train = (x - 0.4) / 0.7
+    z_eval = (x - 0.0) / 1.0
+    ax.plot(x, np.exp(-0.5 * z_train ** 2) / np.sqrt(2 * np.pi), color=TEAL, lw=2.3, label="train (batch μ,σ)")
+    ax.plot(x, np.exp(-0.5 * z_eval ** 2) / np.sqrt(2 * np.pi), color=GOLD, lw=2.3, label="eval (running μ,σ)")
+    ax.set_xlabel("pre-BN activation (schematic)")
+    ax.set_ylabel("density after normalize (schematic)")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Train/eval BN path must match serving")
+    ax.text(
+        0.98, 0.92,
+        "Frozen running stats at deploy.\nTiny B or multi-GPU → sync BN or\nGroup/LayerNorm alternatives.",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Batch normalization: batch moments vs running averages (original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_batchnorm.png")
+
+
+def fig_train_serve_skew():
+    """Ch01/ch16: train-serve skew — feature distribution shift at deployment."""
+    rng = np.random.default_rng(8)
+    # Feature: door-to-CT minutes
+    train = rng.normal(25, 8, size=2000)
+    # Serve: pathway change → faster imaging
+    serve = rng.normal(18, 7, size=2000)
+    train = np.clip(train, 1, None)
+    serve = np.clip(serve, 1, None)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.0))
+    ax = axes[0]
+    bins = np.linspace(0, 55, 25)
+    ax.hist(train, bins=bins, density=True, alpha=0.65, color=TEAL, label="train window")
+    ax.hist(serve, bins=bins, density=True, alpha=0.65, color=GOLD, label="serve window")
+    ax.set_xlabel("door-to-CT (min)")
+    ax.set_ylabel("density")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Feature shift after pathway change")
+
+    ax = axes[1]
+    # PSI-like on feature
+    bins2 = np.linspace(0, 55, 11)
+    t_h, _ = np.histogram(train, bins=bins2)
+    s_h, _ = np.histogram(serve, bins=bins2)
+    t_p = t_h / t_h.sum() + 1e-6
+    s_p = s_h / s_h.sum() + 1e-6
+    psi = ((s_p - t_p) * np.log(s_p / t_p)).sum()
+    centers = 0.5 * (bins2[:-1] + bins2[1:])
+    w = (bins2[1] - bins2[0]) * 0.35
+    ax.bar(centers - w / 2, t_p, width=w, color=TEAL, alpha=0.85, label="train")
+    ax.bar(centers + w / 2, s_p, width=w, color=GOLD, alpha=0.85, label="serve")
+    ax.set_xlabel("door-to-CT bin")
+    ax.set_ylabel("proportion")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, f"Feature PSI ≈ {psi:.2f}")
+    ax.text(
+        0.98, 0.92,
+        "Same model weights, different input law.\nMonitor features, not only labels.",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Train–serve skew (synthetic door-to-CT shift; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_train_serve_skew.png")
+
+
+def fig_oversmoothing_gcn():
+    """Ch15/GNN: over-smoothing — node feature variance collapses with depth."""
+    rng = np.random.default_rng(3)
+    n, d = 40, 8
+    # Random graph with communities
+    A = (rng.random((n, n)) < 0.12).astype(float)
+    A = np.triu(A, 1)
+    A = A + A.T
+    np.fill_diagonal(A, 0)
+    # Add self-loops and normalize Â = D^{-1/2}(A+I)D^{-1/2}
+    A_hat = A + np.eye(n)
+    deg = A_hat.sum(axis=1)
+    D_inv_sqrt = np.diag(1.0 / np.sqrt(deg + 1e-12))
+    S = D_inv_sqrt @ A_hat @ D_inv_sqrt
+    X = rng.normal(0, 1, size=(n, d))
+    # Add community signal
+    X[:20] += 1.5
+    X[20:] -= 1.5
+    depths = list(range(0, 16))
+    var_mean = []
+    H = X.copy()
+    for L in depths:
+        if L > 0:
+            H = S @ H  # linear GCN-like diffusion without nonlinearity
+        var_mean.append(H.var(axis=0).mean())
+    var_mean = np.array(var_mean)
+    # pairwise cosine diversity of rows
+    def row_div(H):
+        Hn = H / (np.linalg.norm(H, axis=1, keepdims=True) + 1e-12)
+        C = Hn @ Hn.T
+        return 1 - C[np.triu_indices(n, 1)].mean()
+    divs = []
+    H = X.copy()
+    for L in depths:
+        if L > 0:
+            H = S @ H
+        divs.append(row_div(H))
+    divs = np.array(divs)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.0))
+    ax = axes[0]
+    ax.plot(depths, var_mean, "o-", color=TEAL, lw=2.4, markersize=6)
+    ax.set_xlabel("message-passing depth L")
+    ax.set_ylabel("mean feature variance across nodes")
+    style_ax(ax, "Over-smoothing: features homogenize")
+    ax.text(0.98, 0.92, r"linear $\hat{A}^L X$ diffusion",
+            transform=ax.transAxes, ha="right", va="top", fontsize=9, color="#475569")
+
+    ax = axes[1]
+    ax.plot(depths, divs, "s-", color=GOLD, lw=2.4, markersize=6)
+    ax.set_xlabel("depth L")
+    ax.set_ylabel("mean pairwise diversity (1 − cos)")
+    style_ax(ax, "Node embeddings become indistinguishable")
+    ax.text(
+        0.98, 0.08,
+        "Residual/JK connections, GAT, or\nshallower nets mitigate. More layers\n≠ better on small clinical graphs.",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("GCN over-smoothing with depth (synthetic diffusion; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_oversmoothing.png")
 
 
 # ---------------------------------------------------------------------------
@@ -4353,6 +4699,13 @@ def main():
     fig_rollback_triggers()
     fig_leakage_taxonomy()
     fig_cost_threshold_utility()
+    # Continuous densify cycle-9 (ch15 / ch14 / ch03 / ch10 / ch01 / ch12)
+    fig_modularity_communities()
+    fig_magnitude_prune()
+    fig_lr_prevalence()
+    fig_batchnorm_train_eval()
+    fig_train_serve_skew()
+    fig_oversmoothing_gcn()
     print("DONE figures in", OUT)
     missing_legacy = [n for n in LEGACY_NUMBERED_ASSETS if not (OUT / n).exists()]
     if missing_legacy:

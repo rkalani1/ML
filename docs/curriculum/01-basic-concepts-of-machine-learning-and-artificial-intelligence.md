@@ -130,6 +130,10 @@ Higher capacity and heavier computation often buy accuracy—until they buy over
 
 Practical levers include: feature selection and dimensionality reduction; model compression and distillation; early-exit classifiers; approximate nearest neighbors; limiting context length; and cascades that run a cheap model first and a expensive model only on uncertain cases. Document the operating point you choose: ‘We accept a 1-point drop in AUROC to meet a 50 ms p95 latency budget’ is an engineering decision; pretending no trade-off exists is not.
 
+![Train–serve skew: door-to-CT distribution shift and feature PSI (synthetic; original).](../assets/figures/ml_fig_train_serve_skew.png)
+
+*Figure — Same weights, different input law. **Left:** training-window door-to-CT vs a faster serve window after a pathway change. **Right:** binned proportions and feature PSI quantifying the shift. Monitor features (and scores) in production—not only lagged outcomes. Train–serve skew is a first-class failure mode, not an afterthought.*
+
 Complexity: asymptotic growth of time/memory with n, d, k, iterations.
 
 Runtime: measured latency and throughput on real hardware, including preprocessing.

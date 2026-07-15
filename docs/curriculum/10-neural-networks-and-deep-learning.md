@@ -172,6 +172,10 @@ Initialization sets signal scale at the start of training. Too-large weights exp
 
 Batch normalization normalizes layer inputs across the mini-batch to zero mean and unit variance, then applies learned scale and shift. It stabilizes activation distributions, allows higher learning rates, and acts as mild regularization. At inference, running averages of mean and variance replace batch statistics. Layer normalization normalizes across features for each example—preferred in transformers. Related ideas include GroupNorm, InstanceNorm, and RMSNorm. In multi-site imaging, normalization layers can absorb scanner-specific shifts; this may help or harm transportability depending on whether site identity is entangled with the clinical label.
 
+![BatchNorm: small-batch moment noise and train vs eval paths (original).](../assets/figures/ml_fig_batchnorm.png)
+
+*Figure — BN discipline. **Left:** expected error of batch mean/variance vs population moments shrinks as batch size grows—tiny per-GPU batches make BN stats noisy and site-composition dependent. **Right:** schematic train path (batch μ,σ) vs eval path (running averages); serving must freeze running stats. Prefer GroupNorm/LayerNorm when batches are tiny or multi-site transport matters.*
+
 ### Dropout and early stopping
 
 Dropout randomly zeroes activations during training with probability p, forcing redundant representations; at test time weights are scaled (or inverted dropout scales at train time) so expectations match. Weight decay adds (λ/2)‖θ‖² or multiplies weights by a factor slightly less than one each step. Early stopping monitors validation loss and halts when it stops improving—simple, effective, and mandatory on small clinical cohorts. Learning-rate schedules (step decay, cosine annealing, warmup) reshape η over time. Mixed precision, gradient accumulation, and distributed data parallelism address scale.

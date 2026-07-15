@@ -261,11 +261,19 @@ Spectral clustering. Form Laplacian L (or normalized variant), compute the k eig
 
 Louvain algorithm. Greedy modularity maximization: modularity Q compares within-community edges to a null model with the same degrees. Louvain repeatedly (1) moves individual nodes to neighbor communities to raise Q, then (2) aggregates communities into super-nodes, iterating until Q stalls. It is fast on large networks and widely used, but can find arbitrarily poorly connected communities in some cases and is resolution-limit sensitive (may miss small communities).
 
+![Modularity Q on a planted 3-community graph (synthetic; original).](../assets/figures/ml_fig_modularity_q.png)
+
+*Figure — Community modularity. **Left:** synthetic graph with three dense modules and sparse between edges. **Right:** modularity \(Q\) for partitions with \(k=1\ldots6\) communities peaks near the true \(k=3\). Max \(Q\) is not a warranty of clinically meaningful modules—billing co-occurrence edges inject administrative artifacts.*
+
 Leiden algorithm. Improves Louvain by adding a refinement phase that splits weakly connected communities, guaranteeing well-connected communities under common settings. Leiden is generally preferred over Louvain for modern practice when available. Always validate communities qualitatively: modularity optima need not equal clinically meaningful modules, and edge definitions (who co-occurs with whom in billing) inject administrative artifacts.
 
 ## 15.9 Graph Neural Networks: Challenges, Message Passing, Pooling, Spectral vs Spatial
 
 Graph neural networks (GNNs) learn representations for nodes, edges, or whole graphs by propagating information along structure. Challenges of graphs for neural nets include: variable size and isomorphism (no canonical node order); heterogeneity of node/edge types; scalability to millions of edges; over-smoothing (node features become indistinguishable after many layers); over-squashing (long-range signals bottlenecked through narrow cuts); and distribution shift when deployment graphs differ from training graphs.
+
+![GCN over-smoothing: feature variance and diversity collapse with depth (synthetic; original).](../assets/figures/ml_fig_oversmoothing.png)
+
+*Figure — Over-smoothing as diffusion. Repeated linear message passing \(\hat{A}^L X\) drives node features toward a common signal: mean feature variance falls with depth and pairwise embedding diversity (1 − cosine) collapses. Residual/JK connections, attention (GAT), or simply shallower nets mitigate. More layers ≠ better on small clinical graphs.*
 
 ![15.6: One layer of graph neural-network message passing for a center node v. Each neighbor u ∈ N(v) sends a message m = MSG(h_](../assets/figures/ml_concept_15.6_5905fdcb.png)
 
