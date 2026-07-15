@@ -886,3 +886,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c250 teaching panel 01 (original).](../assets/figures/ml_fig_c250_01.png)
 *Figure — SBOM provenance path. Synthetic teaching geometry—not a causal claim.*
+
+![c251 teaching panel 01 (original).](../assets/figures/ml_fig_c251_01.png)
+*Figure — RDP order optimize curve. Synthetic teaching geometry—not a causal claim.*
