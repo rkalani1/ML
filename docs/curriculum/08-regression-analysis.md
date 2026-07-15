@@ -138,6 +138,10 @@ K-fold cross-validation partitions training data into K folds, repeatedly fittin
 
 Receiver Operating Characteristic (ROC) curves plot true positive rate versus false positive rate as the classification threshold on predicted probability sweeps. AUC summarizes ranking quality. ROC ignores calibration: two models with identical AUC can have very different probability reliability. For clinical decisions, report calibration plots, the Brier score (the mean squared error between predicted probabilities and 0/1 outcomes, a joint measure of calibration and discrimination), and threshold-specific net benefit (from decision-curve analysis, which weighs true positives against false positives at a clinically chosen threshold) alongside AUC. Precision–recall curves are more informative under rare events (sICH).
 
+![Brier score Murphy decomposition: reliability, resolution, uncertainty (synthetic; original).](../assets/figures/ml_fig_brier_decomp.png)
+
+*Figure — Brier components. Murphy’s decomposition writes BS = REL − RES + UNC. **Left:** an overconfident model inflates reliability (miscalibration penalty); a near-constant predictor is “calibrated” to prevalence but has almost no resolution—low Brier for the wrong reason. **Right:** reliability diagrams for the same labels. Always pair Brier with a reliability plot and a discrimination metric; Brier is not a causal effect and is prevalence-dependent via UNC = π(1−π).*
+
 ![8.3: Discrimination is not calibration. (a) An ROC curve traced by sweeping the probability threshold, with the shaded area u](../assets/figures/ml_concept_8.3_6c89e5db.png)
 
 *Figure 8.3 — original teaching graphic.*
@@ -244,6 +248,10 @@ Heteroscedasticity—error variance growing with fitted volume or LOS—is commo
 Generalized linear models unify many regression-like structures: a linear predictor η = xᵀ β, a link function relating η to the mean of y, and an exponential-family noise model. Linear regression uses identity link and Gaussian noise. Logistic regression uses logit link and Bernoulli noise. Poisson and negative binomial models suit counts (readmissions, seizure counts). Once you understand loss, linear predictors, regularization, and validation from this chapter, other GLMs are variations on likelihood and link—not an entirely new philosophy.
 
 Survival and Cox models link to the same culture for time-to-event neurologic outcomes with censoring: a linear predictor sits inside a hazard h(t|x) = h₀(t) exp(xᵀ β). Partial likelihood yields log hazard ratios. Naive OLS on observed times that ignore censoring is biased. Modern ML extends Cox with neural hazards and random survival forests; the epidemiologic censoring discipline remains.
+
+![Survival C-index: pairwise concordance under censoring (synthetic; original).](../assets/figures/ml_fig_cindex_pairs.png)
+
+*Figure — C-index intuition. **Left:** higher predicted risk should co-occur with shorter observed times; censored points (squares) limit which pairs are comparable. **Right:** Harrell’s C counts concordant vs discordant comparable pairs (event *i* before *j*’s follow-up). C ranks risk, does not calibrate absolute survival probabilities, and is not a treatment-effect estimate—report number of events and censoring pattern with any C.*
 
 ## Regularization Paths and Choosing λ
 

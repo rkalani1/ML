@@ -88,6 +88,10 @@ Bare attention is permutation-equivariant: without position information, bag-of-
 
 *Figure 12.3 — original teaching graphic.*
 
+![Sinusoidal positional encoding heatmap and per-dimension waves (teaching recompute; original).](../assets/figures/ml_fig_pos_encoding.png)
+
+*Figure — PE as a matrix. **Left:** PE[pos, *i*] for *d*=32, length 64—slow oscillations on low *i*, fast on high *i* (ωᵢ = 10000^(−2*i*/*d*)). **Right:** selected dimensions stacked; even *i* use sin, odd use cos. Without PE, self-attention is bag-of-tokens; RoPE/ALiBi are modern relatives for long EHR contexts. Positional geometry is not a clinical causal graph.*
+
 ### Multi-head attention and architecture
 
 Multi-head attention runs h parallel attention heads with different learned projections, concatenates outputs, and projects again—allowing heads to specialize (syntax vs rare tokens, local vs long range). The original encoder stack applies multi-head self-attention and feedforward sublayers repeatedly. The decoder stack adds masked multi-head self-attention (causal mask so position t cannot attend to future tokens) and cross-attention over encoder outputs, then feedforward blocks. Encoder-only models (BERT-style) use bidirectional self-attention for understanding; decoder-only models (GPT-style) use causal masks for autoregressive generation; encoder–decoder models (T5-style) use both for conditional generation.

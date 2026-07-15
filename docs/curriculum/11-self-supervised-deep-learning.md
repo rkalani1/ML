@@ -224,6 +224,10 @@ Latent geometry matters when you interpolate or cluster codes. VAEs encourage co
 
 Evaluation discipline for generative and SSL models: (1) reconstruction or FID/IS only as intermediate diagnostics; (2) downstream supervised metrics with fixed labeled splits; (3) human preference for perceptual tasks; (4) membership-inference and memorization checks when training on sensitive hospital data; (5) slice-level and patient-level leakage audits. Self-supervised checkpoints should be frozen when comparing linear probes so that differences reflect representation quality rather than unequal fine-tuning.
 
+![SSL linear-probe hygiene: frozen encoder vs leaky fine-tune and test tuning (synthetic; original).](../assets/figures/ml_fig_ssl_probe_hygiene.png)
+
+*Figure — Probe hygiene. **Left:** synthetic downstream AUROC under five protocols; red bars inflate scores by unfreezing the encoder or selecting on the test split, so the gain is not “better SSL.” **Right:** frozen-encoder linear probe vs full fine-tune are different experiments—compare prettexts only under a shared freeze, labeled split, and head budget; report fine-tune results in a separate table. Pretext loss and probe AUROC are not causal maps of clinical mechanism.*
+
 Pretext task catalog for unlabeled neuroimaging: rotation prediction, jigsaw puzzles, relative patch location, masked image modeling (MAE-style), contrastive multi-window CT views, and longitudinal order verification (admission vs follow-up). Not every pretext transfers: predicting MRI series type may yield embeddings that ignore subtle infarcts. Pilot multiple pretexts with the same linear probe protocol—an example of experimental hygiene that prevents narrative-driven architecture choice.
 
 ![Masked autoencoding: mask ratio vs reconstruction and linear-probe transfer (synthetic; original).](../assets/figures/ml_fig_mae_mask_ratio.png)

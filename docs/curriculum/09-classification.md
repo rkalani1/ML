@@ -242,7 +242,11 @@ Consider a binary test set of 200 cases with TP = 40, FP = 10, FN = 20, TN = 130
 
 *Figure 9.5 — original teaching graphic.*
 
-ROC curves plot true positive rate versus false positive rate as the threshold varies. AUC-ROC summarizes ranking quality: probability that a random positive scores higher than a random negative. ROC can look optimistic under severe imbalance. Precision–recall (PR) curves plot precision versus recall and are often more informative when positives are rare; average precision summarizes the PR curve. Calibration asks whether predicted probabilities match empirical frequencies (among cases scored 0.7, about 70% should be positive). Reliability diagrams and expected calibration error (ECE) diagnose miscalibration; Platt scaling or isotonic regression can recalibrate on validation data without changing ranking much.
+ROC curves plot true positive rate versus false positive rate as the threshold varies. AUC-ROC summarizes ranking quality: probability that a random positive scores higher than a random negative. ROC can look optimistic under severe imbalance. Precision–recall (PR) curves plot precision versus recall and are often more informative when positives are rare; average precision summarizes the PR curve. Calibration asks whether predicted probabilities match empirical frequencies (among cases scored 0.7, about 70% should be positive). Reliability diagrams and expected calibration error (ECE) diagnose miscalibration; Platt scaling or isotonic regression can recalibrate on validation data without changing ranking much. The Brier score BS = mean((p − y)²) jointly penalizes miscalibration and weak discrimination; Murphy’s decomposition BS = REL − RES + UNC separates reliability, resolution, and base-rate uncertainty (see also Chapter 8).
+
+![Brier score components (reliability / resolution / uncertainty) for calibrated vs overconfident models (original).](../assets/figures/ml_fig_brier_decomp.png)
+
+*Figure — Brier beyond a single number. Overconfidence inflates REL; a near-constant score near prevalence can look “calibrated” with tiny RES. Pair Brier with reliability diagrams and PR/ROC; do not treat a low Brier alone as clinical utility or causation.*
 
 ![Precision–recall and ROC for the same synthetic imbalanced cohort (prevalence ≈ 10%; original).](../assets/figures/ml_fig_precision_recall.png)
 

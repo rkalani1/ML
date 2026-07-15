@@ -4576,6 +4576,542 @@ def fig_oversmoothing_gcn():
     save(fig, "ml_fig_oversmoothing.png")
 
 
+def fig_ssl_probe_hygiene():
+    """Ch11: linear-probe hygiene — frozen encoder vs leaky fine-tune/probe protocol."""
+    rng = np.random.default_rng(21)
+    # Synthetic teaching: methods A..E with increasing protocol violations
+    methods = [
+        "Linear probe\n(frozen)",
+        "k-NN probe\n(frozen)",
+        "Probe + light\nhead FT",
+        "Full FT\n(leaky)",
+        "Tune on\ntest split",
+    ]
+    # True representation quality ≈ 0.78; protocol inflation grows
+    true_rep = 0.78
+    auroc = np.array([0.78, 0.76, 0.81, 0.89, 0.94])
+    # Variance across seeds (honest protocols more stable)
+    se = np.array([0.015, 0.018, 0.025, 0.04, 0.05])
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.1))
+    ax = axes[0]
+    x = np.arange(len(methods))
+    colors = [TEAL, TEAL, GOLD, "#dc2626", "#991b1b"]
+    ax.bar(x, auroc, color=colors, alpha=0.9, edgecolor="white", width=0.7)
+    ax.errorbar(x, auroc, yerr=1.96 * se, fmt="none", ecolor=INK, capsize=3, lw=1.2)
+    ax.axhline(true_rep, color=DEEP, ls="--", lw=1.6, label=f"frozen-probe truth ≈ {true_rep}")
+    ax.set_xticks(x)
+    ax.set_xticklabels(methods, fontsize=8)
+    ax.set_ylabel("downstream AUROC (synthetic)")
+    ax.set_ylim(0.65, 1.0)
+    ax.legend(frameon=False, fontsize=8, loc="upper left")
+    style_ax(ax, "Protocol inflation looks like better SSL")
+    ax.text(
+        0.98, 0.08,
+        "Red bars mix representation\nquality with fine-tune budget\nand test leakage.",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+
+    ax = axes[1]
+    # Two-panel schematic: frozen vs unfrozen during "probe"
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 6)
+    ax.axis("off")
+    # Frozen path
+    ax.add_patch(FancyBboxPatch((0.3, 3.5), 2.4, 1.6, boxstyle="round,pad=0.04,rounding_size=0.15",
+                                facecolor=TEAL, edgecolor="none"))
+    ax.text(1.5, 4.3, "Encoder\nFROZEN", ha="center", va="center", color="white",
+            fontsize=9, fontweight="bold")
+    ax.add_patch(FancyBboxPatch((3.5, 3.5), 2.4, 1.6, boxstyle="round,pad=0.04,rounding_size=0.15",
+                                facecolor=GOLD, edgecolor="none"))
+    ax.text(4.7, 4.3, "Linear\nprobe only", ha="center", va="center", color=INK,
+            fontsize=9, fontweight="bold")
+    ax.annotate("", xy=(3.4, 4.3), xytext=(2.8, 4.3),
+                arrowprops=dict(arrowstyle="->", color=INK, lw=1.8))
+    ax.text(4.7, 3.15, "compares embeddings", ha="center", fontsize=8, color="#64748b")
+
+    # Leaky path
+    ax.add_patch(FancyBboxPatch((0.3, 0.6), 2.4, 1.6, boxstyle="round,pad=0.04,rounding_size=0.15",
+                                facecolor="#f87171", edgecolor="none"))
+    ax.text(1.5, 1.4, "Encoder\nUNFROZEN", ha="center", va="center", color="white",
+            fontsize=9, fontweight="bold")
+    ax.add_patch(FancyBboxPatch((3.5, 0.6), 2.4, 1.6, boxstyle="round,pad=0.04,rounding_size=0.15",
+                                facecolor="#fecaca", edgecolor="#dc2626", linewidth=1.5))
+    ax.text(4.7, 1.4, "Full model\n+ labels", ha="center", va="center", color=INK,
+            fontsize=9, fontweight="bold")
+    ax.annotate("", xy=(3.4, 1.4), xytext=(2.8, 1.4),
+                arrowprops=dict(arrowstyle="->", color="#dc2626", lw=1.8))
+    ax.text(4.7, 0.25, "confounds pretrain quality", ha="center", fontsize=8, color="#dc2626")
+
+    ax.add_patch(FancyBboxPatch((6.6, 1.5), 3.0, 3.0, boxstyle="round,pad=0.04,rounding_size=0.15",
+                                facecolor=SOFT, edgecolor=TEAL, linewidth=1.5))
+    ax.text(8.1, 3.9, "Hygiene rules", ha="center", fontsize=10, fontweight="bold", color=DEEP)
+    rules = [
+        "1. Freeze encoder for probes",
+        "2. Fixed labeled splits",
+        "3. Same head / budget",
+        "4. No test for selection",
+        "5. Report FT separately",
+    ]
+    for i, r in enumerate(rules):
+        ax.text(6.85, 3.35 - 0.4 * i, r, fontsize=8, color=INK, va="center")
+    style_ax(ax, "Probe vs fine-tune (not interchangeable)")
+    ax.set_title("Probe vs fine-tune (not interchangeable)", fontsize=13,
+                 fontweight="bold", color=INK, pad=10)
+
+    fig.suptitle("SSL linear-probe hygiene (synthetic; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_ssl_probe_hygiene.png")
+
+
+def fig_brier_components():
+    """Ch08/09: Brier score decomposition — reliability, resolution, uncertainty."""
+    rng = np.random.default_rng(7)
+    # Three synthetic models on same prevalence π
+    pi = 0.20
+    n = 2000
+    y = rng.binomial(1, pi, size=n)
+
+    def brier(p, y):
+        return float(np.mean((p - y) ** 2))
+
+    def decomp(p, y, n_bins=10):
+        # Murphy decomposition: BS = REL - RES + UNC
+        # UNC = π(1-π); REL = E[(p_bin - o_bin)^2]; RES = E[(o_bin - π)^2]
+        edges = np.linspace(0, 1, n_bins + 1)
+        # soft bin by predicted p
+        bins = np.clip(np.digitize(p, edges) - 1, 0, n_bins - 1)
+        rel = res = 0.0
+        pi_hat = y.mean()
+        unc = pi_hat * (1 - pi_hat)
+        for b in range(n_bins):
+            m = bins == b
+            if not np.any(m):
+                continue
+            w = m.mean()
+            p_bar = p[m].mean()
+            o_bar = y[m].mean()
+            rel += w * (p_bar - o_bar) ** 2
+            res += w * (o_bar - pi_hat) ** 2
+        return rel, res, unc, rel - res + unc
+
+    # Model A: well calibrated, moderate discrimination
+    logit = 1.2 * (y + rng.normal(0, 0.9, size=n) - 0.5)
+    p_good = 1 / (1 + np.exp(-logit))
+    # Platt-ish rescale toward base rate for nicer cal
+    p_good = 0.7 * p_good + 0.3 * pi
+    p_good = np.clip(p_good, 0.02, 0.98)
+
+    # Model B: same ranking-ish but overconfident
+    p_over = np.clip((p_good - 0.5) * 1.8 + 0.5, 0.01, 0.99)
+
+    # Model C: under-dispersed (always near prevalence) — low RES
+    p_flat = np.clip(pi + rng.normal(0, 0.04, size=n), 0.05, 0.4)
+
+    models = [
+        ("Calibrated", p_good, TEAL),
+        ("Overconfident", p_over, GOLD),
+        ("Near-constant", p_flat, "#64748b"),
+    ]
+    names, rels, ress, uncs, bss = [], [], [], [], []
+    for name, p, _ in models:
+        rel, res, unc, bs = decomp(p, y)
+        names.append(name)
+        rels.append(rel)
+        ress.append(res)
+        uncs.append(unc)
+        bss.append(bs)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.1))
+    ax = axes[0]
+    x = np.arange(len(names))
+    w = 0.22
+    ax.bar(x - w, rels, w, label="reliability (↓ better)", color="#dc2626", alpha=0.85)
+    ax.bar(x, ress, w, label="resolution (↑ better)", color=TEAL, alpha=0.9)
+    ax.bar(x + w, uncs, w, label="uncertainty (base rate)", color="#94a3b8", alpha=0.9)
+    ax.set_xticks(x)
+    ax.set_xticklabels(names)
+    ax.set_ylabel("Brier component")
+    ax.legend(frameon=False, fontsize=7.5, loc="upper right")
+    style_ax(ax, r"Murphy: BS = REL − RES + UNC")
+    ax.text(
+        0.02, 0.92,
+        f"UNC = π(1−π) ≈ {uncs[0]:.3f}\n(same cohort for all)",
+        transform=ax.transAxes, fontsize=8, color="#64748b", va="top",
+    )
+
+    ax = axes[1]
+    # Reliability diagram for calibrated vs overconfident
+    def rel_curve(p, y, n_bins=8):
+        edges = np.linspace(0, 1, n_bins + 1)
+        centers, obs, conf = [], [], []
+        for i in range(n_bins):
+            m = (p >= edges[i]) & (p < edges[i + 1] if i < n_bins - 1 else p <= edges[i + 1])
+            if m.sum() < 15:
+                continue
+            centers.append(p[m].mean())
+            obs.append(y[m].mean())
+            conf.append(p[m].mean())
+        return np.array(centers), np.array(obs)
+
+    for name, p, c in models[:2]:
+        cx, ox = rel_curve(p, y)
+        ax.plot(cx, ox, "o-", color=c, lw=2.2, markersize=6, label=f"{name} (BS={brier(p, y):.3f})")
+    ax.plot([0, 1], [0, 1], ":", color="#94a3b8", lw=1.5)
+    ax.set_xlabel("mean predicted probability in bin")
+    ax.set_ylabel("observed event rate")
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Reliability diagram (same y)")
+    ax.text(
+        0.98, 0.08,
+        "Low BS needs both good REL\nand high RES. Constant π is\ncalibrated but useless.",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Brier score components: reliability, resolution, uncertainty (original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_brier_decomp.png")
+
+
+def fig_cindex_pairs():
+    """Ch08: survival C-index intuition — pairwise concordance with censoring."""
+    rng = np.random.default_rng(11)
+    # Synthetic patients: risk score r, true time T, censor indicator
+    n = 40
+    risk = rng.normal(0, 1, size=n)
+    # Higher risk → shorter time
+    T = np.exp(1.2 - 0.7 * risk + rng.normal(0, 0.35, size=n))
+    C = rng.uniform(0.5, T.max() * 0.9, size=n)
+    observed = np.minimum(T, C)
+    event = T <= C  # 1 if failure observed
+
+    # All comparable pairs: i event and T_i < observed_j (standard Harrell-style comparable)
+    conc = disc = tied = 0
+    pair_xy = []  # for scatter of comparable pairs
+    for i in range(n):
+        if not event[i]:
+            continue
+        for j in range(n):
+            if i == j:
+                continue
+            if observed[i] < observed[j]:
+                # comparable: i failed before j's follow-up
+                if risk[i] > risk[j]:
+                    conc += 1
+                    pair_xy.append((risk[i] - risk[j], 1))
+                elif risk[i] < risk[j]:
+                    disc += 1
+                    pair_xy.append((risk[i] - risk[j], -1))
+                else:
+                    tied += 1
+    total = conc + disc + tied
+    c_index = (conc + 0.5 * tied) / total if total else 0.5
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.1))
+    ax = axes[0]
+    # Time vs risk: events vs censored
+    ax.scatter(risk[event], observed[event], c=TEAL, s=40, alpha=0.85, label="event", zorder=3)
+    ax.scatter(risk[~event], observed[~event], c=GOLD, s=40, alpha=0.85, marker="s", label="censored", zorder=3)
+    # Show a few censor marks as upward ticks
+    for ri, oi in zip(risk[~event][:8], observed[~event][:8]):
+        ax.plot([ri, ri], [oi, oi + 0.15], color=GOLD, lw=1.2)
+    ax.set_xlabel("predicted risk score (higher = worse)")
+    ax.set_ylabel("observed time (synthetic)")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Risk should rank shorter times higher")
+    ax.text(
+        0.98, 0.92,
+        "Censoring hides some pairs:\nonly comparable pairs enter C.",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+
+    ax = axes[1]
+    # Stacked bar of pair outcomes
+    cats = ["concordant", "discordant", "tied risk"]
+    vals = [conc, disc, tied]
+    cols = [TEAL, "#dc2626", "#94a3b8"]
+    ax.bar(cats, vals, color=cols, edgecolor="white", width=0.65)
+    for i, v in enumerate(vals):
+        ax.text(i, v + max(vals) * 0.02, str(v), ha="center", fontsize=10, fontweight="bold", color=INK)
+    ax.set_ylabel("number of comparable pairs")
+    style_ax(ax, rf"Harrell C ≈ {c_index:.2f}  (n={n} toy)")
+    ax.text(
+        0.5, 0.92,
+        r"$C = \frac{\#\mathrm{conc} + 0.5\cdot\#\mathrm{ties}}{\#\mathrm{comparable}}$",
+        transform=ax.transAxes, ha="center", va="top", fontsize=11, color=DEEP,
+    )
+    ax.text(
+        0.98, 0.08,
+        "Not a calibration metric.\nNot causal treatment effect.\nNeeds enough uncensored pairs.",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Survival C-index: pairwise concordance under censoring (original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_cindex_pairs.png")
+
+
+def fig_positional_encoding_heatmap():
+    """Ch12: sinusoidal positional encoding PE[pos, dim] heatmap + one dimension."""
+    d_model = 32
+    max_len = 64
+    pe = np.zeros((max_len, d_model))
+    pos = np.arange(max_len)[:, None]
+    i = np.arange(0, d_model, 2)[None, :]
+    div = 10000 ** (i / d_model)
+    pe[:, 0::2] = np.sin(pos / div)
+    pe[:, 1::2] = np.cos(pos / div)
+
+    from matplotlib.colors import LinearSegmentedColormap
+    cmap = LinearSegmentedColormap.from_list("teal_pe", ["#ecfeff", TEAL, DEEP, INK])
+    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.1))
+    ax = axes[0]
+    im = ax.imshow(pe.T, aspect="auto", cmap=cmap, origin="lower",
+                   extent=[-0.5, max_len - 0.5, -0.5, d_model - 0.5], vmin=-1, vmax=1)
+    ax.set_xlabel("position pos")
+    ax.set_ylabel("dimension i")
+    fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04, label="PE value")
+    style_ax(ax, r"Sinusoidal PE[pos, i]")
+    ax.text(
+        0.02, 0.95,
+        r"even $i$: $\sin$, odd: $\cos$" + "\n" + r"$\omega_i = 10000^{-2i/d}$",
+        transform=ax.transAxes, fontsize=8, color="white", va="top",
+        bbox=dict(boxstyle="round,pad=0.25", facecolor=DEEP, alpha=0.75, edgecolor="none"),
+    )
+
+    ax = axes[1]
+    dims_show = [0, 1, 4, 5, 14, 15]
+    for di, d in enumerate(dims_show):
+        ax.plot(np.arange(max_len), pe[:, d] + 0.15 * di, color=TEAL if d % 2 == 0 else GOLD,
+                lw=1.8, label=f"i={d}")
+    ax.set_xlabel("position pos")
+    ax.set_ylabel("PE offset (stacked for display)")
+    ax.set_yticks([])
+    ax.legend(frameon=False, fontsize=7.5, ncol=2, loc="upper right")
+    style_ax(ax, "Low-i: slow waves · high-i: fast")
+    ax.text(
+        0.02, 0.08,
+        "Attention is permutation-equivariant\nwithout PE. RoPE/ALiBi are relatives\nfor long clinical notes.",
+        transform=ax.transAxes, fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Transformer positional encoding (sinusoidal teaching sketch; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_pos_encoding.png")
+
+
+def fig_fairness_tradeoff():
+    """Ch16: fairness–accuracy tradeoff under group base-rate differences."""
+    rng = np.random.default_rng(4)
+    # Two groups with different prevalence; same underlying score skill but shift
+    n0, n1 = 800, 400
+    pi0, pi1 = 0.25, 0.10  # base rates differ
+    # Latent ability
+    y0 = rng.binomial(1, pi0, size=n0)
+    y1 = rng.binomial(1, pi1, size=n1)
+    s0 = 0.9 * y0 + 0.35 * rng.normal(size=n0)
+    s1 = 0.9 * y1 + 0.35 * rng.normal(size=n1) - 0.15  # slight measurement shift
+
+    def metrics(s, y, t):
+        pred = s >= t
+        tp = ((pred) & (y == 1)).sum()
+        fn = ((~pred) & (y == 1)).sum()
+        fp = ((pred) & (y == 0)).sum()
+        tn = ((~pred) & (y == 0)).sum()
+        tpr = tp / (tp + fn + 1e-9)
+        fpr = fp / (fp + tn + 1e-9)
+        acc = (tp + tn) / (tp + tn + fp + fn)
+        return tpr, fpr, acc
+
+    thresholds = np.linspace(s0.min(), s0.max(), 60)
+    # Shared threshold policy
+    gap_tpr, acc_shared = [], []
+    for t in thresholds:
+        tpr0, fpr0, _ = metrics(s0, y0, t)
+        tpr1, fpr1, _ = metrics(s1, y1, t)
+        # overall accuracy
+        pred0 = s0 >= t
+        pred1 = s1 >= t
+        acc = (np.sum(pred0 == y0) + np.sum(pred1 == y1)) / (n0 + n1)
+        gap_tpr.append(abs(tpr0 - tpr1))
+        acc_shared.append(acc)
+    gap_tpr = np.array(gap_tpr)
+    acc_shared = np.array(acc_shared)
+
+    # Equalized-odds style: pick per-group thresholds to match TPR≈0.80 and plot residual FPR gap vs overall acc
+    target_tprs = np.linspace(0.5, 0.95, 25)
+    fpr_gaps, accs_eo, tpr_levels = [], [], []
+    for tgt in target_tprs:
+        # find t per group for TPR closest to tgt
+        def t_for_tpr(s, y, tgt):
+            best_t, best = thresholds[0], 1e9
+            for t in thresholds:
+                tpr, _, _ = metrics(s, y, t)
+                if abs(tpr - tgt) < best:
+                    best, best_t = abs(tpr - tgt), t
+            return best_t
+        t0 = t_for_tpr(s0, y0, tgt)
+        t1 = t_for_tpr(s1, y1, tgt)
+        _, fpr0, _ = metrics(s0, y0, t0)
+        _, fpr1, _ = metrics(s1, y1, t1)
+        pred0 = s0 >= t0
+        pred1 = s1 >= t1
+        acc = (np.sum(pred0 == y0) + np.sum(pred1 == y1)) / (n0 + n1)
+        fpr_gaps.append(abs(fpr0 - fpr1))
+        accs_eo.append(acc)
+        tpr_levels.append(tgt)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.1))
+    ax = axes[0]
+    ax.plot(acc_shared, gap_tpr, "o-", color=TEAL, lw=2.0, markersize=3.5, label="shared threshold path")
+    # Mark max-acc shared
+    i_best = int(np.argmax(acc_shared))
+    ax.scatter([acc_shared[i_best]], [gap_tpr[i_best]], s=90, c=GOLD, zorder=4, label="max-acc shared t")
+    ax.set_xlabel("overall accuracy")
+    ax.set_ylabel("|TPR₀ − TPR₁| (equal opportunity gap)")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Shared cut: accuracy vs TPR gap")
+    ax.text(
+        0.98, 0.92,
+        f"Base rates π₀={pi0}, π₁={pi1}\nIdentical skill ≠ equal rates",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+
+    ax = axes[1]
+    ax.plot(accs_eo, fpr_gaps, "s-", color=GOLD, lw=2.0, markersize=5, label="group-specific t (match TPR)")
+    ax.set_xlabel("overall accuracy")
+    ax.set_ylabel("|FPR₀ − FPR₁| after matching TPR")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Equal opportunity can leave FPR gap")
+    ax.text(
+        0.98, 0.08,
+        "No single threshold erases all\nparity gaps when base rates\ndiffer. Document who is harmed.",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Fairness–accuracy tradeoff under unequal prevalence (synthetic; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_fairness_tradeoff.png")
+
+
+def fig_adjusted_rand_stability():
+    """Ch04: Adjusted Rand Index vs k and bootstrap stability of partitions."""
+    rng = np.random.default_rng(9)
+    # Three true blobs
+    n_per, k_true = 60, 3
+    centers = np.array([[0, 0], [3.2, 0.2], [1.4, 2.8]])
+    X = []
+    y_true = []
+    for j, c in enumerate(centers):
+        X.append(c + rng.normal(0, 0.55, size=(n_per, 2)))
+        y_true.append(np.full(n_per, j))
+    X = np.vstack(X)
+    y_true = np.concatenate(y_true)
+
+    def kmeans(X, k, n_init=8, max_iter=40):
+        best_inertia, best_lab = np.inf, None
+        for _ in range(n_init):
+            cents = X[rng.choice(len(X), size=k, replace=False)].copy()
+            for _ in range(max_iter):
+                d = ((X[:, None, :] - cents[None, :, :]) ** 2).sum(axis=2)
+                lab = d.argmin(axis=1)
+                new = np.array([
+                    X[lab == j].mean(axis=0) if np.any(lab == j) else cents[j]
+                    for j in range(k)
+                ])
+                if np.allclose(new, cents):
+                    break
+                cents = new
+            inertia = ((X - cents[lab]) ** 2).sum()
+            if inertia < best_inertia:
+                best_inertia, best_lab = inertia, lab.copy()
+        return best_lab
+
+    def ari(a, b):
+        # Adjusted Rand Index
+        a = np.asarray(a)
+        b = np.asarray(b)
+        n = len(a)
+        # contingency
+        ka, kb = a.max() + 1, b.max() + 1
+        # remap labels to 0..
+        _, a = np.unique(a, return_inverse=True)
+        _, b = np.unique(b, return_inverse=True)
+        ka, kb = a.max() + 1, b.max() + 1
+        cont = np.zeros((ka, kb), dtype=int)
+        for i in range(n):
+            cont[a[i], b[i]] += 1
+        sum_comb_c = 0.0
+        for i in range(ka):
+            for j in range(kb):
+                nij = cont[i, j]
+                sum_comb_c += nij * (nij - 1) / 2
+        sum_comb_a = sum(ni * (ni - 1) / 2 for ni in cont.sum(axis=1))
+        sum_comb_b = sum(nj * (nj - 1) / 2 for nj in cont.sum(axis=0))
+        comb_n = n * (n - 1) / 2
+        expected = sum_comb_a * sum_comb_b / comb_n if comb_n else 0
+        max_index = 0.5 * (sum_comb_a + sum_comb_b)
+        return (sum_comb_c - expected) / (max_index - expected + 1e-12)
+
+    ks = list(range(2, 8))
+    ari_true = []
+    ari_boot_mean = []
+    ari_boot_lo = []
+    ari_boot_hi = []
+    for k in ks:
+        lab = kmeans(X, k)
+        ari_true.append(ari(y_true, lab))
+        # bootstrap stability: ARI between full-data labeling and bootstrap refits
+        boots = []
+        for _ in range(25):
+            idx = rng.integers(0, len(X), size=len(X))
+            lab_b = kmeans(X[idx], k)
+            # map bootstrap labels back is hard; instead ARI on bootstrap subset
+            boots.append(ari(lab[idx], lab_b))
+        boots = np.array(boots)
+        ari_boot_mean.append(boots.mean())
+        ari_boot_lo.append(np.percentile(boots, 10))
+        ari_boot_hi.append(np.percentile(boots, 90))
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.1))
+    ax = axes[0]
+    cols = [TEAL, GOLD, DEEP]
+    for j in range(k_true):
+        m = y_true == j
+        ax.scatter(X[m, 0], X[m, 1], s=18, c=cols[j], alpha=0.8, edgecolors="none")
+    ax.set_xlabel("feature 1")
+    ax.set_ylabel("feature 2")
+    ax.set_xticks([])
+    ax.set_yticks([])
+    style_ax(ax, f"Planted k={k_true} blobs (audit labels)")
+    ax.text(0.5, -0.08, "ARI needs a reference ontology — not pure discovery",
+            transform=ax.transAxes, ha="center", fontsize=8, color="#64748b")
+
+    ax = axes[1]
+    ax.plot(ks, ari_true, "o-", color=TEAL, lw=2.4, markersize=7, label="ARI vs planted labels")
+    ax.fill_between(ks, ari_boot_lo, ari_boot_hi, color=GOLD, alpha=0.25, label="bootstrap ARI 10–90%")
+    ax.plot(ks, ari_boot_mean, "s--", color=GOLD, lw=1.8, markersize=6, label="mean bootstrap ARI")
+    ax.axvline(k_true, color=DEEP, ls=":", lw=1.5, label="true k")
+    ax.set_xlabel("k-means k")
+    ax.set_ylabel("Adjusted Rand Index")
+    ax.set_ylim(-0.05, 1.05)
+    ax.set_xticks(ks)
+    ax.legend(frameon=False, fontsize=7.5, loc="lower left")
+    style_ax(ax, "Recovery & stability peak near true k")
+    ax.text(
+        0.98, 0.92,
+        "High ARI ≠ clinical phenotype.\nStability ≠ treatment effect.",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Clustering: Adjusted Rand and bootstrap stability (synthetic; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_adjusted_rand.png")
+
+
 # ---------------------------------------------------------------------------
 # Legacy numbered PNGs (00_*.png … 17_*.png)
 # These files already exist under docs/assets/figures/ and are linked from
@@ -4706,6 +5242,13 @@ def main():
     fig_batchnorm_train_eval()
     fig_train_serve_skew()
     fig_oversmoothing_gcn()
+    # Continuous densify cycle-10 (ch11 / ch08 / ch12 / ch16 / ch04 / ch09-shared)
+    fig_ssl_probe_hygiene()
+    fig_brier_components()
+    fig_cindex_pairs()
+    fig_positional_encoding_heatmap()
+    fig_fairness_tradeoff()
+    fig_adjusted_rand_stability()
     print("DONE figures in", OUT)
     missing_legacy = [n for n in LEGACY_NUMBERED_ASSETS if not (OUT / n).exists()]
     if missing_legacy:

@@ -237,6 +237,10 @@ Within-cluster sum of squares (WSS/WCSS) decreases as k grows; the elbow method 
 
 When reference labels exist for audit (for example, known TOAST codes), purity measures the fraction of points in each cluster belonging to its majority class, aggregated—high purity can coexist with over-fragmentation (many tiny pure clusters). The Rand index is the fraction of point pairs on which the clustering and the reference agree about being same-cluster vs different-cluster; adjusted Rand corrects for chance. External indices validate recovery of a reference ontology; they do not prove the reference is the right biology.
 
+![Adjusted Rand Index vs k and bootstrap partition stability (synthetic; original).](../assets/figures/ml_fig_adjusted_rand.png)
+
+*Figure — ARI and stability. **Left:** planted three-blob data with audit labels (not “discovered biology”). **Right:** ARI of k-means vs the planted partition peaks at true *k*; bootstrap ARI bands show when partitions are unstable under resampling. High ARI means recovery of a reference coding, not proof of clinical phenotypes or treatment-effect strata—pair with pre-specified utility and site holdouts.*
+
 Stability under bootstrap resampling of patients, feature subsets, and site holdouts is often more informative than a single silhouette peak. Domain utility—whether clusters stratify outcomes or imaging patterns in pre-specified analyses—matters more than any internal score.
 
 ## Algorithm Selection: A Decision Guide
