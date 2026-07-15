@@ -1358,6 +1358,22 @@ The clinical and epidemiologic through-line—cohort design, index time, phenoty
 ![c236 teaching panel 02 (original).](../assets/figures/ml_fig_c236_02.png)
 *Figure — Bootstrap inclusion freqs. Synthetic teaching geometry—not a causal claim.*
 
+
+![c237 teaching panel 02 (original).](../assets/figures/ml_fig_c237_02.png)
+*Figure — Fat-shattering sample growth. Synthetic teaching geometry—not a causal claim.*
+
+
+![c238 teaching panel 02 (original).](../assets/figures/ml_fig_c238_02.png)
+*Figure — Permutation importance bars. Synthetic teaching geometry—not a causal claim.*
+
+
+![c239 teaching panel 02 (original).](../assets/figures/ml_fig_c239_02.png)
+*Figure — VC subgraph growth. Synthetic teaching geometry—not a causal claim.*
+
+
+![c240 teaching panel 02 (original).](../assets/figures/ml_fig_c240_02.png)
+*Figure — SHAP mean abs bars. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Artificial intelligence aims at systems that act intelligently; machine learning improves task performance by estimating models from data; data mining emphasizes scalable pattern discovery; data science governs measurement and decisions under uncertainty. A short history runs from symbolic AI through statistical learning and data mining to deep learning and generative systems—none fully obsolete. Algorithms are finite procedures; learning algorithms estimate models. Evaluation jointly considers computational complexity, runtime, task accuracy, and accuracy–efficiency trade-offs. Datasets arrive as tables, time series, streams, graphs, text, images/video, and audio, with numerical types that constrain encoding. Tasks include clustering, association and sequence mining, dimensionality reduction, anomaly detection, regression, classification, self-supervision, generative modeling, and reinforcement learning. Ground-truth labels are measurement processes; k-fold and grouped cross-validation support honest internal evaluation but do not replace external validation. A step-by-step workflow ties question framing to monitoring. The worked example selected a simpler model with better validation error over a flexible overfit rule. In neurology and epidemiology, cohort eligibility, index time, phenotype quality, leakage control, calibration, and external validation determine whether ML claims are scientifically meaningful. Recurring failure modes—data leakage, distribution shift, class imbalance, label noise, multiplicity, shortcut learning, and miscalibration—each carry a preventive discipline. Fairness, privacy, and transparency are design constraints to encode from the first workflow step, previewed here and developed in Chapter 16.

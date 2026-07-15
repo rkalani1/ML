@@ -844,3 +844,15 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c236 teaching panel 01 (original).](../assets/figures/ml_fig_c236_01.png)
 *Figure — Model risk review path. Synthetic teaching geometry—not a causal claim.*
+
+![c237 teaching panel 01 (original).](../assets/figures/ml_fig_c237_01.png)
+*Figure — Moments accountant epsilon path. Synthetic teaching geometry—not a causal claim.*
+
+![c238 teaching panel 01 (original).](../assets/figures/ml_fig_c238_01.png)
+*Figure — Red-team findings path. Synthetic teaching geometry—not a causal claim.*
+
+![c239 teaching panel 01 (original).](../assets/figures/ml_fig_c239_01.png)
+*Figure — RDP to epsilon conversion. Synthetic teaching geometry—not a causal claim.*
+
+![c240 teaching panel 01 (original).](../assets/figures/ml_fig_c240_01.png)
+*Figure — Policy exception path. Synthetic teaching geometry—not a causal claim.*

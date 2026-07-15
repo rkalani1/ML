@@ -1443,6 +1443,22 @@ Understanding Bellman backups and on- versus off-policy learning is more valuabl
 ![c236 teaching panel 14 (original).](../assets/figures/ml_fig_c236_14.png)
 *Figure — TRPO KL trust region. Synthetic teaching geometry—not a causal claim.*
 
+
+![c237 teaching panel 14 (original).](../assets/figures/ml_fig_c237_14.png)
+*Figure — GAE lambda return scale. Synthetic teaching geometry—not a causal claim.*
+
+
+![c238 teaching panel 14 (original).](../assets/figures/ml_fig_c238_14.png)
+*Figure — DPO preference margin. Synthetic teaching geometry—not a causal claim.*
+
+
+![c239 teaching panel 14 (original).](../assets/figures/ml_fig_c239_14.png)
+*Figure — n-step return mix. Synthetic teaching geometry—not a causal claim.*
+
+
+![c240 teaching panel 14 (original).](../assets/figures/ml_fig_c240_14.png)
+*Figure — ORPO odds ratio path. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Reinforcement learning studies agents that interact with environments to maximize cumulative reward. Markov decision processes formalize states, actions, transitions, rewards, and discounting. Policies induce value functions V and Q that satisfy Bellman equations; dynamic programming solves small known MDPs via policy and value iteration. Monte Carlo methods average full returns; temporal-difference methods bootstrap, yielding SARSA (on-policy), Q-learning (off-policy), and Dyna-Q planning. Multi-armed bandits isolate exploration via epsilon-greedy, UCB, and Thompson sampling. Function approximation and deep RL scale these ideas: DQN with replay and target networks, DDQN, dueling architectures, prioritized replay, REINFORCE, TRPO, PPO, and actor-critic methods including A3C, DDPG, TD3, and SAC, plus latent world-model Dreamer agents. Careful reward design is essential. Clinical and epidemiologic notes emphasize that sequential care is high-risk RL: reward misspecification rewrites the clinical objective, offline logs lack coverage and are confounded by indication, and ethical constraints sharply limit unsupervised exploration at the bedside.

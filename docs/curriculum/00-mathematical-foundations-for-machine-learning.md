@@ -3811,6 +3811,22 @@ This section is a reference. The first table lists the symbols used throughout t
 ![c236 teaching panel 00 (original).](../assets/figures/ml_fig_c236_00.png)
 *Figure — GMRES residual restart. Synthetic teaching geometry—not a causal claim.*
 
+
+![c237 teaching panel 00 (original).](../assets/figures/ml_fig_c237_00.png)
+*Figure — Power iteration residual decay. Synthetic teaching geometry—not a causal claim.*
+
+
+![c238 teaching panel 00 (original).](../assets/figures/ml_fig_c238_00.png)
+*Figure — BiCGSTAB residual path. Synthetic teaching geometry—not a causal claim.*
+
+
+![c239 teaching panel 00 (original).](../assets/figures/ml_fig_c239_00.png)
+*Figure — Lanczos residual orthogonal loss. Synthetic teaching geometry—not a causal claim.*
+
+
+![c240 teaching panel 00 (original).](../assets/figures/ml_fig_c240_00.png)
+*Figure — MINRES residual path. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Mathematics is the compression format of machine learning: a page of symbols stands in for pages of prose, and fluency with the symbols is what makes the rest of the book legible. This chapter rebuilt that fluency from an elementary base. It began with the language itself — sets, functions, and logic — and the algebra of numbers, exponents, and logarithms, then cataloged the handful of functions (linear, polynomial, exponential, logarithmic, sigmoid, softmax, ReLU) that recur everywhere in modeling. Summation and counting supplied the combinatorics behind probability; trigonometry and the unit circle supplied the sinusoids behind Fourier features, positional encodings, and cosine similarity.

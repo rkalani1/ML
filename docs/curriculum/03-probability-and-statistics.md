@@ -1230,6 +1230,22 @@ Senior practice is boring in the best way: define the sample space and estimand,
 ![c236 teaching panel 04 (original).](../assets/figures/ml_fig_c236_04.png)
 *Figure — HMC leapfrog field. Synthetic teaching geometry—not a causal claim.*
 
+
+![c237 teaching panel 04 (original).](../assets/figures/ml_fig_c237_04.png)
+*Figure — ESS per chain path. Synthetic teaching geometry—not a causal claim.*
+
+
+![c238 teaching panel 04 (original).](../assets/figures/ml_fig_c238_04.png)
+*Figure — Langevin dynamics field. Synthetic teaching geometry—not a causal claim.*
+
+
+![c239 teaching panel 04 (original).](../assets/figures/ml_fig_c239_04.png)
+*Figure — Autocorr time path. Synthetic teaching geometry—not a causal claim.*
+
+
+![c240 teaching panel 04 (original).](../assets/figures/ml_fig_c240_04.png)
+*Figure — Score-matching field. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Random variables, data types, and independent trials structure probabilistic modeling. Descriptive statistics—means (arithmetic, geometric, harmonic), median, mode, variance/SD/covariance, range/quartiles/boxplots, and degrees of freedom—summarize samples. Joint and conditional probability and Bayes’ theorem convert priors and likelihoods into posteriors; a worked LVO example showed PPV ≈ 41.5% at 20% prevalence with sens 0.85 and spec 0.70, falling to ~13% at 5% prevalence. PDFs, PMFs, and CDFs frame distributions including Normal, Uniform, Beta, Dirichlet, Bernoulli/Binomial/Geometric, Poisson, Weibull, heavy-tailed/Zipf/Pareto families, Chi-square, and Boltzmann/softmax forms; PP/QQ plots check fit. Expectation, z-scores, CLT, LLN, sampling bias, and confidence intervals address estimation and sample size intuition. Hypothesis tests span t-tests, ANOVA-family methods, and nonparametric chi-square, KS, Kruskal–Wallis, and Mann–Whitney procedures, with Bonferroni and Tukey multiplicity control. Effect sizes, correlations, entropy, information gain, KL, cross-entropy, and JS divergences link statistics to modern ML losses. MLE and EM provide core estimation strategies for fully and partially observed models.

@@ -1211,6 +1211,22 @@ Model selection is a portfolio decision spanning this chapter and the tabular-me
 ![c236 teaching panel 13 (original).](../assets/figures/ml_fig_c236_13.png)
 *Figure — CTC blank collapse path. Synthetic teaching geometry—not a causal claim.*
 
+
+![c237 teaching panel 13 (original).](../assets/figures/ml_fig_c237_13.png)
+*Figure — Relative position bias heat. Synthetic teaching geometry—not a causal claim.*
+
+
+![c238 teaching panel 13 (original).](../assets/figures/ml_fig_c238_13.png)
+*Figure — RNN-T joiner path. Synthetic teaching geometry—not a causal claim.*
+
+
+![c239 teaching panel 13 (original).](../assets/figures/ml_fig_c239_13.png)
+*Figure — ALiBi slope attention heat. Synthetic teaching geometry—not a causal claim.*
+
+
+![c240 teaching panel 13 (original).](../assets/figures/ml_fig_c240_13.png)
+*Figure — Transducer alignment path. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Modern multimodal deep learning rests on attention and its efficient cousins. Seq2seq models gain from dot-product, additive Bahdanau, Luong, self-, and cross-attention; Transformers industrialize multi-head attention with positional encodings, residual blocks, and causal masking—illustrated by a numerical attention-weight example and a causal mask sketch. S4 and Mamba offer state-space alternatives for long sequences with near-linear scaling ambitions. LLMs span BERT-style encoders and derivatives (RoBERTa, DistilBERT, XLM), T5 text-to-text models, GPT decoder-only generators through instruction-tuned chat systems, and open Llama/Mistral MoE lines, adapted with RLHF, DPO, LoRA, and other PEFT methods and judged on general, coding, medical, and local workflow benchmarks. Systems issues—context length, RAG, quantization, hallucination control—matter as much as weight counts. Vision progresses from LeNet–AlexNet–VGG–Inception–ResNet classifiers to ViTs; detectors from R-CNN through Faster R-CNN to SSD and YOLO; segmenters from FCN/U-Net through Mask R-CNN and DeepLab to promptable SAM, with Dice, Hausdorff, FROC, and mAP interpreted clinically. NeRF and 3D Gaussian splatting synthesize novel views. Audio stacks include WaveNet, Tacotron, wav2vec, and Whisper. Multimodal stroke decision support should remain modular and prospectively evaluated. In stroke imaging and clinical NLP, architecture choice is secondary to labels, leakage control, external validation, MLOps drift monitoring, and safe human–AI workflow design.
