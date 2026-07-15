@@ -252,6 +252,11 @@ Segmentation Dice = 2|A∩B|/(|A|+|B|) emphasizes overlap; Hausdorff distance em
 
 *Figure — Images become patch tokens for transformers. Patch features still need labels, calibration, and slices before care claims. Pred is not cause.*
 
+
+![Sequence compute growth toy curve (original).](../assets/figures/ml_fig_seq_compute_growth.png)
+
+*Figure — Compute scales with sequence length. Pred != cause without design.*
+
 *Same predicted/GT pair: Dice = 2|A∩B|/(|A|+|B|) and IoU = |A∩B|/|A∪B| are monotone transforms of each other (Dice = 2·IoU/(1+IoU)); both punish boundary misses that matter near eloquent cortex (original).*
 
 ### Architecture family quick map (teaching table)

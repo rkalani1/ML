@@ -224,6 +224,11 @@ Dropout randomly zeroes activations during training with probability p, forcing 
 
 *Figure — Identity skip plus residual branch eases optimization depth. Architectural devices are not physiological causal pathways.*
 
+
+![Cosine vs step learning-rate schedules (original).](../assets/figures/ml_fig_lr_schedules.png)
+
+*Figure — Optimization knobs—not physiology. Pred ≠ cause without design.*
+
 Start with a simple MLP or linear baseline before complex architectures.
 
 Monitor train versus validation loss to detect under/overfitting.

@@ -421,6 +421,11 @@ Worked illustration (bias–variance). Let the true mean response at some input 
 
 *Figure — Broader domain coverage often improves transport in teaching curves. Domain breadth helps generalization estimates—not automatic causal identification.*
 
+
+![Smooth healthy training loss curve (synthetic; original).](../assets/figures/ml_fig_smooth_loss.png)
+
+*Figure — Optimization trajectory is not a causal claim. Pred != cause without design.*
+
 ## Common Pitfalls and Failure Modes
 
 The failure modes below recur across projects and modalities. Each has a mechanism, a warning sign, and a discipline that prevents it. Treat this as a checklist to run against any pipeline before you believe its numbers.

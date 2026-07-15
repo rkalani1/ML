@@ -294,6 +294,11 @@ As λ goes from large to small along a Lasso path, coefficients enter the model 
 
 *Figure — Residual variance growing with fitted values flags OLS assumption stress. Consider WLS/robust SEs. Diagnostics improve honesty—not automatic causal ID.*
 
+
+![VIF bars for multicollinearity (synthetic; original).](../assets/figures/ml_fig_vif_bars.png)
+
+*Figure — Estimation fragility—not a causal DAG. Pred ≠ cause without design.*
+
 Elastic net’s mixing parameter α (weight on L1 versus L2) is a second hyperparameter; nest its selection. Grouped clinical features (multiple BP meds, multi-item NIHSS) sometimes use group Lasso variants so that whole groups enter together—beyond this chapter’s core, but aligned with elastic net’s motivation. The non-negative garrote’s c_j path similarly traces shrinkage of an initial fit; if the initial OLS is already nonsense due to p > n, start from Ridge or univariate screens instead.
 
 ## Optimization Practice Notes

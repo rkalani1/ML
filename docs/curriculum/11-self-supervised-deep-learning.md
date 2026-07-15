@@ -270,6 +270,11 @@ Pretext task catalog for unlabeled neuroimaging: rotation prediction, jigsaw puz
 
 *Figure — Larger negative sets often improve contrastive representation quality in teaching curves. Embedding quality is not clinical causation.*
 
+
+![Target-network lag cartoon for SSL stability (synthetic; original).](../assets/figures/ml_fig_target_network_lag.png)
+
+*Figure — Stabilization tricks for representation learning. Pred != cause without design.*
+
 ## 11.10 Multimodal Alignment Beyond CLIP and Practical Hospital Constraints
 
 CLIP-style contrastive alignment generalizes to ECG–text, EEG–report, and CT–report pairs. Batch construction must avoid false negatives: two images from the same study with different captions should not be forced apart if they share semantics. Hard negatives (similar body region, different finding) improve discrimination. Zero-shot prompts are brittle: ‘intracranial hemorrhage’ vs ‘ICH’ vs ‘hemorrhagic stroke’ can shuffle rankings; ensemble prompts or learned prompt templates reduce variance.

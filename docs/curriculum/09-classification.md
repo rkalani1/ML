@@ -302,6 +302,11 @@ Class imbalance remedies include resampling (oversample minority, undersample ma
 
 *Figure — Threshold choice needs costs and prevalence, not only a peak J on a training set. Operating points are decisions—not causal effects.*
 
+
+![k-NN error versus k (synthetic; original).](../assets/figures/ml_fig_knn_k_curve.png)
+
+*Figure — Neighborhood size is a hyperparameter—not etiology. Pred != cause without design.*
+
 ## Clinical and Epidemiologic Notes
 
 Classification is the workhorse of predictive modeling in neurology: large-vessel occlusion (LVO) versus not, hemorrhagic versus ischemic pathways, TOAST or CCS stroke subtype, malignant MCA edema risk, 90-day functional independence (mRS 0–2), or detection of atrial fibrillation on extended monitoring. Scientific quality depends as much on cohort design and metrics as on the choice among logistic regression, forests, or boosting.

@@ -357,6 +357,11 @@ Knowledge distillation trains a smaller student model to mimic a larger teacher.
 
 *Figure — Sequence length drives memory. Engineering kernels change feasibility. Compute graphs are not disease mechanisms.*
 
+
+![Tied/shared weights schematic (original).](../assets/figures/ml_fig_tied_weights.png)
+
+*Figure — Parameter tying compresses models—not causal structure. Pred != cause without design.*
+
 Training recipe: train teacher well; choose student architecture that fits the edge budget; run distillation on a transfer set representative of deployment; tune T and alpha; validate student calibration and failure modes. Architectures include response-based distillation (logits), feature-based (match intermediate maps), and relation-based (match pairwise structures). For stroke imaging, a heavy ensemble teacher can distill into a single student deployable on MSU hardware—if the transfer set includes the MSU’s scanner characteristics.
 
 ```

@@ -105,6 +105,11 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 *Figure — Preface ops checklist as bars. Weak slices/monitor/rollback block shipping. Checklists enforce process—they do not convert predictions into causal effects.*
 
+
+![Claim strength meter from ranking to causation (original).](../assets/figures/ml_fig_claim_strength.png)
+
+*Figure — Causal claims sit at the top and need design—not AUROC alone. Pred ≠ cause without design.*
+
 *Figure — Preface leakage triad. Timing (features after t₀), fit (scalers/vocab fit on full cohort), and label leakage (proxies that are the outcome) are the three modes to hunt in every methods section. Leakage inflates prediction metrics—not causal truth.*
 
 | Habit | What you do | What it prevents |

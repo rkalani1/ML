@@ -478,6 +478,11 @@ which removes incentives to push r_t far outside [1-epsilon, 1+epsilon]. An alte
 
 *Figure — Longer n-step targets can reduce bias-like error while raising variance-like noise in teaching curves. TD design choices are algorithmic—not clinical causal pathways.*
 
+
+![Policy entropy vs temperature (synthetic; original).](../assets/figures/ml_fig_policy_entropy.png)
+
+*Figure — Exploration temperature changes entropy; not a clinical causal path. Pred != cause without design.*
+
 # REINFORCE with baseline (conceptual)
 # logp: log pi(a_t|s_t); returns: return-to-go; baseline: V(s_t)
 def reinforce_loss(logp, returns, baseline):

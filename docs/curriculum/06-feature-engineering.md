@@ -301,6 +301,11 @@ Blanks are not merely a nuisance to be silently filled; they are data whose reas
 
 *Figure — Unscaled features let large-unit variables dominate distances and penalties. Scaling is preprocessing—not a causal adjustment by itself.*
 
+
+![Polynomial feature expansion growth (original).](../assets/figures/ml_fig_poly_blowup.png)
+
+*Figure — Feature maps expand capacity—not causal graphs. Pred ≠ cause without design.*
+
 \n![6.6: Rubin's missingness mechanisms. MCAR: absence is driven by chance, independent of all data. MAR: absence in x3 is explai](../assets/figures/ml_concept_6.6_59c3837d.png)
 
 *Figure 6.6 — original teaching graphic.*

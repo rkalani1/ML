@@ -127,6 +127,11 @@ Ship with a model card stating population, index time, features, calibration, in
 
 *Figure — Senior practice: write the plan before peeking. Pre-reg reduces analytic flexibility theater. Process discipline supports trustworthy prediction claims—not causation by default.*
 
+
+![Champion vs challenger metric snapshot (synthetic; original).](../assets/figures/ml_fig_champ_challenger.png)
+
+*Figure — Promote only when multi-metric gates pass. Pred != cause without design.*
+
 *Figure — Write triggers before go-live. **Left:** score PSI and ECE with pre-set alarm lines; a scanner swap at week 18 pushes PSI past 0.2. **Right:** live AUROC with a rollback floor at 0.80—recalibrate when calibration drifts, rollback when discrimination breaches the floor. Act on input/score monitors before lagged outcomes confirm failure. Prediction ≠ causation; ops monitoring is part of the science.*
 
 ## Synthetic Teaching Table: Deployment Checklist

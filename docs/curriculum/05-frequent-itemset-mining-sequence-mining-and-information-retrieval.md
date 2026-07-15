@@ -264,6 +264,11 @@ Apriori generates candidates of size k from frequent itemsets of size k−1, pru
 
 *Figure — Recall@k rises then plateaus as the ranked list lengthens. Pair with precision@k. Retrieval metrics rank content—they do not prove causal importance.*
 
+
+![Sequence motif toy string ABACABA (original).](../assets/figures/ml_fig_sequence_motif.png)
+
+*Figure — Pattern mining finds strings—not causes. Pred ≠ cause without design.*
+
 ```
 Apriori(D, minsup):
  L1 ← frequent 1-itemsets in D
