@@ -877,3 +877,9 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c232 teaching panel 18 (original).](../assets/figures/ml_fig_c232_18.png)
 *Figure — Runbook severity decision tree. Synthetic teaching geometry—not a causal claim.*
+
+![c233 teaching panel 18 (original).](../assets/figures/ml_fig_c233_18.png)
+*Figure — Error budget burn alert. Synthetic teaching geometry—not a causal claim.*
+
+![c234 teaching panel 18 (original).](../assets/figures/ml_fig_c234_18.png)
+*Figure — Action item burn-down bars. Synthetic teaching geometry—not a causal claim.*

@@ -832,3 +832,9 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c232 teaching panel 01 (original).](../assets/figures/ml_fig_c232_01.png)
 *Figure — Threat model asset map. Synthetic teaching geometry—not a causal claim.*
+
+![c233 teaching panel 01 (original).](../assets/figures/ml_fig_c233_01.png)
+*Figure — Privacy budget composition sum. Synthetic teaching geometry—not a causal claim.*
+
+![c234 teaching panel 01 (original).](../assets/figures/ml_fig_c234_01.png)
+*Figure — DPIA control sign-off path. Synthetic teaching geometry—not a causal claim.*
