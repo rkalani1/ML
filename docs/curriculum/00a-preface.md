@@ -1564,3 +1564,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c476 teaching panel 01 (original).](../assets/figures/ml_fig_c476_01.png)
 *Figure — Postmortem action path c476. Synthetic teaching geometry—not a causal claim.*
+
+![c477 teaching panel 01 (original).](../assets/figures/ml_fig_c477_01.png)
+*Figure — Data use purpose path c477. Synthetic teaching geometry—not a causal claim.*
