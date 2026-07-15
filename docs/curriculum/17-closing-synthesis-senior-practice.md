@@ -823,3 +823,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c214 teaching panel 18 (original).](../assets/figures/ml_fig_c214_18.png)
 *Figure — Blameless postmortem sections. Synthetic teaching geometry—not a causal claim.*
+
+![c215 teaching panel 18 (original).](../assets/figures/ml_fig_c215_18.png)
+*Figure — MTTR monthly trend bars. Synthetic teaching geometry—not a causal claim.*
