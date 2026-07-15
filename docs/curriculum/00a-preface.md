@@ -1972,3 +1972,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c612 teaching panel 01 (original).](../assets/figures/ml_fig_c612_01.png)
 *Figure — Threat residual risk path c612. Synthetic teaching geometry—not a causal claim.*
+
+![c613 teaching panel 01 (original).](../assets/figures/ml_fig_c613_01.png)
+*Figure — Policy exception path c613. Synthetic teaching geometry—not a causal claim.*
