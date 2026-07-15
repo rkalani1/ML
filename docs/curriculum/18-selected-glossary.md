@@ -513,4 +513,9 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 *Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
 
+
+![c70 densify panel 20 (original).](../assets/figures/ml_fig_c70_19.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
 *Figure — Glossary leakage map. Four common families: **temporal** (post-decision features), **fit/CV** (scaler/vocab/selector fit on the full cohort), **label proxy** (treatment or post-outcome codes as inputs), and **target-encoding** without LOO/OOF. All inflate apparent performance at train time and fail at true index time. Prediction ≠ causation.*

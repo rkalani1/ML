@@ -459,6 +459,11 @@ Apriori generates candidates of size k from frequent itemsets of size k−1, pru
 
 *Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
 
+
+![c70 densify panel 7 (original).](../assets/figures/ml_fig_c70_06.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
 ```
 Apriori(D, minsup):
  L1 ← frequent 1-itemsets in D

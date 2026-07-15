@@ -461,6 +461,11 @@ Do not cherry-pick time windows or y-limits to manufacture a policy narrative.
 
 *Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
 
+
+![c70 densify panel 4 (original).](../assets/figures/ml_fig_c70_03.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
 Refuse 3-D categorical bars and exploded 3-D pies in scientific communication.
 
 Accessibility expands who can use your work correctly: sufficient luminance contrast, large fonts for projection and photocopy, descriptive captions and alt text, and tabular companions for key plotted values. Accessibility is quality control under time pressure, not only compliance.
