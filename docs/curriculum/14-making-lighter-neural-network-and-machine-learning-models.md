@@ -347,6 +347,11 @@ Knowledge distillation trains a smaller student model to mimic a larger teacher.
 
 *Figure — Distillation recovers much of teacher accuracy at smaller size. Still recalibrate and re-slice. Compression is an engineering win—not a new causal claim.*
 
+
+![Parameter-efficient fine-tuning: relative params vs accuracy (synthetic; original).](../assets/figures/ml_fig_peft_tradeoff.png)
+
+*Figure — LoRA/adapters/prompts train far fewer parameters than full fine-tuning while recovering much accuracy. Still recalibrate and slice. PEFT is engineering—not a new causal claim.*
+
 Training recipe: train teacher well; choose student architecture that fits the edge budget; run distillation on a transfer set representative of deployment; tune T and alpha; validate student calibration and failure modes. Architectures include response-based distillation (logits), feature-based (match intermediate maps), and relation-based (match pairwise structures). For stroke imaging, a heavy ensemble teacher can distill into a single student deployable on MSU hardware—if the transfer set includes the MSU’s scanner characteristics.
 
 ```

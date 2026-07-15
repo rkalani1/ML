@@ -117,6 +117,11 @@ Ship with a model card stating population, index time, features, calibration, in
 
 *Figure — Overall metrics hide failed slices (language, insurance, rural site). Equity floors are deployment gates. Closing gaps needs design and data—not metric theater. Pred ≠ cause.*
 
+
+![Incident response timeline from detect to retrain decision (original).](../assets/figures/ml_fig_incident_timeline.png)
+
+*Figure — Senior ops: detect → page → mitigate → root cause → fix → optional retrain. Speed without learning repeats harm. Process fixes complement model fixes. Pred ≠ cause.*
+
 *Figure — Write triggers before go-live. **Left:** score PSI and ECE with pre-set alarm lines; a scanner swap at week 18 pushes PSI past 0.2. **Right:** live AUROC with a rollback floor at 0.80—recalibrate when calibration drifts, rollback when discrimination breaches the floor. Act on input/score monitors before lagged outcomes confirm failure. Prediction ≠ causation; ops monitoring is part of the science.*
 
 ## Synthetic Teaching Table: Deployment Checklist

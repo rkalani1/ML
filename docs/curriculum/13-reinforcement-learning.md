@@ -468,6 +468,11 @@ which removes incentives to push r_t far outside [1-epsilon, 1+epsilon]. An alte
 
 *Figure — Shaping accelerates return curves but can open reward hacks. Simulated control performance is not a bedside license. **Policy learning ≠ proven clinical causation**.*
 
+
+![Actor–critic co-training curves on a toy task (synthetic; original).](../assets/figures/ml_fig_actor_critic.png)
+
+*Figure — Critic often stabilizes value estimates while actor return rises more slowly. Simulated curves are not a license for autonomous clinical control. **Pred/control ≠ causation**.*
+
 # REINFORCE with baseline (conceptual)
 # logp: log pi(a_t|s_t); returns: return-to-go; baseline: V(s_t)
 def reinforce_loss(logp, returns, baseline):

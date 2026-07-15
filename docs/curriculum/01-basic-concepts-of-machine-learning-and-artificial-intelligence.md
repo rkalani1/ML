@@ -411,6 +411,11 @@ Worked illustration (bias–variance). Let the true mean response at some input 
 
 *Figure — Transport difficulty rises from covariate/label shift to concept shift (P(y|x) changes). Shift diagnosis guides monitoring—**not moral blame** and not automatic causal attribution.*
 
+
+![Aleatoric vs epistemic-style uncertainty bands (synthetic; original).](../assets/figures/ml_fig_uncertainty_bands.png)
+
+*Figure — Uncertainty cartoons: irreducible noise-like width vs data-sparse expansion. Bands communicate forecast humility—they are not automatic causal identification tools.*
+
 ## Common Pitfalls and Failure Modes
 
 The failure modes below recur across projects and modalities. Each has a mechanism, a warning sign, and a discipline that prevents it. Treat this as a checklist to run against any pipeline before you believe its numbers.

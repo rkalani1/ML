@@ -308,4 +308,9 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 *Figure — Glossary calibration. Slope≠1 or nonzero intercept means probabilities need recalibration before counseling. Calibration is about forecast honesty—not causal effect sizes.*
 
+
+![Confusion matrix vocabulary with toy TP/FP/FN/TN counts (original).](../assets/figures/ml_fig_confusion_vocab.png)
+
+*Figure — Glossary 2×2. Sensitivity and specificity come from rows; PPV/NPV need prevalence. Counts are teaching toys—not a trial result. Metrics support prediction claims, not causation by default.*
+
 *Figure — Glossary leakage map. Four common families: **temporal** (post-decision features), **fit/CV** (scaler/vocab/selector fit on the full cohort), **label proxy** (treatment or post-outcome codes as inputs), and **target-encoding** without LOO/OOF. All inflate apparent performance at train time and fail at true index time. Prediction ≠ causation.*

@@ -436,6 +436,11 @@ Given an undirected similarity graph, form the normalized Laplacian L_sym = I - 
 
 *Figure — Network evolution cartoon. Closure reduces open triads over time in generative stories. Growth models are not automatic maps of clinical referral **causation**.*
 
+
+![Shortest path on a grid graph schematic (original).](../assets/figures/ml_fig_shortest_path.png)
+
+*Figure — Path algorithms minimize edge cost on a graph. Without outcome-tied weights, shortest paths are geometry—not clinical priority rankings or causal pathways.*
+
 Choosing k: inspect eigenvalue gaps; domain knowledge (expected number of care regions); stability across bootstrap edge subsamples. Spectral methods assume the similarity graph is meaningful—garbage k-NN graphs in high-dimensional noise yield garbage clusters. Compared with Louvain/Leiden, spectral clustering requires choosing k up front and costs eigen-decomposition, but connects cleanly to theoretical graph cuts (RatioCut, NCut).
 
 Clinical connectomes often use partial correlation or streamline counts as weights; thresholding to build A can create or destroy communities. Report sensitivity to threshold and parcellation atlas.
