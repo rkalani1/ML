@@ -1705,3 +1705,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c508 teaching panel 18 (original).](../assets/figures/ml_fig_c508_18.png)
 *Figure — Shadow traffic path c508. Synthetic teaching geometry—not a causal claim.*
+
+![c509 teaching panel 18 (original).](../assets/figures/ml_fig_c509_18.png)
+*Figure — Error budget burn path c509. Synthetic teaching geometry—not a causal claim.*
