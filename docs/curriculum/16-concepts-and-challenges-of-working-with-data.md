@@ -90,6 +90,10 @@ def mh_normal(n=5000, step=0.5, seed=0):
 
 Noise corrupts measurements, labels, and images. Types by statistical structure: white noise has flat spectrum and uncorrelated samples; Gaussian noise is additive normal (common model for sensor error); Poisson noise arises in photon-limited imaging; salt-and-pepper noise replaces random pixels with extremes; speckle noise is multiplicative in ultrasound and some MRI contexts; gradient noise in optimization is the stochasticity of minibatch gradients (sometimes intentionally injected).
 
+![Gradient noise: mini-batch SGD jitter versus smooth batch GD on a synthetic loss valley (original).](../assets/figures/ml_fig_gradient_noise.png)
+
+*Figure — Optimization noise is not measurement noise. Mini-batch gradient estimates inject controlled stochasticity into parameter updates; batch size and learning rate set the amplitude. Treat it as a training hyperparameter, not as sensor artifact to filter out of the data.*
+
 Noise reduction. Machine learning denoisers learn mappings from noisy to clean examples (or self-supervised variants). Classical signal filters remain essential baselines and real-time tools:
 
 Butterworth filter. A low-pass (or band-pass) design with maximally flat passband; order controls the sharpness of cutoff. Used to remove high-frequency interference from EEG/ECG while preserving signal band—always inspect phase effects and filter both directions (filtfilt) when offline.

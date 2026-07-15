@@ -372,6 +372,10 @@ Capacity is the knob that trades bias for variance. A low-capacity learner—a c
 
 Worked illustration (bias–variance). Let the true mean response at some input be f = 10 with irreducible noise variance σ² = 1, and compare two estimators over many hypothetical resamples of the training data. Model 1 predicts 8 in every resample: its expected prediction is 8, so bias = 8 − 10 = −2 and (bias)² = 4, and because it never varies, variance = 0; its structured error (everything but the irreducible term) is 4 + 0 = 4. Model 2 is flexible and predicts 7 in half the resamples and 13 in the other half: its expected prediction is (7 + 13)/2 = 10, so bias = 0, but variance = ((7 − 10)² + (13 − 10)²)/2 = (9 + 9)/2 = 9; its structured error is 0 + 9 = 9. Adding σ² = 1 gives a total expected squared error of 5 for Model 1 versus 10 for Model 2. The biased-but-stable model wins, 5 to 10—an explicit demonstration that lower bias does not guarantee lower error when it is purchased with variance. This is the same lesson the model-selection example taught under 0–1 loss: the more flexible rule fit its sample and generalized worse.
 
+![Bias–variance decomposition of expected squared error versus model capacity (synthetic; original).](../assets/figures/ml_fig_bias_variance_decomp.png)
+
+*Figure — Bias–variance sketch. As capacity rises, (bias)² falls while variance rises; irreducible noise is a floor. The vertical line marks the capacity that minimizes the sum—the teaching “sweet spot,” not a number you always compute from one fit.*
+
 ## Common Pitfalls and Failure Modes
 
 The failure modes below recur across projects and modalities. Each has a mechanism, a warning sign, and a discipline that prevents it. Treat this as a checklist to run against any pipeline before you believe its numbers.

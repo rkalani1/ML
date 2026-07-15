@@ -236,6 +236,10 @@ Consider a binary test set of 200 cases with TP = 40, FP = 10, FN = 20, TN = 130
 
 ROC curves plot true positive rate versus false positive rate as the threshold varies. AUC-ROC summarizes ranking quality: probability that a random positive scores higher than a random negative. ROC can look optimistic under severe imbalance. Precision–recall (PR) curves plot precision versus recall and are often more informative when positives are rare; average precision summarizes the PR curve. Calibration asks whether predicted probabilities match empirical frequencies (among cases scored 0.7, about 70% should be positive). Reliability diagrams and expected calibration error (ECE) diagnose miscalibration; Platt scaling or isotonic regression can recalibrate on validation data without changing ranking much.
 
+![Precision–recall and ROC for the same synthetic imbalanced cohort (prevalence ≈ 10%; original).](../assets/figures/ml_fig_precision_recall.png)
+
+*Figure — Precision–recall under imbalance. The PR panel (left) starts near prevalence for a chance classifier and rewards high PPV at useful recall; the ROC panel (right) for the same scores can look deceptively strong because true negatives dominate the FPR denominator. Prefer PR-AUC and operating-point precision when events are rare.*
+
 Class imbalance remedies include resampling (oversample minority, undersample majority, or synthetic methods like SMOTE used carefully inside folds only), class-weighted losses, threshold tuning, and metrics aligned with the minority class (recall, PR-AUC, balanced accuracy). Multiclass reduction: one-vs-rest trains K binary classifiers; one-vs-one trains K(K−1)/2 pairwise classifiers; softmax models handle multiclass natively. Always nest preprocessing in cross-validation; leakage—scaling with test statistics, using future information, or tuning on the test set—is the most common source of unrealistically good reported accuracy.
 
 ## Clinical and Epidemiologic Notes

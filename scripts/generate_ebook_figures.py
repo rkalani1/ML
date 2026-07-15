@@ -876,6 +876,222 @@ def fig_confusion_annotated():
 
 
 # ---------------------------------------------------------------------------
+# Swarm cycle-2 scientific panels (bias–variance, PR, early stop, SGD noise, paths)
+# ---------------------------------------------------------------------------
+
+
+def fig_bias_variance_decomp():
+    """Ch01 scientific: squared-error decomposition vs capacity (synthetic)."""
+    cap = np.linspace(0.4, 10.0, 200)
+    bias2 = 0.55 * np.exp(-0.42 * cap) + 0.02
+    variance = 0.02 + 0.012 * (cap**1.55)
+    noise = np.full_like(cap, 0.08)
+    total = bias2 + variance + noise
+    fig, ax = plt.subplots(figsize=(6.8, 4.2))
+    ax.fill_between(cap, 0, noise, color="#94a3b8", alpha=0.35, label=r"irreducible $\sigma^2$")
+    ax.fill_between(cap, noise, noise + bias2, color=TEAL, alpha=0.45, label=r"(bias)$^2$")
+    ax.fill_between(cap, noise + bias2, total, color=GOLD, alpha=0.50, label="variance")
+    ax.plot(cap, total, color=INK, lw=2.4, label="expected error")
+    best = cap[np.argmin(total)]
+    ax.axvline(best, color=DEEP, ls="--", lw=1.6, label="min expected error")
+    ax.set_xlabel("model capacity (synthetic axis)")
+    ax.set_ylabel("squared error components")
+    ax.set_ylim(0, 0.95)
+    ax.legend(frameon=False, fontsize=8, loc="upper center", ncol=2)
+    style_ax(ax, r"Bias–variance decomposition: $E=\mathrm{bias}^2+\mathrm{var}+\sigma^2$")
+    ax.text(
+        0.98,
+        0.06,
+        "Sweet spot balances falling bias against rising variance",
+        transform=ax.transAxes,
+        ha="right",
+        fontsize=8,
+        color="#64748b",
+    )
+    save(fig, "ml_fig_bias_variance_decomp.png")
+
+
+def fig_precision_recall():
+    """Ch09 scientific: precision–recall curve under class imbalance (synthetic)."""
+    # Synthetic score distributions: positives ~ N(0.72, 0.18), negatives ~ N(0.32, 0.16)
+    rng = np.random.default_rng(11)
+    n_pos, n_neg = 80, 720  # prevalence ≈ 10%
+    scores_pos = rng.normal(0.72, 0.18, n_pos)
+    scores_neg = rng.normal(0.32, 0.16, n_neg)
+    scores = np.concatenate([scores_pos, scores_neg])
+    labels = np.concatenate([np.ones(n_pos), np.zeros(n_neg)])
+    thr = np.linspace(scores.max(), scores.min(), 200)
+    prec, rec, fpr, tpr = [], [], [], []
+    for t in thr:
+        pred = scores >= t
+        tp = np.sum((pred == 1) & (labels == 1))
+        fp = np.sum((pred == 1) & (labels == 0))
+        fn = np.sum((pred == 0) & (labels == 1))
+        tn = np.sum((pred == 0) & (labels == 0))
+        p = tp / (tp + fp) if (tp + fp) else 1.0
+        r = tp / (tp + fn) if (tp + fn) else 0.0
+        prec.append(p)
+        rec.append(r)
+        fpr.append(fp / (fp + tn) if (fp + tn) else 0.0)
+        tpr.append(r)
+    prec, rec, fpr, tpr = map(np.array, (prec, rec, fpr, tpr))
+    # Average precision (step-wise trapezoid on recall)
+    order = np.argsort(rec)
+    # numpy ≥2: trapezoid; older: trapz
+    _trap = getattr(np, "trapezoid", None) or getattr(np, "trapz")
+    ap = _trap(prec[order], rec[order])
+    fig, axes = plt.subplots(1, 2, figsize=(9.0, 3.8))
+    ax = axes[0]
+    ax.plot(rec, prec, color=TEAL, lw=2.4, label=f"model AP≈{ap:.2f}")
+    ax.axhline(n_pos / (n_pos + n_neg), color="#94a3b8", ls="--", lw=1.4, label="chance (prevalence)")
+    ax.set_xlabel("Recall (sensitivity)")
+    ax.set_ylabel("Precision (PPV)")
+    ax.set_xlim(0, 1.02)
+    ax.set_ylim(0, 1.05)
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Precision–recall (prevalence ≈ 10%)")
+    ax2 = axes[1]
+    ax2.plot(fpr, tpr, color=GOLD, lw=2.4, label="same model ROC")
+    ax2.plot([0, 1], [0, 1], "--", color="#94a3b8", lw=1.3, label="chance")
+    ax2.set_xlabel("False positive rate")
+    ax2.set_ylabel("True positive rate")
+    ax2.set_xlim(0, 1)
+    ax2.set_ylim(0, 1.02)
+    ax2.legend(frameon=False, fontsize=8)
+    style_ax(ax2, "ROC can look rosy under imbalance")
+    fig.suptitle("PR vs ROC on the same imbalanced synthetic cohort", color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_precision_recall.png")
+
+
+def fig_early_stopping():
+    """Ch08/10 scientific: train vs validation loss with early-stop epoch."""
+    epochs = np.arange(0, 61)
+    # Training loss keeps falling; validation bottoms then rises (overfit)
+    train = 1.15 * np.exp(-0.055 * epochs) + 0.08 + 0.01 * np.sin(epochs / 3)
+    val = 0.95 * np.exp(-0.048 * epochs) + 0.012 * np.maximum(0, epochs - 22) ** 1.35 / 40 + 0.22
+    val += 0.008 * np.sin(epochs / 4 + 0.7)
+    stop = int(np.argmin(val))
+    fig, ax = plt.subplots(figsize=(6.8, 4.0))
+    ax.plot(epochs, train, color=TEAL, lw=2.4, label="training loss")
+    ax.plot(epochs, val, color=GOLD, lw=2.4, label="validation loss")
+    ax.axvline(stop, color=DEEP, ls="--", lw=1.8, label=f"early stop @ epoch {stop}")
+    ax.plot(stop, val[stop], "o", color=DEEP, markersize=9, zorder=5)
+    ax.annotate(
+        "patience window\n(stop before overfit)",
+        xy=(stop, val[stop]),
+        xytext=(stop + 8, val[stop] + 0.28),
+        arrowprops=dict(arrowstyle="->", color=DEEP, lw=1.4),
+        color=DEEP,
+        fontsize=9,
+    )
+    ax.set_xlabel("epoch")
+    ax.set_ylabel("loss")
+    ax.set_xlim(0, 60)
+    ax.set_ylim(0, 1.35)
+    ax.legend(frameon=False, fontsize=9)
+    style_ax(ax, "Early stopping: validation bottoms while train still falls")
+    ax.text(
+        0.98,
+        0.06,
+        "Choose patience on validation only — never on final test",
+        transform=ax.transAxes,
+        ha="right",
+        fontsize=8,
+        color="#64748b",
+    )
+    save(fig, "ml_fig_early_stopping.png")
+
+
+def fig_gradient_noise():
+    """Ch08/16 scientific: batch GD vs mini-batch SGD paths (gradient noise)."""
+    # Quadratic valley: J(w1,w2) = a*w1^2 + b*w2^2, a>>b elongated
+    a, b = 4.0, 0.25
+    # Contours
+    w1 = np.linspace(-2.2, 2.2, 200)
+    w2 = np.linspace(-2.2, 2.2, 200)
+    W1, W2 = np.meshgrid(w1, w2)
+    J = a * W1**2 + b * W2**2
+    fig, ax = plt.subplots(figsize=(6.6, 5.2))
+    cs = ax.contour(W1, W2, J, levels=12, colors="#cbd5e1", linewidths=1.0)
+    ax.clabel(cs, inline=True, fontsize=7, fmt="%.1f")
+    # Batch GD (exact gradient)
+    eta = 0.12
+    p = np.array([2.0, 1.6], dtype=float)
+    path_batch = [p.copy()]
+    for _ in range(35):
+        g = np.array([2 * a * p[0], 2 * b * p[1]])
+        p = p - eta * g
+        path_batch.append(p.copy())
+    path_batch = np.array(path_batch)
+    # SGD: exact grad + isotropic noise scaled by 1/sqrt(batch)
+    rng = np.random.default_rng(5)
+    p = np.array([2.0, 1.6], dtype=float)
+    path_sgd = [p.copy()]
+    noise_scale = 0.55
+    for _ in range(55):
+        g = np.array([2 * a * p[0], 2 * b * p[1]])
+        g = g + rng.normal(0, noise_scale, size=2)
+        p = p - eta * g
+        path_sgd.append(p.copy())
+    path_sgd = np.array(path_sgd)
+    ax.plot(path_batch[:, 0], path_batch[:, 1], "o-", color=TEAL, lw=2.0, markersize=3.5, label="batch GD (low noise)")
+    ax.plot(path_sgd[:, 0], path_sgd[:, 1], ".-", color=GOLD, lw=1.4, markersize=4, alpha=0.9, label="mini-batch SGD (noisy)")
+    ax.plot(0, 0, "*", color=DEEP, markersize=14, label="optimum", zorder=6)
+    ax.set_xlabel(r"$w_1$")
+    ax.set_ylabel(r"$w_2$")
+    ax.set_xlim(-2.2, 2.2)
+    ax.set_ylim(-2.2, 2.2)
+    ax.set_aspect("equal")
+    ax.legend(frameon=False, fontsize=8, loc="upper right")
+    style_ax(ax, "Gradient noise: batch vs mini-batch paths (synthetic quadratic)")
+    ax.text(
+        0.02,
+        0.04,
+        "Noise ∝ 1/√batch — helpful exploration, slower exact convergence",
+        transform=ax.transAxes,
+        fontsize=8,
+        color="#64748b",
+    )
+    save(fig, "ml_fig_gradient_noise.png")
+
+
+def fig_regularization_path():
+    """Ch08 scientific: Lasso/Ridge coefficient paths vs log10(λ) (synthetic)."""
+    # Synthetic path: five standardized predictors with staggered entry (Lasso) vs smooth shrink (Ridge)
+    loglam = np.linspace(-3.0, 1.5, 160)
+    lam = 10**loglam
+    # True-ish soft-threshold style paths for Lasso
+    beta_true = np.array([1.8, -1.2, 0.9, 0.45, -0.25])
+    names = [r"$\beta_1$ NIHSS", r"$\beta_2$ age", r"$\beta_3$ glucose", r"$\beta_4$ SBP", r"$\beta_5$ sex"]
+    colors = [TEAL, GOLD, DEEP, "#b45309", "#64748b"]
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 4.0), sharey=True)
+    # Lasso: soft-threshold-ish with different critical λ
+    crit = np.array([1.6, 1.1, 0.75, 0.40, 0.18])
+    for i in range(5):
+        # coefficient enters when λ < crit[i]; magnitude shrinks roughly (crit - λ)_+
+        path = np.sign(beta_true[i]) * np.maximum(0.0, np.abs(beta_true[i]) * (1 - lam / crit[i]))
+        axes[0].plot(loglam, path, color=colors[i], lw=2.0, label=names[i])
+    axes[0].axvline(-0.4, color="#94a3b8", ls="--", lw=1.3)
+    axes[0].text(-0.35, 1.55, r"$\lambda_{\min}$", fontsize=9, color="#64748b")
+    axes[0].axvline(0.15, color="#94a3b8", ls=":", lw=1.3)
+    axes[0].text(0.2, 1.55, r"$\lambda_{1se}$", fontsize=9, color="#64748b")
+    axes[0].set_xlabel(r"$\log_{10}\lambda$")
+    axes[0].set_ylabel("coefficient")
+    axes[0].legend(frameon=False, fontsize=7, loc="lower left")
+    style_ax(axes[0], "Lasso path (sparse entry)")
+    # Ridge: continuous shrink, never exact zero
+    for i in range(5):
+        path = beta_true[i] / (1.0 + 2.2 * lam)
+        axes[1].plot(loglam, path, color=colors[i], lw=2.0, label=names[i])
+    axes[1].set_xlabel(r"$\log_{10}\lambda$")
+    style_ax(axes[1], "Ridge path (dense shrink)")
+    fig.suptitle("Regularization paths for five standardized predictors (synthetic)", color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_regularization_path.png")
+
+
+# ---------------------------------------------------------------------------
 # Legacy numbered PNGs (00_*.png … 17_*.png)
 # These files already exist under docs/assets/figures/ and are linked from
 # chapter openings. They are FROZEN historical assets — not regenerated here.
@@ -937,6 +1153,12 @@ def main():
     fig_mle_bernoulli()
     fig_learning_curves()
     fig_confusion_annotated()
+    # Swarm cycle-2 scientific panels
+    fig_bias_variance_decomp()
+    fig_precision_recall()
+    fig_early_stopping()
+    fig_gradient_noise()
+    fig_regularization_path()
     print("DONE figures in", OUT)
     missing_legacy = [n for n in LEGACY_NUMBERED_ASSETS if not (OUT / n).exists()]
     if missing_legacy:

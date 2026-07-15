@@ -22,6 +22,7 @@ MAP = {
         ("../assets/figures/ml_fig_supervised_unsupervised_map.png", "Supervised versus unsupervised learning paths (original teaching graphic)."),
         ("../assets/figures/ml_fig_train_val_test.png", "Train / validation / test split along a clinical timeline (original)."),
         ("../assets/figures/ml_fig_bias_capacity.png", "Training vs validation error versus model capacity (original)."),
+        ("../assets/figures/ml_fig_bias_variance_decomp.png", "Bias–variance decomposition of expected squared error versus capacity (synthetic; original)."),
     ],
     "02-visualization": [
         ("../assets/figures/ml_fig_viz_hygiene.png", "Visualization hygiene (original)."),
@@ -51,14 +52,19 @@ MAP = {
     "08-regression": [
         ("../assets/figures/ml_fig_calibration.png", "Reliability of numeric predictions matters as much as fit (original)."),
         ("../assets/figures/ml_fig_ols_fit.png", "OLS fit for the four-point NIHSS–volume example (original)."),
+        ("../assets/figures/ml_fig_early_stopping.png", "Early stopping: validation bottoms while train still falls (synthetic; original)."),
+        ("../assets/figures/ml_fig_gradient_noise.png", "Gradient noise: batch GD vs mini-batch SGD paths (synthetic; original)."),
+        ("../assets/figures/ml_fig_regularization_path.png", "Lasso and Ridge regularization paths vs log10 λ (synthetic; original)."),
     ],
     "09-classification": [
         ("../assets/figures/ml_fig_confusion_annotated.png", "Confusion matrix with synthetic counts (original)."),
         ("../assets/figures/ml_fig_confusion_roc.png", "Confusion matrix and ROC for a synthetic classifier (original)."),
+        ("../assets/figures/ml_fig_precision_recall.png", "Precision–recall vs ROC under class imbalance (synthetic; original)."),
     ],
     "10-neural": [
         ("../assets/figures/ml_fig_mlp.png", "Simple multilayer network diagram (original teaching graphic)."),
         ("../assets/figures/ml_fig_activations.png", "Activation functions: sigmoid, tanh, ReLU, leaky ReLU (original)."),
+        ("../assets/figures/ml_fig_early_stopping.png", "Early stopping on train vs validation loss (synthetic; original)."),
     ],
     "11-self-supervised": [
         ("../assets/figures/ml_fig_pretrain_finetune.png", "Pretrain then fine-tune pipeline (original teaching graphic)."),
@@ -84,6 +90,7 @@ MAP = {
     "16-concepts": [
         ("../assets/figures/ml_fig_leakage_timeline.png", "Data challenges often reduce to time and shift (original)."),
         ("../assets/figures/ml_fig_site_shift.png", "Distribution shift between cohorts (original)."),
+        ("../assets/figures/ml_fig_gradient_noise.png", "Gradient noise in optimization (synthetic; original)."),
     ],
     "17-closing": [
         ("../assets/figures/ml_fig_appraisal_scorecard.png", "Teaching scorecard for model appraisal (original)."),

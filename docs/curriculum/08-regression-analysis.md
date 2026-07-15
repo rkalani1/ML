@@ -192,6 +192,10 @@ Batch gradient descent updates θ ← θ − η ∇J(θ) using the full training
 
 *Figure 8.5 — original teaching graphic.*
 
+![Gradient noise: batch GD versus mini-batch SGD paths on a synthetic elongated quadratic (original).](../assets/figures/ml_fig_gradient_noise.png)
+
+*Figure — Gradient noise. Full-batch steps follow a smooth trajectory; mini-batch gradients jitter with variance that scales roughly as 1/√batch size. That noise is both a cost (slower exact convergence) and a feature (exploration in nonconvex landscapes).*
+
 ### Newton Methods
 
 Newton’s method uses curvature: θ ← θ − H⁻¹ ∇J. For smooth convex problems near the optimum, convergence is quadratic. Cost and need for Hessian inverses limit pure Newton on huge parameter spaces; quasi-Newton (BFGS/L-BFGS) and Gauss–Newton/IRLS for least squares and GLMs approximate curvature more cheaply. Logistic regression’s classical IRLS is a Newton-style algorithm on the log-likelihood.
@@ -199,6 +203,20 @@ Newton’s method uses curvature: θ ← θ − H⁻¹ ∇J. For smooth convex p
 ### Early Stopping
 
 Early stopping monitors validation loss during iterative optimization and stops when validation performance degrades while training loss still falls—an implicit regularizer. It is essential in neural training and also useful for path algorithms in penalized regression. Requires a validation stream that does not leak into final reported test metrics (use a three-way train/validation/test or nested scheme).
+
+![Early stopping: validation loss bottoms while training loss continues to fall (synthetic; original).](../assets/figures/ml_fig_early_stopping.png)
+
+*Figure — Early stopping. The dashed epoch is the first minimum of validation loss; continuing further improves training fit while generalization worsens. Patience is chosen on validation only—never by peeking at final test performance.*
+
+**Early-stopping protocol (teaching table)**
+
+| Step | Action | Honest practice |
+|------|--------|-----------------|
+| 1 | Split train / validation / test (or nested CV) | Group by patient and site; respect time |
+| 2 | Track validation loss (or primary clinical metric) each epoch | Do not open the test set while choosing patience |
+| 3 | Stop when val metric fails to improve for *p* epochs | Document *p*; common defaults 5–20 depending on schedule |
+| 4 | Restore weights from best validation epoch | Or refit train+val with fixed step count—write it down |
+| 5 | Report final metrics once on held-out test | One look; no further tuning |
 
 ## Extended OLS Worked Numbers and Prediction Intervals
 
@@ -234,6 +252,10 @@ As λ goes from large to small along a Lasso path, coefficients enter the model 
 ![8.6: Regularization coefficient paths for five standardized predictors as the penalty increases along log₁₀λ. Ridge (L2, left](../assets/figures/ml_concept_8.6_fdd46bf5.png)
 
 *Figure 8.6 — original teaching graphic.*
+
+![Lasso and Ridge regularization paths for five standardized predictors vs log₁₀λ (synthetic; original).](../assets/figures/ml_fig_regularization_path.png)
+
+*Figure — Regularization path. Lasso (left) yields exact zeros and staggered feature entry; Ridge (right) shrinks coefficients continuously without hard selection. Mark λ_min and λ_1se on the path you report so readers can see the sparsity–fit tradeoff.*
 
 Elastic net’s mixing parameter α (weight on L1 versus L2) is a second hyperparameter; nest its selection. Grouped clinical features (multiple BP meds, multi-item NIHSS) sometimes use group Lasso variants so that whole groups enter together—beyond this chapter’s core, but aligned with elastic net’s motivation. The non-negative garrote’s c_j path similarly traces shrinkage of an initial fit; if the initial OLS is already nonsense due to p > n, start from Ridge or univariate screens instead.
 

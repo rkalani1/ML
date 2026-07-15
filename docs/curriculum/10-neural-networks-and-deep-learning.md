@@ -168,6 +168,10 @@ Batch normalization normalizes layer inputs across the mini-batch to zero mean a
 
 Dropout randomly zeroes activations during training with probability p, forcing redundant representations; at test time weights are scaled (or inverted dropout scales at train time) so expectations match. Weight decay adds (λ/2)‖θ‖² or multiplies weights by a factor slightly less than one each step. Early stopping monitors validation loss and halts when it stops improving—simple, effective, and mandatory on small clinical cohorts. Learning-rate schedules (step decay, cosine annealing, warmup) reshape η over time. Mixed precision, gradient accumulation, and distributed data parallelism address scale.
 
+![Early stopping on train vs validation loss — mandatory regularizer for small clinical n (synthetic; original).](../assets/figures/ml_fig_early_stopping.png)
+
+*Figure — Early stopping in deep training. Validation loss bottoms while training loss keeps falling; restore the best-validation checkpoint. On small multi-site MRI or tabular cohorts, patient-grouped validation and early stopping often beat architectural cleverness.*
+
 Start with a simple MLP or linear baseline before complex architectures.
 
 Monitor train versus validation loss to detect under/overfitting.
