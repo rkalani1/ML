@@ -462,6 +462,21 @@ Class imbalance remedies include resampling (oversample minority, undersample ma
 
 *Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
 
+
+![c64 densify panel 11 (original).](../assets/figures/ml_fig_c64_10.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c65 densify panel 11 (original).](../assets/figures/ml_fig_c65_10.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c66 densify panel 11 (original).](../assets/figures/ml_fig_c66_10.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
 ## Clinical and Epidemiologic Notes
 
 Classification is the workhorse of predictive modeling in neurology: large-vessel occlusion (LVO) versus not, hemorrhagic versus ischemic pathways, TOAST or CCS stroke subtype, malignant MCA edema risk, 90-day functional independence (mRS 0–2), or detection of atrial fibrillation on extended monitoring. Scientific quality depends as much on cohort design and metrics as on the choice among logistic regression, forests, or boosting.
