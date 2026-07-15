@@ -255,6 +255,11 @@ Pretext task catalog for unlabeled neuroimaging: rotation prediction, jigsaw puz
 
 *Figure — Contrastive geometry. Anchor pulls positives and repels a sample of negatives. Embedding structure is task-shaped—**not automatic causal structure** in the world.*
 
+
+![Masked prediction rate vs downstream probe score (synthetic; original).](../assets/figures/ml_fig_mask_rate_probe.png)
+
+*Figure — Pretext hyperparameter. Common ~15% mask is a teaching default; probe scores measure transfer under a label—not clinical utility or causation by themselves.*
+
 ## 11.10 Multimodal Alignment Beyond CLIP and Practical Hospital Constraints
 
 CLIP-style contrastive alignment generalizes to ECG–text, EEG–report, and CT–report pairs. Batch construction must avoid false negatives: two images from the same study with different captions should not be forced apart if they share semantics. Hard negatives (similar body region, different finding) improve discrimination. Zero-shot prompts are brittle: ‘intracranial hemorrhage’ vs ‘ICH’ vs ‘hemorrhagic stroke’ can shuffle rankings; ensemble prompts or learned prompt templates reduce variance.

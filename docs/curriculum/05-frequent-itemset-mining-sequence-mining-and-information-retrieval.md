@@ -249,6 +249,11 @@ Apriori generates candidates of size k from frequent itemsets of size k−1, pru
 
 *Figure — Text matrices are sparse. IDF up-weights rare terms; high weight is not automatic clinical importance without a labeled task. Retrieval scores **rank**, they do not establish causation.*
 
+
+![Precision@k for a synthetic ranked retrieval list (original).](../assets/figures/ml_fig_precision_at_k.png)
+
+*Figure — Retrieval ranking quality as k grows. Always compare to prevalence baselines. High precision@k ranks documents—it does not prove causal importance of terms.*
+
 ```
 Apriori(D, minsup):
  L1 ← frequent 1-itemsets in D

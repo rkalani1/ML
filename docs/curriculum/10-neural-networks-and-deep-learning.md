@@ -209,6 +209,11 @@ Dropout randomly zeroes activations during training with probability p, forcing 
 
 *Figure — Temperature as a knob. Low T peaks on the max logit; high T flattens the distribution. Useful for distillation and calibration experiments—not a measure of disease severity or causation.*
 
+
+![BatchNorm batch means vs running means used at eval (synthetic; original).](../assets/figures/ml_fig_batchnorm_moments.png)
+
+*Figure — Train/eval statistics. Running averages stabilize evaluation; mismatches freeze wrong moments. Normalization is an optimization device—not a causal layer in physiology.*
+
 Start with a simple MLP or linear baseline before complex architectures.
 
 Monitor train versus validation loss to detect under/overfitting.

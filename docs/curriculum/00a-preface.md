@@ -90,6 +90,11 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 *Figure — Preface navigation. Match your goal (rebuild math, ship, audit, deploy) to a short chapter route. Routes are study aids—not licenses to treat predictive scores as causal effects.*
 
+
+![Learning curves: train vs val error vs sample size (synthetic; original).](../assets/figures/ml_fig_learning_curve_n.png)
+
+*Figure — Preface learning curves. More n typically shrinks the generalization gap. Curves diagnose capacity and data need—not whether a score is a causal effect.*
+
 *Figure — Preface leakage triad. Timing (features after t₀), fit (scalers/vocab fit on full cohort), and label leakage (proxies that are the outcome) are the three modes to hunt in every methods section. Leakage inflates prediction metrics—not causal truth.*
 
 | Habit | What you do | What it prevents |

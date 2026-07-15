@@ -237,6 +237,11 @@ Segmentation Dice = 2|A∩B|/(|A|+|B|) emphasizes overlap; Hausdorff distance em
 
 *Figure — Different heads implement different dependency biases. Attention maps are computational, not clinical causal diagrams. Always re-check calibration and subgroups after fine-tuning.*
 
+
+![Toy spectrogram / time–frequency map (synthetic; original).](../assets/figures/ml_fig_spectrogram_toy.png)
+
+*Figure — Time–frequency features feed audio/vision models. Pretty maps still need validated labels and calibration before any care claim. Features ≠ diagnosis; pred ≠ cause.*
+
 *Same predicted/GT pair: Dice = 2|A∩B|/(|A|+|B|) and IoU = |A∩B|/|A∪B| are monotone transforms of each other (Dice = 2·IoU/(1+IoU)); both punish boundary misses that matter near eloquent cortex (original).*
 
 ### Architecture family quick map (teaching table)

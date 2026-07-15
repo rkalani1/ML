@@ -279,6 +279,11 @@ As λ goes from large to small along a Lasso path, coefficients enter the model 
 
 *Figure — PDP caution. Left: x2 tracks x1; right: marginal PDP in x2 still slopes. Dependence confounds partial plots—**curves are not causal effects** without assumptions.*
 
+
+![Normal QQ plot of synthetic OLS residuals (original).](../assets/figures/ml_fig_qq_normal.png)
+
+*Figure — Residual normality check. Departures from the diagonal flag assumption stress for inference. Diagnostics improve modeling honesty—they do not prove causal effects.*
+
 Elastic net’s mixing parameter α (weight on L1 versus L2) is a second hyperparameter; nest its selection. Grouped clinical features (multiple BP meds, multi-item NIHSS) sometimes use group Lasso variants so that whole groups enter together—beyond this chapter’s core, but aligned with elastic net’s motivation. The non-negative garrote’s c_j path similarly traces shrinkage of an initial fit; if the initial OLS is already nonsense due to p > n, start from Ridge or univariate screens instead.
 
 ## Optimization Practice Notes

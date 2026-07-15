@@ -251,6 +251,11 @@ Do not cherry-pick time windows or y-limits to manufacture a policy narrative.
 
 *Figure — ECDFs avoid arbitrary histogram bins. Vertical gaps flag location/scale shift between sites. Shift detection supports monitoring—not a causal claim about site quality without design.*
 
+
+![Parallel coordinates with overplot risk on synthetic z-scores (original).](../assets/figures/ml_fig_parallel_coords.png)
+
+*Figure — Parallel coordinates can reveal bundles but overplot quickly; axis order changes perception. Visual clusters remain geometry—not etiologic subtypes.*
+
 Refuse 3-D categorical bars and exploded 3-D pies in scientific communication.
 
 Accessibility expands who can use your work correctly: sufficient luminance contrast, large fonts for projection and photocopy, descriptive captions and alt text, and tabular companions for key plotted values. Accessibility is quality control under time pressure, not only compliance.
