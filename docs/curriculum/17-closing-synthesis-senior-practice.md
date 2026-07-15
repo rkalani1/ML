@@ -457,3 +457,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c92 teaching panel 18 (original).](../assets/figures/ml_fig_c92_18.png)
 *Figure — Champion/challenger model gate. Synthetic teaching geometry—not a causal claim.*
+
+![c93 teaching panel 18 (original).](../assets/figures/ml_fig_c93_18.png)
+*Figure — Shadow deployment traffic split. Synthetic teaching geometry—not a causal claim.*

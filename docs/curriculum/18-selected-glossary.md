@@ -607,3 +607,6 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 ![c92 teaching panel 19 (original).](../assets/figures/ml_fig_c92_19.png)
 *Figure — Greek strip: alpha beta gamma lambda. Synthetic teaching geometry—not a causal claim.*
+
+![c93 teaching panel 19 (original).](../assets/figures/ml_fig_c93_19.png)
+*Figure — Inequality strip: Jensen, Hoeffding. Synthetic teaching geometry—not a causal claim.*
