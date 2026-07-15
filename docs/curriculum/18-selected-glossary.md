@@ -18,6 +18,14 @@
 
 *Teaching orientation for metrics and appraisal terms (original).*
 
+![Glossary term families — teaching taxonomy (original).](../assets/figures/ml_fig_glossary_families.png)
+
+*Six term families: paradigms, mechanics, evaluation, data/time, causal caution, deploy/govern (original).*
+
+![PPV versus prevalence at fixed sensitivity and specificity (scientific; original).](../assets/figures/ml_fig_ppv_prevalence.png)
+
+*PPV of a fixed screen (sens 0.85, spec 0.70) collapses as prevalence falls — LR+ travels; PPV does not (original).*
+
 
 Journal club language collapses when people use ‘AI,’ ‘algorithm,’ and ‘model’ interchangeably. The glossary is a shared lexicon for stroke services that want precise disagreement rather than vague awe.
 
@@ -233,6 +241,20 @@ Viterbi algorithm. A dynamic-programming procedure that finds the single most pr
 | Net benefit | Decision value at a threshold | Requires a meaningful threshold range |
 
 Synthetic reminder: identical sensitivity/specificity can yield very different PPV in a rare-disease clinic versus a case-enriched research sample.
+
+## Prevalence → PPV quick reference (teaching table)
+
+Fixed screen: **sensitivity = 0.85**, **specificity = 0.70** (LR+ ≈ 2.83). Formula: \(\mathrm{PPV} = \frac{\mathrm{sens}\cdot\pi}{\mathrm{sens}\cdot\pi + (1-\mathrm{spec})(1-\pi)}\).
+
+| Prevalence π | P(+) | PPV | Clinical reading |
+|--------------|------|-----|------------------|
+| 0.05 | ≈0.328 | ≈0.13 | Most positives are false alarms in a rare-disease clinic |
+| 0.10 | ≈0.355 | ≈0.24 | Still more false than true positives |
+| 0.20 | 0.41 | ≈0.41 | Chapter LVO ED example — modest PPV despite high sensitivity |
+| 0.40 | ≈0.52 | ≈0.65 | Case-enriched cohort flatters precision |
+| 0.60 | ≈0.63 | ≈0.81 | High-risk selected population; not transportable to screening |
+
+Use likelihood ratios and calibrated probabilities when base rates change; never copy a paper’s PPV into a different prevalence without recomputing.
 
 
 

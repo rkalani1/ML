@@ -25,6 +25,14 @@ You finish a model paper and a methods appendix in one sitting. Synthesis means 
 
 *Closing reminder: ranking, reliability, and decision value are distinct claims (original).*
 
+![Senior practice lifecycle — design to drift (original).](../assets/figures/ml_fig_lifecycle_deploy.png)
+
+*Lifecycle habit: design index time → fit → external validate → calibrate/utility → deploy with a model card → monitor drift (original).*
+
+![Decision curve: net benefit vs threshold (synthetic; original).](../assets/figures/ml_fig_decision_curve.png)
+
+*Net benefit is threshold-specific. A model can dominate treat-all/none on a range and still fail outside it (original scientific sketch).*
+
 The book has moved from describing data to deploying systems, but the through-argument was never really about algorithms. For a neurologist–epidemiologist, the machinery of gradient descent or attention is the tractable part; the demanding part is the reasoning that surrounds a model — what question it answers, when it is permitted to see each variable, and whether its numbers mean what a clinician assumes they mean. Senior competence is the habit of interrogating those surroundings before trusting any output. This chapter gathers the disciplines that outlived the chapters that introduced them, then walks a single clinical prediction study from raw data to post-deployment monitoring so the abstractions have somewhere concrete to land.
 
 ## Disciplines that recur across every chapter

@@ -639,6 +639,242 @@ def fig_value_iteration():
     save(fig, "ml_fig_value_iteration.png")
 
 
+def fig_curriculum_map():
+    """Preface: curriculum blocks of this open-source ebook."""
+    fig, ax = plt.subplots(figsize=(9.0, 3.4))
+    ax.set_xlim(0, 14)
+    ax.set_ylim(0, 4)
+    ax.axis("off")
+    blocks = [
+        (0.4, "Math &\nprob", TEAL),
+        (2.7, "Unsup /\nfeatures", DEEP),
+        (5.0, "Supervised\nmethods", GOLD),
+        (7.3, "Deep &\nSSL / RL", "#b45309"),
+        (9.6, "Graphs &\ndata risks", "#64748b"),
+        (11.9, "Senior\npractice", INK),
+    ]
+    for i, (x, lab, c) in enumerate(blocks):
+        ax.add_patch(
+            FancyBboxPatch(
+                (x, 1.1),
+                2.0,
+                1.8,
+                boxstyle="round,pad=0.04,rounding_size=0.14",
+                facecolor=c,
+                edgecolor="none",
+            )
+        )
+        ax.text(x + 1.0, 2.0, lab, ha="center", va="center", color="white", fontsize=10, fontweight="bold")
+        if i < len(blocks) - 1:
+            ax.annotate(
+                "",
+                xy=(blocks[i + 1][0] - 0.05, 2.0),
+                xytext=(x + 2.05, 2.0),
+                arrowprops=dict(arrowstyle="->", color=INK, lw=1.5),
+            )
+    ax.text(7, 3.55, "Curriculum map — open-source ML ebook path", ha="center", fontsize=12, color=INK, fontweight="bold")
+    ax.text(7, 0.45, "Foundations → methods → multimodal / RL → appraisal & deployment", ha="center", fontsize=9, color="#64748b")
+    save(fig, "ml_fig_curriculum_map.png")
+
+
+def fig_glossary_families():
+    """Glossary: families of terms used in clinical ML appraisal."""
+    fig, ax = plt.subplots(figsize=(8.4, 4.4))
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 6)
+    ax.axis("off")
+    families = [
+        (0.4, 3.6, 2.9, 2.0, "Learning\nparadigms", TEAL, "supervised\nunsupervised\nRL / SSL"),
+        (3.55, 3.6, 2.9, 2.0, "Model\nmechanics", DEEP, "loss, grad\nregularization\ncapacity"),
+        (6.7, 3.6, 2.9, 2.0, "Evaluation\nlanguage", GOLD, "AUC, PPV\ncalibration\nnet benefit"),
+        (0.4, 0.6, 2.9, 2.0, "Data &\ntime", "#64748b", "index time\nleakage\ndrift"),
+        (3.55, 0.6, 2.9, 2.0, "Causal\ncaution", "#b45309", "confounding\nDAG / collider\ntransport"),
+        (6.7, 0.6, 2.9, 2.0, "Deploy &\ngovern", INK, "model card\nmonitoring\nrollback"),
+    ]
+    for x, y, w, h, title, c, body in families:
+        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.04,rounding_size=0.14", facecolor=c, edgecolor="none", alpha=0.95))
+        ax.text(x + w / 2, y + h - 0.45, title, ha="center", va="center", color="white", fontsize=11, fontweight="bold")
+        ax.text(x + w / 2, y + 0.7, body, ha="center", va="center", color="white", fontsize=9)
+    ax.text(5, 5.7, "Glossary term families (teaching taxonomy)", ha="center", fontsize=12, color=INK, fontweight="bold")
+    save(fig, "ml_fig_glossary_families.png")
+
+
+def fig_ppv_prevalence():
+    """Scientific: PPV vs prevalence at fixed sens/spec (ch03 LVO numbers)."""
+    sens, spec = 0.85, 0.70
+    prev = np.linspace(0.01, 0.80, 200)
+    ppv = (sens * prev) / (sens * prev + (1 - spec) * (1 - prev))
+    fig, ax = plt.subplots(figsize=(6.6, 4.2))
+    ax.plot(prev, ppv, color=TEAL, lw=2.6, label=f"sens={sens}, spec={spec}")
+    for p, lab in [(0.05, "prev 5%"), (0.20, "prev 20%")]:
+        y = (sens * p) / (sens * p + (1 - spec) * (1 - p))
+        ax.plot(p, y, "o", color=GOLD, markersize=9, zorder=4)
+        ax.annotate(f"{lab}\nPPV≈{y:.2f}", xy=(p, y), xytext=(p + 0.12, y - 0.12 if p < 0.15 else y + 0.08),
+                    arrowprops=dict(arrowstyle="->", color=DEEP, lw=1.3), color=DEEP, fontsize=9)
+    ax.set_xlabel("disease prevalence P(D+)")
+    ax.set_ylabel("positive predictive value P(D+|test+)")
+    ax.set_xlim(0, 0.85)
+    ax.set_ylim(0, 1.0)
+    ax.legend(frameon=False, fontsize=9, loc="lower right")
+    style_ax(ax, "PPV vs prevalence (LVO screen: sens 0.85, spec 0.70)")
+    ax.text(0.98, 0.05, "LR+ = sens/(1−spec) ≈ 2.83 travels; PPV does not", transform=ax.transAxes,
+            ha="right", fontsize=8, color="#64748b")
+    save(fig, "ml_fig_ppv_prevalence.png")
+
+
+def fig_lifecycle_deploy():
+    """Closing: model lifecycle from design to drift monitoring."""
+    fig, ax = plt.subplots(figsize=(9.0, 3.0))
+    ax.set_xlim(0, 14)
+    ax.set_ylim(0, 3.2)
+    ax.axis("off")
+    steps = [
+        (0.5, "Design\nindex time", TEAL),
+        (2.9, "Fit &\nregularize", DEEP),
+        (5.3, "Validate\nexternal", GOLD),
+        (7.7, "Calibrate\n& utility", "#b45309"),
+        (10.1, "Deploy\ncard", "#64748b"),
+        (12.5, "Monitor\n& drift", INK),
+    ]
+    for i, (x, lab, c) in enumerate(steps):
+        ax.add_patch(FancyBboxPatch((x, 0.85), 2.0, 1.5, boxstyle="round,pad=0.03,rounding_size=0.12", facecolor=c, edgecolor="none"))
+        ax.text(x + 1.0, 1.6, lab, ha="center", va="center", color="white", fontsize=9, fontweight="bold")
+        if i < len(steps) - 1:
+            ax.annotate("", xy=(steps[i + 1][0] - 0.05, 1.6), xytext=(x + 2.05, 1.6),
+                        arrowprops=dict(arrowstyle="->", color=INK, lw=1.4))
+    ax.text(7, 2.8, "Senior practice lifecycle (design → drift)", ha="center", fontsize=12, color=INK, fontweight="bold")
+    ax.text(7, 0.3, "Every arrow is a place to stop and audit — not a pipeline to skip", ha="center", fontsize=9, color="#64748b")
+    save(fig, "ml_fig_lifecycle_deploy.png")
+
+
+def fig_decision_curve():
+    """Scientific: net-benefit decision curve (synthetic prognostic model)."""
+    # Treat-all / treat-none / model net benefit (classic Vickers-style teaching sketch)
+    pt = np.linspace(0.01, 0.60, 120)
+    # Synthetic well-calibrated model with moderate discrimination
+    prevalence = 0.25
+    # Approximate: model NB from smooth ROC-like TPR/FPR vs threshold on risk
+    # Map threshold to TPR/FPR with logistic-like response
+    tpr = 1 / (1 + np.exp(12 * (pt - 0.28)))
+    fpr = 1 / (1 + np.exp(10 * (pt - 0.18)))
+    nb_model = tpr * prevalence - fpr * (1 - prevalence) * (pt / (1 - pt))
+    nb_all = prevalence - (1 - prevalence) * (pt / (1 - pt))
+    nb_none = np.zeros_like(pt)
+    fig, ax = plt.subplots(figsize=(6.8, 4.2))
+    ax.plot(pt, nb_model, color=TEAL, lw=2.5, label="model (synthetic)")
+    ax.plot(pt, nb_all, color=GOLD, lw=1.8, ls="--", label="treat all")
+    ax.plot(pt, nb_none, color="#94a3b8", lw=1.5, label="treat none")
+    ax.axhline(0, color="#e2e8f0", lw=1)
+    ax.set_xlabel("threshold probability (pt)")
+    ax.set_ylabel("net benefit")
+    ax.set_xlim(0, 0.60)
+    ax.set_ylim(-0.05, 0.30)
+    ax.legend(frameon=False, fontsize=9)
+    style_ax(ax, "Decision curve: net benefit vs threshold (synthetic)")
+    ax.text(0.98, 0.05, "Utility claim is threshold-specific — not an AUC surrogate", transform=ax.transAxes,
+            ha="right", fontsize=8, color="#64748b")
+    save(fig, "ml_fig_decision_curve.png")
+
+
+def fig_clt_sampling():
+    """Scientific densify ch03: CLT — sampling distribution of the mean."""
+    rng = np.random.default_rng(42)
+    # Skewed parent: Exponential(λ=1) mean=1
+    n_small, n_large = 5, 40
+    n_rep = 4000
+    means_small = rng.exponential(1.0, size=(n_rep, n_small)).mean(axis=1)
+    means_large = rng.exponential(1.0, size=(n_rep, n_large)).mean(axis=1)
+    fig, axes = plt.subplots(1, 3, figsize=(9.4, 3.4))
+    # Parent
+    xs = np.linspace(0, 6, 200)
+    axes[0].plot(xs, np.exp(-xs), color=TEAL, lw=2.2)
+    axes[0].fill_between(xs, np.exp(-xs), color=TEAL, alpha=0.2)
+    style_ax(axes[0], "Parent: Exp(1) skewed")
+    axes[0].set_xlabel("x")
+    axes[0].set_ylabel("density")
+    # n=5
+    axes[1].hist(means_small, bins=40, density=True, color=GOLD, alpha=0.85, edgecolor="none")
+    mu, sd = means_small.mean(), means_small.std()
+    zg = np.linspace(means_small.min(), means_small.max(), 200)
+    axes[1].plot(zg, 1 / (sd * np.sqrt(2 * np.pi)) * np.exp(-0.5 * ((zg - mu) / sd) ** 2), color=DEEP, lw=2)
+    style_ax(axes[1], f"Mean of n={n_small} (still skewed)")
+    axes[1].set_xlabel(r"$\bar x$")
+    # n=40
+    axes[2].hist(means_large, bins=40, density=True, color=TEAL, alpha=0.85, edgecolor="none")
+    mu2, sd2 = means_large.mean(), means_large.std()
+    zg2 = np.linspace(means_large.min(), means_large.max(), 200)
+    axes[2].plot(zg2, 1 / (sd2 * np.sqrt(2 * np.pi)) * np.exp(-0.5 * ((zg2 - mu2) / sd2) ** 2), color=GOLD, lw=2)
+    style_ax(axes[2], f"Mean of n={n_large} ≈ Normal")
+    axes[2].set_xlabel(r"$\bar x$")
+    fig.suptitle("Central limit theorem (synthetic Exp samples)", color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_clt_sampling.png")
+
+
+def fig_mle_bernoulli():
+    """Scientific densify ch03: Bernoulli log-likelihood surface for MLE."""
+    # k=7 successes in n=10 trials → MLE p=0.7
+    n, k = 10, 7
+    p = np.linspace(0.02, 0.98, 300)
+    ll = k * np.log(p) + (n - k) * np.log(1 - p)
+    p_hat = k / n
+    fig, ax = plt.subplots(figsize=(6.4, 4.0))
+    ax.plot(p, ll, color=TEAL, lw=2.5)
+    ax.axvline(p_hat, color=GOLD, ls="--", lw=1.8, label=rf"MLE $\hat p = k/n = {p_hat:.1f}$")
+    ax.plot(p_hat, k * np.log(p_hat) + (n - k) * np.log(1 - p_hat), "o", color=GOLD, markersize=9, zorder=4)
+    ax.set_xlabel(r"parameter $p$")
+    ax.set_ylabel(r"log-likelihood $\ell(p)$")
+    ax.legend(frameon=False, fontsize=9)
+    style_ax(ax, rf"Bernoulli MLE: {k} successes in {n} trials")
+    ax.text(0.98, 0.08, r"$\ell(p)=k\log p+(n-k)\log(1-p)$", transform=ax.transAxes,
+            ha="right", fontsize=9, color="#64748b")
+    save(fig, "ml_fig_mle_bernoulli.png")
+
+
+def fig_learning_curves():
+    """Ch01: train/val error vs training set size (synthetic)."""
+    fig, ax = plt.subplots(figsize=(6.4, 4.0))
+    n = np.linspace(50, 2000, 40)
+    train = 0.08 + 0.12 * np.exp(-n / 400) + 0.01 * np.sin(n / 180)
+    val = 0.18 + 0.35 * np.exp(-n / 550) + 0.012 * np.sin(n / 200 + 0.5)
+    ax.plot(n, train, color=TEAL, lw=2.3, label="training error")
+    ax.plot(n, val, color=GOLD, lw=2.3, label="validation error")
+    ax.fill_between(n, train, val, color=SOFT, alpha=0.7)
+    ax.set_xlabel("training set size (synthetic n)")
+    ax.set_ylabel("error")
+    ax.set_ylim(0, 0.55)
+    ax.legend(frameon=False, fontsize=9)
+    style_ax(ax, "Learning curves vs sample size (synthetic)")
+    ax.text(0.98, 0.08, "Gap shrinks with more data — capacity fixed", transform=ax.transAxes,
+            ha="right", fontsize=8, color="#64748b")
+    save(fig, "ml_fig_learning_curves.png")
+
+
+def fig_confusion_annotated():
+    """Ch09: annotated confusion matrix with rates."""
+    fig, ax = plt.subplots(figsize=(5.2, 4.4))
+    # TN FP / FN TP
+    mat = np.array([[82.0, 8.0], [11.0, 49.0]])
+    im = ax.imshow(mat, cmap="YlGnBu", vmin=0, vmax=90)
+    labels = [["TN 82", "FP 8"], ["FN 11", "TP 49"]]
+    rates = [
+        [f"spec≈{82/90:.2f}", f"FPR≈{8/90:.2f}"],
+        [f"FNR≈{11/60:.2f}", f"sens≈{49/60:.2f}"],
+    ]
+    for i in range(2):
+        for j in range(2):
+            ax.text(j, i - 0.12, labels[i][j], ha="center", va="center", color="white", fontsize=13, fontweight="bold")
+            ax.text(j, i + 0.28, rates[i][j], ha="center", va="center", color="white", fontsize=9)
+    ax.set_xticks([0, 1], ["Pred −", "Pred +"])
+    ax.set_yticks([0, 1], ["True −", "True +"])
+    style_ax(ax, "Confusion matrix with rates (synthetic n=150)")
+    ppv = 49 / 57
+    npv = 82 / 93
+    ax.text(0.5, -0.18, f"PPV≈{ppv:.2f}   NPV≈{npv:.2f}   Acc≈{(82+49)/150:.2f}",
+            transform=ax.transAxes, ha="center", fontsize=9, color="#64748b")
+    save(fig, "ml_fig_confusion_annotated.png")
+
+
 # ---------------------------------------------------------------------------
 # Legacy numbered PNGs (00_*.png … 17_*.png)
 # These files already exist under docs/assets/figures/ and are linked from
@@ -691,6 +927,16 @@ def main():
     fig_activations()
     fig_triplet_ssl()
     fig_value_iteration()
+    # Swarm cycle-1 densify (preface / glossary / closing + scientific plots)
+    fig_curriculum_map()
+    fig_glossary_families()
+    fig_ppv_prevalence()
+    fig_lifecycle_deploy()
+    fig_decision_curve()
+    fig_clt_sampling()
+    fig_mle_bernoulli()
+    fig_learning_curves()
+    fig_confusion_annotated()
     print("DONE figures in", OUT)
     missing_legacy = [n for n in LEGACY_NUMBERED_ASSETS if not (OUT / n).exists()]
     if missing_legacy:

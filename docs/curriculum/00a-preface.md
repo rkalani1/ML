@@ -22,6 +22,10 @@
 
 *Orientation graphic for how this open-source ebook treats models (original).*
 
+![Curriculum map — open-source ML ebook path (original).](../assets/figures/ml_fig_curriculum_map.png)
+
+*Curriculum map: math → unsupervised/features → supervised → deep/SSL/RL → graphs & data risks → senior practice (original).*
+
 
 A telestroke consult ends. The hub radiologist mentions a new large-vessel occlusion detector with a ‘state-of-the-art AUROC.’ The spoke hospital asks whether to buy it this quarter. This book exists so that conversation starts with definitions, data, and decision impact—not vendor vocabulary.
 
@@ -53,3 +57,14 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 | Map the claim | Prediction vs etiology vs decision support | Treating every model as “actionable AI” |
 | Metrics beyond AUC | Calibration, PPV at prevalence, net benefit | Deploying a well-ranked but miscalibrated score |
 | External check | Site/time transport, subgroup, drift plan | Local optimism that evaporates at the next hospital |
+
+## Curriculum blocks (teaching table)
+
+| Block | Chapters (approx.) | Core skill you should leave with |
+|-------|--------------------|----------------------------------|
+| Math & probability | 00, 03 | Recompute gradients, Bayes updates, and likelihood claims by hand |
+| Unsupervised / features | 04–07 | Clusters, rules, engineered features, and honest dimensionality reduction |
+| Supervised methods | 08–09 | Regression/classification with thresholds, imbalance, and external checks |
+| Deep, SSL, RL | 10–14 | Architectures, pretrain/fine-tune, sequential decisions, lighter models |
+| Graphs & data risks | 15–16 | Network structure plus leakage, shift, missingness, governance |
+| Senior practice | 17–18 | One-paragraph synthesis; shared metric and appraisal vocabulary |

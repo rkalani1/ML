@@ -88,6 +88,10 @@ Suppose in an ED population of suspected acute ischemic stroke, P(LVO) = 0.20. A
 
 *Figure 3.1 — original teaching graphic.*
 
+![PPV vs prevalence with chapter LVO sens/spec (scientific recompute; original).](../assets/figures/ml_fig_ppv_prevalence.png)
+
+*Scientific recompute of the same claim: at π=0.20, PPV≈0.41; at π=0.05, PPV≈0.13 (original matplotlib).*
+
 ```
 prev, sens, spec = 0.20, 0.85, 0.70
 p_pos = sens*prev + (1-spec)*(1-prev) # 0.41
@@ -148,6 +152,10 @@ Expectation E[X] is the probability-weighted average (sum or integral). Linearit
 
 *Figure 3.4 — original teaching graphic.*
 
+![Central limit theorem: sampling means of Exponential(1) for n=5 vs n=40 (scientific; original).](../assets/figures/ml_fig_clt_sampling.png)
+
+*Parent density is skewed; means of n=5 remain skewed; means of n=40 are nearly Gaussian (original Monte Carlo panel).*
+
 Z-score normalization transforms a value via z = (x − μ)/σ (or sample estimates s). Features on incommensurate scales become comparable; many distance-based learners (k-means, k-NN, PCA) require this discipline. Z-scores assume a roughly symmetric scale meaning; they do not fix heavy tails or coding errors. Robust alternatives use median and IQR.
 
 The law of large numbers (LLN): sample averages converge to expectations under i.i.d. sampling with finite mean—the philosophical backbone of ‘more data helps.’ The central limit theorem (CLT): standardized sums become approximately normal for large n under mild conditions—justifying many Wald intervals and z-tests. Sampling bias (nonrandom selection, volunteer bias, collider stratification) breaks the link between sample and target population no matter how large n grows. Confidence intervals at level 1−α are random intervals that cover the true parameter with probability 1−α under the model in repeated sampling; approximate Wald interval for a proportion: p̂ ± z_{α/2} √(p̂(1−p̂)/n).
@@ -193,6 +201,10 @@ Shannon entropy H(X) = −Σ_x p(x) log p(x) (or integral analogue) measures unc
 *Figure 3.6 — original teaching graphic.*
 
 Maximum likelihood estimation chooses θ maximizing L(θ) = Π_i f(x_i | θ), usually via log-likelihood. For i.i.d. Bernoulli data with k successes in n trials, p̂_MLE = k/n. For i.i.d. Gaussians, μ̂ = x̄ and σ̂² uses divisor n (MLE) versus n−1 (unbiased). Regularized and Bayesian MAP estimates multiply by priors.
+
+![Bernoulli log-likelihood surface with MLE at k/n (scientific; original).](../assets/figures/ml_fig_mle_bernoulli.png)
+
+*For k=7 successes in n=10 trials, ℓ(p)=7 log p + 3 log(1−p) peaks at p̂=0.7 (original scientific plot).*
 
 Expectation–maximization (EM) maximizes likelihood when some variables are latent (mixture memberships, missing labels). A concrete walkthrough: fit a two-component univariate Gaussian mixture to data x_1, …, x_n, where each point comes from component 1 ~ N(μ_1, σ_1²) with probability π or component 2 ~ N(μ_2, σ_2²) with probability 1−π, but the component label is unobserved. Maximizing the observed-data log-likelihood Σ_i log[π N(x_i | μ_1, σ_1²) + (1−π) N(x_i | μ_2, σ_2²)] directly is awkward because of the sum inside the log. EM sidesteps this by alternating two steps from an initial guess of (π, μ_1, σ_1², μ_2, σ_2²):
 

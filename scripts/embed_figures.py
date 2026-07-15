@@ -15,8 +15,10 @@ MAP = {
     "00a-preface": [
         ("../assets/figures/ml_fig_how_to_read.png", "How to read this open-source ebook (original)."),
         ("../assets/figures/ml_fig_appraisal_scorecard.png", "Model appraisal scorecard (original)."),
+        ("../assets/figures/ml_fig_curriculum_map.png", "Curriculum map — open-source ML ebook path (original)."),
     ],
     "01-basic": [
+        ("../assets/figures/ml_fig_learning_curves.png", "Learning curves vs sample size (synthetic; original)."),
         ("../assets/figures/ml_fig_supervised_unsupervised_map.png", "Supervised versus unsupervised learning paths (original teaching graphic)."),
         ("../assets/figures/ml_fig_train_val_test.png", "Train / validation / test split along a clinical timeline (original)."),
         ("../assets/figures/ml_fig_bias_capacity.png", "Training vs validation error versus model capacity (original)."),
@@ -27,6 +29,9 @@ MAP = {
     ],
     "03-probability": [
         ("../assets/figures/ml_fig_calibration.png", "Predicted risk versus observed frequency (synthetic; original)."),
+        ("../assets/figures/ml_fig_ppv_prevalence.png", "PPV vs prevalence with chapter LVO sens/spec (scientific; original)."),
+        ("../assets/figures/ml_fig_clt_sampling.png", "Central limit theorem sampling means (scientific; original)."),
+        ("../assets/figures/ml_fig_mle_bernoulli.png", "Bernoulli log-likelihood MLE surface (scientific; original)."),
     ],
     "04-clustering": [
         ("../assets/figures/ml_fig_clustering.png", "Clustering sketch with centroids (synthetic data; original)."),
@@ -48,6 +53,7 @@ MAP = {
         ("../assets/figures/ml_fig_ols_fit.png", "OLS fit for the four-point NIHSS–volume example (original)."),
     ],
     "09-classification": [
+        ("../assets/figures/ml_fig_confusion_annotated.png", "Confusion matrix with synthetic counts (original)."),
         ("../assets/figures/ml_fig_confusion_roc.png", "Confusion matrix and ROC for a synthetic classifier (original)."),
     ],
     "10-neural": [
@@ -82,10 +88,14 @@ MAP = {
     "17-closing": [
         ("../assets/figures/ml_fig_appraisal_scorecard.png", "Teaching scorecard for model appraisal (original)."),
         ("../assets/figures/ml_fig_metric_map.png", "Discrimination vs calibration vs utility (original)."),
+        ("../assets/figures/ml_fig_lifecycle_deploy.png", "Senior practice lifecycle — design to drift (original)."),
+        ("../assets/figures/ml_fig_decision_curve.png", "Decision curve: net benefit vs threshold (synthetic; original)."),
     ],
     "18-selected": [
         ("../assets/figures/ml_fig_metric_map.png", "Metric families: discrimination, calibration, utility (original)."),
         ("../assets/figures/ml_fig_appraisal_scorecard.png", "Appraisal orientation graphic (original)."),
+        ("../assets/figures/ml_fig_glossary_families.png", "Glossary term families — teaching taxonomy (original)."),
+        ("../assets/figures/ml_fig_ppv_prevalence.png", "PPV versus prevalence at fixed sens/spec (scientific; original)."),
     ],
 }
 
