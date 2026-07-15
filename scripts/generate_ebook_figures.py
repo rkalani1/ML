@@ -1693,6 +1693,404 @@ def fig_capacity_vs_n():
 
 
 # ---------------------------------------------------------------------------
+# Swarm 3h cycle-3 densify (ch06 / ch09 / ch04 / ch12 / ch16)
+# ---------------------------------------------------------------------------
+
+
+def fig_preprocess_fit_split():
+    """Ch06 scientific: preprocessing must be fit on train only (leakage diagram)."""
+    fig, axes = plt.subplots(2, 1, figsize=(8.6, 5.0), gridspec_kw={"hspace": 0.55})
+
+    # --- Top: WRONG — fit scaler / imputer / selector on full cohort ---
+    ax = axes[0]
+    ax.set_xlim(0, 12)
+    ax.set_ylim(0, 3.2)
+    ax.axis("off")
+    ax.add_patch(
+        FancyBboxPatch(
+            (0.3, 0.9), 11.4, 1.5,
+            boxstyle="round,pad=0.03,rounding_size=0.12",
+            facecolor="#fef2f2", edgecolor="#dc2626", linewidth=1.6,
+        )
+    )
+    # Full cohort bar used for fit
+    ax.add_patch(Rectangle((0.6, 1.2), 10.8, 0.7, facecolor="#fca5a5", edgecolor="none"))
+    ax.text(6.0, 1.55, "FIT mean / SD / imputer / selector on ALL rows", ha="center", va="center",
+            fontsize=10, fontweight="bold", color="#7f1d1d")
+    # Fake split labels still drawn under the fit
+    for x, w, lab, c in [
+        (0.6, 6.5, "Train", TEAL),
+        (7.2, 2.0, "Val", GOLD),
+        (9.4, 2.0, "Test", DEEP),
+    ]:
+        ax.add_patch(Rectangle((x, 0.35), w, 0.4, facecolor=c, edgecolor="none", alpha=0.85))
+        ax.text(x + w / 2, 0.55, lab, ha="center", va="center", color="white", fontsize=9, fontweight="bold")
+    ax.text(0.3, 2.85, "WRONG — preprocessing leakage", fontsize=12, fontweight="bold", color="#dc2626")
+    ax.text(11.7, 2.85, "test statistics contaminate fit", ha="right", fontsize=9, color="#b91c1c")
+
+    # --- Bottom: RIGHT — fit on train, freeze, transform val/test ---
+    ax = axes[1]
+    ax.set_xlim(0, 12)
+    ax.set_ylim(0, 3.2)
+    ax.axis("off")
+    ax.add_patch(
+        FancyBboxPatch(
+            (0.3, 0.55), 11.4, 2.15,
+            boxstyle="round,pad=0.03,rounding_size=0.12",
+            facecolor=SOFT, edgecolor=TEAL, linewidth=1.6,
+        )
+    )
+    # Train fit zone
+    ax.add_patch(Rectangle((0.6, 1.55), 6.5, 0.85, facecolor=TEAL, edgecolor="none"))
+    ax.text(3.85, 1.98, "FIT on train only → freeze μ, σ, vocab, imputer", ha="center", va="center",
+            color="white", fontsize=9.5, fontweight="bold")
+    # Val / test transform only
+    ax.add_patch(Rectangle((7.3, 1.55), 2.0, 0.85, facecolor=GOLD, edgecolor="none"))
+    ax.text(8.3, 1.98, "TRANSFORM\nval", ha="center", va="center", color="white", fontsize=8.5, fontweight="bold")
+    ax.add_patch(Rectangle((9.5, 1.55), 1.9, 0.85, facecolor=DEEP, edgecolor="none"))
+    ax.text(10.45, 1.98, "TRANSFORM\ntest", ha="center", va="center", color="white", fontsize=8.5, fontweight="bold")
+    # Timeline arrow
+    ax.annotate("", xy=(11.3, 1.15), xytext=(0.7, 1.15),
+                arrowprops=dict(arrowstyle="->", color=INK, lw=1.5))
+    ax.text(6.0, 0.85, "time-respecting cohort split  ·  never re-fit on val/test", ha="center",
+            fontsize=9, color="#475569")
+    ax.text(0.3, 2.9, "RIGHT — fit-transform discipline", fontsize=12, fontweight="bold", color=DEEP)
+    ax.text(11.7, 2.9, "nested CV: re-fit inside each fold", ha="right", fontsize=9, color=DEEP)
+
+    fig.suptitle("Feature preprocessing leakage vs honest split timeline", fontsize=13,
+                 fontweight="bold", color=INK, y=0.98)
+    save(fig, "ml_fig_preprocess_fit_split.png")
+
+
+def fig_threshold_sens_spec():
+    """Ch09 scientific: sensitivity / specificity trade-off vs decision threshold."""
+    rng = np.random.default_rng(21)
+    # Synthetic score distributions: negatives ~ Beta skew low, positives ~ Beta skew high
+    n_neg, n_pos = 800, 200
+    scores_neg = rng.beta(2.2, 5.5, size=n_neg)
+    scores_pos = rng.beta(5.0, 2.4, size=n_pos)
+    thresholds = np.linspace(0.02, 0.98, 120)
+    sens, spec = [], []
+    for t in thresholds:
+        tp = np.sum(scores_pos >= t)
+        fn = np.sum(scores_pos < t)
+        tn = np.sum(scores_neg < t)
+        fp = np.sum(scores_neg >= t)
+        sens.append(tp / (tp + fn))
+        spec.append(tn / (tn + fp))
+    sens = np.asarray(sens)
+    spec = np.asarray(spec)
+    youden = sens + spec - 1.0
+    t_star = thresholds[np.argmax(youden)]
+    s_at = sens[np.argmax(youden)]
+    sp_at = spec[np.argmax(youden)]
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 4.0))
+
+    # Left: score histograms
+    ax = axes[0]
+    bins = np.linspace(0, 1, 28)
+    ax.hist(scores_neg, bins=bins, density=True, alpha=0.55, color="#94a3b8", label="true − (n=800)")
+    ax.hist(scores_pos, bins=bins, density=True, alpha=0.65, color=TEAL, label="true + (n=200)")
+    ax.axvline(0.50, color=GOLD, ls="--", lw=1.6, label="default t=0.50")
+    ax.axvline(t_star, color=DEEP, ls="-", lw=1.8, label=f"Youden t*≈{t_star:.2f}")
+    ax.set_xlabel("predicted score / risk")
+    ax.set_ylabel("density")
+    ax.legend(frameon=False, fontsize=8, loc="upper right")
+    style_ax(ax, "Score overlap drives the trade-off")
+
+    # Right: sens/spec vs threshold
+    ax = axes[1]
+    ax.plot(thresholds, sens, color=TEAL, lw=2.4, label="sensitivity (recall)")
+    ax.plot(thresholds, spec, color=DEEP, lw=2.4, label="specificity")
+    ax.plot(thresholds, youden, color=GOLD, lw=1.8, ls="--", label="Youden J = Se+Sp−1")
+    ax.axvline(t_star, color="#64748b", ls=":", lw=1.3)
+    ax.scatter([t_star], [s_at], color=TEAL, s=40, zorder=5)
+    ax.scatter([t_star], [sp_at], color=DEEP, s=40, zorder=5)
+    ax.set_xlabel("decision threshold t")
+    ax.set_ylabel("rate")
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1.05)
+    ax.legend(frameon=False, fontsize=8, loc="center right")
+    style_ax(ax, "Operating point is a clinical choice")
+    ax.text(
+        0.98, 0.06,
+        "Default 0.5 is not sacred — match cost of FN vs FP",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.tight_layout()
+    save(fig, "ml_fig_threshold_sens_spec.png")
+
+
+def fig_silhouette_k():
+    """Ch04 scientific: silhouette vs k on synthetic 3-blob data (k-choice)."""
+    rng = np.random.default_rng(11)
+    # Three well-separated blobs in 2-D
+    centers = np.array([[0.0, 0.0], [4.5, 0.3], [1.8, 3.8]])
+    pts, true_lab = [], []
+    for i, c in enumerate(centers):
+        blob = rng.normal(c, 0.55, size=(70, 2))
+        pts.append(blob)
+        true_lab.append(np.full(70, i))
+    X = np.vstack(pts)
+
+    def lloyd(X, k, n_init=8, max_iter=40):
+        best_inertia, best_labels, best_cents = np.inf, None, None
+        n = X.shape[0]
+        for seed in range(n_init):
+            r = np.random.default_rng(seed + 100)
+            cents = X[r.choice(n, size=k, replace=False)].copy()
+            labels = np.zeros(n, dtype=int)
+            for _ in range(max_iter):
+                d = ((X[:, None, :] - cents[None, :, :]) ** 2).sum(axis=2)
+                new_lab = d.argmin(axis=1)
+                if np.array_equal(new_lab, labels):
+                    break
+                labels = new_lab
+                for j in range(k):
+                    mask = labels == j
+                    if mask.any():
+                        cents[j] = X[mask].mean(axis=0)
+            inertia = ((X - cents[labels]) ** 2).sum()
+            if inertia < best_inertia:
+                best_inertia, best_labels, best_cents = inertia, labels.copy(), cents.copy()
+        return best_labels, best_cents, best_inertia
+
+    def mean_silhouette(X, labels):
+        # Pairwise Euclidean distances (n small)
+        n = X.shape[0]
+        # squared then sqrt
+        diff = X[:, None, :] - X[None, :, :]
+        D = np.sqrt((diff ** 2).sum(axis=2) + 1e-12)
+        sil = np.zeros(n)
+        for i in range(n):
+            same = labels == labels[i]
+            same[i] = False
+            if same.sum() == 0:
+                sil[i] = 0.0
+                continue
+            a = D[i, same].mean()
+            b = np.inf
+            for cl in np.unique(labels):
+                if cl == labels[i]:
+                    continue
+                other = labels == cl
+                if other.any():
+                    b = min(b, D[i, other].mean())
+            sil[i] = (b - a) / max(a, b)
+        return sil.mean()
+
+    ks = np.arange(2, 8)
+    sils, wss = [], []
+    for k in ks:
+        lab, _, inertia = lloyd(X, int(k))
+        sils.append(mean_silhouette(X, lab))
+        wss.append(inertia)
+    sils = np.asarray(sils)
+    wss = np.asarray(wss)
+    k_best = int(ks[np.argmax(sils)])
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.0, 4.0))
+
+    # Left: data with k=3 partition
+    lab3, cents3, _ = lloyd(X, 3)
+    ax = axes[0]
+    colors = [TEAL, GOLD, DEEP, "#b45309", "#64748b", "#a855f7"]
+    for j in range(3):
+        m = lab3 == j
+        ax.scatter(X[m, 0], X[m, 1], s=18, c=colors[j], alpha=0.8, edgecolors="none")
+        ax.scatter(cents3[j, 0], cents3[j, 1], s=140, c="white", edgecolors=colors[j],
+                   linewidths=2.2, zorder=5, marker="D")
+    ax.set_xlabel("feature 1 (standardized)")
+    ax.set_ylabel("feature 2 (standardized)")
+    style_ax(ax, "Synthetic 3-blob data (k-means, k=3)")
+
+    # Right: silhouette vs k (+ light WSS twin for context)
+    ax = axes[1]
+    ax.plot(ks, sils, "o-", color=TEAL, lw=2.4, markersize=8, label="mean silhouette")
+    ax.axvline(k_best, color=GOLD, ls="--", lw=1.5, label=f"peak at k={k_best}")
+    ax.set_xlabel("k (number of clusters)")
+    ax.set_ylabel("mean silhouette")
+    ax.set_xticks(ks)
+    ax.set_ylim(0, 1.0)
+    ax.legend(frameon=False, fontsize=9, loc="lower left")
+    style_ax(ax, "Silhouette peaks where geometry separates")
+    # inset note
+    ax.text(
+        0.98, 0.92,
+        "High silhouette ≠ clinical phenotype\n(geometry ≠ etiology)",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    fig.tight_layout()
+    save(fig, "ml_fig_silhouette_k.png")
+
+
+def fig_token_neighbors():
+    """Ch12 scientific: subword tokenization + 2-D embedding nearest neighbors (teaching)."""
+    fig = plt.figure(figsize=(9.2, 4.2))
+    gs = fig.add_gridspec(1, 2, width_ratios=[1.05, 1.2], wspace=0.28)
+
+    # Left: subword segmentation of a clinical phrase
+    ax = fig.add_subplot(gs[0, 0])
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 6)
+    ax.axis("off")
+    ax.text(5, 5.5, "Subword tokenization (BPE / WordPiece sketch)", ha="center",
+            fontsize=11, fontweight="bold", color=INK)
+    ax.text(5, 4.85, 'phrase:  "thrombolysis laterality aphasia"', ha="center",
+            fontsize=10, color="#475569", family="monospace")
+    # token chips
+    tokens = [
+        (0.4, "throm", TEAL),
+        (2.3, "##bolysis", DEEP),
+        (4.6, "lateral", GOLD),
+        (6.7, "##ity", "#b45309"),
+        (8.3, "aphasia", TEAL),
+    ]
+    for x, tok, c in tokens:
+        w = max(1.5, 0.22 * len(tok) + 0.9)
+        ax.add_patch(FancyBboxPatch((x, 3.2), w, 1.0, boxstyle="round,pad=0.03,rounding_size=0.12",
+                                    facecolor=c, edgecolor="none"))
+        ax.text(x + w / 2, 3.7, tok, ha="center", va="center", color="white",
+                fontsize=9, fontweight="bold", family="monospace")
+    ax.annotate("", xy=(9.5, 2.7), xytext=(0.5, 2.7),
+                arrowprops=dict(arrowstyle="->", color="#94a3b8", lw=1.3))
+    ax.text(5, 2.35, "rare clinical strings split; common stems stay whole", ha="center",
+            fontsize=9, color="#64748b")
+    # UNK contrast
+    ax.add_patch(FancyBboxPatch((1.2, 0.55), 7.6, 1.4, boxstyle="round,pad=0.03,rounding_size=0.12",
+                                facecolor="#f8fafc", edgecolor="#cbd5e1", linewidth=1.2))
+    ax.text(5, 1.55, "Word-level only → many [UNK] on local notes", ha="center",
+            fontsize=9, color="#b91c1c")
+    ax.text(5, 0.95, "Subword → lower OOV; still audit drug / laterality tokens", ha="center",
+            fontsize=9, color=DEEP)
+
+    # Right: 2-D nearest-neighbor embedding sketch (hand-placed for pedagogy)
+    ax = fig.add_subplot(gs[0, 1])
+    words = {
+        "stroke": (0.2, 1.1),
+        "CVA": (0.55, 0.85),
+        "TIA": (0.9, 1.35),
+        "NIHSS": (2.6, 2.4),
+        "mRS": (3.0, 2.1),
+        "thrombolysis": (1.8, 0.2),
+        "tPA": (2.2, -0.15),
+        "tenecteplase": (2.55, 0.35),
+        "aphasia": (-1.2, 2.0),
+        "dysarthria": (-0.85, 1.55),
+        "hemorrhage": (-1.5, -0.8),
+        "ICH": (-1.1, -1.15),
+    }
+    # neighborhoods
+    groups = [
+        (["stroke", "CVA", "TIA"], TEAL, "vascular events"),
+        (["NIHSS", "mRS"], GOLD, "scales"),
+        (["thrombolysis", "tPA", "tenecteplase"], DEEP, "reperfusion Rx"),
+        (["aphasia", "dysarthria"], "#b45309", "language signs"),
+        (["hemorrhage", "ICH"], "#64748b", "bleed terms"),
+    ]
+    for names, c, _ in groups:
+        xs = [words[n][0] for n in names]
+        ys = [words[n][1] for n in names]
+        # soft hull as scatter cloud
+        ax.scatter(xs, ys, s=220, c=c, alpha=0.18, edgecolors="none")
+        for n in names:
+            x, y = words[n]
+            ax.scatter([x], [y], s=55, c=c, edgecolors="white", linewidths=0.8, zorder=3)
+            ax.text(x + 0.12, y + 0.08, n, fontsize=8, color=INK, fontweight="bold")
+    # query arrow: stroke → nearest neighbors
+    ax.annotate(
+        "", xy=words["CVA"], xytext=words["stroke"],
+        arrowprops=dict(arrowstyle="->", color=TEAL, lw=1.5),
+    )
+    ax.annotate(
+        "", xy=words["TIA"], xytext=words["stroke"],
+        arrowprops=dict(arrowstyle="->", color=TEAL, lw=1.2, alpha=0.7),
+    )
+    ax.set_xlabel("embedding dim 1 (synthetic PCA sketch)")
+    ax.set_ylabel("embedding dim 2")
+    ax.set_xlim(-2.2, 3.7)
+    ax.set_ylim(-1.7, 3.0)
+    style_ax(ax, "Nearest neighbors in embedding space")
+    ax.text(
+        0.98, 0.04,
+        "Near ≠ synonymous; geometry is corpus-dependent",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    save(fig, "ml_fig_token_neighbors.png")
+
+
+def fig_drift_monitor():
+    """Ch16 senior practice: deployment monitoring — score drift + PSI schematic."""
+    rng = np.random.default_rng(5)
+    # Reference (train/serve baseline) vs current window scores
+    ref = rng.beta(2.5, 4.0, size=2000)
+    # Drifted: mass shifts higher (case-mix / scanner / coding change)
+    cur = rng.beta(3.8, 2.8, size=2000)
+
+    bins = np.linspace(0, 1, 11)
+    r_hist, _ = np.histogram(ref, bins=bins)
+    c_hist, _ = np.histogram(cur, bins=bins)
+    r_p = r_hist / r_hist.sum()
+    c_p = c_hist / c_hist.sum()
+    # PSI with floor to avoid log(0)
+    eps = 1e-6
+    psi_bins = (c_p + eps - (r_p + eps)) * np.log((c_p + eps) / (r_p + eps))
+    psi = psi_bins.sum()
+    centers = 0.5 * (bins[:-1] + bins[1:])
+
+    # Monthly AUROC synthetic series with a late drop
+    months = np.arange(1, 13)
+    auroc = np.array([0.84, 0.83, 0.845, 0.84, 0.835, 0.83, 0.828, 0.82, 0.81, 0.79, 0.77, 0.76])
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 4.0))
+
+    # Left: score distribution shift + PSI bars
+    ax = axes[0]
+    width = 0.035
+    ax.bar(centers - width, r_p, width=width * 1.8, color=TEAL, alpha=0.85, label="reference (fit window)")
+    ax.bar(centers + width, c_p, width=width * 1.8, color=GOLD, alpha=0.9, label="current deployment")
+    ax.set_xlabel("predicted score bin")
+    ax.set_ylabel("proportion")
+    ax.set_xlim(0, 1)
+    ax.legend(frameon=False, fontsize=8, loc="upper right")
+    style_ax(ax, f"Score shift  ·  PSI ≈ {psi:.2f}")
+    alarm = "ALARM (≈0.2+)" if psi >= 0.2 else "watch"
+    ax.text(
+        0.98, 0.55,
+        f"PSI = Σ (c−r) ln(c/r)\n≈ {psi:.2f}  →  {alarm}",
+        transform=ax.transAxes, ha="right", va="top", fontsize=9,
+        color="#b91c1c" if psi >= 0.2 else DEEP,
+        bbox=dict(boxstyle="round,pad=0.3", facecolor="#fff7ed", edgecolor=GOLD, alpha=0.95),
+    )
+
+    # Right: live AUROC trend with governance actions
+    ax = axes[1]
+    ax.plot(months, auroc, "o-", color=TEAL, lw=2.3, markersize=7)
+    ax.axhline(0.80, color=GOLD, ls="--", lw=1.5, label="pre-set floor 0.80")
+    ax.fill_between(months, 0.70, auroc, where=auroc < 0.80, color="#fecaca", alpha=0.55, interpolate=True)
+    ax.annotate(
+        "investigate /\nrollback plan",
+        xy=(10, 0.79), xytext=(6.2, 0.74),
+        fontsize=9, color="#b91c1c",
+        arrowprops=dict(arrowstyle="->", color="#b91c1c", lw=1.3),
+    )
+    ax.set_xlabel("month after go-live")
+    ax.set_ylabel("live AUROC (synthetic)")
+    ax.set_ylim(0.70, 0.90)
+    ax.set_xticks(months)
+    ax.legend(frameon=False, fontsize=9)
+    style_ax(ax, "Outcome metric lag — monitor inputs too")
+    ax.text(
+        0.98, 0.06,
+        "Prediction ≠ causation; drift is ops science",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.tight_layout()
+    save(fig, "ml_fig_drift_monitor.png")
+
+
+# ---------------------------------------------------------------------------
 # Legacy numbered PNGs (00_*.png … 17_*.png)
 # These files already exist under docs/assets/figures/ and are linked from
 # chapter openings. They are FROZEN historical assets — not regenerated here.
@@ -1773,6 +2171,12 @@ def main():
     fig_appraisal_checklist()
     fig_reliability_ece()
     fig_capacity_vs_n()
+    # Swarm 3h cycle-3 densify (ch06 / ch09 / ch04 / ch12 / ch16)
+    fig_preprocess_fit_split()
+    fig_threshold_sens_spec()
+    fig_silhouette_k()
+    fig_token_neighbors()
+    fig_drift_monitor()
     print("DONE figures in", OUT)
     missing_legacy = [n for n in LEGACY_NUMBERED_ASSETS if not (OUT / n).exists()]
     if missing_legacy:

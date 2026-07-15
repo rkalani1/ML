@@ -230,6 +230,10 @@ Accuracy is (TP + TN) / (TP + TN + FP + FN). It is misleading under class imbala
 
 Consider a binary test set of 200 cases with TP = 40, FP = 10, FN = 20, TN = 130. Accuracy = (40 + 130) / 200 = 0.85. Precision = 40 / (40 + 10) = 0.80. Recall = 40 / (40 + 20) ≈ 0.667. F1 = 2 · 0.80 · 0.667 / (0.80 + 0.667) ≈ 0.727. Specificity = 130 / 140 ≈ 0.929. False positive rate = 1 − specificity ≈ 0.071. If each FN costs five times each FP in a triage setting, one may lower the decision threshold to raise recall at the expense of precision. Metrics must match the decision problem, not a default 0.5 threshold.
 
+![Threshold trade-off: overlapping scores and sensitivity/specificity vs t (synthetic; original).](../assets/figures/ml_fig_threshold_sens_spec.png)
+
+*Figure — Threshold as a clinical lever. **Left:** synthetic score densities for true negatives and true positives; overlap is why no single cut is perfect. Vertical lines mark default *t* = 0.50 and the Youden peak *t*\* = argmax(Se+Sp−1). **Right:** as *t* rises, sensitivity falls and specificity rises; Youden *J* peaks at an intermediate operating point. Default 0.5 is not sacred—match the cost of false negatives (missed LVO) versus false positives (unnecessary angiography/transfer). Ranking metrics (AUC) summarize the curve; bedside use still needs a chosen *t*, calibrated risk, and prevalence-aware PPV.*
+
 ![9.5: Worked confusion-matrix metrics for a binary test set of n = 200 (TP = 40, FN = 20, FP = 10, TN = 130). Reading off the ](../assets/figures/ml_concept_9.5_600c2868.png)
 
 *Figure 9.5 — original teaching graphic.*

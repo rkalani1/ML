@@ -221,6 +221,10 @@ Within-cluster sum of squares (WSS/WCSS) decreases as k grows; the elbow method 
 
 *Figure 4.5. Elbow plot of within-cluster sum of squares (WSS) against k for k-means on the six-point toy set. WSS drops sharply from 74.2 at k = 1 to 4.0 at k = 2, then flattens; the diminishing-returns bend (amber dashed line) marks the elbow at k = 2, matching the visual two-clump structure.*
 
+![Mean silhouette vs k on synthetic three-blob data (scientific; original).](../assets/figures/ml_fig_silhouette_k.png)
+
+*Figure — Silhouette as a k-choice companion to the elbow. **Left:** standardized two-feature synthetic data with three spherical blobs and k-means centroids (k = 3). **Right:** mean silhouette over k = 2…7 peaks at the generating structure (k = 3). Silhouette s(i) = (b(i) − a(i)) / max{a(i), b(i)} rewards compact, well-separated geometry; a high peak still does **not** prove clinical phenotypes, TOAST etiology, or treatment-effect strata—only that the partition fits the chosen distance. Use silhouette with stability (bootstrap / site holdout) and a pre-specified utility question, never as sole evidence for reifying clusters.*
+
 ### Extrinsic methods: purity and Rand index
 
 When reference labels exist for audit (for example, known TOAST codes), purity measures the fraction of points in each cluster belonging to its majority class, aggregated—high purity can coexist with over-fragmentation (many tiny pure clusters). The Rand index is the fraction of point pairs on which the clustering and the reference agree about being same-cluster vs different-cluster; adjusted Rand corrects for chance. External indices validate recovery of a reference ontology; they do not prove the reference is the right biology.
