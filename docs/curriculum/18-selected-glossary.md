@@ -958,3 +958,6 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 ![c209 teaching panel 19 (original).](../assets/figures/ml_fig_c209_19.png)
 *Figure — Glossary discrimination metric strip. Synthetic teaching geometry—not a causal claim.*
+
+![c210 teaching panel 19 (original).](../assets/figures/ml_fig_c210_19.png)
+*Figure — Glossary self-supervised name strip. Synthetic teaching geometry—not a causal claim.*

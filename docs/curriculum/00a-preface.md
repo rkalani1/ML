@@ -763,3 +763,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c209 teaching panel 01 (original).](../assets/figures/ml_fig_c209_01.png)
 *Figure — Differential privacy budget composition. Synthetic teaching geometry—not a causal claim.*
+
+![c210 teaching panel 01 (original).](../assets/figures/ml_fig_c210_01.png)
+*Figure — Model card risk field tiles. Synthetic teaching geometry—not a causal claim.*

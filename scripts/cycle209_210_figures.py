@@ -521,15 +521,22 @@ def d_lle_weights(ax, t, rng):
 
 
 def d_negative_binomial(ax, t, rng):
+    import math
+
     k = np.arange(0, 30)
-    # NB vs Poisson
-    mu = 6
-    pois = np.exp(-mu) * mu**k / np.array([np.math.factorial(int(i)) for i in k])
-    # NB overdispersed approx via formula
+    mu = 6.0
+    # Poisson PMF via log-gamma for stability
+    log_pois = -mu + k * np.log(mu) - np.array([math.lgamma(int(i) + 1) for i in k])
+    pois = np.exp(log_pois)
+    # NB(r, p) with mean mu: p = r/(r+mu)
     r = 3.0
     p = r / (r + mu)
-    from math import comb
-    nb = np.array([comb(int(i + r - 1), int(i)) * (p**r) * ((1 - p) ** i) for i in k])
+    log_nb = (
+        np.array([math.lgamma(int(i) + r) - math.lgamma(r) - math.lgamma(int(i) + 1) for i in k])
+        + r * np.log(p)
+        + k * np.log(1 - p)
+    )
+    nb = np.exp(log_nb)
     ax.plot(k, pois, "o-", color=GOLD, lw=1.8, label="Poisson μ=6")
     ax.plot(k, nb, "s-", color=TEAL, lw=1.8, label="NB overdispersed")
     ax.set_xlabel("count")
