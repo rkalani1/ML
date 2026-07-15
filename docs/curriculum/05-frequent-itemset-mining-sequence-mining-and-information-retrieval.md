@@ -151,6 +151,10 @@ In practice one uses k hash functions h₁, …, h_k from integers to integers a
 
 *Figure — Banding controls the candidate explosion. **Left:** \(P(\text{candidate})=1-(1-s^r)^b\) as a function of true Jaccard \(s\) for different band/row pairs \((b,r)\)—S-curves place the steep region near your target similarity. **Right:** raising the Jaccard threshold trades recall of true near-duplicates against false-positive review load. MinHash approximates set overlap; it is not clinical correctness and not a causal graph of notes.*
 
+![Association rules in support–confidence space colored by lift (synthetic; original).](../assets/figures/ml_fig_support_confidence.png)
+
+*Figure — Rule mining plane. Points are candidate rules; dashed lines mark minsup/minconf; color encodes lift (confidence / P(consequent)). High lift with tiny support is often sampling noise. Co-occurrence in orders or notes is association—not a causal pathway.*
+
 Clinical and epidemiologic note: MinHash and LSH can cluster near-duplicate discharge summaries or flag copy-forward notes, but similarity is not clinical correctness. Two notes with high Jaccard may both omit a critical negation (“no hemorrhage”). Always combine set-similarity retrieval with section-aware and negation-aware NLP when the use case is safety-critical case finding.
 
 ## Tree Data Structures for Search and Indexing

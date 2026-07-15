@@ -83,6 +83,10 @@ A broken (or discontinuous) axis omits a middle range of values, often to zoom o
 
 *Figure — Same four site rates, two stories. **Left:** truncated y-limits turn 0.5–1.0 point gaps into dramatic cliffs. **Right:** a zero baseline restores honest length encoding. Start quantitative axes at zero unless a labeled log scale or a clearly marked inset is justified. Misleading axes do not create causation—but they do create unjustified QI panic.*
 
+![Colormap hygiene: rainbow jet vs sequential teal on the same matrix (original).](../assets/figures/ml_fig_colormap_hygiene.png)
+
+*Figure — Heatmap color encodes magnitude. **Left:** rainbow (jet) invents false boundaries and is hard for color-vision deficiency. **Right:** a sequential teal map preserves order and prints more safely. Prefer sequential or diverging perceptually uniform maps for clinical matrices.*
+
 ## More Than One-Dimensional Data Visualizations
 
 ### Surface plot

@@ -226,6 +226,10 @@ Regression predicts a continuous (or conditionally continuous) target from featu
 
 *Figure — PDP / ICE / SHAP follow the observational joint. **Left:** a confounder \(U\) drives both \(X\) and \(Y\); the binned observational mean of \(Y\) given \(X\) slopes strongly, while the approximate interventional \(E[Y\mid do(X)]\) is nearly flat. **Right:** solid arrows \(U\to X\), \(U\to Y\) explain the mirage; a weak dashed \(X\to Y\) does not license “change \(X\) to change \(Y\).” Prediction tools can still be useful—just keep claim types separate.*
 
+![Bias–variance tradeoff vs model complexity (teaching sketch; original).](../assets/figures/ml_fig_bias_variance_curve.png)
+
+*Figure — Expected test error ≈ bias² + variance + irreducible noise. Underfit sits left (high bias); overfit sits right (high variance). Regularization and more data move the curves; the “sweet spot” is task- and sample-size specific. Lower prediction error still does not establish causation.*
+
 ### Classification
 
 Classification predicts discrete labels: stroke versus mimic, LVO versus no LVO, mRS 0–2 versus 3–6. Binary, multiclass, and multi-label settings differ in loss design and metrics. Logistic regression, linear discriminants, trees and forests, boosting, support vector machines, and deep networks are standard tools. Class imbalance, label noise, and calibration deserve first-class attention in medicine.

@@ -18,6 +18,10 @@
 
 *Figure — Glossary: odds = p/(1−p). **Left:** odds rise nonlinearly as probability approaches 1. **Right:** multiply prior odds by LR+, then convert back to posterior probability—do not add “probability points” as if they were odds. Model scores still require calibration for absolute risk; prediction ≠ causation.*
 
+![ARR and NNT from absolute risks (original).](../assets/figures/ml_fig_arr_nnt.png)
+
+*Figure — Glossary utility vocab. **Left:** absolute risk reduction ARR = p₀ − p₁. **Right:** NNT = 1/ARR. Relative metrics (OR/RR) alone cannot yield NNT; calibrated absolute risks are required. Model AUROC does not equal ARR, and ARR from observational scores is not automatically a causal treatment effect.*
+
 ![Appraisal orientation graphic (original).](../assets/figures/ml_fig_appraisal_scorecard.png)
 
 *Teaching orientation for metrics and appraisal terms (original).*

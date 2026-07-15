@@ -70,6 +70,10 @@ Principal component analysis (PCA) finds orthogonal directions that capture maxi
 
 *Figure — PCA compression curves on a synthetic eigenvalue spectrum. Left: per-component and cumulative fraction of variance; the 80% guideline marks a common default k, not a clinical warranty. Right: relative Frobenius reconstruction error falls as rank grows (Eckart–Young residual energy). Variance retained is a reconstruction metric—it does not guarantee better prediction of mRS, infarct growth, or any downstream label.*
 
+![PCA scree vs parallel analysis for component retention (synthetic; original).](../assets/figures/ml_fig_pca_parallel.png)
+
+*Figure — Parallel analysis as a retention check. **Left:** data eigenvalues vs mean eigenvalues of column-shuffled null matrices. **Right:** retain components above the null mean (teal bars). Still a geometric heuristic—PCA axes are not causal factors and need not be the best inputs for a clinical predictor.*
+
 If C = V Λ Vᵀ with eigenvalues λ₁ ≥ λ₂ ≥ ⋯ ≥ λ_d ≥ 0 and orthonormal eigenvectors as columns of V, then the k-dimensional PCA scores are Z = X_c V_k where V_k holds the top k eigenvectors. The fraction of variance explained by component j is λ_j / ∑_i λ_i. Cumulative explained variance guides the choice of k—but “80% variance retained” is not a guarantee of predictive utility for mRS or infarct growth. PCA assumes that large-variance directions are interesting, which fails when the signal is low-variance or when units of measurement arbitrarily inflate variance—hence the common practice of standardizing features before PCA when panels mix mg/dL, mmHg, and seconds.
 
 ### Teaching table: choosing k in PCA (compression vs claim)

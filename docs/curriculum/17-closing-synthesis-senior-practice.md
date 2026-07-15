@@ -33,6 +33,10 @@ You finish a model paper and a methods appendix in one sitting. Synthesis means 
 
 *Net benefit is threshold-specific. A model can dominate treat-all/none on a range and still fail outside it (original scientific sketch).*
 
+![Decision-curve net benefit and ΔNB vs defaults across thresholds (synthetic; original).](../assets/figures/ml_fig_decision_curve_nb.png)
+
+*Figure — Closing utility panel. **Left:** model net benefit vs treat-all and treat-none across threshold probabilities. **Right:** ΔNB versus the better default highlights the clinical range where the model helps. Net benefit is not AUROC and not a causal treatment effect—choose pt with domain experts.*
+
 ![Full senior ML appraisal checklist flowchart (original teaching graphic).](../assets/figures/ml_fig_appraisal_checklist.png)
 
 *Figure — Eleven-gate appraisal flow for clinical prediction systems: question fit → index/legality → leakage → cohort/label → fit/capacity → discrimination → calibration → utility → external test → deploy card → drift monitor. Skip a gate only with a written reason. Prediction success never licenses a causal claim or sole-trigger withdrawal of care.*

@@ -216,6 +216,10 @@ Tiny VAE ELBO sketch. Suppose one latent dimension, prior p(z)=N(0,1), encoder f
 
 *Figure — Univariate VAE teaching numbers. **Left:** reconstruction term 0.50, KL≈0.818, and −ELBO at β=1. **Right:** as β grows, the training objective L = recon + β·KL weights latent regularity more heavily; reconstruction typically worsens while KL shrinks toward the prior. Disentanglement under large β is hypothesized, not guaranteed. Latent structure is for generation and representation—not a causal model of disease.*
 
+![β-VAE reconstruction–KL tradeoff and latent entanglement caricature (synthetic; original).](../assets/figures/ml_fig_beta_vae_tradeoff.png)
+
+*Figure — Pressure on the latent. **Left:** as β rises, recon loss tends up while KL is driven down. **Right:** low-β latents look entangled; high-β more axis-aligned—partial and fragile. Large β can blur rare lesion cues; latent directions are not disease causes.*
+
 ## 11.9 Energy-Based Intuition, Latent Geometry, and Evaluation Discipline
 
 Energy-based models assign low energy to plausible configurations. RBMs, many GANs (via critic scores), and score-based diffusion models share the spirit of shaping a landscape over data space. Diffusion training can be viewed as learning the score ∇_x log p_t(x) of noisy marginals—linking denoising autoencoders to modern generative SOTA. For clinicians, the operational question is not the elegance of the energy but whether samples or embeddings improve a pre-registered downstream endpoint.

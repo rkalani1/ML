@@ -77,6 +77,10 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 *Figure — Preface: average metrics can hide a failed site. **Left:** ERM looks strong overall while Site D (rare protocol) collapses; group DRO trades a little mean AUROC to lift the worst group. **Right:** training weights shift toward high-loss groups. Pre-specify groups—do not mine them on the test set. Robust training improves a prediction service under shift; it does not prove sites caused outcomes.*
 
+![Ops lifecycle: deploy → monitor → investigate → rollback/retrain (original).](../assets/figures/ml_fig_ops_lifecycle.png)
+
+*Figure — Preface: shipping starts evaluation. Versioned monitor → investigate → rollback/retrain loop; silent auto-retrain without governance is a hazard. Lifecycle hygiene keeps a prediction service safe—it is not causal discovery.*
+
 ## Reader’s map (teaching table)
 
 | Habit | What you do | What it prevents |

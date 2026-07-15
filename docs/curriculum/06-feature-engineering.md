@@ -91,6 +91,10 @@ Embedded: L1, tree importance; selection during training; still validate externa
 
 Numeric features take values on interval or ratio scales: age in years, systolic blood pressure in mmHg, serum glucose, infarct volume in mL, door-to-CT time in minutes. Many algorithms assume comparable scales. Euclidean distance in k-NN or k-means is dominated by large-range variables. L2-regularized linear models penalize large coefficients; unscaled features with large numeric ranges receive smaller coefficients for the same physical effect, distorting regularization paths. Tree-based models are largely invariant to monotonic rescaling of individual features.
 
+![Box–Cox / log power transforms for skewed numeric features (original).](../assets/figures/ml_fig_boxcox.png)
+
+*Figure — Power family. **Left:** Box–Cox curves for several \(\lambda\) (including log at \(\lambda=0\)). **Right:** a lognormal-like raw lab vs log-transformed density. Fit \(\lambda\) and scalers on the training fold only; transforms reshape geometry for learning—they do not create causal units of biology.*
+
 ![6.2: The same right-skewed glucose feature shown raw (mg/dL), min-max scaled to [0, 1], and z-standardized (mean 0, SD 1). Be](../assets/figures/ml_concept_6.2_36c46b0a.png)
 
 *Figure 6.2 — original teaching graphic.*
