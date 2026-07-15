@@ -865,3 +865,9 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c228 teaching panel 18 (original).](../assets/figures/ml_fig_c228_18.png)
 *Figure — Game-day readiness scorecard. Synthetic teaching geometry—not a causal claim.*
+
+![c229 teaching panel 18 (original).](../assets/figures/ml_fig_c229_18.png)
+*Figure — SLO availability dashboard. Synthetic teaching geometry—not a causal claim.*
+
+![c230 teaching panel 18 (original).](../assets/figures/ml_fig_c230_18.png)
+*Figure — Ops review agenda strip. Synthetic teaching geometry—not a causal claim.*

@@ -820,3 +820,9 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c228 teaching panel 01 (original).](../assets/figures/ml_fig_c228_01.png)
 *Figure — Watermark detection score laws. Synthetic teaching geometry—not a causal claim.*
+
+![c229 teaching panel 01 (original).](../assets/figures/ml_fig_c229_01.png)
+*Figure — SBOM vulnerability match chain. Synthetic teaching geometry—not a causal claim.*
+
+![c230 teaching panel 01 (original).](../assets/figures/ml_fig_c230_01.png)
+*Figure — Incident severity histogram. Synthetic teaching geometry—not a causal claim.*
