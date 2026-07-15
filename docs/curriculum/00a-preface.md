@@ -1663,3 +1663,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c509 teaching panel 01 (original).](../assets/figures/ml_fig_c509_01.png)
 *Figure — Data use purpose path c509. Synthetic teaching geometry—not a causal claim.*
+
+![c510 teaching panel 01 (original).](../assets/figures/ml_fig_c510_01.png)
+*Figure — Consent scope control path c510. Synthetic teaching geometry—not a causal claim.*

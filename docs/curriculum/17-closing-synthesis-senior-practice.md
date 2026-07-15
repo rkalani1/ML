@@ -1708,3 +1708,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c509 teaching panel 18 (original).](../assets/figures/ml_fig_c509_18.png)
 *Figure — Error budget burn path c509. Synthetic teaching geometry—not a causal claim.*
+
+![c510 teaching panel 18 (original).](../assets/figures/ml_fig_c510_18.png)
+*Figure — SLO multi-window path c510. Synthetic teaching geometry—not a causal claim.*
