@@ -592,3 +592,9 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 ![c87 teaching panel 19 (original).](../assets/figures/ml_fig_c87_19.png)
 *Figure — Error decomposition glossary: bias, variance, noise, risk. Synthetic teaching geometry—not a causal claim.*
+
+![c88 teaching panel 19 (original).](../assets/figures/ml_fig_c88_19.png)
+*Figure — Symbols: E, Var, Cov, KL, H(X). Synthetic teaching geometry—not a causal claim.*
+
+![c89 teaching panel 19 (original).](../assets/figures/ml_fig_c89_19.png)
+*Figure — Abbrev strip: CV, OOD, SSL, RL, GNN. Synthetic teaching geometry—not a causal claim.*

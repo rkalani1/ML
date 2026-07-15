@@ -397,3 +397,9 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c87 teaching panel 01 (original).](../assets/figures/ml_fig_c87_01.png)
 *Figure — Prediction box vs causal claim box—keep them separate (pred≠cause). Synthetic teaching geometry—not a causal claim.*
+
+![c88 teaching panel 01 (original).](../assets/figures/ml_fig_c88_01.png)
+*Figure — Ethics/IRB map for human-data ML studies. Synthetic teaching geometry—not a causal claim.*
+
+![c89 teaching panel 01 (original).](../assets/figures/ml_fig_c89_01.png)
+*Figure — SPIRIT-like protocol elements for ML papers. Synthetic teaching geometry—not a causal claim.*

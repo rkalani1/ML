@@ -442,3 +442,9 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c87 teaching panel 18 (original).](../assets/figures/ml_fig_c87_18.png)
 *Figure — Deployment decision tree: monitor, revise, shadow. Synthetic teaching geometry—not a causal claim.*
+
+![c88 teaching panel 18 (original).](../assets/figures/ml_fig_c88_18.png)
+*Figure — Impact × uncertainty triage for model use. Synthetic teaching geometry—not a causal claim.*
+
+![c89 teaching panel 18 (original).](../assets/figures/ml_fig_c89_18.png)
+*Figure — Premortem failure modes board. Synthetic teaching geometry—not a causal claim.*
