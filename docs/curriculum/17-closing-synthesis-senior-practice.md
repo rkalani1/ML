@@ -1471,3 +1471,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c430 teaching panel 18 (original).](../assets/figures/ml_fig_c430_18.png)
 *Figure — SLO multi-window path c430. Synthetic teaching geometry—not a causal claim.*
+
+![c431 teaching panel 18 (original).](../assets/figures/ml_fig_c431_18.png)
+*Figure — Alert noise burn-down c431. Synthetic teaching geometry—not a causal claim.*
