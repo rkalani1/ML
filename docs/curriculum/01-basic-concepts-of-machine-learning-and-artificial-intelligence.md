@@ -401,6 +401,11 @@ Worked illustration (bias–variance). Let the true mean response at some input 
 
 *Figure — Classic decomposition sketch. Bias falls then variance rises with capacity; irreducible noise sets a floor. The U-shaped total risk is about prediction error under a sampling model—not proof of a causal story.*
 
+
+![Held-out accuracy vs label flip noise rate (synthetic; original).](../assets/figures/ml_fig_label_noise_acc.png)
+
+*Figure — Label noise ceiling. As flips rise, achievable accuracy falls toward chance. Noisy supervision biases learning; it is related to but not identical with causal measurement-error designs.*
+
 ## Common Pitfalls and Failure Modes
 
 The failure modes below recur across projects and modalities. Each has a mechanism, a warning sign, and a discipline that prevents it. Treat this as a checklist to run against any pipeline before you believe its numbers.

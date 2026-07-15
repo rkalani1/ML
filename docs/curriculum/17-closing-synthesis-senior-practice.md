@@ -107,6 +107,11 @@ Ship with a model card stating population, index time, features, calibration, in
 
 *Figure — Senior practice funnel. Shadow mode logs scores without changing care; only systems that survive comparison and limited release advance. **Prediction ≠ causation**; decision impact requires prospective design and equity audits.*\n\n
 
+
+![Slice evaluation matrix across subgroups and metrics (synthetic; original).](../assets/figures/ml_fig_slice_eval_matrix.png)
+
+*Figure — Senior practice: never ship on overall AUROC alone. Site B and other slices can fail while averages look fine. Slice gates protect patients—**prediction still ≠ causation** without design.*
+
 *Figure — Write triggers before go-live. **Left:** score PSI and ECE with pre-set alarm lines; a scanner swap at week 18 pushes PSI past 0.2. **Right:** live AUROC with a rollback floor at 0.80—recalibrate when calibration drifts, rollback when discrimination breaches the floor. Act on input/score monitors before lagged outcomes confirm failure. Prediction ≠ causation; ops monitoring is part of the science.*
 
 ## Synthetic Teaching Table: Deployment Checklist

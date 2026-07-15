@@ -282,6 +282,11 @@ Class imbalance remedies include resampling (oversample minority, undersample ma
 
 *Figure — Synthetic minorities fill geometric gaps. Apply only inside training folds; recalibrate probabilities after resampling; synthetic points are not new patients and do not create causal balance.*
 
+
+![Prior shift: same Se/Sp curves yield different PPV by prevalence (original).](../assets/figures/ml_fig_prior_shift_ppv.png)
+
+*Figure — Prevalence transport. Fixed sensitivity/specificity still move PPV as π changes. Thresholds do not travel free across clinics. PPV is predictive counseling—not a causal effect size.*
+
 ## Clinical and Epidemiologic Notes
 
 Classification is the workhorse of predictive modeling in neurology: large-vessel occlusion (LVO) versus not, hemorrhagic versus ischemic pathways, TOAST or CCS stroke subtype, malignant MCA edema risk, 90-day functional independence (mRS 0–2), or detection of atrial fibrillation on extended monitoring. Scientific quality depends as much on cohort design and metrics as on the choice among logistic regression, forests, or boosting.

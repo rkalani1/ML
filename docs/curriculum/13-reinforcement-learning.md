@@ -458,6 +458,11 @@ which removes incentives to push r_t far outside [1-epsilon, 1+epsilon]. An alte
 
 *Figure — Exploration design. Linear anneal, exponential decay, and constant ε trade early search against later exploitation. Schedules are policy choices for simulated MDPs—not maps of clinical cause-effect paths. Constrain unsafe actions before any bedside trial.*
 
+
+![TD control learning curves on a toy MDP (synthetic; original).](../assets/figures/ml_fig_td_control_curves.png)
+
+*Figure — On- vs off-policy style learning curves toward Q*. Simulated value improvement is not a license to automate bedside policy. Constrain unsafe actions; **control algorithms ≠ proven clinical causation**.*
+
 # REINFORCE with baseline (conceptual)
 # logp: log pi(a_t|s_t); returns: return-to-go; baseline: V(s_t)
 def reinforce_loss(logp, returns, baseline):

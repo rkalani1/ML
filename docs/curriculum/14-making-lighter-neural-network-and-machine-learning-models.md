@@ -337,6 +337,11 @@ Knowledge distillation trains a smaller student model to mimic a larger teacher.
 
 *Figure — Compression trade-offs. Coarser bits raise quantizer MSE while task accuracy often plateaus near INT8 on teaching curves. Recalibrate probabilities after quantize. Lighter models change **compute**, not the causal status of a prediction.*
 
+
+![Unstructured vs structured sparsity patterns (synthetic weights; original).](../assets/figures/ml_fig_structured_prune.png)
+
+*Figure — Pruning geometry. Unstructured magnitude zeros vs structured channel drops. Hardware prefers structure; always recalibrate. Compression changes compute—not the causal status of predictions.*
+
 Training recipe: train teacher well; choose student architecture that fits the edge budget; run distillation on a transfer set representative of deployment; tune T and alpha; validate student calibration and failure modes. Architectures include response-based distillation (logits), feature-based (match intermediate maps), and relation-based (match pairwise structures). For stroke imaging, a heavy ensemble teacher can distill into a single student deployable on MSU hardware—if the transfer set includes the MSU’s scanner characteristics.
 
 ```

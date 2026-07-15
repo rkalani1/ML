@@ -426,6 +426,11 @@ Given an undirected similarity graph, form the normalized Laplacian L_sym = I - 
 
 *Figure — Network structure diagnostics. Left: heavy-tailed degrees (log count). Right: assortative vs disassortative edge endpoints. Structure guides community and centrality analyses; it does not alone prove clinical **causation** without design and confounders.*
 
+
+![Modularity Q versus number of communities k (synthetic; original).](../assets/figures/ml_fig_modularity_vs_k.png)
+
+*Figure — Resolution choice. Q peaks at a teaching k; other k remain plausible under different scales. Communities are graph summaries—**not disease entities** without external labels and design.*
+
 Choosing k: inspect eigenvalue gaps; domain knowledge (expected number of care regions); stability across bootstrap edge subsamples. Spectral methods assume the similarity graph is meaningful—garbage k-NN graphs in high-dimensional noise yield garbage clusters. Compared with Louvain/Leiden, spectral clustering requires choosing k up front and costs eigen-decomposition, but connects cleanly to theoretical graph cuts (RatioCut, NCut).
 
 Clinical connectomes often use partial correlation or streamline counts as weights; thresholding to build A can create or destroy communities. Report sensitivity to threshold and parcellation atlas.

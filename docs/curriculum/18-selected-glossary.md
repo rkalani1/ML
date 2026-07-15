@@ -298,4 +298,9 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 *Figure — Glossary Bayes reminder. Fixed LR+=5 lifts probability differently at π=0.05 vs 0.40. Prevalence is not optional. Likelihood ratios quantify test strength for prediction counseling—they are not causal treatment effects.*\n\n
 
+
+![Metric cheat sheet matching claim families to metrics (original).](../assets/figures/ml_fig_metric_cheatsheet.png)
+
+*Figure — Glossary quick map. AUROC/AUPRC rank; Brier/ECE check probabilities; net benefit needs thresholds; C-index handles censoring. Wrong metric → wrong claim. None alone prove causation.*
+
 *Figure — Glossary leakage map. Four common families: **temporal** (post-decision features), **fit/CV** (scaler/vocab/selector fit on the full cohort), **label proxy** (treatment or post-outcome codes as inputs), and **target-encoding** without LOO/OOF. All inflate apparent performance at train time and fail at true index time. Prediction ≠ causation.*
