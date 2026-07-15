@@ -406,6 +406,11 @@ Worked illustration (bias–variance). Let the true mean response at some input 
 
 *Figure — Label noise ceiling. As flips rise, achievable accuracy falls toward chance. Noisy supervision biases learning; it is related to but not identical with causal measurement-error designs.*
 
+
+![Dataset shift taxonomy severity sketch: covariate, label, concept (original).](../assets/figures/ml_fig_shift_taxonomy.png)
+
+*Figure — Transport difficulty rises from covariate/label shift to concept shift (P(y|x) changes). Shift diagnosis guides monitoring—**not moral blame** and not automatic causal attribution.*
+
 ## Common Pitfalls and Failure Modes
 
 The failure modes below recur across projects and modalities. Each has a mechanism, a warning sign, and a discipline that prevents it. Treat this as a checklist to run against any pipeline before you believe its numbers.

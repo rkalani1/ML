@@ -112,6 +112,11 @@ Ship with a model card stating population, index time, features, calibration, in
 
 *Figure — Senior practice: never ship on overall AUROC alone. Site B and other slices can fail while averages look fine. Slice gates protect patients—**prediction still ≠ causation** without design.*
 
+
+![Equity slice AUROC gaps vs a teaching equity floor (synthetic; original).](../assets/figures/ml_fig_equity_gaps.png)
+
+*Figure — Overall metrics hide failed slices (language, insurance, rural site). Equity floors are deployment gates. Closing gaps needs design and data—not metric theater. Pred ≠ cause.*
+
 *Figure — Write triggers before go-live. **Left:** score PSI and ECE with pre-set alarm lines; a scanner swap at week 18 pushes PSI past 0.2. **Right:** live AUROC with a rollback floor at 0.80—recalibrate when calibration drifts, rollback when discrimination breaches the floor. Act on input/score monitors before lagged outcomes confirm failure. Prediction ≠ causation; ops monitoring is part of the science.*
 
 ## Synthetic Teaching Table: Deployment Checklist

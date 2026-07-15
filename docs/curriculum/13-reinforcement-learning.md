@@ -463,6 +463,11 @@ which removes incentives to push r_t far outside [1-epsilon, 1+epsilon]. An alte
 
 *Figure — On- vs off-policy style learning curves toward Q*. Simulated value improvement is not a license to automate bedside policy. Constrain unsafe actions; **control algorithms ≠ proven clinical causation**.*
 
+
+![Reward shaping vs sparse terminal reward learning curves (synthetic; original).](../assets/figures/ml_fig_reward_shaping.png)
+
+*Figure — Shaping accelerates return curves but can open reward hacks. Simulated control performance is not a bedside license. **Policy learning ≠ proven clinical causation**.*
+
 # REINFORCE with baseline (conceptual)
 # logp: log pi(a_t|s_t); returns: return-to-go; baseline: V(s_t)
 def reinforce_loss(logp, returns, baseline):

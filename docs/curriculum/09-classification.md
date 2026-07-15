@@ -287,6 +287,11 @@ Class imbalance remedies include resampling (oversample minority, undersample ma
 
 *Figure — Prevalence transport. Fixed sensitivity/specificity still move PPV as π changes. Thresholds do not travel free across clinics. PPV is predictive counseling—not a causal effect size.*
 
+
+![Hinge vs logistic surrogate losses vs margin (original).](../assets/figures/ml_fig_hinge_logloss.png)
+
+*Figure — Surrogate losses enable convex/smooth optimization for classification. They are not clinical utilities and not causal contrasts.*
+
 ## Clinical and Epidemiologic Notes
 
 Classification is the workhorse of predictive modeling in neurology: large-vessel occlusion (LVO) versus not, hemorrhagic versus ischemic pathways, TOAST or CCS stroke subtype, malignant MCA edema risk, 90-day functional independence (mRS 0–2), or detection of atrial fibrillation on extended monitoring. Scientific quality depends as much on cohort design and metrics as on the choice among logistic regression, forests, or boosting.

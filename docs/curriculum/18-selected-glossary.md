@@ -303,4 +303,9 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 *Figure — Glossary quick map. AUROC/AUPRC rank; Brier/ECE check probabilities; net benefit needs thresholds; C-index handles censoring. Wrong metric → wrong claim. None alone prove causation.*
 
+
+![Calibration slope and intercept on a reliability sketch (synthetic; original).](../assets/figures/ml_fig_calib_slope_int.png)
+
+*Figure — Glossary calibration. Slope≠1 or nonzero intercept means probabilities need recalibration before counseling. Calibration is about forecast honesty—not causal effect sizes.*
+
 *Figure — Glossary leakage map. Four common families: **temporal** (post-decision features), **fit/CV** (scaler/vocab/selector fit on the full cohort), **label proxy** (treatment or post-outcome codes as inputs), and **target-encoding** without LOO/OOF. All inflate apparent performance at train time and fail at true index time. Prediction ≠ causation.*
