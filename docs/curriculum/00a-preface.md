@@ -880,3 +880,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c248 teaching panel 01 (original).](../assets/figures/ml_fig_c248_01.png)
 *Figure — Supply-chain attest path. Synthetic teaching geometry—not a causal claim.*
+
+![c249 teaching panel 01 (original).](../assets/figures/ml_fig_c249_01.png)
+*Figure — Hockey-stick DP conversion. Synthetic teaching geometry—not a causal claim.*
