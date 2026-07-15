@@ -703,6 +703,42 @@ This chapter’s methods are threads that reappear across the book. Supervised d
 ![c111 teaching panel 12 (original).](../assets/figures/ml_fig_c111_12.png)
 *Figure — Masked image modeling. Synthetic teaching geometry—not a causal claim.*
 
+
+![c112 teaching panel 12 (original).](../assets/figures/ml_fig_c112_12.png)
+*Figure — Jigsaw pretext task. Synthetic teaching geometry—not a causal claim.*
+
+
+![c113 teaching panel 12 (original).](../assets/figures/ml_fig_c113_12.png)
+*Figure — Colorization pretext. Synthetic teaching geometry—not a causal claim.*
+
+
+![c114 teaching panel 12 (original).](../assets/figures/ml_fig_c114_12.png)
+*Figure — Rotation prediction. Synthetic teaching geometry—not a causal claim.*
+
+
+![c115 teaching panel 12 (original).](../assets/figures/ml_fig_c115_12.png)
+*Figure — Temporal order SSL. Synthetic teaching geometry—not a causal claim.*
+
+
+![c116 teaching panel 12 (original).](../assets/figures/ml_fig_c116_12.png)
+*Figure — Masked image modeling. Synthetic teaching geometry—not a causal claim.*
+
+
+![c117 teaching panel 12 (original).](../assets/figures/ml_fig_c117_12.png)
+*Figure — Jigsaw pretext task. Synthetic teaching geometry—not a causal claim.*
+
+
+![c118 teaching panel 12 (original).](../assets/figures/ml_fig_c118_12.png)
+*Figure — Colorization pretext. Synthetic teaching geometry—not a causal claim.*
+
+
+![c119 teaching panel 12 (original).](../assets/figures/ml_fig_c119_12.png)
+*Figure — Rotation prediction. Synthetic teaching geometry—not a causal claim.*
+
+
+![c120 teaching panel 12 (original).](../assets/figures/ml_fig_c120_12.png)
+*Figure — Temporal order SSL. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Self-supervised and generative deep learning extract structure from unlabeled data. Generative models capture p(x) while discriminative models capture p(y|x); encoders may be deterministic or stochastic. SOMs provide topology-preserving maps; Boltzmann machines and RBMs define energy-based densities trained with contrastive divergence; DBNs and DBMs stack these ideas deeply. Autoencoders reconstruct through bottlenecks with sparse, denoising, contractive, stacked, variational, and U-Net variants. Worked numerical sketches for contrastive pair loss and a univariate VAE KL/ELBO make the objectives concrete. GANs adversarially train generators with challenges of mode collapse, oscillation, slow convergence, and uninformative losses, evaluated by IS and FID, and specialized into CGAN, DCGAN, WGAN/WGAN-GP, Pix2Pix, CycleGAN, and StyleGAN. Contrastive and triplet losses with Siamese networks learn metric embeddings. Text-to-image systems combine zero-shot language alignment (CLIP), discrete codes (VQ-GAN), autoregression, and diffusion (DALL-E, Imagen, Parti, Stable Diffusion). Choosing among VAE, GAN, and diffusion families depends on stability, sharpness, sampling cost, and conditional control needs. In medicine, SSL is a strategy for scarce labels: domain-appropriate pretraining, strict patient-level separation, probing checklists, and skeptical use of synthetic images determine whether these methods aid neurologic care and epidemiologic research.

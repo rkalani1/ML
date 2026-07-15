@@ -943,6 +943,42 @@ Understanding Bellman backups and on- versus off-policy learning is more valuabl
 ![c111 teaching panel 14 (original).](../assets/figures/ml_fig_c111_14.png)
 *Figure — World models dreamer. Synthetic teaching geometry—not a causal claim.*
 
+
+![c112 teaching panel 14 (original).](../assets/figures/ml_fig_c112_14.png)
+*Figure — Model-based MPC loop. Synthetic teaching geometry—not a causal claim.*
+
+
+![c113 teaching panel 14 (original).](../assets/figures/ml_fig_c113_14.png)
+*Figure — Offline RL conservatism. Synthetic teaching geometry—not a causal claim.*
+
+
+![c114 teaching panel 14 (original).](../assets/figures/ml_fig_c114_14.png)
+*Figure — Distributional RL quantiles. Synthetic teaching geometry—not a causal claim.*
+
+
+![c115 teaching panel 14 (original).](../assets/figures/ml_fig_c115_14.png)
+*Figure — Successor representation. Synthetic teaching geometry—not a causal claim.*
+
+
+![c116 teaching panel 14 (original).](../assets/figures/ml_fig_c116_14.png)
+*Figure — World models dreamer. Synthetic teaching geometry—not a causal claim.*
+
+
+![c117 teaching panel 14 (original).](../assets/figures/ml_fig_c117_14.png)
+*Figure — Model-based MPC loop. Synthetic teaching geometry—not a causal claim.*
+
+
+![c118 teaching panel 14 (original).](../assets/figures/ml_fig_c118_14.png)
+*Figure — Offline RL conservatism. Synthetic teaching geometry—not a causal claim.*
+
+
+![c119 teaching panel 14 (original).](../assets/figures/ml_fig_c119_14.png)
+*Figure — Distributional RL quantiles. Synthetic teaching geometry—not a causal claim.*
+
+
+![c120 teaching panel 14 (original).](../assets/figures/ml_fig_c120_14.png)
+*Figure — Successor representation. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Reinforcement learning studies agents that interact with environments to maximize cumulative reward. Markov decision processes formalize states, actions, transitions, rewards, and discounting. Policies induce value functions V and Q that satisfy Bellman equations; dynamic programming solves small known MDPs via policy and value iteration. Monte Carlo methods average full returns; temporal-difference methods bootstrap, yielding SARSA (on-policy), Q-learning (off-policy), and Dyna-Q planning. Multi-armed bandits isolate exploration via epsilon-greedy, UCB, and Thompson sampling. Function approximation and deep RL scale these ideas: DQN with replay and target networks, DDQN, dueling architectures, prioritized replay, REINFORCE, TRPO, PPO, and actor-critic methods including A3C, DDPG, TD3, and SAC, plus latent world-model Dreamer agents. Careful reward design is essential. Clinical and epidemiologic notes emphasize that sequential care is high-risk RL: reward misspecification rewrites the clinical objective, offline logs lack coverage and are confounded by indication, and ethical constraints sharply limit unsupervised exploration at the bedside.

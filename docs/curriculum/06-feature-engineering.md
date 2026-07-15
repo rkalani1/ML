@@ -740,6 +740,42 @@ Feature engineering is the hinge between raw data and every later method. Select
 ![c111 teaching panel 07 (original).](../assets/figures/ml_fig_c111_07.png)
 *Figure — Polynomial basis explosion. Synthetic teaching geometry—not a causal claim.*
 
+
+![c112 teaching panel 07 (original).](../assets/figures/ml_fig_c112_07.png)
+*Figure — Spline knot placement. Synthetic teaching geometry—not a causal claim.*
+
+
+![c113 teaching panel 07 (original).](../assets/figures/ml_fig_c113_07.png)
+*Figure — Feature crosses cardinality. Synthetic teaching geometry—not a causal claim.*
+
+
+![c114 teaching panel 07 (original).](../assets/figures/ml_fig_c114_07.png)
+*Figure — Hashing vs embedding IDs. Synthetic teaching geometry—not a causal claim.*
+
+
+![c115 teaching panel 07 (original).](../assets/figures/ml_fig_c115_07.png)
+*Figure — Ordinal encoding ranks. Synthetic teaching geometry—not a causal claim.*
+
+
+![c116 teaching panel 07 (original).](../assets/figures/ml_fig_c116_07.png)
+*Figure — Polynomial basis explosion. Synthetic teaching geometry—not a causal claim.*
+
+
+![c117 teaching panel 07 (original).](../assets/figures/ml_fig_c117_07.png)
+*Figure — Spline knot placement. Synthetic teaching geometry—not a causal claim.*
+
+
+![c118 teaching panel 07 (original).](../assets/figures/ml_fig_c118_07.png)
+*Figure — Feature crosses cardinality. Synthetic teaching geometry—not a causal claim.*
+
+
+![c119 teaching panel 07 (original).](../assets/figures/ml_fig_c119_07.png)
+*Figure — Hashing vs embedding IDs. Synthetic teaching geometry—not a causal claim.*
+
+
+![c120 teaching panel 07 (original).](../assets/figures/ml_fig_c120_07.png)
+*Figure — Ordinal encoding ranks. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Feature engineering designs the matrix models actually learn from. Selection methods include filters (fast statistical scores), wrappers (SFS, SBS, genetic search optimizing a model’s validation metric), and embedded approaches (L1, tree importance). Numerical pipelines use min–max scaling, z-score standardization, L1/L2 norms, and log/Box–Cox transforms—always fit on train. Categorical encodings include one-hot, dummy, effect coding, feature hashing, bin counting, and target encoding; each invents geometry and some leak labels if misused. Text features span bags-of-words, subwords, n-grams, POS tags, Word2Vec/GloVe/FastText embeddings, and keyword methods (TF–IDF, TextRank, RAKE, YAKE). Image descriptors include Harris corners, MSER, HOG, SIFT, and watershed segments; video adds motion vectors, optical flow, 3D CNNs, and graph-based pose/region models. Time series and signals contribute stationarity checks, seasonal and trend components, motifs, lags, change points, and carefully chosen smoothers. Missingness is itself a feature decision: whether a blank is MCAR, MAR, or MNAR dictates whether to impute, impute-and-flag, or model the absence, and an informative-missingness indicator is lawful only when it is knowable at t₀. In clinical data, leakage is the cardinal sin: features must be knowable at decision time, and pipelines must enforce fit-on-train discipline end to end.

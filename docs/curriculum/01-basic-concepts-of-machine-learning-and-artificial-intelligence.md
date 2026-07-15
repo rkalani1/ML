@@ -858,6 +858,42 @@ The clinical and epidemiologic through-line—cohort design, index time, phenoty
 ![c111 teaching panel 02 (original).](../assets/figures/ml_fig_c111_02.png)
 *Figure — Surrogate loss calibration. Synthetic teaching geometry—not a causal claim.*
 
+
+![c112 teaching panel 02 (original).](../assets/figures/ml_fig_c112_02.png)
+*Figure — Bayes consistency sketch. Synthetic teaching geometry—not a causal claim.*
+
+
+![c113 teaching panel 02 (original).](../assets/figures/ml_fig_c113_02.png)
+*Figure — Agnostic learning setup. Synthetic teaching geometry—not a causal claim.*
+
+
+![c114 teaching panel 02 (original).](../assets/figures/ml_fig_c114_02.png)
+*Figure — Realizable case bound. Synthetic teaching geometry—not a causal claim.*
+
+
+![c115 teaching panel 02 (original).](../assets/figures/ml_fig_c115_02.png)
+*Figure — Excess risk decomposition. Synthetic teaching geometry—not a causal claim.*
+
+
+![c116 teaching panel 02 (original).](../assets/figures/ml_fig_c116_02.png)
+*Figure — Surrogate loss calibration. Synthetic teaching geometry—not a causal claim.*
+
+
+![c117 teaching panel 02 (original).](../assets/figures/ml_fig_c117_02.png)
+*Figure — Bayes consistency sketch. Synthetic teaching geometry—not a causal claim.*
+
+
+![c118 teaching panel 02 (original).](../assets/figures/ml_fig_c118_02.png)
+*Figure — Agnostic learning setup. Synthetic teaching geometry—not a causal claim.*
+
+
+![c119 teaching panel 02 (original).](../assets/figures/ml_fig_c119_02.png)
+*Figure — Realizable case bound. Synthetic teaching geometry—not a causal claim.*
+
+
+![c120 teaching panel 02 (original).](../assets/figures/ml_fig_c120_02.png)
+*Figure — Excess risk decomposition. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Artificial intelligence aims at systems that act intelligently; machine learning improves task performance by estimating models from data; data mining emphasizes scalable pattern discovery; data science governs measurement and decisions under uncertainty. A short history runs from symbolic AI through statistical learning and data mining to deep learning and generative systems—none fully obsolete. Algorithms are finite procedures; learning algorithms estimate models. Evaluation jointly considers computational complexity, runtime, task accuracy, and accuracy–efficiency trade-offs. Datasets arrive as tables, time series, streams, graphs, text, images/video, and audio, with numerical types that constrain encoding. Tasks include clustering, association and sequence mining, dimensionality reduction, anomaly detection, regression, classification, self-supervision, generative modeling, and reinforcement learning. Ground-truth labels are measurement processes; k-fold and grouped cross-validation support honest internal evaluation but do not replace external validation. A step-by-step workflow ties question framing to monitoring. The worked example selected a simpler model with better validation error over a flexible overfit rule. In neurology and epidemiology, cohort eligibility, index time, phenotype quality, leakage control, calibration, and external validation determine whether ML claims are scientifically meaningful. Recurring failure modes—data leakage, distribution shift, class imbalance, label noise, multiplicity, shortcut learning, and miscalibration—each carry a preventive discipline. Fairness, privacy, and transparency are design constraints to encode from the first workflow step, previewed here and developed in Chapter 16.

@@ -763,6 +763,42 @@ Clustering sits downstream of the preprocessing and distance choices developed e
 ![c111 teaching panel 05 (original).](../assets/figures/ml_fig_c111_05.png)
 *Figure — Fuzzy c-means membership. Synthetic teaching geometry—not a causal claim.*
 
+
+![c112 teaching panel 05 (original).](../assets/figures/ml_fig_c112_05.png)
+*Figure — Self-organizing map grid. Synthetic teaching geometry—not a causal claim.*
+
+
+![c113 teaching panel 05 (original).](../assets/figures/ml_fig_c113_05.png)
+*Figure — Affinity matrix threshold. Synthetic teaching geometry—not a causal claim.*
+
+
+![c114 teaching panel 05 (original).](../assets/figures/ml_fig_c114_05.png)
+*Figure — Consensus clustering. Synthetic teaching geometry—not a causal claim.*
+
+
+![c115 teaching panel 05 (original).](../assets/figures/ml_fig_c115_05.png)
+*Figure — COP-kmeans constraints. Synthetic teaching geometry—not a causal claim.*
+
+
+![c116 teaching panel 05 (original).](../assets/figures/ml_fig_c116_05.png)
+*Figure — Fuzzy c-means membership. Synthetic teaching geometry—not a causal claim.*
+
+
+![c117 teaching panel 05 (original).](../assets/figures/ml_fig_c117_05.png)
+*Figure — Self-organizing map grid. Synthetic teaching geometry—not a causal claim.*
+
+
+![c118 teaching panel 05 (original).](../assets/figures/ml_fig_c118_05.png)
+*Figure — Affinity matrix threshold. Synthetic teaching geometry—not a causal claim.*
+
+
+![c119 teaching panel 05 (original).](../assets/figures/ml_fig_c119_05.png)
+*Figure — Consensus clustering. Synthetic teaching geometry—not a causal claim.*
+
+
+![c120 teaching panel 05 (original).](../assets/figures/ml_fig_c120_05.png)
+*Figure — COP-kmeans constraints. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Clustering groups unlabeled points under a stated distance and objective. Similarity choices—Euclidean, Manhattan, Mahalanobis, Hamming, Levenshtein, LCS, cosine, Jaccard, DTW, and graph-based measures—reshape results and must be reported with scaling recipes. K-means minimizes WCSS via assignment and mean updates; k-median and k-medoid offer robustness and exemplar centers. A worked six-point example converged to clusters {A,B,C} and {D,E,F} with J=4. DBSCAN and OPTICS find density-connected structure and noise; hierarchical SLINK (single linkage) and DIANA provide agglomerative and divisive trees; BIRCH and CURE scale hierarchical ideas to large n. GMMs and Fuzzy C-means supply soft memberships. Evaluation uses elbow/WSS, silhouette, Dunn, Davies–Bouldin, purity, and Rand-family indices, with stability and external replication outweighing any single geometric score. In stroke and population research, unsupervised structure is not etiology: control leakage, test transportability, and resist reification.

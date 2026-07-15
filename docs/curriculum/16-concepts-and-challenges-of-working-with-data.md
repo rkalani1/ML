@@ -793,6 +793,42 @@ This capstone reuses the whole book. The sampling and MCMC methods (Metropolis-H
 ![c111 teaching panel 17 (original).](../assets/figures/ml_fig_c111_17.png)
 *Figure — Prospective vs retrospective. Synthetic teaching geometry—not a causal claim.*
 
+
+![c112 teaching panel 17 (original).](../assets/figures/ml_fig_c112_17.png)
+*Figure — Index date alignment. Synthetic teaching geometry—not a causal claim.*
+
+
+![c113 teaching panel 17 (original).](../assets/figures/ml_fig_c113_17.png)
+*Figure — Immortal time bias. Synthetic teaching geometry—not a causal claim.*
+
+
+![c114 teaching panel 17 (original).](../assets/figures/ml_fig_c114_17.png)
+*Figure — Competing event censor. Synthetic teaching geometry—not a causal claim.*
+
+
+![c115 teaching panel 17 (original).](../assets/figures/ml_fig_c115_17.png)
+*Figure — Chart review gold labels. Synthetic teaching geometry—not a causal claim.*
+
+
+![c116 teaching panel 17 (original).](../assets/figures/ml_fig_c116_17.png)
+*Figure — Prospective vs retrospective. Synthetic teaching geometry—not a causal claim.*
+
+
+![c117 teaching panel 17 (original).](../assets/figures/ml_fig_c117_17.png)
+*Figure — Index date alignment. Synthetic teaching geometry—not a causal claim.*
+
+
+![c118 teaching panel 17 (original).](../assets/figures/ml_fig_c118_17.png)
+*Figure — Immortal time bias. Synthetic teaching geometry—not a causal claim.*
+
+
+![c119 teaching panel 17 (original).](../assets/figures/ml_fig_c119_17.png)
+*Figure — Competing event censor. Synthetic teaching geometry—not a causal claim.*
+
+
+![c120 teaching panel 17 (original).](../assets/figures/ml_fig_c120_17.png)
+*Figure — Chart review gold labels. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Data quality and design dominate clinical ML outcomes. Problem complexity guides method choice. Sampling designs and MCMC methods (Metropolis-Hastings, Gibbs, importance sampling) support inference under complex distributions. Noise models and filters (Butterworth, Wiener, Kalman) clean signals; imbalance and modality-specific augmentation address skewed outcomes; imputation and interpolation repair missing structure without leakage. Anomaly methods (isolation forest, one-class SVM, LOF, RANSAC) protect integrity. Drift and cold start demand monitoring and recalibration—illustrated by site-level PPV collapse when prevalence and specificity change. Rater agreement metrics quantify label ceilings. LLMs require RAG and disciplined prompting under PHI governance. Fairness metrics, mitigation strategies, and SHAP/LIME explanations complete a professional validation stack for neurologist-epidemiologists.

@@ -840,6 +840,42 @@ Privacy and governance. Federated learning links to the data-governance material
 ![c111 teaching panel 15 (original).](../assets/figures/ml_fig_c111_15.png)
 *Figure — SparseGPT pruning. Synthetic teaching geometry—not a causal claim.*
 
+
+![c112 teaching panel 15 (original).](../assets/figures/ml_fig_c112_15.png)
+*Figure — Wanda prune metric. Synthetic teaching geometry—not a causal claim.*
+
+
+![c113 teaching panel 15 (original).](../assets/figures/ml_fig_c113_15.png)
+*Figure — SmoothQuant scales. Synthetic teaching geometry—not a causal claim.*
+
+
+![c114 teaching panel 15 (original).](../assets/figures/ml_fig_c114_15.png)
+*Figure — QLoRA NF4 storage. Synthetic teaching geometry—not a causal claim.*
+
+
+![c115 teaching panel 15 (original).](../assets/figures/ml_fig_c115_15.png)
+*Figure — Speculative draft tree. Synthetic teaching geometry—not a causal claim.*
+
+
+![c116 teaching panel 15 (original).](../assets/figures/ml_fig_c116_15.png)
+*Figure — SparseGPT pruning. Synthetic teaching geometry—not a causal claim.*
+
+
+![c117 teaching panel 15 (original).](../assets/figures/ml_fig_c117_15.png)
+*Figure — Wanda prune metric. Synthetic teaching geometry—not a causal claim.*
+
+
+![c118 teaching panel 15 (original).](../assets/figures/ml_fig_c118_15.png)
+*Figure — SmoothQuant scales. Synthetic teaching geometry—not a causal claim.*
+
+
+![c119 teaching panel 15 (original).](../assets/figures/ml_fig_c119_15.png)
+*Figure — QLoRA NF4 storage. Synthetic teaching geometry—not a causal claim.*
+
+
+![c120 teaching panel 15 (original).](../assets/figures/ml_fig_c120_15.png)
+*Figure — Speculative draft tree. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Lighter models enable bedside, edge, and mobile stroke unit deployment under latency, memory, energy, and privacy constraints. Classical compressors (BPE, bitmaps, Huffman, LZW) and sparse coding reduce data and feature cost; the Huffman worked example shows a prefix code reaching 2.25 bits/symbol against a 3-bit fixed baseline and a 2.20-bit entropy floor. Quantization (including companding intuition, PTQ, QAT, and channel-wise scales) and pruning (magnitude, Hessian-aware OBD/OBS, activation and Taylor scores; structured vs unstructured) shrink networks. LoRA specializes large models cheaply; FlashAttention, MQA/GQA, and sliding windows lighten attention; accumulation and checkpointing lighten training memory. Transfer, multitask, meta, curriculum, and federated learning improve data efficiency; distillation compresses teachers into students; AutoML and NAS search configurations under budget. Clinical notes emphasize on-device measurement, pathology-tail validation, and green AI reporting for equitable multi-site neurology.

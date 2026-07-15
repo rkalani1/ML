@@ -3311,6 +3311,42 @@ This section is a reference. The first table lists the symbols used throughout t
 ![c111 teaching panel 00 (original).](../assets/figures/ml_fig_c111_00.png)
 *Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
 
+
+![c112 teaching panel 00 (original).](../assets/figures/ml_fig_c112_00.png)
+*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
+
+
+![c113 teaching panel 00 (original).](../assets/figures/ml_fig_c113_00.png)
+*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
+
+
+![c114 teaching panel 00 (original).](../assets/figures/ml_fig_c114_00.png)
+*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
+
+
+![c115 teaching panel 00 (original).](../assets/figures/ml_fig_c115_00.png)
+*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
+
+
+![c116 teaching panel 00 (original).](../assets/figures/ml_fig_c116_00.png)
+*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
+
+
+![c117 teaching panel 00 (original).](../assets/figures/ml_fig_c117_00.png)
+*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
+
+
+![c118 teaching panel 00 (original).](../assets/figures/ml_fig_c118_00.png)
+*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
+
+
+![c119 teaching panel 00 (original).](../assets/figures/ml_fig_c119_00.png)
+*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
+
+
+![c120 teaching panel 00 (original).](../assets/figures/ml_fig_c120_00.png)
+*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Mathematics is the compression format of machine learning: a page of symbols stands in for pages of prose, and fluency with the symbols is what makes the rest of the book legible. This chapter rebuilt that fluency from an elementary base. It began with the language itself — sets, functions, and logic — and the algebra of numbers, exponents, and logarithms, then cataloged the handful of functions (linear, polynomial, exponential, logarithmic, sigmoid, softmax, ReLU) that recur everywhere in modeling. Summation and counting supplied the combinatorics behind probability; trigonometry and the unit circle supplied the sinusoids behind Fourier features, positional encodings, and cosine similarity.
