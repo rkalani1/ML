@@ -895,3 +895,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c253 teaching panel 01 (original).](../assets/figures/ml_fig_c253_01.png)
 *Figure — f-DP Gaussian tradeoff. Synthetic teaching geometry—not a causal claim.*
+
+![c254 teaching panel 01 (original).](../assets/figures/ml_fig_c254_01.png)
+*Figure — Incident SEV path. Synthetic teaching geometry—not a causal claim.*
