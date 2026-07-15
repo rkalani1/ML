@@ -368,9 +368,11 @@ html {
 }
 
 /* ── Figures / images / captions ────────────────────────────── */
+/* Fluid images: never blow out the reading column on any device */
 .md-typeset img,
 .md-typeset figure img,
-.md-typeset p > img {
+.md-typeset p > img,
+.md-typeset .md-typeset__scrollwrap img {
   display: block;
   margin: 1.35em auto 0.55em;
   max-width: 100%;
@@ -430,6 +432,7 @@ html {
 
 /* ── Tables: scroll on small screens ────────────────────────── */
 .md-typeset .md-typeset__table,
+.md-typeset .md-typeset__scrollwrap,
 .md-typeset div[class*="table"],
 .md-typeset .table-wrap {
   display: block;
@@ -437,15 +440,19 @@ html {
   max-width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
   margin: 1.25em 0;
 }
 
-.md-typeset__table {
+.md-typeset__table,
+.md-typeset__scrollwrap {
   display: block;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
   margin: 1.25em 0;
   border-radius: 0.55rem;
+  max-width: 100%;
 }
 
 .md-typeset table:not([class]) {
@@ -731,14 +738,18 @@ html {
   }
   .md-typeset__table,
   .md-typeset .md-typeset__table,
+  .md-typeset__scrollwrap,
   .md-typeset .table-wrap {
     margin: 1.1em 0 1.35em;
+    overflow-x: auto;
+    max-width: 100%;
   }
   .md-typeset img,
   .md-typeset figure img {
     margin-top: 1.15em;
     border-radius: 0.6rem;
     max-width: 100%;
+    height: auto;
   }
   .md-typeset blockquote {
     padding: 0.8rem 1rem;
@@ -903,7 +914,13 @@ html {
 
 /* ==========================================================================
    Print — light background, hide chrome, readable contrast
+   Brand ink stays teal; backgrounds force white even under slate scheme.
    ========================================================================== */
+@page {
+  margin: 1.4cm 1.2cm;
+  size: auto;
+}
+
 @media print {
   *,
   *::before,
@@ -913,14 +930,18 @@ html {
   }
 
   html,
-  body {
+  body,
+  .md-container,
+  .md-wrapper,
+  [data-md-color-scheme="default"],
+  [data-md-color-scheme="slate"] {
     background: #fff !important;
     color: #111 !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
-  /* Hide Material nav chrome: header, sidebars, tabs */
+  /* Hide Material nav chrome: header, sidebars, tabs, palette toggle */
   .md-header,
   .md-tabs,
   .md-sidebar,
@@ -943,9 +964,14 @@ html {
   .md-header__inner,
   .md-header__source,
   .md-header__option,
+  .md-header__topic,
   label[for="__drawer"],
   label[for="__search"],
-  label[for="__toc"] {
+  label[for="__toc"],
+  [data-md-component="palette"],
+  [data-md-component="search"],
+  [data-md-component="dialog"],
+  [data-md-component="top"] {
     display: none !important;
   }
 
@@ -953,7 +979,9 @@ html {
   .md-main__inner,
   .md-content,
   .md-content__inner,
-  .md-typeset {
+  .md-typeset,
+  [data-md-color-scheme="slate"] .md-main,
+  [data-md-color-scheme="slate"] .md-content {
     background: #fff !important;
     color: #111 !important;
     max-width: 100% !important;
