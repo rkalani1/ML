@@ -1090,3 +1090,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c303 teaching panel 18 (original).](../assets/figures/ml_fig_c303_18.png)
 *Figure — Alert noise burn-down c303. Synthetic teaching geometry—not a causal claim.*
+
+![c304 teaching panel 18 (original).](../assets/figures/ml_fig_c304_18.png)
+*Figure — On-call toil burn-down c304. Synthetic teaching geometry—not a causal claim.*
