@@ -157,6 +157,10 @@ LLE assumes each point lies on a locally linear patch of a manifold. For each po
 
 t-distributed Stochastic Neighbor Embedding (t-SNE) converts high-dimensional distances into conditional probabilities of neighborhood and finds low-dimensional points whose Student-t similarities match those probabilities by minimizing a KL divergence. The heavy-tailed t-distribution in the embedding space allows moderate distances to map farther apart, helping form tight visual clusters. Perplexity controls effective neighborhood size.
 
+![t-SNE perplexity changes the picture (teaching caricature; original).](../assets/figures/ml_fig_tsne_perplexity.png)
+
+*Figure — Perplexity teaching caution (caricature of geometry, **not** a real t-SNE optimization). **Left:** low effective neighborhood size tears a continuum (gray bridge) into noise islands and tightens local clumps. **Right:** broader neighborhoods compress gaps and keep the bridge—but inter-cluster distance still is not a metric effect size. Confirm candidate structure in original (or PCA) space; embeddings are hypothesis generators, not causal maps.*
+
 Caveats are essential for scientific use. t-SNE does not preserve global distances or densities reliably; cluster sizes and between-cluster gaps are not trustworthy as effect sizes. Results depend on perplexity, learning rate, and random initialization. Never report “t-SNE clusters” as phenotypes without confirmatory analysis in the original feature space or with stable supervised labels. For multi-site imaging, batch effects can dominate the embedding.
 
 ### UMAP

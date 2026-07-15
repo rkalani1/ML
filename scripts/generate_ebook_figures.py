@@ -3572,6 +3572,368 @@ def fig_metric_decision_tree():
     save(fig, "ml_fig_metric_decision_tree.png")
 
 
+def fig_external_ladder():
+    """Preface: external validation ladder — optimism shrinks as transport hardens."""
+    steps = [
+        "Resubstitution\n(train=test)",
+        "Random\nhold-out",
+        "Patient-wise\nCV",
+        "Temporal\nsplit",
+        "External\nsite",
+        "Prospective\nsilent trial",
+    ]
+    # Synthetic teaching AUROC optimism ladder (not a real study)
+    auroc = np.array([0.94, 0.88, 0.86, 0.82, 0.78, 0.76])
+    ece = np.array([0.02, 0.04, 0.05, 0.08, 0.11, 0.10])  # calibration often worsens first
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.0))
+    ax = axes[0]
+    x = np.arange(len(steps))
+    ax.plot(x, auroc, "o-", color=TEAL, lw=2.4, markersize=9, label="AUROC (synthetic)")
+    ax.fill_between(x, auroc, 0.70, color=TEAL, alpha=0.08)
+    for i, v in enumerate(auroc):
+        ax.text(i, v + 0.012, f"{v:.2f}", ha="center", fontsize=8, color=INK, fontweight="bold")
+    ax.set_xticks(x)
+    ax.set_xticklabels(steps, fontsize=7.5)
+    ax.set_ylim(0.70, 1.0)
+    ax.set_ylabel("discrimination (AUROC)")
+    ax.axhline(0.80, color="#cbd5e1", ls=":", lw=1.2)
+    style_ax(ax, "Optimism shrinks as the test hardens")
+    ax.text(0.02, 0.08, "Teaching ladder — not a meta-analysis",
+            transform=ax.transAxes, fontsize=8, color="#64748b")
+
+    ax = axes[1]
+    ax.plot(x, ece, "s-", color=GOLD, lw=2.4, markersize=8, label="ECE (synthetic)")
+    ax.plot(x, 1 - auroc, "o--", color=DEEP, lw=1.8, markersize=6, label="1 − AUROC")
+    ax.set_xticks(x)
+    ax.set_xticklabels([s.replace("\n", " ") for s in steps], rotation=25, ha="right", fontsize=7)
+    ax.set_ylabel("error-ish scale (teaching)")
+    ax.set_ylim(0, 0.35)
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Calibration & ranking both need transport checks")
+    ax.text(
+        0.98, 0.92,
+        "Local AUROC is not a shipping license.\nPrediction ≠ causation; site shift is expected.",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("External validation ladder (preface discipline; synthetic teaching)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_external_ladder.png")
+
+
+def fig_window_cherry():
+    """Ch02: cherry-picked time window manufactures a trend."""
+    rng = np.random.default_rng(21)
+    months = np.arange(1, 25)
+    # Wandering door-to-needle with mild noise — no true secular trend
+    base = 58 + 2.5 * np.sin(2 * np.pi * months / 12) + rng.normal(0, 1.1, size=len(months))
+    # Inject one bad spike month that cherry-pick start loves
+    base[5] = 72  # month 6 worst
+    base[17] = 54  # later dip
+
+    # Cherry window: month 6 → 18 looks like big improvement
+    i0, i1 = 5, 17
+    full_slope = np.polyfit(months, base, 1)[0]
+    cherry_slope = np.polyfit(months[i0:i1 + 1], base[i0:i1 + 1], 1)[0]
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.0))
+    ax = axes[0]
+    ax.plot(months, base, "o-", color=TEAL, lw=2.0, markersize=5)
+    ax.axvspan(months[i0], months[i1], color=GOLD, alpha=0.18, label="cherry window")
+    ax.plot([months[i0], months[i1]], [base[i0], base[i1]], "s--", color="#dc2626",
+            lw=2.2, markersize=8, label="start→end narrative")
+    ax.set_xlabel("month")
+    ax.set_ylabel("door-to-needle (min)")
+    ax.set_ylim(45, 80)
+    ax.legend(frameon=False, fontsize=8, loc="upper right")
+    style_ax(ax, "Same series, manufactured 'improvement'")
+    ax.text(
+        0.02, 0.08,
+        f"cherry Δ = {base[i0] - base[i1]:.0f} min  |  full-series slope ≈ {full_slope:+.2f}/mo",
+        transform=ax.transAxes, fontsize=8, color="#475569",
+    )
+
+    ax = axes[1]
+    # Show many random windows' end-start change distribution
+    deltas = []
+    for _ in range(400):
+        a, b = sorted(rng.choice(len(months), size=2, replace=False))
+        if b - a < 3:
+            continue
+        deltas.append(base[a] - base[b])  # positive = "improvement" if lower is better
+    deltas = np.array(deltas)
+    ax.hist(deltas, bins=18, color=TEAL, alpha=0.85, edgecolor="white")
+    cherry_d = base[i0] - base[i1]
+    ax.axvline(cherry_d, color="#dc2626", lw=2.2, label=f"cherry Δ={cherry_d:.0f}")
+    ax.axvline(0, color="#94a3b8", ls="--", lw=1.3)
+    ax.set_xlabel("start − end minutes (positive = looks better)")
+    ax.set_ylabel("count of random windows")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Many windows look like 'wins' by chance")
+    ax.text(
+        0.98, 0.92,
+        "Pre-specify window before plotting.\nShow full series + uncertainty.",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Cherry-picked time windows (synthetic DTN dashboard; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_window_cherry.png")
+
+
+def fig_dendrogram_cut():
+    """Ch04: agglomerative dendrogram with two cut heights → different k."""
+    # Four points on a line: 0,1,10,11 from chapter walk-through
+    # Build linkage heights for single vs complete
+    # Single: merges (0,1)@1, (10,11)@1, then clusters @9
+    # Complete: final merge @11
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.2))
+
+    def draw_dendro(ax, final_h, title, cut_h, k_label):
+        # Manual dendrogram for 4 leaves
+        # leaf x positions
+        xs = {"P1": 1, "P2": 2, "P3": 4, "P4": 5}
+        # first merges
+        # merge A: P1-P2 at h=1
+        ax.plot([xs["P1"], xs["P1"]], [0, 1], color=TEAL, lw=2)
+        ax.plot([xs["P2"], xs["P2"]], [0, 1], color=TEAL, lw=2)
+        ax.plot([xs["P1"], xs["P2"]], [1, 1], color=TEAL, lw=2)
+        mid12 = 1.5
+        # merge B: P3-P4 at h=1
+        ax.plot([xs["P3"], xs["P3"]], [0, 1], color=GOLD, lw=2)
+        ax.plot([xs["P4"], xs["P4"]], [0, 1], color=GOLD, lw=2)
+        ax.plot([xs["P3"], xs["P4"]], [1, 1], color=GOLD, lw=2)
+        mid34 = 4.5
+        # final merge
+        ax.plot([mid12, mid12], [1, final_h], color=DEEP, lw=2)
+        ax.plot([mid34, mid34], [1, final_h], color=DEEP, lw=2)
+        ax.plot([mid12, mid34], [final_h, final_h], color=DEEP, lw=2)
+        # cut line
+        ax.axhline(cut_h, color="#dc2626", ls="--", lw=1.8, label=f"cut h={cut_h:g} → {k_label}")
+        ax.set_xticks([1, 2, 4, 5])
+        ax.set_xticklabels(["P1=0", "P2=1", "P3=10", "P4=11"])
+        ax.set_ylabel("merge height (linkage distance)")
+        ax.set_ylim(0, max(12, final_h + 1))
+        ax.set_xlim(0.5, 5.5)
+        ax.legend(frameon=False, fontsize=8, loc="upper left")
+        style_ax(ax, title)
+        # annotate heights
+        ax.text(1.5, 1.15, "1", ha="center", fontsize=8, color=TEAL)
+        ax.text(4.5, 1.15, "1", ha="center", fontsize=8, color=GOLD)
+        ax.text(3.0, final_h + 0.25, f"{final_h:g}", ha="center", fontsize=9, color=DEEP, fontweight="bold")
+
+    draw_dendro(
+        axes[0], final_h=9, title="Single linkage (ch. walk-through)",
+        cut_h=5, k_label="k=2 clusters",
+    )
+    axes[0].text(
+        0.98, 0.08,
+        "min cross-distance final merge = 9\nSLINK chains elongated groups",
+        transform=axes[0].transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    draw_dendro(
+        axes[1], final_h=11, title="Complete linkage (same points)",
+        cut_h=5, k_label="k=2 clusters",
+    )
+    axes[1].text(
+        0.98, 0.08,
+        "max cross-distance final merge = 11\ncut height is a model choice ≈ k",
+        transform=axes[1].transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Dendrogram cut height chooses k (P1=0,P2=1,P3=10,P4=11; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_dendrogram_cut.png")
+
+
+def fig_target_enc_loo():
+    """Ch06: target encoding leakage vs leave-one-out (chapter site-A numbers)."""
+    # Chapter sketch: site A n=5, ȳ_c=0.40, global ȳ=0.20, m=10 prior strength
+    # Naive: e = (5*0.40 + 10*0.20)/(5+10) = (2+2)/15 = 0.267
+    # LOO y=1: (2-1+2)/14 = 0.214; LOO y=0: (2-0+2)/14 = 0.286
+    n_c, ybar_c, ybar, m = 5, 0.40, 0.20, 10.0
+    naive = (n_c * ybar_c + m * ybar) / (n_c + m)
+    loo_pos = (n_c * ybar_c - 1 + m * ybar) / (n_c - 1 + m)
+    loo_neg = (n_c * ybar_c - 0 + m * ybar) / (n_c - 1 + m)
+    # Singleton site B: naive = (1*1 + 10*0.2)/11 = 0.273; LOO collapses to prior 0.20
+    naive_b = (1 * 1.0 + m * ybar) / (1 + m)
+    loo_b = ybar  # prior
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.0))
+    ax = axes[0]
+    labs = ["naive\n(site A)", "LOO y=1", "LOO y=0", "prior ȳ"]
+    vals = [naive, loo_pos, loo_neg, ybar]
+    cols = ["#dc2626", TEAL, TEAL, "#94a3b8"]
+    bars = ax.bar(labs, vals, color=cols, width=0.65, alpha=0.92)
+    for b, v in zip(bars, vals):
+        ax.text(b.get_x() + b.get_width() / 2, v + 0.01, f"{v:.3f}",
+                ha="center", fontsize=10, fontweight="bold", color=INK)
+    ax.set_ylim(0, 0.45)
+    ax.set_ylabel("target encoding e_c")
+    style_ax(ax, r"Site A (n=5, $\bar y_c$=0.40, m=10)")
+    ax.text(
+        0.98, 0.92,
+        "Naive uses the row’s own y\nin the category mean → leakage",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+
+    ax = axes[1]
+    labs2 = ["naive\n(site B n=1)", "LOO / prior\n(site B)", "true\noutcome y"]
+    vals2 = [naive_b, loo_b, 1.0]
+    cols2 = ["#dc2626", TEAL, GOLD]
+    bars = ax.bar(labs2, vals2, color=cols2, width=0.6, alpha=0.92)
+    for b, v in zip(bars, vals2):
+        ax.text(b.get_x() + b.get_width() / 2, v + 0.03, f"{v:.2f}",
+                ha="center", fontsize=10, fontweight="bold", color=INK)
+    ax.set_ylim(0, 1.15)
+    ax.set_ylabel("encoded feature / label")
+    style_ax(ax, "Singleton site: naive ≈ label; LOO → prior")
+    ax.text(
+        0.98, 0.92,
+        "Small subgroups + naive target enc.\n→ fictional AUROC that dies prospectively",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Target encoding: naive leakage vs leave-one-out (ch.06 numbers; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_target_enc_loo.png")
+
+
+def fig_tsne_perplexity():
+    """Ch07: teaching caution — perplexity changes map geometry (2-D toy)."""
+    rng = np.random.default_rng(0)
+    # Three isotropic blobs in 2D (already 2-D so 'embedding' is a neighbor graph sketch)
+    # We simulate t-SNE-like effects: low perplexity fragments; high merges
+    centers = np.array([[0.0, 0.0], [3.5, 0.2], [1.5, 3.0]])
+    pts = []
+    labs = []
+    for i, c in enumerate(centers):
+        pts.append(c + rng.normal(0, 0.35, size=(40, 2)))
+        labs.append(np.full(40, i))
+    # Add continuum bridge points between 0 and 1
+    bridge = np.linspace(centers[0], centers[1], 12) + rng.normal(0, 0.08, size=(12, 2))
+    X = np.vstack(pts + [bridge])
+    y = np.concatenate(labs + [np.full(12, 3)])
+
+    def fake_embed(perplexity_scale):
+        # Teaching caricature: not real t-SNE — scales cluster separation & fragments continuum
+        Z = X.copy()
+        # pull toward local centers more when perplexity low
+        for i in range(3):
+            mask = y == i
+            Z[mask] = centers[i] + (X[mask] - centers[i]) * (0.55 + 0.15 * perplexity_scale)
+        # bridge: low perp tears to noise islands; high keeps chain
+        bmask = y == 3
+        if perplexity_scale < 0.5:
+            Z[bmask] += rng.normal(0, 1.2, size=Z[bmask].shape)
+            Z[bmask] *= 0.3
+        else:
+            Z[bmask] = X[bmask] * (0.9 + 0.1 * perplexity_scale)
+        # global shrink of inter-cluster gap when high perplexity
+        Z = Z - Z.mean(0)
+        Z = Z * (0.7 + 0.5 * (1 - perplexity_scale))
+        return Z
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.0))
+    colors = [TEAL, GOLD, DEEP, "#94a3b8"]
+    titles = [
+        (0.15, "Low perplexity (local only)\n— continuum tears; noise islands"),
+        (0.85, "Higher perplexity (broader neighbors)\n— gaps compress; not metric map"),
+    ]
+    for ax, (ps, title) in zip(axes, titles):
+        Z = fake_embed(ps)
+        for i, col in enumerate(colors):
+            m = y == i
+            lab = ["A", "B", "C", "bridge"][i]
+            ax.scatter(Z[m, 0], Z[m, 1], c=col, s=28, alpha=0.85, label=lab, edgecolors="white", linewidths=0.3)
+        ax.set_xticks([])
+        ax.set_yticks([])
+        ax.set_aspect("equal", adjustable="datalim")
+        style_ax(ax, title)
+        ax.legend(frameon=False, fontsize=8, loc="best", markerscale=1.2)
+    axes[0].text(
+        0.02, 0.02,
+        "Do not read cluster size/gap as effect size",
+        transform=axes[0].transAxes, fontsize=8, color="#64748b",
+    )
+    axes[1].text(
+        0.02, 0.02,
+        "Confirm structure in original space; pred≠cause",
+        transform=axes[1].transAxes, fontsize=8, color="#64748b",
+    )
+    fig.suptitle("t-SNE perplexity changes the picture (teaching caricature — not real t-SNE run)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_tsne_perplexity.png")
+
+
+def fig_eligibility_trace():
+    """Ch13: eligibility trace decay e_t = γλ e_{t-1} + 1{visit}; credit assignment."""
+    gamma, lam = 0.9, 0.8
+    T = 16
+    # Visit schedule: state A at t=0,2,3; B at t=5; C at t=9; terminal reward at t=12 on C path
+    visits = {0: "A", 2: "A", 3: "A", 5: "B", 9: "C", 12: "C"}
+    states = ["A", "B", "C"]
+    e = {s: np.zeros(T) for s in states}
+    e_prev = {s: 0.0 for s in states}
+    for t in range(T):
+        for s in states:
+            e_prev[s] = gamma * lam * e_prev[s]
+            if visits.get(t) == s:
+                e_prev[s] += 1.0  # accumulating trace
+            e[s][t] = e_prev[s]
+    # TD errors: mostly 0, spike at reward time t=12
+    delta = np.zeros(T)
+    delta[12] = 1.0
+    # Cumulative credit to each state ∝ sum_t delta_t * e_t(s)
+    credit = {s: float((delta * e[s]).sum()) for s in states}
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.1))
+    ax = axes[0]
+    cols = {"A": TEAL, "B": GOLD, "C": DEEP}
+    for s in states:
+        ax.plot(np.arange(T), e[s], "-o", color=cols[s], lw=2.2, markersize=4, label=rf"$e({s})$")
+    for t, s in visits.items():
+        ax.axvline(t, color=cols[s], alpha=0.15, lw=6)
+    ax.axvline(12, color="#dc2626", ls="--", lw=1.5, label=r"TD error $\delta_{12}=+1$")
+    ax.set_xlabel("time t")
+    ax.set_ylabel(r"eligibility $e_t(s)$")
+    ax.legend(frameon=False, fontsize=8, ncol=2)
+    style_ax(ax, rf"Accumulating traces  ($\gamma={gamma}$, $\lambda={lam}$)")
+    ax.text(
+        0.98, 0.92,
+        r"$e_t \leftarrow \gamma\lambda e_{t-1} + 1\{S_t=s\}$",
+        transform=ax.transAxes, ha="right", va="top", fontsize=9, color="#475569",
+        family="monospace",
+    )
+
+    ax = axes[1]
+    names = list(credit.keys())
+    vals = [credit[s] for s in names]
+    bars = ax.bar(names, vals, color=[cols[s] for s in names], width=0.55, alpha=0.92)
+    for b, v in zip(bars, vals):
+        ax.text(b.get_x() + b.get_width() / 2, v + 0.02, f"{v:.2f}",
+                ha="center", fontsize=11, fontweight="bold", color=INK)
+    ax.set_ylabel(r"credit $\sum_t \delta_t\, e_t(s)$")
+    ax.set_ylim(0, max(vals) * 1.25 + 0.05)
+    style_ax(ax, "Backward view: who gets the delayed reward?")
+    # lambda spectrum note
+    lams = np.array([0.0, 0.4, 0.8, 1.0])
+    ax.text(
+        0.98, 0.92,
+        "λ=0 → one-step TD\nλ→1 → MC-like credit\nGAE uses same trade-off",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    # small inset spectrum
+    # credit for A if only visit at 0 and reward at 12: (γλ)^12
+    ax2_c = [float((gamma * lam) ** 12), float((gamma * 0.4) ** 12), float((gamma * 0.8) ** 12)]
+    fig.suptitle("Eligibility traces assign delayed TD credit (synthetic trajectory; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_eligibility_trace.png")
+
+
 # ---------------------------------------------------------------------------
 # Legacy numbered PNGs (00_*.png … 17_*.png)
 # These files already exist under docs/assets/figures/ and are linked from
@@ -3681,6 +4043,13 @@ def main():
     fig_nmf_parts()
     fig_bellman_backup()
     fig_metric_decision_tree()
+    # Continuous densify cycle-7 (preface / ch02 / ch04 / ch06 / ch07 / ch13)
+    fig_external_ladder()
+    fig_window_cherry()
+    fig_dendrogram_cut()
+    fig_target_enc_loo()
+    fig_tsne_perplexity()
+    fig_eligibility_trace()
     print("DONE figures in", OUT)
     missing_legacy = [n for n in LEGACY_NUMBERED_ASSETS if not (OUT / n).exists()]
     if missing_legacy:

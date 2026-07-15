@@ -61,6 +61,10 @@ Every major algorithm family in the published TOC is taught with definitions and
 
 There is no separate further-reading chapter—the book is the curriculum. Read it iteratively, refer to the mathematical foundations when needed, and apply these concepts rigorously to the next paper you read or the next clinical tool your hospital considers.
 
+![External validation ladder: optimism shrinks as the test hardens (synthetic; original).](../assets/figures/ml_fig_external_ladder.png)
+
+*Figure — Preface external-validation ladder (synthetic teaching). **Left:** resubstitution AUROC looks heroic; patient-wise CV, temporal split, external site, and prospective silent trial successively erode discrimination. **Right:** calibration error (ECE) often worsens on transport even when ranking still looks decent. Local AUROC is not a shipping license; prediction ≠ causation.*
+
 ## Reader’s map (teaching table)
 
 | Habit | What you do | What it prevents |

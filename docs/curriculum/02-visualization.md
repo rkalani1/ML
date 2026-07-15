@@ -221,6 +221,10 @@ Pair color with redundant non-color encodings (shape, pattern) for critical cate
 
 Do not cherry-pick time windows or y-limits to manufacture a policy narrative.
 
+![Cherry-picked time windows manufacture a trend (synthetic DTN; original).](../assets/figures/ml_fig_window_cherry.png)
+
+*Figure — Window cherry-picking. **Left:** a wandering door-to-needle series with one bad spike; the red start→end segment through a pre-chosen “improvement” window looks like a policy win. **Right:** random windows of the same series yield a wide distribution of start−end deltas—many “wins” by chance. Pre-specify the comparison window, show the full series, and report uncertainty.*
+
 Refuse 3-D categorical bars and exploded 3-D pies in scientific communication.
 
 Accessibility expands who can use your work correctly: sufficient luminance contrast, large fonts for projection and photocopy, descriptive captions and alt text, and tabular companions for key plotted values. Accessibility is quality control under time pressure, not only compliance.

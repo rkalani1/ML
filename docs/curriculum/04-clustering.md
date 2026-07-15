@@ -191,6 +191,10 @@ Agglomerative hierarchical clustering begins with each point alone and merges cl
 
 Single linkage defines intercluster distance as the minimum pairwise distance between points in the two clusters. SLINK is an efficient algorithm for single-linkage agglomerative clustering. Single linkage can recover elongated, non-elliptical chains—and can undesirably bridge distinct dense groups via thin noise chains (the chaining effect). Complete linkage uses maximum pairwise distance (preferring compact clusters); average linkage averages pairwise distances; Ward linkage merges pairs that least increase total within-cluster variance.
 
+![Dendrogram cut height chooses k — single vs complete on P1=0…P4=11 (original).](../assets/figures/ml_fig_dendrogram_cut.png)
+
+*Figure — Hierarchical cut. Chapter walk-through points on a line: P1=0, P2=1, P3=10, P4=11. Both linkages merge (P1,P2) and (P3,P4) at height 1; the **final** merge sits at 9 (single = min cross-distance) vs 11 (complete = max). A horizontal cut (here h=5) yields k=2. Cut height is a model-selection choice analogous to k-means k—not a discovery of natural clinical taxa.*
+
 ### DIANA
 
 DIANA (Divisive Analysis) is a divisive hierarchical method: at each step it splits the cluster that is most heterogeneous, typically by selecting a seed point farthest from the cluster mean (or medoid) and reassigning points to form two subclusters that better separate diameter or average dissimilarity. Divisive methods can be more globally aware early on but are computationally heavier if implemented naively. Dendrogram cuts still require principled choice of height or k; bootstrap stability of branches should temper clinical naming of intermediate nodes.

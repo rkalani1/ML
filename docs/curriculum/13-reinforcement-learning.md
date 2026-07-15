@@ -373,6 +373,10 @@ trading bias and variance as n varies. TD(lambda) unifies these via lambda-retur
 
 Each state (or state-action pair) maintains a trace e(s) that spikes when visited and decays by gamma*lambda each step. The TD error delta updates all states in proportion to their traces: V(s) <- V(s) + alpha * delta * e(s). Accumulating traces add 1 on visits; replacing traces reset to 1. Traces implement multi-step credit assignment without waiting for episode end. Setting lambda=0 recovers one-step TD; lambda=1 approaches Monte Carlo (with appropriate implementations). Intermediate lambda often works best.
 
+![Eligibility traces: decay, visits, and delayed TD credit (synthetic; original).](../assets/figures/ml_fig_eligibility_trace.png)
+
+*Figure — Backward-view credit assignment. **Left:** accumulating traces \(e_t \leftarrow \gamma\lambda e_{t-1} + 1\{S_t=s\}\) for states A/B/C along a synthetic trajectory (\(\gamma=0.9\), \(\lambda=0.8\)); dashed line marks a delayed TD error \(\delta_{12}=+1\). **Right:** credit \(\sum_t \delta_t e_t(s)\) is largest for recently eligible states. \(\lambda=0\) recovers one-step TD; \(\lambda\to 1\) is MC-like; GAE in deep actor-critic uses the same bias–variance knob.*
+
 In deep RL, classical eligibility traces are less common in pure form, but n-step returns and generalized advantage estimation (GAE) play related roles in actor-critic algorithms such as A3C and PPO. GAE computes advantages as an exponentially weighted mixture of multi-step TD residuals, controlled by a lambda-like parameter that again trades bias and variance.
 
 ## 13.13 Function Approximation and Continuous Spaces

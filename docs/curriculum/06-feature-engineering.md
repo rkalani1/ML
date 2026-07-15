@@ -153,6 +153,10 @@ Rare site B: n_B = 1 patient, 1 event, so the naive rate ȳ_B = 1.00, a single p
 
 Smoothing alone does not stop leakage, because e_A was computed from the very rows it will encode. The out-of-fold (or leave-one-out) fix encodes each row from data that exclude that row. Leave-one-out for a site-A patient whose own y_i = 1 gives e = (5·0.40 − 1 + 10·0.20)/((5 − 1) + 10) = (2 − 1 + 2)/14 = 3/14 ≈ 0.214; for a site-A patient with y_i = 0 it gives e = (2 − 0 + 2)/14 = 4/14 ≈ 0.286. The encoding now moves with the patient’s own label—exactly the dependence leave-one-out removes so the label cannot leak into its own feature. For singleton site B, leave-one-out leaves no other B rows and the estimate collapses to the prior: e = (1·1.00 − 1 + 10·0.20)/((1 − 1) + 10) = 2/10 = 0.20. Without this discipline, site B would enter training as a perfect but fictitious predictor equal to its lone patient’s outcome—the classic small-subgroup leakage that inflates validation AUC and evaporates prospectively.
 
+![Target encoding: naive leakage vs leave-one-out (chapter numbers; original).](../assets/figures/ml_fig_target_enc_loo.png)
+
+*Figure — Target-encoding hygiene. **Left:** site A (n=5, \(\bar y_c=0.40\), prior strength m=10): naive smoothed mean ≈0.267 still mixes the row’s own label; LOO shifts with y_i (≈0.214 if y=1, ≈0.286 if y=0) so the label does not leak into its own feature. **Right:** singleton site B—naive encoding hugs the lone outcome; LOO collapses to the global prior. Small-subgroup naive target encoding manufactures AUROC that evaporates prospectively.*
+
 ## Feature Engineering for Textual Data
 
 Clinical text—radiology impressions, ED notes, discharge summaries—is high-value and high-risk. Representations range from sparse counts to dense embeddings. Preprocessing typically includes section segmentation, de-identification, tokenization, and negation/uncertainty detection before any bag-of-words pipeline.
