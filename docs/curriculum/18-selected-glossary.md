@@ -1186,3 +1186,6 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 ![c285 teaching panel 19 (original).](../assets/figures/ml_fig_c285_19.png)
 *Figure — Glossary calib strip c285. Synthetic teaching geometry—not a causal claim.*
+
+![c286 teaching panel 19 (original).](../assets/figures/ml_fig_c286_19.png)
+*Figure — Glossary genAI strip c286. Synthetic teaching geometry—not a causal claim.*
