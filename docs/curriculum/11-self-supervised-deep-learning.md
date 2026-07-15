@@ -208,6 +208,10 @@ Triplet loss example. Take anchor a=[0.0, 0.0], positive p=[0.3, 0.4], negative 
 
 Tiny VAE ELBO sketch. Suppose one latent dimension, prior p(z)=N(0,1), encoder for a datapoint outputs μ=1.0, σ=0.5 so q(z|x)=N(1, 0.25). KL(q‖p) for univariate Gaussians is ½[μ² + σ² − 1 − log σ²] = ½[1 + 0.25 − 1 − log 0.25] = ½[0.25 − (−1.3863)] ≈ 0.818. If a decoder samples z=μ+σ ε with ε=0 and reconstructs with squared error 0.50 on x, the ELBO estimate is −0.50 − 0.818 = −1.318 (higher ELBO is better; training minimizes the negative ELBO). Increasing β on the KL term shrinks μ toward 0 and σ toward 1, often harming reconstruction but improving latent regularity—the β-VAE trade-off in numbers.
 
+![VAE ELBO decomposition at the chapter (μ,σ,recon) point and synthetic β-VAE recon–KL trade-off (scientific; original).](../assets/figures/ml_fig_vae_elbo.png)
+
+*Figure — Univariate VAE teaching numbers. **Left:** reconstruction term 0.50, KL≈0.818, and −ELBO at β=1. **Right:** as β grows, the training objective L = recon + β·KL weights latent regularity more heavily; reconstruction typically worsens while KL shrinks toward the prior. Disentanglement under large β is hypothesized, not guaranteed. Latent structure is for generation and representation—not a causal model of disease.*
+
 ## 11.9 Energy-Based Intuition, Latent Geometry, and Evaluation Discipline
 
 Energy-based models assign low energy to plausible configurations. RBMs, many GANs (via critic scores), and score-based diffusion models share the spirit of shaping a landscape over data space. Diffusion training can be viewed as learning the score ∇_x log p_t(x) of noisy marginals—linking denoising autoencoders to modern generative SOTA. For clinicians, the operational question is not the elegance of the energy but whether samples or embeddings improve a pre-registered downstream endpoint.

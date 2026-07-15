@@ -145,6 +145,10 @@ Closeness centrality of i is often (n-1) / sum_j dist(i, j) for nodes in a conne
 
 Betweenness centrality sums, over pairs s, t, the fraction of shortest paths that pass through i—identifying bridges between communities (e.g., a tertiary coordinator linking community EDs to endovascular services). Exact Brandes algorithm is O(n m) on unweighted graphs; large networks need approximation.
 
+![Betweenness on a two-community graph joined by bridge path 3—4—5; Brandes scores (scientific; original).](../assets/figures/ml_fig_betweenness.png)
+
+*Figure — Bridge structure drives betweenness. **Left:** two dense clusters linked by a single path; node size ∝ betweenness (gold = pure bridge). **Right:** Brandes scores rank the bridge and hubs far above leaf nodes. High betweenness marks structural brokerage, not clinical quality—edge definition and incomplete referral capture can invent or erase brokers.*
+
 Eigenvector centrality scores nodes highly when they connect to other high-scoring nodes; it solves A x = lambda x for the leading eigenvector with nonnegative entries (Perron-Frobenius for strongly connected positive cases). Unlike degree, a node with few but elite neighbors can rank high.
 
 Small numerical sketch. Undirected path 1—2—3 plus edge 2—4. Degrees: d1=1, d2=3, d3=1, d4=1. Node 2 is the unique degree center and has high betweenness: shortest paths among {1,3,4} pass through 2. Eigenvector centrality also peaks at 2. No single centrality is “correct”—choose based on the scientific question and report sensitivity to edge definition.
@@ -396,6 +400,10 @@ When publishing centrality results, always state the algorithm, damping/personal
 ## 15.20 Spectral Clustering Walk-Through
 
 Given an undirected similarity graph, form the normalized Laplacian L_sym = I - D^{-1/2} A D^{-1/2}. Compute the eigenvectors u1,…,uk corresponding to the k smallest eigenvalues; form matrix U with those columns; cluster rows of U with k-means. For k=2, the Fiedler vector (second-smallest eigenvalue’s eigenvector) already bipartitions the graph by sign pattern in simple cases.
+
+![Fiedler vector sign cut and Laplacian spectrum on the same bridged graph (scientific; original).](../assets/figures/ml_fig_spectral_fiedler.png)
+
+*Figure — Spectral bipartition intuition. **Left:** nodes colored by sign(u₂); Fiedler coordinates annotate each vertex; the bridge sits near the cut. **Right:** eigenvalues of L = D−A with λ₁≈0 and a spectral gap after λ₂; inset shows the 1-D Fiedler embedding. Communities from the spectrum reflect edge structure only—not causal modules of care quality.*
 
 Choosing k: inspect eigenvalue gaps; domain knowledge (expected number of care regions); stability across bootstrap edge subsamples. Spectral methods assume the similarity graph is meaningful—garbage k-NN graphs in high-dimensional noise yield garbage clusters. Compared with Louvain/Leiden, spectral clustering requires choosing k up front and costs eigen-decomposition, but connects cleanly to theoretical graph cuts (RatioCut, NCut).
 

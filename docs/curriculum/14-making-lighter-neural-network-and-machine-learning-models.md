@@ -272,6 +272,10 @@ Full fine-tuning of large language or vision models updates all parameters and s
 
 *Figure 14.4 — original teaching graphic.*
 
+![LoRA rank r vs trainable parameters and synthetic capacity for d=k=4096 (scientific; original).](../assets/figures/ml_fig_lora_rank.png)
+
+*Figure — Rank is a capacity knob. **Left:** trainable params = r(d+k) versus full d×k; even r=64 is a tiny fraction of full fine-tune. **Right:** synthetic val loss falls then plateaus while % of full weights rises slowly. Low r can underfit rare local phenotypes; always re-check calibration and safety after adapter merge. LoRA specializes—it does not compress the frozen backbone.*
+
 LoRA is a parameter-efficient fine-tuning method, not a general compressor of the base model, but it makes specialization light: many small adapters can sit on one frozen backbone. Variants include QLoRA (LoRA on quantized bases), higher-rank or adaptive-rank schemes, and related adapters (prefix tuning, which prepends trainable key/value vectors to each attention layer; (IA)^3, which learns per-channel rescaling vectors). For multi-hospital NLP, train a shared clinical LLM backbone once, then LoRA-adapt to local note styles without shipping full model copies. Evaluate whether adapter merge preserves safety behaviors and whether low rank underfits rare local phenotypes.
 
 ## 14.8 Lighter Self-Attention: FlashAttention, MQA/GQA, Sliding Windows
@@ -307,6 +311,10 @@ Knowledge distillation trains a smaller student model to mimic a larger teacher.
 ![14.5: Knowledge distillation. A large teacher's logits are passed through a temperature-scaled softmax, p_i = exp(z_i/T) / sum](../assets/figures/ml_concept_14.5_b3ee7a22.png)
 
 *Figure 14.5 — original teaching graphic.*
+
+![Distillation temperature T: soft-target class mass and entropy for a synthetic 3-class teacher (scientific; original).](../assets/figures/ml_fig_distill_temp.png)
+
+*Figure — Soft targets carry dark knowledge. **Left:** softmax(z/T) at T=1 vs T=4 for logits [2.8, 1.1, −0.4]. **Right:** entropy H(p_T) rises and peak probability falls as T grows; the usual KD loss scales soft CE by T² so gradients stay comparable. Tune T and α on a validation set that matches the edge deployment distribution—not only average accuracy.*
 
 Training recipe: train teacher well; choose student architecture that fits the edge budget; run distillation on a transfer set representative of deployment; tune T and alpha; validate student calibration and failure modes. Architectures include response-based distillation (logits), feature-based (match intermediate maps), and relation-based (match pairwise structures). For stroke imaging, a heavy ensemble teacher can distill into a single student deployable on MSU hardware—if the transfer set includes the MSU’s scanner characteristics.
 

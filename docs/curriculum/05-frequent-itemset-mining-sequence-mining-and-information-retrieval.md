@@ -137,6 +137,10 @@ Perfect hashing is rare for dynamic sets; collisions are inevitable. Cryptograph
 
 Jaccard similarity between sets A and B is J(A,B) = |A ∩ B| / |A ∪ B|. Exact computation is expensive for large vocabularies or many document pairs. MinHash estimates Jaccard by applying random permutations π of the universe and recording min{π(x) : x ∈ A}. For a family of minwise independent permutations, P(min π(A) = min π(B)) = J(A,B). Repeating k independent hashes yields a signature; the fraction of equal signature coordinates estimates Jaccard.
 
+![MinHash Jaccard estimate vs exact similarity as signature length k grows (scientific; original).](../assets/figures/ml_fig_minhash_jaccard.png)
+
+*Figure — Approximate set similarity. **Left:** mean MinHash Ĵ over trials approaches exact J(A,B) as signature length k increases (error bands shrink). **Right:** one k=20 signature strip—teal cells are matching mins. High Ĵ flags near-duplicates; it is not clinical correctness and does not imply causal relatedness of the underlying patients or notes.*
+
 In practice one uses k hash functions h₁, …, h_k from integers to integers and stores min_{x∈A} h_i(x) for each i. Locality-sensitive hashing (LSH) then buckets signatures so that similar sets collide more often, enabling subquadratic near-duplicate detection. Applications include near-duplicate web pages, plagiarism detection, and finding highly similar problem lists or medication sets across encounters without pairwise O(n²) Jaccard on full sets.
 
 Clinical and epidemiologic note: MinHash and LSH can cluster near-duplicate discharge summaries or flag copy-forward notes, but similarity is not clinical correctness. Two notes with high Jaccard may both omit a critical negation (“no hemorrhage”). Always combine set-similarity retrieval with section-aware and negation-aware NLP when the use case is safety-critical case finding.

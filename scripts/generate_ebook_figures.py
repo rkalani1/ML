@@ -2505,6 +2505,559 @@ def fig_apriori_support_lattice():
     save(fig, "ml_fig_apriori_lattice.png")
 
 
+def fig_vae_elbo_beta():
+    """Ch11 scientific: VAE ELBO terms and β-VAE recon vs KL trade-off."""
+    # Univariate Gaussian KL(q‖p) with p=N(0,1), q=N(μ,σ²): ½[μ²+σ²−1−log σ²]
+    # Chapter sketch: μ=1, σ=0.5 → KL≈0.818; recon MSE=0.50 → −ELBO ≈ 1.318 at β=1
+    mu, sig = 1.0, 0.5
+    kl_unit = 0.5 * (mu**2 + sig**2 - 1.0 - np.log(sig**2))
+    recon = 0.50  # E[−log p(x|z)] proxy (squared error)
+    betas = np.array([0.25, 0.5, 1.0, 2.0, 4.0, 8.0])
+    # Synthetic teaching surfaces: higher β pulls encoder toward prior → KL↓, recon↑
+    # Soft schedule (not a real training run): KL shrinks, recon rises with β
+    kl_b = kl_unit / (1.0 + 0.55 * (betas - 1.0).clip(min=0)) * (1.0 + 0.15 * (1.0 - betas).clip(min=0))
+    # Recenter so β=1 matches chapter numbers
+    kl_b = kl_b * (kl_unit / kl_b[np.argmin(np.abs(betas - 1.0))])
+    recon_b = recon * (1.0 + 0.22 * np.log1p(betas))
+    recon_b = recon_b * (recon / recon_b[np.argmin(np.abs(betas - 1.0))])
+    neg_elbo = recon_b + betas * kl_b  # training objective L = recon + β·KL
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 4.0))
+
+    # Left: ELBO decomposition at chapter point + β scaling of objective
+    ax = axes[0]
+    x = np.arange(3)
+    parts = [recon, kl_unit, recon + kl_unit]
+    labs = ["recon\nE[−log p(x|z)]", "KL(q‖p)", "−ELBO\n(β=1)"]
+    cols = [TEAL, GOLD, DEEP]
+    ax.bar(x, parts, color=cols, width=0.62, alpha=0.92)
+    for i, v in enumerate(parts):
+        ax.text(i, v + 0.04, f"{v:.3f}", ha="center", fontsize=10, fontweight="bold", color=INK)
+    ax.set_xticks(x)
+    ax.set_xticklabels(labs, fontsize=9)
+    ax.set_ylabel("nats (teaching units)")
+    ax.set_ylim(0, 1.55)
+    style_ax(ax, "Chapter sketch: μ=1, σ=0.5, recon=0.50")
+    ax.text(
+        0.98, 0.92,
+        "KL = ½[μ²+σ²−1−log σ²] ≈ 0.818\nELBO = −recon − KL  (higher better)",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#475569",
+        family="monospace",
+    )
+
+    # Right: β-VAE trade-off curves
+    ax = axes[1]
+    ax.plot(betas, recon_b, "o-", color=TEAL, lw=2.3, markersize=8, label="reconstruction term")
+    ax.plot(betas, kl_b, "s-", color=GOLD, lw=2.3, markersize=7, label="KL(q‖p)")
+    ax.plot(betas, neg_elbo, "D--", color=DEEP, lw=2.0, markersize=6, label="L = recon + β·KL")
+    ax.axvline(1.0, color="#cbd5e1", ls=":", lw=1.3)
+    ax.text(1.05, max(neg_elbo) * 0.92, "β=1 (ELBO)", fontsize=8, color="#64748b")
+    ax.set_xlabel("β  (weight on KL)")
+    ax.set_ylabel("loss contribution")
+    ax.set_xscale("log", base=2)
+    ax.set_xticks(betas)
+    ax.set_xticklabels([f"{b:g}" for b in betas])
+    ax.legend(frameon=False, fontsize=8, loc="upper left")
+    style_ax(ax, "β-VAE: regularity vs fidelity (synthetic schedule)")
+    ax.text(
+        0.98, 0.08,
+        "Large β → latents near prior; recon often suffers\nDisentanglement is hypothesized, not guaranteed",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("VAE evidence lower bound and β trade-off (univariate Gaussian teaching)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_vae_elbo.png")
+
+
+def fig_distill_temperature():
+    """Ch14 scientific: distillation soft-target entropy vs temperature T."""
+    # 3-class stroke-ish logits from a confident teacher
+    z = np.array([2.8, 1.1, -0.4])  # classes: LVO, small-vessel, mimic (teaching labels)
+    class_names = ["LVO", "SV", "mimic"]
+    Ts = np.array([1.0, 2.0, 4.0, 8.0, 16.0])
+
+    def softmax_T(logits, T):
+        x = logits / T
+        x = x - x.max()
+        p = np.exp(x)
+        return p / p.sum()
+
+    entropies = []
+    for T in Ts:
+        p = softmax_T(z, T)
+        entropies.append(float(-(p * np.log(p + 1e-12)).sum()))
+    entropies = np.asarray(entropies)
+    # Softmax at T=1 and T=4 for side panel
+    p1 = softmax_T(z, 1.0)
+    p4 = softmax_T(z, 4.0)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 4.0))
+
+    # Left: soft targets at two temperatures
+    ax = axes[0]
+    x = np.arange(len(z))
+    w = 0.36
+    ax.bar(x - w / 2, p1, width=w, color=TEAL, alpha=0.92, label="T=1 (harder soft)")
+    ax.bar(x + w / 2, p4, width=w, color=GOLD, alpha=0.92, label="T=4 (darker knowledge)")
+    ax.set_xticks(x)
+    ax.set_xticklabels(class_names)
+    ax.set_ylabel(r"teacher $p_i = \mathrm{softmax}(z_i/T)$")
+    ax.set_ylim(0, 1.05)
+    ax.legend(frameon=False, fontsize=9)
+    style_ax(ax, "Temperature flattens teacher probabilities")
+    ax.text(
+        0.98, 0.90,
+        "logits z = [2.8, 1.1, −0.4]\nL = α T² CE(p_s, p_t) + (1−α) CE(p_s, y)",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#475569",
+        family="monospace",
+    )
+
+    # Right: entropy of soft targets vs T + peak class mass
+    ax = axes[1]
+    peak = [float(softmax_T(z, T).max()) for T in Ts]
+    ax.plot(Ts, entropies, "o-", color=TEAL, lw=2.4, markersize=8, label="H(p_T) entropy")
+    ax2 = ax.twinx()
+    ax2.plot(Ts, peak, "s--", color=GOLD, lw=2.0, markersize=7, label="max p_i")
+    ax.set_xlabel("temperature T")
+    ax.set_ylabel("entropy H(p) [nats]", color=TEAL)
+    ax2.set_ylabel("peak class probability", color="#b45309")
+    ax.set_xscale("log", base=2)
+    ax.set_xticks(Ts)
+    ax.set_xticklabels([f"{int(t) if t>=1 else t}" for t in Ts])
+    h1, l1 = ax.get_legend_handles_labels()
+    h2, l2 = ax2.get_legend_handles_labels()
+    ax.legend(h1 + h2, l1 + l2, frameon=False, fontsize=8, loc="center right")
+    style_ax(ax, "Soft-target entropy rises with T")
+    ax.text(
+        0.02, 0.08,
+        "T² in the KD loss keeps soft gradients\ncomparable as T grows; tune T on val set",
+        transform=ax.transAxes, fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Knowledge distillation: temperature-scaled soft targets (synthetic 3-class teacher)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_distill_temp.png")
+
+
+def fig_lora_rank():
+    """Ch14 scientific: LoRA rank r vs trainable params and capacity sketch."""
+    # Frozen W0 is d×k; trainable BA with B d×r, A r×k → params = r(d+k)
+    d, k = 4096, 4096  # square attention-weight scale (teaching)
+    full = d * k
+    ranks = np.array([1, 2, 4, 8, 16, 32, 64, 128])
+    lora_params = ranks * (d + k)
+    frac = lora_params / full
+    # Synthetic val loss: diminishing returns past moderate r (underfit → plateau)
+    # Not a real run — teaching curve only
+    loss = 0.42 + 0.28 * np.exp(-ranks / 10.0) + 0.01 * np.log1p(ranks / 8.0)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 4.0))
+
+    # Left: parameter count vs rank
+    ax = axes[0]
+    ax.plot(ranks, lora_params / 1e6, "o-", color=TEAL, lw=2.4, markersize=8, label="LoRA (A,B)")
+    ax.axhline(full / 1e6, color=GOLD, ls="--", lw=1.8, label=f"full d×k = {full/1e6:.0f}M")
+    for r, p in zip(ranks[::2], (lora_params / 1e6)[::2]):
+        ax.annotate(f"r={r}", (r, p), textcoords="offset points", xytext=(6, 4),
+                    fontsize=8, color=INK)
+    ax.set_xscale("log", base=2)
+    ax.set_xticks(ranks)
+    ax.set_xticklabels([str(r) for r in ranks])
+    ax.set_xlabel("LoRA rank r")
+    ax.set_ylabel("trainable parameters (millions)")
+    ax.legend(frameon=False, fontsize=9, loc="upper left")
+    style_ax(ax, f"W = W₀ + BA · d=k={d} · params = r(d+k)")
+    ax.text(
+        0.98, 0.12,
+        f"r=8 → {lora_params[ranks.tolist().index(8)]/1e6:.2f}M "
+        f"({100*frac[ranks.tolist().index(8)]:.2f}% of full)\n"
+        "Merge BA into W₀ at deploy → no extra latency",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+
+    # Right: capacity vs rank (synthetic val loss) + % of full
+    ax = axes[1]
+    ax.plot(ranks, loss, "o-", color=DEEP, lw=2.4, markersize=8, label="val loss (synthetic)")
+    ax2 = ax.twinx()
+    ax2.plot(ranks, 100 * frac, "s--", color=GOLD, lw=2.0, markersize=6, label="% of full W")
+    ax.set_xscale("log", base=2)
+    ax.set_xticks(ranks)
+    ax.set_xticklabels([str(r) for r in ranks])
+    ax.set_xlabel("LoRA rank r")
+    ax.set_ylabel("held-out loss (synthetic)", color=DEEP)
+    ax2.set_ylabel("% of full fine-tune params", color="#b45309")
+    h1, l1 = ax.get_legend_handles_labels()
+    h2, l2 = ax2.get_legend_handles_labels()
+    ax.legend(h1 + h2, l1 + l2, frameon=False, fontsize=8, loc="upper right")
+    style_ax(ax, "Rank is a capacity knob — validate rare phenotypes")
+    ax.text(
+        0.02, 0.08,
+        "Low r underfits local note style / rare labels;\nhigh r → more params, still ≪ full FT",
+        transform=ax.transAxes, fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Low-Rank Adaptation: rank–parameter–capacity map (teaching, d=k=4096)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_lora_rank.png")
+
+
+def fig_minhash_jaccard():
+    """Ch05 scientific: MinHash estimate of Jaccard vs exact, vs signature length k."""
+    rng = np.random.default_rng(11)
+    # Two sets over universe {0..U-1}
+    U = 200
+    A = set(rng.choice(U, size=80, replace=False).tolist())
+    # B overlaps ~40% Jaccard target: build from A and new elements
+    n_inter = 35
+    inter = set(rng.choice(list(A), size=n_inter, replace=False).tolist())
+    rest_B = set(rng.choice([x for x in range(U) if x not in A], size=45, replace=False).tolist())
+    B = inter | rest_B
+    j_exact = len(A & B) / len(A | B)
+
+    # MinHash with k independent hash functions: h_i(x) = (a_i * x + b_i) mod P
+    P = 104729  # prime
+    def minhash_sig(S, k, seed=0):
+        rr = np.random.default_rng(seed)
+        a = rr.integers(1, P, size=k)
+        b = rr.integers(0, P, size=k)
+        sig = np.empty(k, dtype=np.int64)
+        for i in range(k):
+            sig[i] = min(((a[i] * x + b[i]) % P) for x in S)
+        return sig
+
+    ks = np.array([5, 10, 20, 40, 80, 160, 320])
+    # Multiple trials per k for error bars
+    n_trials = 40
+    means, stds = [], []
+    for k in ks:
+        ests = []
+        for t in range(n_trials):
+            sA = minhash_sig(A, int(k), seed=1000 + 17 * t + int(k))
+            sB = minhash_sig(B, int(k), seed=1000 + 17 * t + int(k))  # same (a,b)
+            # Same seed ⇒ same hash family for both sets
+            ests.append(float(np.mean(sA == sB)))
+        means.append(np.mean(ests))
+        stds.append(np.std(ests))
+    means, stds = np.asarray(means), np.asarray(stds)
+
+    # One illustrative signature agreement strip at k=20
+    k_show = 20
+    sA = minhash_sig(A, k_show, seed=42)
+    sB = minhash_sig(B, k_show, seed=42)
+    agree = (sA == sB).astype(float)
+    j_hat_show = agree.mean()
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 4.0))
+
+    # Left: estimate vs k with ±1 sd band
+    ax = axes[0]
+    ax.axhline(j_exact, color=GOLD, ls="--", lw=2.0, label=f"exact J(A,B)={j_exact:.3f}")
+    ax.plot(ks, means, "o-", color=TEAL, lw=2.3, markersize=8, label="mean MinHash Ĵ")
+    ax.fill_between(ks, means - stds, means + stds, color=TEAL, alpha=0.18, label="±1 sd (40 trials)")
+    ax.set_xscale("log", base=2)
+    ax.set_xticks(ks)
+    ax.set_xticklabels([str(k) for k in ks])
+    ax.set_xlabel("signature length k")
+    ax.set_ylabel("Jaccard estimate")
+    ax.set_ylim(0, 1.0)
+    ax.legend(frameon=False, fontsize=8, loc="lower right")
+    style_ax(ax, r"P(min π(A)=min π(B)) = J(A,B)")
+    ax.text(
+        0.02, 0.92,
+        f"|A|={len(A)}, |B|={len(B)}, |A∩B|={len(A & B)}\n"
+        r"Ĵ = fraction of equal signature coords",
+        transform=ax.transAxes, va="top", fontsize=8, color="#475569",
+    )
+
+    # Right: one signature match mask (rectangle strip)
+    ax = axes[1]
+    colors_row = [TEAL if a else "#e2e8f0" for a in agree]
+    for i, c in enumerate(colors_row):
+        ax.add_patch(Rectangle((i, 0.25), 0.92, 0.5, facecolor=c, edgecolor="white", linewidth=0.6))
+    ax.set_xlim(0, k_show)
+    ax.set_ylim(0, 1)
+    ax.set_yticks([])
+    ax.set_xlabel("hash function index i = 1…k")
+    style_ax(ax, f"One trial k={k_show}: Ĵ={j_hat_show:.2f} vs exact {j_exact:.3f}")
+    ax.text(
+        0.5, 0.08,
+        "Teal = matching mins (collision) · gray = mismatch · LSH buckets similar signatures",
+        transform=ax.transAxes, ha="center", fontsize=8, color="#64748b",
+    )
+    ax.text(
+        0.5, 0.88,
+        "Near-duplicate notes: high Ĵ ≠ correct content\n(negation / omitted findings still matter)",
+        transform=ax.transAxes, ha="center", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("MinHash estimates Jaccard similarity (synthetic sets; original teaching)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_minhash_jaccard.png")
+
+
+def fig_betweenness_bridge():
+    """Ch15 scientific: betweenness on a two-cluster graph joined by a bridge."""
+    # Graph: cluster L = {0,1,2,3} clique-ish; R = {5,6,7,8}; bridge 3—4—5 with 4 as pure bridge
+    # Nodes: 0,1,2 dense left; 3 left-hub; 4 bridge; 5 right-hub; 6,7,8 dense right
+    edges = [
+        (0, 1), (0, 2), (1, 2), (0, 3), (1, 3), (2, 3),  # left
+        (3, 4), (4, 5),  # bridge path
+        (5, 6), (5, 7), (5, 8), (6, 7), (6, 8), (7, 8),  # right
+    ]
+    n = 9
+    # Build adjacency
+    adj = {i: set() for i in range(n)}
+    for u, v in edges:
+        adj[u].add(v)
+        adj[v].add(u)
+
+    # Brandes-lite: all-pairs BFS for unweighted betweenness
+    bet = np.zeros(n)
+    for s in range(n):
+        # BFS
+        stack = []
+        pred = {i: [] for i in range(n)}
+        sigma = np.zeros(n)
+        dist = np.full(n, -1)
+        sigma[s] = 1.0
+        dist[s] = 0
+        from collections import deque
+        q = deque([s])
+        while q:
+            v = q.popleft()
+            stack.append(v)
+            for w in adj[v]:
+                if dist[w] < 0:
+                    dist[w] = dist[v] + 1
+                    q.append(w)
+                if dist[w] == dist[v] + 1:
+                    sigma[w] += sigma[v]
+                    pred[w].append(v)
+        delta = np.zeros(n)
+        while stack:
+            w = stack.pop()
+            for v in pred[w]:
+                if sigma[w] > 0:
+                    delta[v] += (sigma[v] / sigma[w]) * (1.0 + delta[w])
+            if w != s:
+                bet[w] += delta[w]
+    bet /= 2.0  # undirected
+
+    # Layout positions
+    pos = {
+        0: (0.15, 0.75), 1: (0.08, 0.45), 2: (0.22, 0.35), 3: (0.32, 0.55),
+        4: (0.50, 0.55),
+        5: (0.68, 0.55), 6: (0.78, 0.75), 7: (0.92, 0.55), 8: (0.82, 0.35),
+    }
+    names = [str(i) for i in range(n)]
+    bet_n = bet / (bet.max() + 1e-12)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 4.0))
+
+    ax = axes[0]
+    for u, v in edges:
+        x0, y0 = pos[u]
+        x1, y1 = pos[v]
+        ax.plot([x0, x1], [y0, y1], color="#94a3b8", lw=1.6, zorder=1)
+    for i in range(n):
+        x, y = pos[i]
+        size = 280 + 2200 * bet_n[i]
+        # Bridge node gold; hubs teal; leaves deep
+        if i == 4:
+            c = GOLD
+        elif i in (3, 5):
+            c = TEAL
+        else:
+            c = DEEP
+        ax.scatter([x], [y], s=size, c=c, zorder=3, edgecolors="white", linewidths=1.4)
+        ax.text(x, y, names[i], ha="center", va="center", color="white",
+                fontsize=10, fontweight="bold", zorder=4)
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0.2, 0.95)
+    ax.axis("off")
+    ax.set_title("Two clusters · single bridge path 3—4—5", fontsize=12, fontweight="bold", color=INK, pad=8)
+    ax.text(0.15, 0.22, "left community", ha="center", fontsize=9, color="#64748b", transform=ax.transAxes)
+    ax.text(0.85, 0.22, "right community", ha="center", fontsize=9, color="#64748b", transform=ax.transAxes)
+    ax.text(0.5, 0.05, "Node size ∝ betweenness · gold = pure bridge", ha="center",
+            fontsize=8, color="#64748b", transform=ax.transAxes)
+
+    ax = axes[1]
+    order = np.argsort(bet)[::-1]
+    y = np.arange(n)
+    cols = [GOLD if i == 4 else (TEAL if i in (3, 5) else DEEP) for i in order]
+    ax.barh(y, bet[order], color=cols, height=0.65, alpha=0.92)
+    ax.set_yticks(y)
+    ax.set_yticklabels([f"node {i}" for i in order])
+    ax.set_xlabel("betweenness (Brandes, undirected)")
+    style_ax(ax, "Bridge node dominates pair-flow scores")
+    ax.text(
+        0.98, 0.08,
+        "High betweenness ≠ clinical quality;\nedge definition drives rankings",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Betweenness centrality on a bridged referral-style graph (scientific; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_betweenness.png")
+
+
+def fig_spectral_fiedler():
+    """Ch15 scientific: spectral clustering / Fiedler vector on bridged graph."""
+    # Same 9-node bridge graph as betweenness for continuity
+    edges = [
+        (0, 1), (0, 2), (1, 2), (0, 3), (1, 3), (2, 3),
+        (3, 4), (4, 5),
+        (5, 6), (5, 7), (5, 8), (6, 7), (6, 8), (7, 8),
+    ]
+    n = 9
+    A = np.zeros((n, n))
+    for u, v in edges:
+        A[u, v] = A[v, u] = 1.0
+    deg = A.sum(axis=1)
+    D = np.diag(deg)
+    L = D - A  # combinatorial Laplacian
+    # Eigen-decomposition (symmetric)
+    evals, evecs = np.linalg.eigh(L)
+    # Smallest eigenvalue ~0 (connected); Fiedler = second smallest
+    fiedler = evecs[:, 1]
+    # Sign partition
+    part = fiedler >= 0
+
+    pos = {
+        0: (0.15, 0.75), 1: (0.08, 0.45), 2: (0.22, 0.35), 3: (0.32, 0.55),
+        4: (0.50, 0.55),
+        5: (0.68, 0.55), 6: (0.78, 0.75), 7: (0.92, 0.55), 8: (0.82, 0.35),
+    }
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 4.0))
+
+    # Left: nodes colored by Fiedler sign; value as text
+    ax = axes[0]
+    for u, v in edges:
+        x0, y0 = pos[u]
+        x1, y1 = pos[v]
+        ax.plot([x0, x1], [y0, y1], color="#94a3b8", lw=1.5, zorder=1)
+    for i in range(n):
+        x, y = pos[i]
+        c = TEAL if part[i] else GOLD
+        ax.scatter([x], [y], s=520, c=c, zorder=3, edgecolors="white", linewidths=1.4)
+        ax.text(x, y, str(i), ha="center", va="center", color="white",
+                fontsize=10, fontweight="bold", zorder=4)
+        ax.text(x, y - 0.08, f"{fiedler[i]:+.2f}", ha="center", fontsize=7.5, color=INK)
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0.18, 0.95)
+    ax.axis("off")
+    ax.set_title("Fiedler vector u₂ (sign ≈ bipartition)", fontsize=12, fontweight="bold", color=INK, pad=8)
+    ax.text(0.5, 0.04, "Teal vs gold = sign(u₂) · bridge node sits near cut",
+            ha="center", fontsize=8, color="#64748b", transform=ax.transAxes)
+
+    # Right: spectrum + Fiedler embedding 1-D
+    ax = axes[1]
+    kshow = min(8, n)
+    ax.bar(np.arange(kshow), evals[:kshow], color=[TEAL if i > 0 else GOLD for i in range(kshow)],
+           width=0.7, alpha=0.9)
+    ax.axhline(0, color="#cbd5e1", lw=1)
+    # Mark spectral gap
+    if n > 2:
+        ax.annotate(
+            "spectral gap",
+            xy=(1.5, (evals[1] + evals[2]) / 2),
+            xytext=(3.2, evals[2] * 0.85 + 0.15),
+            fontsize=8, color=DEEP,
+            arrowprops=dict(arrowstyle="->", color=DEEP, lw=1.2),
+        )
+    ax.set_xlabel("eigenvalue index (ascending)")
+    ax.set_ylabel("λ of L = D − A")
+    style_ax(ax, "Laplacian spectrum · λ₁≈0, λ₂ = algebraic connectivity")
+    # Inset-like 1-D embedding strip
+    y0 = ax.get_ylim()[1]
+    # Plot Fiedler coords as secondary visual at bottom via twinx-less scatter in axes coords
+    ax2 = ax.inset_axes([0.08, 0.12, 0.84, 0.22])
+    order = np.argsort(fiedler)
+    ax2.scatter(fiedler[order], np.zeros(n), c=[TEAL if part[i] else GOLD for i in order],
+                s=60, zorder=3, edgecolors="white")
+    for i in order:
+        ax2.text(fiedler[i], 0.02, str(i), ha="center", va="bottom", fontsize=7, color=INK)
+    ax2.axvline(0, color="#94a3b8", ls="--", lw=1)
+    ax2.set_yticks([])
+    ax2.set_xlabel("Fiedler coordinate (1-D spectral embedding)", fontsize=8)
+    ax2.set_facecolor("#f8fafc")
+    for s in ax2.spines.values():
+        s.set_color("#cbd5e1")
+    fig.suptitle("Spectral clustering intuition: Fiedler cut on the bridged graph (original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_spectral_fiedler.png")
+
+
+def fig_multimetric_radar():
+    """Ch17 scientific: multi-metric radar for one senior case-study model."""
+    # Synthetic LVO prediction case study — multiple claim types on one diagram
+    metrics = [
+        "AUROC",
+        "AUPRC",
+        "Calib.\nslope",
+        "Brier\n(inv)",
+        "Net ben.\n@0.15",
+        "Subgroup\nAUROC min",
+        "ECE\n(inv)",
+    ]
+    # Scores scaled to [0,1] "goodness" for radar (teaching only)
+    # Model A: strong discrimination, weaker calibration / utility
+    m_a = np.array([0.92, 0.71, 0.55, 0.62, 0.48, 0.68, 0.58])
+    # Model B: slightly lower AUC, better calibration and net benefit
+    m_b = np.array([0.86, 0.66, 0.88, 0.84, 0.78, 0.80, 0.86])
+    # "Ship bar" minimum acceptable (not a real policy)
+    m_floor = np.array([0.80, 0.50, 0.70, 0.60, 0.40, 0.70, 0.65])
+
+    angles = np.linspace(0, 2 * np.pi, len(metrics), endpoint=False)
+    angles_c = np.concatenate([angles, angles[:1]])
+
+    def close(v):
+        return np.concatenate([v, v[:1]])
+
+    fig = plt.figure(figsize=(9.2, 4.2))
+    ax = fig.add_subplot(1, 2, 1, polar=True)
+    ax.plot(angles_c, close(m_a), "o-", color=TEAL, lw=2.2, markersize=5, label="Model A · high AUC")
+    ax.fill(angles_c, close(m_a), color=TEAL, alpha=0.12)
+    ax.plot(angles_c, close(m_b), "s-", color=GOLD, lw=2.2, markersize=5, label="Model B · balanced")
+    ax.fill(angles_c, close(m_b), color=GOLD, alpha=0.12)
+    ax.plot(angles_c, close(m_floor), "--", color=DEEP, lw=1.5, label="teaching floor")
+    ax.set_xticks(angles)
+    ax.set_xticklabels(metrics, fontsize=8)
+    ax.set_ylim(0, 1.0)
+    ax.set_yticks([0.25, 0.5, 0.75, 1.0])
+    ax.set_yticklabels(["0.25", "0.5", "0.75", "1"], fontsize=7, color="#64748b")
+    ax.legend(frameon=False, fontsize=8, loc="upper right", bbox_to_anchor=(1.35, 1.12))
+    ax.set_title("One case study · multiple metrics\n(goodness scores, synthetic)", fontsize=12,
+                 fontweight="bold", color=INK, pad=16)
+
+    # Right: table-like bar of gaps to floor for model A vs B (net benefit focus)
+    ax2 = fig.add_subplot(1, 2, 2)
+    labels_short = ["AUROC", "AUPRC", "Cal slope", "Brier↑", "NB@0.15", "min AUC", "ECE↑"]
+    x = np.arange(len(labels_short))
+    w = 0.36
+    ax2.bar(x - w / 2, m_a, width=w, color=TEAL, alpha=0.9, label="Model A")
+    ax2.bar(x + w / 2, m_b, width=w, color=GOLD, alpha=0.9, label="Model B")
+    ax2.plot(x, m_floor, "D--", color=DEEP, lw=1.6, markersize=6, label="floor")
+    ax2.set_xticks(x)
+    ax2.set_xticklabels(labels_short, rotation=25, ha="right", fontsize=8)
+    ax2.set_ylabel("goodness score (0–1 teaching scale)")
+    ax2.set_ylim(0, 1.08)
+    ax2.legend(frameon=False, fontsize=8, loc="lower left")
+    style_ax(ax2, "A wins ranking; B clears more clinical gates")
+    ax2.text(
+        0.98, 0.92,
+        "Do not ship on AUROC alone.\nPrediction ≠ causation; utility is threshold-bound.",
+        transform=ax2.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Senior appraisal: multi-metric view of one LVO-style case study (original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_multimetric_radar.png")
+
+
 # ---------------------------------------------------------------------------
 # Legacy numbered PNGs (00_*.png … 17_*.png)
 # These files already exist under docs/assets/figures/ and are linked from
@@ -2599,6 +3152,14 @@ def main():
     fig_pagerank_iteration()
     fig_pred_not_cause()
     fig_apriori_support_lattice()
+    # Continuous densify cycle-5 (ch05 / ch11 / ch14 / ch15 / ch17)
+    fig_vae_elbo_beta()
+    fig_distill_temperature()
+    fig_lora_rank()
+    fig_minhash_jaccard()
+    fig_betweenness_bridge()
+    fig_spectral_fiedler()
+    fig_multimetric_radar()
     print("DONE figures in", OUT)
     missing_legacy = [n for n in LEGACY_NUMBERED_ASSETS if not (OUT / n).exists()]
     if missing_legacy:

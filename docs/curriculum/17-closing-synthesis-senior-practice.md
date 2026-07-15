@@ -77,6 +77,10 @@ The 90-day mRS comes from a structured telephone interview with real inter-rater
 ### 4. Model Selection and Tuning
 Begin with penalized logistic regression (elastic net): interpretable coefficients, honest calibration, and few parameters for a few thousand patients, with gradient-boosted trees as a challenger. Resist deep networks at this sample size. Report discrimination and calibration together — a calibration plot with slope and intercept — plus net benefit across the threshold range clinicians would actually entertain. The math tells us: $$ P(Y=1|X) = \frac{1}{1 + e^{-(\beta_0 + \beta X)}} $$ where the regularization path for $\lambda$ is chosen via rigorous internal cross-validation.
 
+![Multi-metric radar and gate scores for one synthetic LVO-style case study: high-AUC model vs balanced model (scientific; original).](../assets/figures/ml_fig_multimetric_radar.png)
+
+*Figure — One study, many claims. **Left:** radar of goodness scores (AUROC, AUPRC, calibration slope, inverted Brier/ECE, net benefit, worst-subgroup AUROC). **Right:** Model A wins ranking metrics; Model B clears more calibration/utility gates against a teaching floor. Do not ship on AUROC alone. High predictive scores never license a causal claim or sole-trigger withdrawal of care.*
+
 ### 5. Evaluation Strategy
 Split grouped by patient, then split temporally (train on earlier years, test on later), then validate externally at partner centers with different CT scanners, different ASPECTS-reading habits, and a different case mix of late-window and higher-baseline-disability patients. Expect calibration to drift on transport; recalibrate the intercept and slope rather than assume the model travels intact.
 
