@@ -841,3 +841,9 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c220 teaching panel 18 (original).](../assets/figures/ml_fig_c220_18.png)
 *Figure — Engineering toil burn bars. Synthetic teaching geometry—not a causal claim.*
+
+![c221 teaching panel 18 (original).](../assets/figures/ml_fig_c221_18.png)
+*Figure — Architecture decision record strip. Synthetic teaching geometry—not a causal claim.*
+
+![c222 teaching panel 18 (original).](../assets/figures/ml_fig_c222_18.png)
+*Figure — Incident postmortem learning loop. Synthetic teaching geometry—not a causal claim.*

@@ -796,3 +796,9 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c220 teaching panel 01 (original).](../assets/figures/ml_fig_c220_01.png)
 *Figure — Purpose limitation decision. Synthetic teaching geometry—not a causal claim.*
+
+![c221 teaching panel 01 (original).](../assets/figures/ml_fig_c221_01.png)
+*Figure — Consent and purpose decision tree. Synthetic teaching geometry—not a causal claim.*
+
+![c222 teaching panel 01 (original).](../assets/figures/ml_fig_c222_01.png)
+*Figure — Dual-use capability gate. Synthetic teaching geometry—not a causal claim.*
