@@ -769,3 +769,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c211 teaching panel 01 (original).](../assets/figures/ml_fig_c211_01.png)
 *Figure — DPIA residual risk workflow. Synthetic teaching geometry—not a causal claim.*
+
+![c212 teaching panel 01 (original).](../assets/figures/ml_fig_c212_01.png)
+*Figure — Consent window timeline markers. Synthetic teaching geometry—not a causal claim.*
