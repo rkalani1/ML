@@ -177,6 +177,21 @@ Ship with a model card stating population, index time, features, calibration, in
 
 *Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
 
+
+![c41 densify panel 19 (original).](../assets/figures/ml_fig_c41_18.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c42 densify panel 19 (original).](../assets/figures/ml_fig_c42_18.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c43 densify panel 19 (original).](../assets/figures/ml_fig_c43_18.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
 *Figure — Write triggers before go-live. **Left:** score PSI and ECE with pre-set alarm lines; a scanner swap at week 18 pushes PSI past 0.2. **Right:** live AUROC with a rollback floor at 0.80—recalibrate when calibration drifts, rollback when discrimination breaches the floor. Act on input/score monitors before lagged outcomes confirm failure. Prediction ≠ causation; ops monitoring is part of the science.*
 
 ## Synthetic Teaching Table: Deployment Checklist

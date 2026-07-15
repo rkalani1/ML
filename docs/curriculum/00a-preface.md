@@ -155,6 +155,21 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 *Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
 
+
+![c41 densify panel 2 (original).](../assets/figures/ml_fig_c41_01.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c42 densify panel 2 (original).](../assets/figures/ml_fig_c42_01.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c43 densify panel 2 (original).](../assets/figures/ml_fig_c43_01.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
 *Figure — Preface leakage triad. Timing (features after t₀), fit (scalers/vocab fit on full cohort), and label leakage (proxies that are the outcome) are the three modes to hunt in every methods section. Leakage inflates prediction metrics—not causal truth.*
 
 | Habit | What you do | What it prevents |
