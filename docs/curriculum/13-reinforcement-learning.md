@@ -154,6 +154,10 @@ These are nonlinear because of the max operator. They uniquely determine V* and 
 
 Suppose three actions from s with expected one-step returns already folded into R and known next values: action Left gives R=0 then V(s_L)=5; action Right gives R=1 then V(s_R)=3. With gamma=0.9, the action values are 0 + 0.9*5 = 4.5 and 1 + 0.9*3 = 3.7. The greedy choice is Left with backup 4.5. This single-state arithmetic is exactly what value iteration does for every state each sweep.
 
+![Bellman optimality backup: Q = R + γV and V* = max Q (original).](../assets/figures/ml_fig_bellman_backup.png)
+
+*Figure — One Bellman backup cell. **Left:** from state \(s\), action Left yields \(Q=0+0.9\times5=4.5\); Right yields \(Q=1+0.9\times3=3.7\). **Right:** the optimality backup takes \(\max_a Q(s,a)=4.5\), so the greedy improved policy picks Left. Value iteration applies this diagram to every state each sweep; the expectation form averages over \(P(s'|s,a)\) when transitions are stochastic.*
+
 ### Worked Two-State MDP (Deterministic)
 
 States {s1, s2}, actions {Stay, Go}, gamma = 0.9. From s1, Stay stays with reward +1; Go moves to s2 with reward 0. From s2, Stay stays with reward +2; Go moves to s1 with reward 0. Initialize V_0(s1)=V_0(s2)=0.

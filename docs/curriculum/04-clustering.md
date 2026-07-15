@@ -143,6 +143,10 @@ Interpretation: the algorithm recovered the two visual clumps. Poor initializati
 
 Density-Based Spatial Clustering of Applications with Noise (DBSCAN) defines clusters as dense regions separated by sparse regions. Parameters: radius ε > 0 and minPts. The ε-neighborhood of x is N_ε(x) = {y : d(x,y) ≤ ε}. Point x is a core point if |N_ε(x)| ≥ minPts. Border points are non-core points within ε of some core; noise points are neither. Clusters are maximal density-connected sets of points chained through core neighborhoods.
 
+![DBSCAN core / border / noise and k-distance ε selection (synthetic; original).](../assets/figures/ml_fig_dbscan_density.png)
+
+*Figure — DBSCAN density sketch. **Left:** core points (teal) have ≥ minPts neighbors inside ε; border points (gold) sit in a core neighborhood but are not dense enough themselves; noise (gray ×) is neither. Dashed circles show ε around example cores. **Right:** a k-distance plot (k = minPts − 1) sorted descending guides ε near the “knee.” Global ε fails when density varies; scale features before computing distances.*
+
 ```
 Algorithm: DBSCAN
 Input: data X, radius ε, minPts

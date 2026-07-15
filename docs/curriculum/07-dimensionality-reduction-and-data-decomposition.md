@@ -199,6 +199,10 @@ Any symmetric positive definite matrix A admits a Cholesky factorization A = L L
 
 NMF approximates a nonnegative matrix X ≈ W H with W ≥ 0, H ≥ 0. Nonnegativity often yields parts-based, additive representations: topics as bags of words, imaging basis patterns as positive activations, or lab factors as co-elevated panels. Objectives include Frobenius loss or Kullback–Leibler divergence between X and W H, optimized by multiplicative updates or projected gradient methods. NMF is nonconvex; initializations matter. Rank r is a hyperparameter chosen by stability, held-out reconstruction, or domain interpretability.
 
+![NMF parts-based factorization of a toy nonnegative image (original).](../assets/figures/ml_fig_nmf_parts.png)
+
+*Figure — NMF teaching panel. A synthetic 16×16 nonnegative “map” is a sum of three blob parts. Multiplicative-update NMF recovers additive parts \(H\) and sample loadings \(W\); reconstruction error falls with rank and plateaus near the true \(r=3\). Parts are ≥0 and additive—useful for territories or topics—but solutions are non-unique, depend on initialization, and do not license causal anatomy labels without external validation.*
+
 ### Singular Value Decomposition (SVD)
 
 SVD X = U Σ Vᵀ is the Swiss army knife of matrix analysis: PCA, low-rank denoising, pseudoinverses, and latent semantic structure all flow from it. Truncated SVD compresses term–document matrices and imaging matrices. Compared with NMF, SVD allows negative loadings, which can be harder to interpret as “parts” but optimal for squared-error low-rank approximation.

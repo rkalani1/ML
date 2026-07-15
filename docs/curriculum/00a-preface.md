@@ -55,6 +55,10 @@ Every major algorithm family in the published TOC is taught with definitions and
 2. **Map each method:** Continually map the computational method back to the clinical problem space. Is this for prediction, etiology, or decision support?
 3. **Be skeptical of performance metrics:** Always look past discrimination (AUROC) to calibration, utility, and external validation.
 
+![Method family → allowed clinical claim (routing map; original).](../assets/figures/ml_fig_claim_routing.png)
+
+*Figure — Preface routing map. Supervised scores license **prediction** claims when calibrated and externally checked; they do not license etiology (blocked dashed path). Causal designs support cause claims. Utility / net-benefit work supports decision-support claims. Clusters and embeddings are hypothesis-generating only. Prediction ≠ causation.*
+
 There is no separate further-reading chapter—the book is the curriculum. Read it iteratively, refer to the mathematical foundations when needed, and apply these concepts rigorously to the next paper you read or the next clinical tool your hospital considers.
 
 ## Reader’s map (teaching table)

@@ -3058,6 +3058,520 @@ def fig_multimetric_radar():
     save(fig, "ml_fig_multimetric_radar.png")
 
 
+def fig_claim_routing():
+    """Preface scientific: map method family → allowed clinical claim type."""
+    fig, ax = plt.subplots(figsize=(9.0, 4.4))
+    ax.set_xlim(0, 12)
+    ax.set_ylim(0, 6.2)
+    ax.axis("off")
+
+    # Source methods (left)
+    methods = [
+        (1.4, 5.2, "Supervised\nscore / AUC", TEAL),
+        (1.4, 3.5, "Causal / IV\nRCT / DAG", DEEP),
+        (1.4, 1.8, "Utility /\nnet benefit", GOLD),
+        (1.4, 0.4, "Cluster /\nembedding map", "#64748b"),
+    ]
+    for x, y, lab, c in methods:
+        ax.add_patch(
+            FancyBboxPatch(
+                (x - 1.15, y - 0.45), 2.3, 1.0,
+                boxstyle="round,pad=0.03,rounding_size=0.12",
+                facecolor=c, edgecolor="none", alpha=0.95,
+            )
+        )
+        ax.text(x, y, lab, ha="center", va="center", color="white",
+                fontsize=9, fontweight="bold")
+
+    # Claim boxes (right)
+    claims = [
+        (9.8, 5.0, "Prediction\nclaim", TEAL),
+        (9.8, 3.3, "Etiology /\ncause claim", DEEP),
+        (9.8, 1.6, "Decision-\nsupport claim", GOLD),
+        (9.8, 0.3, "Hypothesis\nonly (EDA)", "#64748b"),
+    ]
+    for x, y, lab, c in claims:
+        ax.add_patch(
+            FancyBboxPatch(
+                (x - 1.25, y - 0.45), 2.5, 1.0,
+                boxstyle="round,pad=0.03,rounding_size=0.12",
+                facecolor=c, edgecolor="none", alpha=0.95,
+            )
+        )
+        ax.text(x, y, lab, ha="center", va="center", color="white",
+                fontsize=9, fontweight="bold")
+
+    # Allowed edges (solid) and blocked (dashed red)
+    # supervised → prediction (ok), not etiology
+    ax.annotate("", xy=(8.5, 5.0), xytext=(2.6, 5.2),
+                arrowprops=dict(arrowstyle="->", color=TEAL, lw=2.0))
+    ax.annotate("", xy=(8.5, 3.3), xytext=(2.6, 5.05),
+                arrowprops=dict(arrowstyle="->", color="#dc2626", lw=1.4,
+                                ls="--", connectionstyle="arc3,rad=-0.15"))
+    ax.text(5.5, 5.55, "OK if calibrated + external", fontsize=7.5, color=DEEP, ha="center")
+    ax.text(5.8, 4.35, "BLOCKED: AUROC ≠ cause", fontsize=7.5, color="#dc2626", ha="center")
+
+    # causal → etiology
+    ax.annotate("", xy=(8.5, 3.3), xytext=(2.6, 3.5),
+                arrowprops=dict(arrowstyle="->", color=DEEP, lw=2.0))
+    # utility → decision
+    ax.annotate("", xy=(8.5, 1.6), xytext=(2.6, 1.8),
+                arrowprops=dict(arrowstyle="->", color=GOLD, lw=2.0))
+    # cluster → hypothesis only
+    ax.annotate("", xy=(8.5, 0.3), xytext=(2.6, 0.4),
+                arrowprops=dict(arrowstyle="->", color="#64748b", lw=2.0))
+    # supervised can also feed decision IF threshold utility shown
+    ax.annotate("", xy=(8.5, 1.75), xytext=(2.6, 4.9),
+                arrowprops=dict(arrowstyle="->", color=GOLD, lw=1.2,
+                                ls=":", connectionstyle="arc3,rad=0.25"))
+    ax.text(4.2, 2.55, "only with net-benefit\n+ threshold policy", fontsize=7, color="#b45309",
+            ha="center")
+
+    ax.text(6, 6.0, "Method family → allowed clinical claim (preface routing map)",
+            ha="center", fontsize=12, fontweight="bold", color=INK)
+    ax.text(6, -0.15,
+            "Prediction ≠ causation. Clusters and UMAP maps do not license etiology or action alone.",
+            ha="center", fontsize=8.5, color="#64748b")
+    fig.tight_layout()
+    save(fig, "ml_fig_claim_routing.png")
+
+
+def fig_dual_axis_caution():
+    """Ch02 scientific: dual y-axis lie factor vs honest small multiples."""
+    months = np.arange(1, 13)
+    # Synthetic site metrics: admissions (volume) vs in-hospital mortality %
+    # True correlation is weak; dual-axis scaling can fake alignment
+    rng = np.random.default_rng(7)
+    volume = 40 + 3 * np.sin(2 * np.pi * months / 12) + rng.normal(0, 1.2, size=12)
+    volume = np.clip(volume, 30, 55)
+    mort = 8.5 + 0.15 * np.sin(2 * np.pi * (months + 3) / 12) + rng.normal(0, 0.25, size=12)
+    mort = np.clip(mort, 7.0, 10.5)
+
+    # "Lie factor" approximation: ratio of visual slope exaggeration
+    # Dual-axis: normalize each series to [0,1] over its own range → slopes look comparable
+    v_n = (volume - volume.min()) / (volume.max() - volume.min() + 1e-9)
+    m_n = (mort - mort.min()) / (mort.max() - mort.min() + 1e-9)
+    # Relative visual change over months 1→7
+    vis_v = abs(v_n[6] - v_n[0])
+    vis_m = abs(m_n[6] - m_n[0])
+    true_v = abs(volume[6] - volume[0]) / volume[0]
+    true_m = abs(mort[6] - mort[0]) / mort[0]
+    # Tufte-style lie factor proxy: visual relative change / data relative change
+    lf_v = vis_v / (true_v + 1e-9)
+    lf_m = vis_m / (true_m + 1e-9)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.0))
+
+    # Left: dual axis (deceptive)
+    ax = axes[0]
+    ln1 = ax.plot(months, volume, "o-", color=TEAL, lw=2.2, markersize=6, label="admissions")
+    ax.set_xlabel("month")
+    ax.set_ylabel("admissions / month", color=TEAL)
+    ax.tick_params(axis="y", labelcolor=TEAL)
+    ax.set_ylim(volume.min() - 1, volume.max() + 1)  # truncated dual ranges
+    ax2 = ax.twinx()
+    ln2 = ax2.plot(months, mort, "s--", color="#dc2626", lw=2.2, markersize=5, label="mortality %")
+    ax2.set_ylabel("mortality %", color="#dc2626")
+    ax2.tick_params(axis="y", labelcolor="#dc2626")
+    ax2.set_ylim(mort.min() - 0.2, mort.max() + 0.2)
+    lns = ln1 + ln2
+    ax.legend(lns, [l.get_label() for l in lns], frameon=False, fontsize=8, loc="upper left")
+    style_ax(ax, "Dual y-axes (independent scales)")
+    ax.text(
+        0.98, 0.08,
+        f"Visual co-movement is scale choice\nlie-factor proxy vol≈{lf_v:.1f}, mort≈{lf_m:.1f}",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+
+    # Right: honest small multiples with free y but clear separate panels
+    ax = axes[1]
+    ax.plot(months, volume, "o-", color=TEAL, lw=2.2, markersize=6)
+    ax.set_ylabel("admissions / month", color=TEAL)
+    ax.set_xlabel("month")
+    ax.set_ylim(0, 60)  # honest zero baseline for counts
+    style_ax(ax, "Honest panel A: volume (y from 0)")
+    # inset-like second series as twin but with annotation that scales differ
+    # Actually use a second y with shared x but mark "separate claim"
+    axb = ax.twinx()
+    axb.plot(months, mort, "s--", color=GOLD, lw=2.0, markersize=5, alpha=0.85)
+    axb.set_ylabel("mortality % (separate scale)", color=GOLD)
+    axb.tick_params(axis="y", labelcolor=GOLD)
+    axb.set_ylim(0, 12)
+    axb.text(
+        0.98, 0.92,
+        "Prefer two stacked panels\nin print; twin only if\nscales declared loudly",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    style_ax(ax, "Declared dual scale + zero baselines")
+
+    fig.suptitle("Dual-axis caution: fake alignment vs declared separate scales (synthetic)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_dual_axis_caution.png")
+
+
+def fig_dbscan_density():
+    """Ch04 scientific: DBSCAN core / border / noise with ε-neighborhoods."""
+    rng = np.random.default_rng(11)
+    # Two dense blobs + sparse noise + a bridge-thin pair
+    c1 = rng.normal(loc=[-1.2, 0.0], scale=0.28, size=(28, 2))
+    c2 = rng.normal(loc=[1.4, 0.3], scale=0.32, size=(24, 2))
+    bridge = np.array([[0.1, 0.05], [0.35, 0.12], [0.55, 0.08]])  # may be border/noise
+    noise = rng.uniform(low=[-2.8, -1.8], high=[2.8, 1.8], size=(10, 2))
+    # Push some noise far
+    noise[0] = [-2.5, 1.5]
+    noise[1] = [2.4, -1.4]
+    X = np.vstack([c1, c2, bridge, noise])
+
+    eps = 0.55
+    min_pts = 5
+    # Manual DBSCAN labels for teaching clarity
+    from collections import deque
+
+    n = len(X)
+    # pairwise distances
+    dmat = np.sqrt(((X[:, None, :] - X[None, :, :]) ** 2).sum(axis=2))
+    neighbors = [np.where(dmat[i] <= eps + 1e-12)[0].tolist() for i in range(n)]
+    n_count = np.array([len(nbr) for nbr in neighbors])
+    is_core = n_count >= min_pts
+    labels = -np.ones(n, dtype=int)  # -1 noise until assigned
+    cluster_id = 0
+    visited = np.zeros(n, dtype=bool)
+    for i in range(n):
+        if visited[i] or not is_core[i]:
+            continue
+        # expand cluster
+        cluster_id += 1
+        q = deque([i])
+        visited[i] = True
+        labels[i] = cluster_id
+        while q:
+            p = q.popleft()
+            for nb in neighbors[p]:
+                if labels[nb] == -1:
+                    labels[nb] = cluster_id  # border or core
+                if not visited[nb]:
+                    visited[nb] = True
+                    if is_core[nb]:
+                        q.append(nb)
+                    labels[nb] = cluster_id
+
+    # Classify roles for coloring
+    roles = []
+    for i in range(n):
+        if labels[i] == -1:
+            roles.append("noise")
+        elif is_core[i]:
+            roles.append("core")
+        else:
+            roles.append("border")
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.1))
+
+    # Left: scatter with ε circles on a few cores
+    ax = axes[0]
+    colmap = {"core": TEAL, "border": GOLD, "noise": "#94a3b8"}
+    mark = {"core": "o", "border": "s", "noise": "x"}
+    for role in ("core", "border", "noise"):
+        idx = [i for i, r in enumerate(roles) if r == role]
+        if not idx:
+            continue
+        ax.scatter(
+            X[idx, 0], X[idx, 1],
+            c=colmap[role], marker=mark[role], s=48 if role != "noise" else 55,
+            linewidths=1.5 if role == "noise" else 0.5,
+            edgecolors="white" if role != "noise" else colmap[role],
+            label=f"{role} (n={len(idx)})", zorder=3,
+        )
+    # Draw ε for 3 representative cores
+    core_idx = [i for i, r in enumerate(roles) if r == "core"]
+    for j in core_idx[:3]:
+        circ = Circle(X[j], eps, fill=False, ec=DEEP, ls="--", lw=1.2, alpha=0.7)
+        ax.add_patch(circ)
+    ax.set_aspect("equal", adjustable="box")
+    ax.set_xlabel(r"$x_1$")
+    ax.set_ylabel(r"$x_2$")
+    ax.legend(frameon=False, fontsize=8, loc="upper right")
+    style_ax(ax, rf"DBSCAN roles  (ε={eps}, minPts={min_pts})")
+    ax.text(
+        0.02, 0.02,
+        r"core: $|N_\varepsilon|\geq$ minPts; border: in some core ball; noise: else",
+        transform=ax.transAxes, fontsize=7.5, color="#64748b", va="bottom",
+    )
+
+    # Right: k-distance sketch (sorted 4-NN distance ≈ minPts-1)
+    ax = axes[1]
+    k = min_pts - 1
+    # k-th nearest neighbor distance (exclude self → sort and take [k])
+    knn = np.sort(dmat, axis=1)[:, k]  # distance to k-th neighbor
+    order = np.argsort(knn)[::-1]  # descending classic k-dist plot
+    ax.plot(np.arange(n), knn[order], color=TEAL, lw=2.3)
+    ax.axhline(eps, color=GOLD, ls="--", lw=1.8, label=rf"chosen ε={eps}")
+    # knee annotation
+    ax.annotate(
+        "knee → pick ε near\nsteep rise of k-dist",
+        xy=(int(0.15 * n), float(knn[order][int(0.15 * n)])),
+        xytext=(0.45 * n, float(knn.max()) * 0.75),
+        fontsize=8, color=DEEP,
+        arrowprops=dict(arrowstyle="->", color=DEEP, lw=1.2),
+    )
+    ax.set_xlabel("points sorted by k-distance (desc.)")
+    ax.set_ylabel(rf"{k}-NN distance")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "k-distance plot guides ε (teaching)")
+    ax.text(
+        0.98, 0.08,
+        "Global ε struggles when density varies\nscale features before distance",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("DBSCAN density: core / border / noise and ε selection (synthetic)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_dbscan_density.png")
+
+
+def fig_nmf_parts():
+    """Ch07 scientific: NMF parts-based reconstruction of a toy nonnegative image."""
+    # Build a synthetic 16x16 "image" as sum of 3 nonnegative parts (blobs)
+    yy, xx = np.mgrid[0:16, 0:16]
+    def blob(cx, cy, sx, sy, amp=1.0):
+        return amp * np.exp(-((xx - cx) ** 2) / (2 * sx ** 2) - ((yy - cy) ** 2) / (2 * sy ** 2))
+
+    p1 = blob(4, 4, 2.2, 2.2, 1.0)      # "territory A"
+    p2 = blob(11, 5, 2.0, 2.5, 0.9)     # "territory B"
+    p3 = blob(8, 12, 3.0, 1.8, 0.85)    # "territory C"
+    # Three "patients" / samples with different loadings
+    H_true = np.array([
+        [1.0, 0.2, 0.1],
+        [0.15, 1.0, 0.25],
+        [0.2, 0.15, 1.0],
+        [0.7, 0.6, 0.3],
+    ])  # 4 samples × 3 parts
+    parts = np.stack([p1.ravel(), p2.ravel(), p3.ravel()], axis=0)  # 3 × 256
+    X = H_true @ parts  # 4 × 256
+    X = X + 0.02 * np.random.default_rng(0).random(X.shape)
+    X = np.clip(X, 0, None)
+
+    # Simple multiplicative-update NMF (Lee-Seung Frobenius) rank 3
+    rng = np.random.default_rng(3)
+    r = 3
+    W = rng.random((X.shape[0], r)) + 0.1
+    H = rng.random((r, X.shape[1])) + 0.1
+    for _ in range(400):
+        # H <- H * (W.T X) / (W.T W H)
+        WH = W @ H
+        H *= (W.T @ X) / (W.T @ WH + 1e-12)
+        WH = W @ H
+        W *= (X @ H.T) / (WH @ H.T + 1e-12)
+    recon = W @ H
+    rel_err = np.linalg.norm(X - recon) / (np.linalg.norm(X) + 1e-12)
+
+    fig = plt.figure(figsize=(9.4, 4.2))
+    # Top row conceptually via gridspec: original sample 0, 3 parts, reconstruction
+    gs = fig.add_gridspec(2, 5, height_ratios=[1.0, 1.05], hspace=0.35, wspace=0.35)
+
+    ax0 = fig.add_subplot(gs[0, 0])
+    ax0.imshow(X[0].reshape(16, 16), cmap="YlGnBu", vmin=0)
+    ax0.set_title("X sample 0", fontsize=9, color=INK)
+    ax0.axis("off")
+
+    for i in range(3):
+        ax = fig.add_subplot(gs[0, i + 1])
+        ax.imshow(H[i].reshape(16, 16), cmap="YlGnBu", vmin=0)
+        ax.set_title(f"part H[{i}]", fontsize=9, color=INK)
+        ax.axis("off")
+
+    axr = fig.add_subplot(gs[0, 4])
+    axr.imshow(recon[0].reshape(16, 16), cmap="YlGnBu", vmin=0)
+    axr.set_title("recon WH[0]", fontsize=9, color=INK)
+    axr.axis("off")
+
+    # Bottom: loadings W and residual energy vs rank
+    axw = fig.add_subplot(gs[1, :2])
+    im = axw.imshow(W, cmap="YlGnBu", aspect="auto")
+    axw.set_xticks([0, 1, 2])
+    axw.set_xticklabels(["p0", "p1", "p2"])
+    axw.set_yticks(range(W.shape[0]))
+    axw.set_yticklabels([f"s{i}" for i in range(W.shape[0])])
+    axw.set_xlabel("parts")
+    axw.set_ylabel("samples")
+    style_ax(axw, r"Loadings $W$ (nonnegative)")
+    fig.colorbar(im, ax=axw, fraction=0.046, pad=0.04)
+
+    axb = fig.add_subplot(gs[1, 2:])
+    ranks = [1, 2, 3, 4]
+    errs = []
+    for rr in ranks:
+        Ww = rng.random((X.shape[0], rr)) + 0.1
+        Hh = rng.random((rr, X.shape[1])) + 0.1
+        for _ in range(350):
+            WH = Ww @ Hh
+            Hh *= (Ww.T @ X) / (Ww.T @ WH + 1e-12)
+            WH = Ww @ Hh
+            Ww *= (X @ Hh.T) / (WH @ Hh.T + 1e-12)
+        errs.append(np.linalg.norm(X - Ww @ Hh) / (np.linalg.norm(X) + 1e-12))
+    axb.plot(ranks, errs, "o-", color=TEAL, lw=2.4, markersize=8)
+    axb.axvline(3, color=GOLD, ls="--", lw=1.5, label="true parts r=3")
+    axb.set_xlabel("NMF rank r")
+    axb.set_ylabel(r"relative Frobenius error $\|X-WH\|_F/\|X\|_F$")
+    axb.set_xticks(ranks)
+    axb.legend(frameon=False, fontsize=8)
+    style_ax(axb, f"Reconstruction vs rank (err@3≈{rel_err:.3f})")
+    axb.text(
+        0.98, 0.92,
+        "Parts are additive & ≥0\nNot unique; init matters\nInterpret ≠ causal territories",
+        transform=axb.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("NMF: nonnegative parts-based factorization (toy 16×16; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    save(fig, "ml_fig_nmf_parts.png")
+
+
+def fig_bellman_backup():
+    """Ch13 scientific: single-state Bellman optimality backup (chapter numbers)."""
+    # Chapter worked example: Left R=0 V=5 → 4.5; Right R=1 V=3 → 3.7; γ=0.9
+    gamma = 0.9
+    actions = [
+        ("Left", 0.0, 5.0, "s_L"),
+        ("Right", 1.0, 3.0, "s_R"),
+        ("Stay", 0.5, 3.5, "s"),  # extra teaching action for 3-way max
+    ]
+    # Use chapter's two actions primarily; Stay is optional third for bar chart
+    actions_ch = actions[:2]
+    q_vals = [r + gamma * v for _, r, v, _ in actions_ch]
+    q_all = [r + gamma * v for _, r, v, _ in actions]
+    v_star = max(q_vals)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.1))
+
+    # Left: diagram of one-step backup
+    ax = axes[0]
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 6)
+    ax.axis("off")
+    # state s
+    ax.add_patch(FancyBboxPatch((3.7, 2.2), 2.6, 1.4,
+                                boxstyle="round,pad=0.04,rounding_size=0.15",
+                                facecolor=TEAL, edgecolor="none"))
+    ax.text(5.0, 2.9, "s\n(backup)", ha="center", va="center", color="white",
+            fontsize=11, fontweight="bold")
+    # successors
+    for (x, lab, col, q, r, v) in [
+        (1.2, "s_L", DEEP, q_vals[0], 0.0, 5.0),
+        (8.0, "s_R", GOLD, q_vals[1], 1.0, 3.0),
+    ]:
+        ax.add_patch(FancyBboxPatch((x - 1.0, 4.3), 2.0, 1.1,
+                                    boxstyle="round,pad=0.03,rounding_size=0.12",
+                                    facecolor=col, edgecolor="none"))
+        ax.text(x, 4.85, f"{lab}\nV={v:g}", ha="center", va="center", color="white",
+                fontsize=9, fontweight="bold")
+        ax.annotate("", xy=(x, 4.25), xytext=(5.0 + (x - 5) * 0.15, 3.6),
+                    arrowprops=dict(arrowstyle="->", color=INK, lw=1.6))
+        ax.text((x + 5) / 2, 3.85, f"R={r:g}", ha="center", fontsize=8, color="#475569")
+        ax.text(x, 3.55, f"Q={q:.1f}", ha="center", fontsize=9, color=col, fontweight="bold")
+
+    ax.text(5.0, 1.5, rf"$Q(s,a)=R+\gamma V(s')$   $\gamma={gamma}$",
+            ha="center", fontsize=10, color=INK, family="monospace")
+    ax.text(5.0, 0.7, rf"$V^*(s)=\max_a Q(s,a)={v_star:.1f}$  (greedy: Left)",
+            ha="center", fontsize=10, color=DEEP, fontweight="bold")
+    ax.text(5.0, 0.15, "Chapter 13.6 single-state arithmetic = one VI sweep cell",
+            ha="center", fontsize=8, color="#64748b")
+    ax.set_title("Bellman optimality backup (one state)", fontsize=12,
+                 fontweight="bold", color=INK, pad=8)
+
+    # Right: bar of Q-values + policy improvement arrow
+    ax = axes[1]
+    names = [a[0] for a in actions_ch]
+    cols = [TEAL, GOLD]
+    bars = ax.bar(names, q_vals, color=cols, width=0.55, alpha=0.92)
+    ax.axhline(v_star, color=DEEP, ls="--", lw=1.6, label=rf"$V^*(s)={v_star:.1f}$")
+    for b, q in zip(bars, q_vals):
+        ax.text(b.get_x() + b.get_width() / 2, q + 0.08, f"{q:.1f}",
+                ha="center", fontsize=11, fontweight="bold", color=INK)
+    # show components
+    ax.text(0.02, 0.95,
+            "Left:  0 + 0.9×5 = 4.5\nRight: 1 + 0.9×3 = 3.7",
+            transform=ax.transAxes, va="top", fontsize=9, color="#475569",
+            family="monospace",
+            bbox=dict(boxstyle="round,pad=0.3", facecolor=SOFT, edgecolor="#99f6e4"))
+    ax.set_ylabel(r"$Q(s,a)$")
+    ax.set_ylim(0, 5.5)
+    ax.legend(frameon=False, fontsize=9, loc="lower right")
+    style_ax(ax, "Greedy policy improvement: argmax Q")
+    ax.text(
+        0.98, 0.08,
+        "Expectation form averages over P(s′|s,a);\nhere successors are deterministic.",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Bellman backup grid cell: max over actions of R + γV (original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_bellman_backup.png")
+
+
+def fig_metric_decision_tree():
+    """Ch18 / glossary: decision tree for choosing a metric family."""
+    fig, ax = plt.subplots(figsize=(9.2, 4.8))
+    ax.set_xlim(0, 14)
+    ax.set_ylim(0, 10)
+    ax.axis("off")
+
+    def node(x, y, w, h, text, color, fs=8.5):
+        ax.add_patch(
+            FancyBboxPatch(
+                (x - w / 2, y - h / 2), w, h,
+                boxstyle="round,pad=0.03,rounding_size=0.1",
+                facecolor=color, edgecolor="none", alpha=0.95,
+            )
+        )
+        ax.text(x, y, text, ha="center", va="center", color="white",
+                fontsize=fs, fontweight="bold")
+
+    def edge(x1, y1, x2, y2, lab=None, col=INK):
+        ax.annotate("", xy=(x2, y2), xytext=(x1, y1),
+                    arrowprops=dict(arrowstyle="->", color=col, lw=1.5))
+        if lab:
+            ax.text((x1 + x2) / 2 + 0.15, (y1 + y2) / 2 + 0.15, lab,
+                    fontsize=7.5, color="#475569", ha="center")
+
+    # Root
+    node(7, 9.2, 4.2, 1.0, "What claim are you making?", DEEP, fs=10)
+    # Level 1
+    node(2.5, 7.0, 3.4, 1.0, "Ranking / screening\ncases", TEAL)
+    node(7.0, 7.0, 3.4, 1.0, "Probabilities for\ncounseling", GOLD)
+    node(11.5, 7.0, 3.4, 1.0, "Treat vs not\nat a threshold", "#b45309")
+    edge(5.5, 8.7, 2.5, 7.55, "order")
+    edge(7.0, 8.7, 7.0, 7.55, "risk #")
+    edge(8.5, 8.7, 11.5, 7.55, "action")
+
+    # Level 2 leaves
+    node(1.3, 4.6, 2.6, 1.15, "AUROC /\nAUPRC\n(+ prevalence)", TEAL, fs=8)
+    node(3.9, 4.6, 2.4, 1.15, "Sens @\nfixed Spec\n(operating pt)", TEAL, fs=8)
+    node(7.0, 4.6, 3.2, 1.15, "Calibration plot\nBrier / ECE\nslope & intercept", GOLD, fs=8)
+    node(10.5, 4.6, 2.6, 1.15, "Net benefit\ndecision curve", "#b45309", fs=8)
+    node(13.0, 4.6, 2.2, 1.15, "Utility\nmatrix /\ncost-sens.", "#b45309", fs=8)
+
+    edge(2.2, 6.5, 1.3, 5.25)
+    edge(2.8, 6.5, 3.9, 5.25)
+    edge(7.0, 6.5, 7.0, 5.25)
+    edge(11.0, 6.5, 10.5, 5.25)
+    edge(12.0, 6.5, 13.0, 5.25)
+
+    # Bottom cautions
+    node(3.5, 2.0, 5.5, 1.2, "Accuracy alone? Only if classes balanced\nand costs equal — rare in stroke.", "#64748b", fs=8)
+    node(10.5, 2.0, 5.8, 1.2, "High AUROC ≠ calibrated ≠ useful.\nPrediction ≠ causation.", "#64748b", fs=8)
+    edge(2.5, 4.0, 3.5, 2.65, col="#94a3b8")
+    edge(7.0, 4.0, 10.5, 2.65, col="#94a3b8")
+
+    ax.text(7, 0.55,
+            "Glossary metric tree: pick the family that matches the claim, then the number.",
+            ha="center", fontsize=9, color="#64748b")
+    ax.text(7, 9.95, "Metric family decision tree (teaching; original)",
+            ha="center", fontsize=12, fontweight="bold", color=INK)
+    fig.tight_layout()
+    save(fig, "ml_fig_metric_decision_tree.png")
+
+
 # ---------------------------------------------------------------------------
 # Legacy numbered PNGs (00_*.png … 17_*.png)
 # These files already exist under docs/assets/figures/ and are linked from
@@ -3160,6 +3674,13 @@ def main():
     fig_betweenness_bridge()
     fig_spectral_fiedler()
     fig_multimetric_radar()
+    # Continuous densify cycle-6 (preface / ch02 / ch04 / ch07 / ch13 / ch18)
+    fig_claim_routing()
+    fig_dual_axis_caution()
+    fig_dbscan_density()
+    fig_nmf_parts()
+    fig_bellman_backup()
+    fig_metric_decision_tree()
     print("DONE figures in", OUT)
     missing_legacy = [n for n in LEGACY_NUMBERED_ASSETS if not (OUT / n).exists()]
     if missing_legacy:

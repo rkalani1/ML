@@ -242,6 +242,10 @@ Viterbi algorithm. A dynamic-programming procedure that finds the single most pr
 
 ## Quick metric map (teaching table)
 
+![Metric family decision tree: claim → metric family (original).](../assets/figures/ml_fig_metric_decision_tree.png)
+
+*Figure — Glossary metric tree. Branch first on the **claim** (ranking/screening, probability counseling, or treat-vs-not), then pick the metric family (AUROC/AUPRC, calibration/Brier/ECE, net benefit / cost-sensitive utility). Accuracy alone is almost never enough in imbalanced stroke settings. High AUROC ≠ calibrated ≠ useful; prediction ≠ causation.*
+
 | Metric | Answers | Common misuse |
 |--------|---------|----------------|
 | Accuracy | Overall correct rate | Collapses under class imbalance |
