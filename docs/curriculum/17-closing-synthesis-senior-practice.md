@@ -820,3 +820,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c213 teaching panel 18 (original).](../assets/figures/ml_fig_c213_18.png)
 *Figure — Incident runbook stage tiles. Synthetic teaching geometry—not a causal claim.*
+
+![c214 teaching panel 18 (original).](../assets/figures/ml_fig_c214_18.png)
+*Figure — Blameless postmortem sections. Synthetic teaching geometry—not a causal claim.*
