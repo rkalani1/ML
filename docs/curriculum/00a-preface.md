@@ -808,3 +808,9 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c224 teaching panel 01 (original).](../assets/figures/ml_fig_c224_01.png)
 *Figure — Red-team probe patch loop. Synthetic teaching geometry—not a causal claim.*
+
+![c225 teaching panel 01 (original).](../assets/figures/ml_fig_c225_01.png)
+*Figure — Dataset datasheet field map. Synthetic teaching geometry—not a causal claim.*
+
+![c226 teaching panel 01 (original).](../assets/figures/ml_fig_c226_01.png)
+*Figure — LLM eval harness stages. Synthetic teaching geometry—not a causal claim.*

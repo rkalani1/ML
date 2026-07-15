@@ -853,3 +853,9 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c224 teaching panel 18 (original).](../assets/figures/ml_fig_c224_18.png)
 *Figure — Incident runbook ladder. Synthetic teaching geometry—not a causal claim.*
+
+![c225 teaching panel 18 (original).](../assets/figures/ml_fig_c225_18.png)
+*Figure — Capacity plan load vs ceiling. Synthetic teaching geometry—not a causal claim.*
+
+![c226 teaching panel 18 (original).](../assets/figures/ml_fig_c226_18.png)
+*Figure — Blameless incident timeline. Synthetic teaching geometry—not a causal claim.*
