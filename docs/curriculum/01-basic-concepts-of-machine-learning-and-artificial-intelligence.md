@@ -416,6 +416,11 @@ Worked illustration (bias–variance). Let the true mean response at some input 
 
 *Figure — Uncertainty cartoons: irreducible noise-like width vs data-sparse expansion. Bands communicate forecast humility—they are not automatic causal identification tools.*
 
+
+![OOD score vs number of training domains (synthetic; original).](../assets/figures/ml_fig_domain_breadth.png)
+
+*Figure — Broader domain coverage often improves transport in teaching curves. Domain breadth helps generalization estimates—not automatic causal identification.*
+
 ## Common Pitfalls and Failure Modes
 
 The failure modes below recur across projects and modalities. Each has a mechanism, a warning sign, and a discipline that prevents it. Treat this as a checklist to run against any pipeline before you believe its numbers.

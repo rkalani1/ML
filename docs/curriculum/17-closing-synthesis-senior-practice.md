@@ -122,6 +122,11 @@ Ship with a model card stating population, index time, features, calibration, in
 
 *Figure — Senior ops: detect → page → mitigate → root cause → fix → optional retrain. Speed without learning repeats harm. Process fixes complement model fixes. Pred ≠ cause.*
 
+
+![Pre-registration boxes: outcomes, splits, slices, stop rules, metrics (original).](../assets/figures/ml_fig_prereg_boxes.png)
+
+*Figure — Senior practice: write the plan before peeking. Pre-reg reduces analytic flexibility theater. Process discipline supports trustworthy prediction claims—not causation by default.*
+
 *Figure — Write triggers before go-live. **Left:** score PSI and ECE with pre-set alarm lines; a scanner swap at week 18 pushes PSI past 0.2. **Right:** live AUROC with a rollback floor at 0.80—recalibrate when calibration drifts, rollback when discrimination breaches the floor. Act on input/score monitors before lagged outcomes confirm failure. Prediction ≠ causation; ops monitoring is part of the science.*
 
 ## Synthetic Teaching Table: Deployment Checklist

@@ -313,4 +313,9 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 *Figure — Glossary 2×2. Sensitivity and specificity come from rows; PPV/NPV need prevalence. Counts are teaching toys—not a trial result. Metrics support prediction claims, not causation by default.*
 
+
+![Likelihood-ratio spectrum on a log axis (original).](../assets/figures/ml_fig_lr_spectrum.png)
+
+*Figure — Glossary LR line. LR>1 increases odds; LR<1 decreases; LR=1 is uninformative. Likelihood ratios update predictive odds—they are not treatment causal effects.*
+
 *Figure — Glossary leakage map. Four common families: **temporal** (post-decision features), **fit/CV** (scaler/vocab/selector fit on the full cohort), **label proxy** (treatment or post-outcome codes as inputs), and **target-encoding** without LOO/OOF. All inflate apparent performance at train time and fail at true index time. Prediction ≠ causation.*

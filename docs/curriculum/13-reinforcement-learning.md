@@ -473,6 +473,11 @@ which removes incentives to push r_t far outside [1-epsilon, 1+epsilon]. An alte
 
 *Figure — Critic often stabilizes value estimates while actor return rises more slowly. Simulated curves are not a license for autonomous clinical control. **Pred/control ≠ causation**.*
 
+
+![n-step return bias-variance teaching sketch (synthetic; original).](../assets/figures/ml_fig_nstep_bias_var.png)
+
+*Figure — Longer n-step targets can reduce bias-like error while raising variance-like noise in teaching curves. TD design choices are algorithmic—not clinical causal pathways.*
+
 # REINFORCE with baseline (conceptual)
 # logp: log pi(a_t|s_t); returns: return-to-go; baseline: V(s_t)
 def reinforce_loss(logp, returns, baseline):
