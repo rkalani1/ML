@@ -218,6 +218,10 @@ Match model family to data modality and sample size.
 
 Tune thresholds on validation data using clinical costs, not only default 0.5.
 
+![Cost-sensitive threshold: expected cost vs t when FN costs 5× FP (synthetic; original).](../assets/figures/ml_fig_cost_threshold.png)
+
+*Figure — Cost-aware operating point. **Left:** overlapping score densities for synthetic positives/negatives with default t=0.5 vs cost-minimizing t. **Right:** expected cost per case under \(c_{FN}=5\), \(c_{FP}=1\) as a function of threshold—the minimum need not sit at 0.5 or at Youden’s J. Tune t on validation with clinical costs; report the chosen operating point with precision/recall at that point.*
+
 Report uncertainty: multiple seeds, bootstrap CIs, or cross-fit estimates.
 
 Document the full pipeline: imputation, encoding, scaling, model, threshold.

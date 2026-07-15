@@ -282,6 +282,10 @@ Policy improvement constructs a greedy policy pi’(s) in argmax_a Q^pi(s,a), wh
 
 Policy iteration alternates complete evaluation and greedy improvement until the policy stabilizes. Value iteration merges the two: each sweep applies the optimality backup V_{k+1}(s) <- max_a sum_{s’} P(s’|s,a) [ R + gamma V_k(s’) ]. After convergence (or after enough sweeps), extract pi(s) in argmax_a Q(s,a) from the approximate V. Asynchronous and prioritized variants update states in flexible orders; the key requirement is that every state is updated infinitely often in the limit.
 
+![Policy iteration: evaluate → improve until stable (chapter two-state MDP; original).](../assets/figures/ml_fig_policy_iteration.png)
+
+*Figure — Policy iteration. **Left:** loop—initialize π, evaluate \(V^\pi\) under the Bellman expectation operator, greedy-improve, stop when π is unchanged. **Right:** on the chapter two-state MDP, evaluating Stay-everywhere yields \(V(s_1)=10\), \(V(s_2)=20\); improvement flips \(s_1\) to Go and reaches \(V^*=(18,20)\). Policy improvement theorem: \(V^{\pi'}\ge V^\pi\).*
+
 Converting Bellman equations into iterative updates is simply replacing the equality V = T V with the assignment V <- T V, where T is the Bellman operator. For gamma < 1, T is a contraction in max-norm, so iterates converge to the unique fixed point regardless of initialization (for value iteration’s optimality operator).
 
 ### When to Use Dynamic Programming

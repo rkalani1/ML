@@ -41,6 +41,10 @@ This expanded edition is designed so that studying this document alone delivers 
 
 You are a neurologist and epidemiologist. Examples emphasize stroke systems, neuroimaging, EHR phenotyping, multi-site validation, index time, leakage, calibration, and causal caution—while remaining faithful to general ML/AI theory and algorithms.
 
+![Journal-club scorecard: high AUROC paper vs disciplined paper (synthetic; original).](../assets/figures/ml_fig_journal_club_card.png)
+
+*Figure — Preface journal-club card. Score claim typing, leakage, cohort/label, discrimination+calibration, utility at clinical thresholds, external/temporal test, and prohibited uses/monitoring independently. Paper A can win the AUROC poster and still fail utility, transport, and governance gates. Prediction ≠ causation; a failed critical gate means do not ship.*
+
 ## Why Neurologists Need to Know Machine Learning
 
 The intersection of neuroscience, clinical neurology, and computation is rapidly evolving. Historically, we relied on classical biostatistics to evaluate treatments and understand disease etiology. Today, machine learning models analyze continuous EEG streams, high-resolution MRIs, and vast troves of unstructured clinical text to predict outcomes, suggest diagnoses, and optimize resource allocation.

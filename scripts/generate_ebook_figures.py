@@ -3918,20 +3918,316 @@ def fig_eligibility_trace():
     ax.set_ylabel(r"credit $\sum_t \delta_t\, e_t(s)$")
     ax.set_ylim(0, max(vals) * 1.25 + 0.05)
     style_ax(ax, "Backward view: who gets the delayed reward?")
-    # lambda spectrum note
-    lams = np.array([0.0, 0.4, 0.8, 1.0])
     ax.text(
         0.98, 0.92,
         "λ=0 → one-step TD\nλ→1 → MC-like credit\nGAE uses same trade-off",
         transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
     )
-    # small inset spectrum
-    # credit for A if only visit at 0 and reward at 12: (γλ)^12
-    ax2_c = [float((gamma * lam) ** 12), float((gamma * 0.4) ** 12), float((gamma * 0.8) ** 12)]
     fig.suptitle("Eligibility traces assign delayed TD credit (synthetic trajectory; original)",
                  color=INK, fontsize=12, fontweight="bold", y=1.02)
     fig.tight_layout()
     save(fig, "ml_fig_eligibility_trace.png")
+
+
+def fig_journal_club_card():
+    """Preface: journal-club scorecard gates for an 'AI' paper."""
+    gates = [
+        "Claim typed\n(pred/etiology/action)",
+        "Index time\n& leakage audit",
+        "Cohort &\nlabel source",
+        "Discrimination\n+ calibration",
+        "Utility @\nclinical thresholds",
+        "External /\ntemporal test",
+        "Prohibited uses\n& monitoring",
+    ]
+    # Synthetic paper scores 0-1 for teaching
+    paper_a = np.array([0.9, 0.85, 0.8, 0.9, 0.35, 0.4, 0.2])  # AUC-heavy vendor
+    paper_b = np.array([0.85, 0.9, 0.85, 0.75, 0.8, 0.85, 0.8])  # disciplined
+
+    fig, ax = plt.subplots(figsize=(9.2, 4.2))
+    x = np.arange(len(gates))
+    w = 0.36
+    ax.bar(x - w / 2, paper_a, width=w, color="#dc2626", alpha=0.85, label="Paper A · AUROC poster")
+    ax.bar(x + w / 2, paper_b, width=w, color=TEAL, alpha=0.9, label="Paper B · disciplined")
+    ax.axhline(0.7, color=GOLD, ls="--", lw=1.5, label="teaching pass ≥0.7")
+    ax.set_xticks(x)
+    ax.set_xticklabels(gates, fontsize=7.5)
+    ax.set_ylim(0, 1.08)
+    ax.set_ylabel("gate score (teaching 0–1)")
+    ax.legend(frameon=False, fontsize=8, loc="upper right")
+    style_ax(ax, "Journal-club scorecard: one high AUROC is not enough")
+    ax.text(
+        0.02, 0.92,
+        "Score each gate independently.\nFail any critical gate → do not ship.\nPrediction ≠ causation.",
+        transform=ax.transAxes, va="top", fontsize=8, color="#64748b",
+    )
+    fig.tight_layout()
+    save(fig, "ml_fig_journal_club_card.png")
+
+
+def fig_mae_mask_ratio():
+    """Ch11: masked autoencoder — recon error vs mask ratio + patch sketch."""
+    rng = np.random.default_rng(4)
+    # Synthetic teaching curves: recon MSE rises with mask ratio; linear-probe AUROC peaks mid
+    mask = np.array([0.15, 0.25, 0.40, 0.50, 0.60, 0.75, 0.90])
+    recon = 0.08 + 0.55 * mask ** 1.4 + rng.normal(0, 0.01, size=len(mask))
+    probe = 0.72 + 0.18 * np.exp(-((mask - 0.55) ** 2) / (2 * 0.12 ** 2)) - 0.08 * mask
+    probe = np.clip(probe + rng.normal(0, 0.005, size=len(mask)), 0.55, 0.95)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.0))
+    ax = axes[0]
+    # 8x8 patch grid with 75% masked
+    grid = np.ones((8, 8))
+    flat = rng.choice(64, size=int(0.75 * 64), replace=False)
+    g = grid.ravel().copy()
+    g[flat] = 0.0
+    ax.imshow(g.reshape(8, 8), cmap="YlGnBu", vmin=0, vmax=1, interpolation="nearest")
+    # grid lines
+    for i in range(9):
+        ax.axhline(i - 0.5, color="white", lw=0.8)
+        ax.axvline(i - 0.5, color="white", lw=0.8)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    style_ax(ax, "MAE patch mask (75% hidden → decoder reconstructs)")
+    ax.text(
+        0.5, -0.08,
+        "Visible patches (teal) encode; masked (dark) are prediction targets",
+        transform=ax.transAxes, ha="center", fontsize=8, color="#64748b",
+    )
+
+    ax = axes[1]
+    ax.plot(mask, recon, "o-", color=GOLD, lw=2.3, markersize=7, label="pretext recon error")
+    ax.set_xlabel("mask ratio")
+    ax.set_ylabel("recon MSE (synthetic)", color=GOLD)
+    ax.tick_params(axis="y", labelcolor=GOLD)
+    ax2 = ax.twinx()
+    ax2.plot(mask, probe, "s-", color=TEAL, lw=2.3, markersize=7, label="linear-probe AUROC")
+    ax2.set_ylabel("downstream probe AUROC", color=TEAL)
+    ax2.tick_params(axis="y", labelcolor=TEAL)
+    ax2.set_ylim(0.55, 1.0)
+    # peak marker
+    ipeak = int(np.argmax(probe))
+    ax2.axvline(mask[ipeak], color=DEEP, ls="--", lw=1.3)
+    ax2.text(mask[ipeak] + 0.01, 0.97, f"peak≈{mask[ipeak]:.2f}", fontsize=8, color=DEEP)
+    style_ax(ax, "Harder pretext ≠ better transfer (always)")
+    ax.text(
+        0.02, 0.08,
+        "Validate with linear probe / fine-tune,\nnot recon loss alone. Pretext ≠ clinical label.",
+        transform=ax.transAxes, fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Masked autoencoding: mask ratio vs recon and transfer (synthetic; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_mae_mask_ratio.png")
+
+
+def fig_policy_iteration_loop():
+    """Ch13: policy iteration — evaluate then improve until stable."""
+    # Two-state MDP from chapter: track policy of s1 over outer iterations
+    gamma = 0.9
+    # Start with Stay everywhere
+    # Show V after evaluation and greedy action flips
+    # Outer loop records
+    # Manual from chapter knowledge:
+    # If pi = Stay,Stay: V_s2=2/(1-0.9)=20, V_s1=1/(1-0.9)=10  wait Stay in s1 gives 1+0.9 V_s1 so V=10
+    # Q_go s1 = 0+0.9*20=18 > 10 so improve to Go
+    # Then V* = 18, 20
+    iters = [0, 1, 2]
+    v_s1 = [0.0, 10.0, 18.0]
+    v_s2 = [0.0, 20.0, 20.0]
+    pi_s1 = ["Stay", "Stay", "Go"]
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.0))
+    ax = axes[0]
+    # flowchart style
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 6)
+    ax.axis("off")
+    boxes = [
+        (5, 5.2, "Initialize π₀", TEAL),
+        (5, 3.6, "Policy evaluation\nV ← solve (I−γP^π)⁻¹ r^π", DEEP),
+        (5, 1.8, "Policy improvement\nπ' ← greedy(Q^π)", GOLD),
+        (5, 0.4, "π' = π ?  → stop : π ← π'", "#b45309"),
+    ]
+    for x, y, lab, c in boxes:
+        ax.add_patch(FancyBboxPatch((x - 2.2, y - 0.55), 4.4, 1.1,
+                                    boxstyle="round,pad=0.03,rounding_size=0.12",
+                                    facecolor=c, edgecolor="none"))
+        ax.text(x, y, lab, ha="center", va="center", color="white", fontsize=9, fontweight="bold")
+    for y1, y2 in [(4.65, 4.15), (3.05, 2.35), (1.25, 0.95)]:
+        ax.annotate("", xy=(5, y2), xytext=(5, y1),
+                    arrowprops=dict(arrowstyle="->", color=INK, lw=1.6))
+    # loop back
+    ax.annotate("", xy=(2.6, 3.6), xytext=(2.6, 0.4),
+                arrowprops=dict(arrowstyle="->", color=DEEP, lw=1.5,
+                                connectionstyle="arc3,rad=0.0"))
+    ax.plot([2.6, 2.8], [3.6, 3.6], color=DEEP, lw=1.5)
+    ax.text(1.5, 2.0, "repeat", fontsize=8, color=DEEP, rotation=90, va="center")
+    ax.set_title("Policy iteration loop", fontsize=12, fontweight="bold", color=INK)
+
+    ax = axes[1]
+    ax.plot(iters, v_s1, "o-", color=TEAL, lw=2.4, markersize=9, label=r"$V^{\pi}(s_1)$")
+    ax.plot(iters, v_s2, "s-", color=GOLD, lw=2.4, markersize=8, label=r"$V^{\pi}(s_2)$")
+    ax.axhline(18, color=TEAL, ls=":", lw=1.2)
+    ax.axhline(20, color=GOLD, ls=":", lw=1.2)
+    for i, p in enumerate(pi_s1):
+        ax.text(i, v_s1[i] + 1.2, f"π(s1)={p}", ha="center", fontsize=8, color=DEEP)
+    ax.set_xticks(iters)
+    ax.set_xticklabels(["init", "after eval\nπ=Stay", "after improve\nπ=Go"])
+    ax.set_ylabel("state value")
+    ax.set_ylim(-1, 24)
+    ax.legend(frameon=False, fontsize=9)
+    style_ax(ax, "Chapter two-state MDP: improve flips Stay→Go")
+    ax.text(
+        0.98, 0.08,
+        "Policy improvement theorem: V^{π'} ≥ V^{π}\nExact on small known MDPs; samples approx.",
+        transform=ax.transAxes, ha="right", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Policy iteration: evaluate → improve until stable (original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_policy_iteration.png")
+
+
+def fig_rollback_triggers():
+    """Ch17: pre-defined rollback / recalibration triggers on synthetic ops metrics."""
+    weeks = np.arange(0, 26)
+    # PSI, ECE, AUROC synthetic trajectories with events
+    rng = np.random.default_rng(9)
+    psi = 0.05 + 0.002 * weeks + rng.normal(0, 0.01, size=len(weeks))
+    psi = np.clip(psi, 0, None)
+    psi[18:] += 0.12  # scanner change
+    ece = 0.04 + 0.001 * weeks + rng.normal(0, 0.005, size=len(weeks))
+    ece[20:] += 0.06
+    auroc = 0.84 - 0.001 * weeks + rng.normal(0, 0.005, size=len(weeks))
+    auroc[22:] -= 0.05
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.1))
+    ax = axes[0]
+    ax.plot(weeks, psi, color=TEAL, lw=2.2, label="PSI (score)")
+    ax.plot(weeks, ece, color=GOLD, lw=2.2, label="ECE")
+    ax.axhline(0.20, color=TEAL, ls="--", lw=1.3, alpha=0.8)
+    ax.axhline(0.10, color=GOLD, ls="--", lw=1.3, alpha=0.8)
+    ax.axvline(18, color="#94a3b8", ls=":", lw=1.2)
+    ax.text(18.2, 0.28, "scanner\nswap", fontsize=7.5, color="#64748b")
+    ax.set_xlabel("week after go-live")
+    ax.set_ylabel("monitoring statistic")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Pre-set alarm lines (PSI≥0.2, ECE≥0.1)")
+    ax.fill_between(weeks, 0, 0.35, where=psi >= 0.20, color="#fecaca", alpha=0.35)
+
+    ax = axes[1]
+    ax.plot(weeks, auroc, "o-", color=DEEP, lw=2.2, markersize=4, label="live AUROC")
+    ax.axhline(0.80, color="#dc2626", ls="--", lw=1.6, label="rollback floor 0.80")
+    ax.fill_between(weeks, 0.70, auroc, where=auroc < 0.80, color="#fecaca", alpha=0.5, interpolate=True)
+    # action annotations
+    ax.annotate("recalibrate", xy=(20, ece[20] if False else auroc[20]), xytext=(12, 0.76),
+                fontsize=8, color=GOLD, arrowprops=dict(arrowstyle="->", color=GOLD, lw=1.2))
+    ax.annotate("rollback", xy=(23, auroc[23]), xytext=(15, 0.72),
+                fontsize=8, color="#dc2626", arrowprops=dict(arrowstyle="->", color="#dc2626", lw=1.2))
+    ax.set_xlabel("week after go-live")
+    ax.set_ylabel("live AUROC (synthetic)")
+    ax.set_ylim(0.70, 0.90)
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Outcome lag: act on inputs before AUROC dies")
+    ax.text(
+        0.98, 0.92,
+        "Write triggers before go-live.\nPrediction ≠ causation; ops is science.",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Silent-trial ops: recalibrate vs rollback triggers (synthetic; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_rollback_triggers.png")
+
+
+def fig_leakage_taxonomy():
+    """Ch18 glossary: taxonomy of leakage types with clinical examples."""
+    fig, ax = plt.subplots(figsize=(9.2, 4.6))
+    ax.set_xlim(0, 12)
+    ax.set_ylim(0, 8)
+    ax.axis("off")
+    ax.text(6, 7.6, "Leakage taxonomy (glossary map)", ha="center", fontsize=12,
+            fontweight="bold", color=INK)
+
+    types = [
+        (3, 5.5, "Temporal\nleakage", TEAL, "Post-decision labs,\nfinal reads, LOS"),
+        (9, 5.5, "Fit / CV\nleakage", DEEP, "Scaler/vocab/select\nfit on full cohort"),
+        (3, 2.2, "Label\nproxy leakage", GOLD, "Treatment codes\nas 'features'"),
+        (9, 2.2, "Target-enc\nleakage", "#b45309", "Naive mean encoding\nwithout LOO/OOF"),
+    ]
+    for x, y, title, c, detail in types:
+        ax.add_patch(FancyBboxPatch((x - 2.0, y - 1.2), 4.0, 2.4,
+                                    boxstyle="round,pad=0.04,rounding_size=0.15",
+                                    facecolor=c, edgecolor="none", alpha=0.92))
+        ax.text(x, y + 0.45, title, ha="center", va="center", color="white",
+                fontsize=11, fontweight="bold")
+        ax.text(x, y - 0.55, detail, ha="center", va="center", color="white", fontsize=9)
+
+    ax.text(6, 0.35,
+            "Any leakage inflates apparent performance and fails at true index time. Prediction ≠ causation.",
+            ha="center", fontsize=9, color="#64748b")
+    fig.tight_layout()
+    save(fig, "ml_fig_leakage_taxonomy.png")
+
+
+def fig_cost_threshold_utility():
+    """Ch09: cost-sensitive threshold — expected cost vs threshold with FN:FP costs."""
+    # Synthetic score distributions
+    rng = np.random.default_rng(2)
+    pos = rng.beta(5, 2, size=3000)  # higher scores for positives
+    neg = rng.beta(2, 5, size=7000)
+    # Prevalence in this sample
+    n_pos, n_neg = len(pos), len(neg)
+    thresholds = np.linspace(0.05, 0.95, 37)
+    # Costs: c_fn = 5, c_fp = 1 (chapter triage ratio)
+    c_fn, c_fp = 5.0, 1.0
+    exp_cost = []
+    sens_list, spec_list = [], []
+    for t in thresholds:
+        tp = (pos >= t).sum()
+        fn = (pos < t).sum()
+        fp = (neg >= t).sum()
+        tn = (neg < t).sum()
+        # expected cost per patient
+        cost = (c_fn * fn + c_fp * fp) / (n_pos + n_neg)
+        exp_cost.append(cost)
+        sens_list.append(tp / n_pos)
+        spec_list.append(tn / n_neg)
+    exp_cost = np.array(exp_cost)
+    t_star = thresholds[int(np.argmin(exp_cost))]
+    # Bayes-ish threshold for equal class from costs: p* = c_fp/(c_fp+c_fn)=1/6≈0.167
+    # With prevalence adjust: more subtle; still show 0.5 vs cost-aware
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.0))
+    ax = axes[0]
+    ax.hist(neg, bins=30, density=True, alpha=0.55, color="#94a3b8", label="neg scores")
+    ax.hist(pos, bins=30, density=True, alpha=0.55, color=TEAL, label="pos scores")
+    ax.axvline(0.5, color="#64748b", ls=":", lw=1.5, label="default t=0.5")
+    ax.axvline(t_star, color="#dc2626", ls="--", lw=2.0, label=f"cost-min t≈{t_star:.2f}")
+    ax.set_xlabel("model score")
+    ax.set_ylabel("density")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Overlapping scores (synthetic LVO-ish)")
+
+    ax = axes[1]
+    ax.plot(thresholds, exp_cost, color=DEEP, lw=2.4, label=rf"E[cost], $c_{{FN}}$={c_fn:g}, $c_{{FP}}$={c_fp:g}")
+    ax.axvline(t_star, color="#dc2626", ls="--", lw=1.8)
+    ax.axvline(0.5, color="#64748b", ls=":", lw=1.5)
+    ax.plot(t_star, exp_cost.min(), "o", color="#dc2626", markersize=9)
+    ax.set_xlabel("threshold t")
+    ax.set_ylabel("expected cost per case")
+    ax.legend(frameon=False, fontsize=8)
+    style_ax(ax, "Cost-sensitive operating point ≠ 0.5")
+    ax.text(
+        0.98, 0.92,
+        "Tune t on validation with clinical costs.\nYouden/0.5 can be the wrong policy.",
+        transform=ax.transAxes, ha="right", va="top", fontsize=8, color="#64748b",
+    )
+    fig.suptitle("Cost-sensitive threshold selection (FN cost 5× FP; synthetic; original)",
+                 color=INK, fontsize=12, fontweight="bold", y=1.02)
+    fig.tight_layout()
+    save(fig, "ml_fig_cost_threshold.png")
 
 
 # ---------------------------------------------------------------------------
@@ -4050,6 +4346,13 @@ def main():
     fig_target_enc_loo()
     fig_tsne_perplexity()
     fig_eligibility_trace()
+    # Continuous densify cycle-8 (preface / ch11 / ch13 / ch17 / ch18 / ch09)
+    fig_journal_club_card()
+    fig_mae_mask_ratio()
+    fig_policy_iteration_loop()
+    fig_rollback_triggers()
+    fig_leakage_taxonomy()
+    fig_cost_threshold_utility()
     print("DONE figures in", OUT)
     missing_legacy = [n for n in LEGACY_NUMBERED_ASSETS if not (OUT / n).exists()]
     if missing_legacy:

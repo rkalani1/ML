@@ -226,6 +226,10 @@ Evaluation discipline for generative and SSL models: (1) reconstruction or FID/I
 
 Pretext task catalog for unlabeled neuroimaging: rotation prediction, jigsaw puzzles, relative patch location, masked image modeling (MAE-style), contrastive multi-window CT views, and longitudinal order verification (admission vs follow-up). Not every pretext transfers: predicting MRI series type may yield embeddings that ignore subtle infarcts. Pilot multiple pretexts with the same linear probe protocol—an example of experimental hygiene that prevents narrative-driven architecture choice.
 
+![Masked autoencoding: mask ratio vs reconstruction and linear-probe transfer (synthetic; original).](../assets/figures/ml_fig_mae_mask_ratio.png)
+
+*Figure — MAE teaching panel. **Left:** a patch grid with ~75% masked (dark)—the encoder sees visible patches; the decoder reconstructs masked ones. **Right:** synthetic curves where reconstruction MSE rises with mask ratio, while linear-probe AUROC peaks at intermediate masks and can fall if the pretext becomes too hard or too easy. Always validate transfer (probe/fine-tune), not pretext loss alone. Pretext geometry is not a clinical label and not a causal map.*
+
 ## 11.10 Multimodal Alignment Beyond CLIP and Practical Hospital Constraints
 
 CLIP-style contrastive alignment generalizes to ECG–text, EEG–report, and CT–report pairs. Batch construction must avoid false negatives: two images from the same study with different captions should not be forced apart if they share semantics. Hard negatives (similar body region, different finding) improve discrimination. Zero-shot prompts are brittle: ‘intracranial hemorrhage’ vs ‘ICH’ vs ‘hemorrhagic stroke’ can shuffle rankings; ensemble prompts or learned prompt templates reduce variance.

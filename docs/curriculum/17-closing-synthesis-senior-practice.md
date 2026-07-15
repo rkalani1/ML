@@ -87,6 +87,10 @@ Split grouped by patient, then split temporally (train on earlier years, test on
 ### 6. Deployment and Monitoring
 Ship with a model card stating population, index time, features, calibration, intended use, and — explicitly — prohibited uses, chief among them any use of the score as a sole trigger for withdrawal of care. Freeze the preprocessing pipeline to prevent train–serve skew. Monitor input distributions (age, NIHSS, ASPECTS), the prediction distribution, and, as outcomes mature, calibration over rolling windows. Predefine the triggers for recalibration and retraining — a new thrombectomy device, an expanded time window, a coding change, a replaced scanner — and keep a rollback path ready.
 
+![Silent-trial ops: PSI/ECE alarms and AUROC rollback floor (synthetic; original).](../assets/figures/ml_fig_rollback_triggers.png)
+
+*Figure — Write triggers before go-live. **Left:** score PSI and ECE with pre-set alarm lines; a scanner swap at week 18 pushes PSI past 0.2. **Right:** live AUROC with a rollback floor at 0.80—recalibrate when calibration drifts, rollback when discrimination breaches the floor. Act on input/score monitors before lagged outcomes confirm failure. Prediction ≠ causation; ops monitoring is part of the science.*
+
 ## Synthetic Teaching Table: Deployment Checklist
 
 | Phase | Key Question | Method of Verification | Potential Failure Mode |

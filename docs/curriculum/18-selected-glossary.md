@@ -277,3 +277,7 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 ## Leakage (short definition)
 
 **Leakage** is using information that would not be available at prediction time (or that is a proxy for the outcome created after the fact). It inflates apparent performance and fails in real deployment.
+
+![Leakage taxonomy: temporal, fit/CV, label-proxy, target-encoding (original).](../assets/figures/ml_fig_leakage_taxonomy.png)
+
+*Figure — Glossary leakage map. Four common families: **temporal** (post-decision features), **fit/CV** (scaler/vocab/selector fit on the full cohort), **label proxy** (treatment or post-outcome codes as inputs), and **target-encoding** without LOO/OOF. All inflate apparent performance at train time and fail at true index time. Prediction ≠ causation.*
