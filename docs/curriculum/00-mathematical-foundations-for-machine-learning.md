@@ -425,6 +425,21 @@ Logs are not decoration; they are structural. First, models multiply many probab
 
 *Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
 
+
+![c51 densify panel 1 (original).](../assets/figures/ml_fig_c51_00.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c52 densify panel 1 (original).](../assets/figures/ml_fig_c52_00.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c53 densify panel 1 (original).](../assets/figures/ml_fig_c53_00.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
 ### What a function is, and how to read its graph
 
 Recall from Section 0.1 that a function maps each input to exactly one output. The domain is the set of allowed inputs; the range is the set of outputs actually produced. We picture a function by its graph: plot the input x horizontally and the output y = f(x) vertically, and mark every point (x, f(x)). Reading a graph is then physical: left-to-right is increasing input, height is output, and the “exactly one output” rule shows up as the vertical line test — any vertical line crosses the curve at most once.
