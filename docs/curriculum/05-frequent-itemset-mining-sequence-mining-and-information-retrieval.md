@@ -269,6 +269,11 @@ Apriori generates candidates of size k from frequent itemsets of size k−1, pru
 
 *Figure — Pattern mining finds strings—not causes. Pred ≠ cause without design.*
 
+
+![n-gram count decay with order (original).](../assets/figures/ml_fig_ngram_counts.png)
+
+*Figure — Higher n-grams get sparser. n-gram count decay with order Pred != cause without design.*
+
 ```
 Apriori(D, minsup):
  L1 ← frequent 1-itemsets in D

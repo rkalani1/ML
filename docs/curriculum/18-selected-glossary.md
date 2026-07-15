@@ -323,4 +323,9 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 *Figure — Pick metric family by claim; neither proves causation. Pred != cause without design.*
 
+
+![PPV/NPV vs prevalence grid (original).](../assets/figures/ml_fig_npv_ppv_grid.png)
+
+*Figure — Base rates drive predictive values. PPV/NPV vs prevalence grid Pred != cause without design.*
+
 *Figure — Glossary leakage map. Four common families: **temporal** (post-decision features), **fit/CV** (scaler/vocab/selector fit on the full cohort), **label proxy** (treatment or post-outcome codes as inputs), and **target-encoding** without LOO/OOF. All inflate apparent performance at train time and fail at true index time. Prediction ≠ causation.*

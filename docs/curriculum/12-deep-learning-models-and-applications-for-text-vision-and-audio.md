@@ -257,6 +257,11 @@ Segmentation Dice = 2|A∩B|/(|A|+|B|) emphasizes overlap; Hausdorff distance em
 
 *Figure — Compute scales with sequence length. Pred != cause without design.*
 
+
+![CTC alignment lattice toy (original).](../assets/figures/ml_fig_ctc_align.png)
+
+*Figure — Alignments are computational not clinical. CTC alignment lattice toy Pred != cause without design.*
+
 *Same predicted/GT pair: Dice = 2|A∩B|/(|A|+|B|) and IoU = |A∩B|/|A∪B| are monotone transforms of each other (Dice = 2·IoU/(1+IoU)); both punish boundary misses that matter near eloquent cortex (original).*
 
 ### Architecture family quick map (teaching table)

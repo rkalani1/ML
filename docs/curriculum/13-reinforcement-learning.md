@@ -483,6 +483,11 @@ which removes incentives to push r_t far outside [1-epsilon, 1+epsilon]. An alte
 
 *Figure — Exploration temperature changes entropy; not a clinical causal path. Pred != cause without design.*
 
+
+![Replay buffer sample composition (original).](../assets/figures/ml_fig_replay_buffer.png)
+
+*Figure — Off-policy reuse needs care for safety. Replay buffer sample composition Pred != cause without design.*
+
 # REINFORCE with baseline (conceptual)
 # logp: log pi(a_t|s_t); returns: return-to-go; baseline: V(s_t)
 def reinforce_loss(logp, returns, baseline):

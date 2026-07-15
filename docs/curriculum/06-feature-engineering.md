@@ -306,6 +306,11 @@ Blanks are not merely a nuisance to be silently filled; they are data whose reas
 
 *Figure — Feature maps expand capacity—not causal graphs. Pred ≠ cause without design.*
 
+
+![One-hot vs embedding size trade-off (original).](../assets/figures/ml_fig_onehot_vs_embed.png)
+
+*Figure — Dense embeddings compress high-card cats. One-hot vs embedding size trade-off Pred != cause without design.*
+
 \n![6.6: Rubin's missingness mechanisms. MCAR: absence is driven by chance, independent of all data. MAR: absence in x3 is explai](../assets/figures/ml_concept_6.6_59c3837d.png)
 
 *Figure 6.6 — original teaching graphic.*

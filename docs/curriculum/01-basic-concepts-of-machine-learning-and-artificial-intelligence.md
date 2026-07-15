@@ -426,6 +426,11 @@ Worked illustration (bias–variance). Let the true mean response at some input 
 
 *Figure — Optimization trajectory is not a causal claim. Pred != cause without design.*
 
+
+![Capacity vs approximation power toy curve (original).](../assets/figures/ml_fig_capacity_approx.png)
+
+*Figure — Capacity enables approximation; not causation. Pred != cause without design.*
+
 ## Common Pitfalls and Failure Modes
 
 The failure modes below recur across projects and modalities. Each has a mechanism, a warning sign, and a discipline that prevents it. Treat this as a checklist to run against any pipeline before you believe its numbers.

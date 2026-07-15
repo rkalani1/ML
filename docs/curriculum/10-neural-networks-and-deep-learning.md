@@ -229,6 +229,11 @@ Dropout randomly zeroes activations during training with probability p, forcing 
 
 *Figure — Optimization knobs—not physiology. Pred ≠ cause without design.*
 
+
+![Gradient clipping threshold (original).](../assets/figures/ml_fig_grad_clip.png)
+
+*Figure — Clip prevents explode; does not invent causes. Gradient clipping threshold Pred != cause without design.*
+
 Start with a simple MLP or linear baseline before complex architectures.
 
 Monitor train versus validation loss to detect under/overfitting.
