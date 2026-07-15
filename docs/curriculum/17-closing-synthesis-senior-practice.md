@@ -835,3 +835,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c218 teaching panel 18 (original).](../assets/figures/ml_fig_c218_18.png)
 *Figure — Gradual percent traffic ramp. Synthetic teaching geometry—not a causal claim.*
+
+![c219 teaching panel 18 (original).](../assets/figures/ml_fig_c219_18.png)
+*Figure — SRE on-call response stages. Synthetic teaching geometry—not a causal claim.*

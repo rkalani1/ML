@@ -790,3 +790,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c218 teaching panel 01 (original).](../assets/figures/ml_fig_c218_01.png)
 *Figure — Data retention decay schedule. Synthetic teaching geometry—not a causal claim.*
+
+![c219 teaching panel 01 (original).](../assets/figures/ml_fig_c219_01.png)
+*Figure — Epsilon-DP utility curve. Synthetic teaching geometry—not a causal claim.*

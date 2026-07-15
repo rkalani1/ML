@@ -985,3 +985,6 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 ![c218 teaching panel 19 (original).](../assets/figures/ml_fig_c218_19.png)
 *Figure — Glossary dim-reduction strip. Synthetic teaching geometry—not a causal claim.*
+
+![c219 teaching panel 19 (original).](../assets/figures/ml_fig_c219_19.png)
+*Figure — Glossary regression family strip. Synthetic teaching geometry—not a causal claim.*
