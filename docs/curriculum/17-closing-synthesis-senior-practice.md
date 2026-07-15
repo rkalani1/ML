@@ -1939,3 +1939,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c586 teaching panel 18 (original).](../assets/figures/ml_fig_c586_18.png)
 *Figure — Canary promote path c586. Synthetic teaching geometry—not a causal claim.*
+
+![c587 teaching panel 18 (original).](../assets/figures/ml_fig_c587_18.png)
+*Figure — Blue-green cutover path c587. Synthetic teaching geometry—not a causal claim.*
