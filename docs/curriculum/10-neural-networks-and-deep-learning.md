@@ -1689,6 +1689,10 @@ To evaluation and epidemiology: universal approximation guarantees expressivity,
 ![c354 teaching panel 11 (original).](../assets/figures/ml_fig_c354_11.png)
 *Figure — Residual highway path c354. Synthetic teaching geometry—not a causal claim.*
 
+
+![c355 teaching panel 11 (original).](../assets/figures/ml_fig_c355_11.png)
+*Figure — Attention weight heat c355. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Neural networks compose affine maps and nonlinear activations to learn hierarchical features; universal approximation justifies richness while depth often buys parameter efficiency. Artificial units are useful engineering abstractions, not faithful cortical simulations. Perceptrons and MLPs provide the feedforward backbone; activations (sigmoid, tanh, ReLU family, softmax) control expressivity and gradient flow. Costs include MSE, cross-entropy, KL divergence, and Hellinger distance, each with different geometry. Optimizers range from SGD with momentum and Nesterov acceleration to Adagrad, RMSprop, and Adam. Backpropagation implements the chain rule; a tiny numerical forward/backward example makes gradients concrete. A second worked mini-batch logistic update shows the same gradient arithmetic used inside deep stacks. Training stability uses careful initialization, batch/layer norm, clipping, dropout, schedules, and early stopping to fight vanishing and exploding gradients. CNNs exploit spatial weight sharing with 2D/3D, dilated, depthwise, and transposed convolutions; RNNs, LSTMs, GRUs, and bidirectional/deep stacks model sequences before Transformers take over long-range language tasks. Residual inductive bias and hybrid CNN-plus-tabular pipelines appear throughout clinical imaging. In neurologic imaging and longitudinal care, preprocessing, index time, site structure, calibration, and honest comparison to simple baselines determine whether deep learning helps patients or only leaderboards.
