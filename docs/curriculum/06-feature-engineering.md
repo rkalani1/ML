@@ -366,6 +366,21 @@ Blanks are not merely a nuisance to be silently filled; they are data whose reas
 
 *Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
 
+
+![c44 densify panel 8 (original).](../assets/figures/ml_fig_c44_07.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c45 densify panel 8 (original).](../assets/figures/ml_fig_c45_07.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c46 densify panel 8 (original).](../assets/figures/ml_fig_c46_07.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
 \n![6.6: Rubin's missingness mechanisms. MCAR: absence is driven by chance, independent of all data. MAR: absence in x3 is explai](../assets/figures/ml_concept_6.6_59c3837d.png)
 
 *Figure 6.6 — original teaching graphic.*
