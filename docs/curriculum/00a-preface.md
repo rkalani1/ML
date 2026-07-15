@@ -874,3 +874,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c246 teaching panel 01 (original).](../assets/figures/ml_fig_c246_01.png)
 *Figure — Red-team severity path. Synthetic teaching geometry—not a causal claim.*
+
+![c247 teaching panel 01 (original).](../assets/figures/ml_fig_c247_01.png)
+*Figure — Concentrated DP rho map. Synthetic teaching geometry—not a causal claim.*
