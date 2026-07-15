@@ -1771,3 +1771,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c530 teaching panel 18 (original).](../assets/figures/ml_fig_c530_18.png)
 *Figure — Progressive delivery path c530. Synthetic teaching geometry—not a causal claim.*
+
+![c531 teaching panel 18 (original).](../assets/figures/ml_fig_c531_18.png)
+*Figure — Feature flag ramp path c531. Synthetic teaching geometry—not a causal claim.*
