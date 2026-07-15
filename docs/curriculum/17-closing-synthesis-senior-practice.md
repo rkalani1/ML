@@ -1288,3 +1288,6 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c369 teaching panel 18 (original).](../assets/figures/ml_fig_c369_18.png)
 *Figure — MTTR residual path c369. Synthetic teaching geometry—not a causal claim.*
+
+![c370 teaching panel 18 (original).](../assets/figures/ml_fig_c370_18.png)
+*Figure — Progressive delivery path c370. Synthetic teaching geometry—not a causal claim.*
