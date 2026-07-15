@@ -536,6 +536,21 @@ Worked illustration (bias–variance). Let the true mean response at some input 
 
 *Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
 
+
+![c54 densify panel 3 (original).](../assets/figures/ml_fig_c54_02.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c55 densify panel 3 (original).](../assets/figures/ml_fig_c55_02.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
+
+![c56 densify panel 3 (original).](../assets/figures/ml_fig_c56_02.png)
+
+*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
+
 ## Common Pitfalls and Failure Modes
 
 The failure modes below recur across projects and modalities. Each has a mechanism, a warning sign, and a discipline that prevents it. Treat this as a checklist to run against any pipeline before you believe its numbers.
