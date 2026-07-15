@@ -787,3 +787,9 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c202 teaching panel 18 (original).](../assets/figures/ml_fig_c202_18.png)
 *Figure — Decision curve net benefit. Synthetic teaching geometry—not a causal claim.*
+
+![c203 teaching panel 18 (original).](../assets/figures/ml_fig_c203_18.png)
+*Figure — Champion metric gate bars. Synthetic teaching geometry—not a causal claim.*
+
+![c204 teaching panel 18 (original).](../assets/figures/ml_fig_c204_18.png)
+*Figure — Silent failure metric vs volume. Synthetic teaching geometry—not a causal claim.*

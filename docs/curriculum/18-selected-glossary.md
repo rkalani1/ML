@@ -937,3 +937,9 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 ![c202 teaching panel 19 (original).](../assets/figures/ml_fig_c202_19.png)
 *Figure — Glossary margin support kernel. Synthetic teaching geometry—not a causal claim.*
+
+![c203 teaching panel 19 (original).](../assets/figures/ml_fig_c203_19.png)
+*Figure — Glossary entropy KL CE strip. Synthetic teaching geometry—not a causal claim.*
+
+![c204 teaching panel 19 (original).](../assets/figures/ml_fig_c204_19.png)
+*Figure — Glossary regularizer name strip. Synthetic teaching geometry—not a causal claim.*

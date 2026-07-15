@@ -742,3 +742,9 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c202 teaching panel 01 (original).](../assets/figures/ml_fig_c202_01.png)
 *Figure — Risk tier control ladder. Synthetic teaching geometry—not a causal claim.*
+
+![c203 teaching panel 01 (original).](../assets/figures/ml_fig_c203_01.png)
+*Figure — IRB pathway decision tiles. Synthetic teaching geometry—not a causal claim.*
+
+![c204 teaching panel 01 (original).](../assets/figures/ml_fig_c204_01.png)
+*Figure — Dataset card field tiles. Synthetic teaching geometry—not a causal claim.*
