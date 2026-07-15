@@ -1609,3 +1609,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c491 teaching panel 01 (original).](../assets/figures/ml_fig_c491_01.png)
 *Figure — Rollback decision path c491. Synthetic teaching geometry—not a causal claim.*
+
+![c492 teaching panel 01 (original).](../assets/figures/ml_fig_c492_01.png)
+*Figure — Postmortem action path c492. Synthetic teaching geometry—not a causal claim.*
