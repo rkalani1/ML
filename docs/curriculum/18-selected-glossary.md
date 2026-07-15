@@ -637,3 +637,12 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 ![c102 teaching panel 19 (original).](../assets/figures/ml_fig_c102_19.png)
 *Figure — Concentration strip: Chernoff. Synthetic teaching geometry—not a causal claim.*
+
+![c103 teaching panel 19 (original).](../assets/figures/ml_fig_c103_19.png)
+*Figure — Robustness strip: noise shift. Synthetic teaching geometry—not a causal claim.*
+
+![c104 teaching panel 19 (original).](../assets/figures/ml_fig_c104_19.png)
+*Figure — Causal strip: do-calc caution. Synthetic teaching geometry—not a causal claim.*
+
+![c105 teaching panel 19 (original).](../assets/figures/ml_fig_c105_19.png)
+*Figure — PAC-Bayes bound strip. Synthetic teaching geometry—not a causal claim.*

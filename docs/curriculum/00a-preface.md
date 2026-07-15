@@ -442,3 +442,12 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c102 teaching panel 01 (original).](../assets/figures/ml_fig_c102_01.png)
 *Figure — Audit trail hash chain. Synthetic teaching geometry—not a causal claim.*
+
+![c103 teaching panel 01 (original).](../assets/figures/ml_fig_c103_01.png)
+*Figure — Stakeholder RACI for ML ops. Synthetic teaching geometry—not a causal claim.*
+
+![c104 teaching panel 01 (original).](../assets/figures/ml_fig_c104_01.png)
+*Figure — Model facts label nutrition. Synthetic teaching geometry—not a causal claim.*
+
+![c105 teaching panel 01 (original).](../assets/figures/ml_fig_c105_01.png)
+*Figure — Lineage graph of datasets. Synthetic teaching geometry—not a causal claim.*

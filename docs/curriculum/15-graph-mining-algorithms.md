@@ -821,6 +821,18 @@ Networks break the independence assumption most models rest on: outcomes spill o
 ![c102 teaching panel 16 (original).](../assets/figures/ml_fig_c102_16.png)
 *Figure — Temporal GNN snapshots. Synthetic teaching geometry—not a causal claim.*
 
+
+![c103 teaching panel 16 (original).](../assets/figures/ml_fig_c103_16.png)
+*Figure — Directed graph acyclicity check. Synthetic teaching geometry—not a causal claim.*
+
+
+![c104 teaching panel 16 (original).](../assets/figures/ml_fig_c104_16.png)
+*Figure — PinSAGE bipartite walks. Synthetic teaching geometry—not a causal claim.*
+
+
+![c105 teaching panel 16 (original).](../assets/figures/ml_fig_c105_16.png)
+*Figure — Dynamic graph snapshots. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Graph mining extracts structure from relational data. Classical algorithms include minimum spanning trees (Prim, Kruskal), shortest paths (Dijkstra, A*), matching (Hungarian, Hopcroft-Karp), centrality measures, PageRank and HITS link analysis, and community detection (spectral, Louvain, Leiden). Graph neural networks address learning on graphs via message passing, with GCN, GAT, and GraphSAGE as core architectures, facing challenges of over-smoothing, scalability, and shift. HNSW enables fast approximate nearest-neighbor search on embedding graphs. Clinical applications span referral networks, comorbidity and connectomics, and outbreak contact graphs—always with careful edge definition, privacy, and causal humility.

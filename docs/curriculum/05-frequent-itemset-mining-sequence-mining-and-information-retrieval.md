@@ -750,6 +750,18 @@ Frequent itemset mining discovers co-occurrence structure in baskets; sequence m
 ![c102 teaching panel 06 (original).](../assets/figures/ml_fig_c102_06.png)
 *Figure — Hybrid sparse-dense retrieval. Synthetic teaching geometry—not a causal claim.*
 
+
+![c103 teaching panel 06 (original).](../assets/figures/ml_fig_c103_06.png)
+*Figure — Byte-level BPE vs wordpiece. Synthetic teaching geometry—not a causal claim.*
+
+
+![c104 teaching panel 06 (original).](../assets/figures/ml_fig_c104_06.png)
+*Figure — Multi-vector retrieval ColBERTv2. Synthetic teaching geometry—not a causal claim.*
+
+
+![c105 teaching panel 06 (original).](../assets/figures/ml_fig_c105_06.png)
+*Figure — Reranker cross-encoder stack. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Transactional data model co-occurrence. Support measures how often an itemset appears; confidence estimates conditional probability for association rules; lift compares that probability to independence. IR represents documents and queries with TF–IDF (and related) weights, ranks by cosine or BM25-style scores, and evaluates with precision, recall, and MAP; inverted indexes make large-scale search feasible. Hash tables and MinHash support counting and approximate set similarity; trees (binary, 2-3, B/B+, red-black, trie/radix) organize ordered keys and prefixes; BFS, DFS, beam search, and MCTS explore combinatorial trees; Bloom filters, sliding windows, and skip lists handle membership, streams, and ordered maps efficiently. Apriori, FP-Growth, and ECLAT mine frequent itemsets under the Apriori principle; GSP, SPADE, FreeSpan, and PrefixSpan mine sequences. HMMs, as simple PGMs, use the forward algorithm for likelihood, Viterbi for decoding, and Baum–Welch for unsupervised training. Clinically, baskets and sequences describe encounters and pathways; rules must not be read as causal; phenotype mining must avoid label leakage; retrieval supports literature and note search with explicit evaluation. The central engineering tension is combinatorial explosion versus sparsity: good algorithms and good thresholds keep the useful patterns and leave the noise behind.

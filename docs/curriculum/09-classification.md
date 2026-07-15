@@ -664,6 +664,18 @@ Keep interpretable baselines; match metrics to stroke-system costs of FP versus 
 ![c102 teaching panel 10 (original).](../assets/figures/ml_fig_c102_10.png)
 *Figure — Decision curve clinical net benefit. Synthetic teaching geometry—not a causal claim.*
 
+
+![c103 teaching panel 10 (original).](../assets/figures/ml_fig_c103_10.png)
+*Figure — Error-correcting output codes. Synthetic teaching geometry—not a causal claim.*
+
+
+![c104 teaching panel 10 (original).](../assets/figures/ml_fig_c104_10.png)
+*Figure — Threshold moving PR operating. Synthetic teaching geometry—not a causal claim.*
+
+
+![c105 teaching panel 10 (original).](../assets/figures/ml_fig_c105_10.png)
+*Figure — Net reclassification index. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Classification maps features to discrete labels using scores or posteriors and a decision rule. Rule-based systems encode transparent logic; Naive Bayes multiplies class-conditional feature likelihoods under a conditional independence assumption, with Gaussian NB for continuous features and worked toy-table posterior and log-score arithmetic; k-NN assigns labels by neighborhood vote with Voronoi geometry and KD-tree or LSH acceleration; SVMs maximize soft margins and extend via kernels, multilabel reductions, and dual prediction over support vectors. Decision trees grow by impurity or statistical criteria in ID3, CHAID, C4.5, and CART lineages, then prune to control variance. Ensembles—bagging, boosting, stacking, random forests, AdaBoost, GBDT, XGBoost, LightGBM, and CatBoost—aggregate unstable or weak learners into strong predictors for tabular clinical data. Model selection needs nested validation and honest baselines. Evaluation must go beyond accuracy to precision, recall, F1, ROC/PR analysis, calibration, and imbalance-aware design. In neurology and epidemiology, labels are phenotypes, features must respect index time, prevalence shifts alter predictive values, and external validation plus calibration determine transportability.

@@ -3275,6 +3275,18 @@ This section is a reference. The first table lists the symbols used throughout t
 ![c102 teaching panel 00 (original).](../assets/figures/ml_fig_c102_00.png)
 *Figure — Moore-Penrose properties strip. Synthetic teaching geometry—not a causal claim.*
 
+
+![c103 teaching panel 00 (original).](../assets/figures/ml_fig_c103_00.png)
+*Figure — Singular vectors left/right roles. Synthetic teaching geometry—not a causal claim.*
+
+
+![c104 teaching panel 00 (original).](../assets/figures/ml_fig_c104_00.png)
+*Figure — Orthogonal Procrustes alignment. Synthetic teaching geometry—not a causal claim.*
+
+
+![c105 teaching panel 00 (original).](../assets/figures/ml_fig_c105_00.png)
+*Figure — Woodbury matrix identity cartoon. Synthetic teaching geometry—not a causal claim.*
+
 ## Chapter Summary
 
 Mathematics is the compression format of machine learning: a page of symbols stands in for pages of prose, and fluency with the symbols is what makes the rest of the book legible. This chapter rebuilt that fluency from an elementary base. It began with the language itself — sets, functions, and logic — and the algebra of numbers, exponents, and logarithms, then cataloged the handful of functions (linear, polynomial, exponential, logarithmic, sigmoid, softmax, ReLU) that recur everywhere in modeling. Summation and counting supplied the combinatorics behind probability; trigonometry and the unit circle supplied the sinusoids behind Fourier features, positional encodings, and cosine similarity.

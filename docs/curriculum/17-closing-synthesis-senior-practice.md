@@ -487,3 +487,12 @@ The recurring lesson is not that models are dangerous or magical, but that a pre
 
 ![c102 teaching panel 18 (original).](../assets/figures/ml_fig_c102_18.png)
 *Figure — On-call runbook gates. Synthetic teaching geometry—not a causal claim.*
+
+![c103 teaching panel 18 (original).](../assets/figures/ml_fig_c103_18.png)
+*Figure — Red-team prompt taxonomy. Synthetic teaching geometry—not a causal claim.*
+
+![c104 teaching panel 18 (original).](../assets/figures/ml_fig_c104_18.png)
+*Figure — A/B test cuped adjustment. Synthetic teaching geometry—not a causal claim.*
+
+![c105 teaching panel 18 (original).](../assets/figures/ml_fig_c105_18.png)
+*Figure — Incident severity matrix. Synthetic teaching geometry—not a causal claim.*
