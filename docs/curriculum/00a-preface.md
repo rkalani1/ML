@@ -1648,3 +1648,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c504 teaching panel 01 (original).](../assets/figures/ml_fig_c504_01.png)
 *Figure — Privacy DPIA path c504. Synthetic teaching geometry—not a causal claim.*
+
+![c505 teaching panel 01 (original).](../assets/figures/ml_fig_c505_01.png)
+*Figure — Vendor risk path c505. Synthetic teaching geometry—not a causal claim.*
