@@ -152,6 +152,10 @@ Contrastive learning trains encoders so that semantically similar pairs of examp
 
 A classic contrastive loss for pairs (x_i, x_j) with binary similarity s_{ij} pulls embeddings together when s=1 and pushes them apart up to a margin when s=0: L = s · d² + (1−s) · max(0, m − d)² for distance d between embeddings. Triplet loss uses anchors a, positives p, negatives n and enforces d(a,p) + margin < d(a,n), summing hinge violations. Hard-negative mining focuses on challenging n. InfoNCE and related losses frame contrastive learning as identifying the positive among many negatives via softmax over similarity scores—foundational to modern SSL and CLIP.
 
+![Contrastive easy vs hard negatives in embedding space (synthetic; original).](../assets/figures/ml_fig_hard_negatives.png)
+
+*Figure — Hard negatives dominate the gradient. **Left:** anchor (\*), positives (teal), easy far negatives (gray), and hard near-boundary negatives (gold). **Right:** relative InfoNCE-style pull rises sharply with cosine similarity of a negative—so near-misses matter most. False hard negatives (same patient, different view labeled negative) poison SSL; keep probe labels out of pretraining. Embedding geometry is not a disease causal map.*
+
 ![Triplet loss with chapter worked numbers (original).](../assets/figures/ml_fig_triplet_ssl.png)
 
 *Figure 11.3. Triplet loss in embedding space, drawn with the chapter's worked numbers. With anchor a=(0,0), positive p=(0.3,0.4) and margin m=0.2, the loss L = max(0, d(a,p) − d(a,n) + m) requires negatives to lie beyond the dashed boundary at radius d(a,p)+m = 0.7. The easy negative n=(0.8,0.6) at distance 1.0 is inactive (L=0), whereas the hard negative n′=(0.4,0.3) at distance 0.5 falls inside the margin and is active (L=0.2); the emerald arrow pulls the positive inward and the rose arrow pushes the hard negative outward.*

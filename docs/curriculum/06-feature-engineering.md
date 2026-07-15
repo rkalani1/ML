@@ -69,9 +69,17 @@ Wrappers treat the learning algorithm as a black box and search subsets to optim
 
 Genetic algorithms (GAs) represent subsets as binary chromosomes and evolve populations with selection, crossover, and mutation under a fitness function equal to (or regularized by) validation performance and subset size. GAs explore more broadly than pure greedy SFS/SBS but introduce stochasticity and many hyperparameters (population size, mutation rate). In clinical n-small settings, aggressive wrappers overfit the validation fold; nested cross-validation or a fixed temporal outer holdout is mandatory.
 
+![Nested CV for feature selection: outer holdout vs optimistic leaky scores (synthetic; original).](../assets/figures/ml_fig_nested_fs_cv.png)
+
+*Figure — Nest the selector. **Left:** each outer fold freezes an untouched test slice while the outer-train block runs inner CV that chooses filters/wrappers/hyperparameters. **Right:** synthetic AUROC gap—reporting the same folds used to pick features inflates “skill”; nested scores sit near the true dashed line. Nested CV is expensive; a single temporal outer holdout is the common clinical compromise. Selection is not causal feature discovery.*
+
 ### Embedded Methods
 
 Embedded methods perform selection during model training. L1-regularized linear and logistic regression (Lasso) drive coefficients to exact zero. Tree ensembles rank features by impurity decrease or permutation importance. Gradient-boosted trees similarly yield gain-based importances. Embedded methods are efficient relative to wrappers and often more accurate than pure filters, but importances are model-dependent and can be unstable under correlated clinical labs.
+
+![SHAP / coefficient importance under collinearity: attribution mass swaps (synthetic; original).](../assets/figures/ml_fig_shap_collinearity.png)
+
+*Figure — Collinearity breaks credit assignment. **Left:** two severity proxies share correlation ≈0.95 with each other; a third feature is nearly independent. **Right:** bootstrap |coefficients| for a linear risk model swing between the two collinear inputs even though both are proxies for one latent signal. SHAP values and impurity importances show the same credit-swapping. Report correlated groups, not a false unique “top feature.” Attribution ≠ causation.*
 
 Filters: fast univariate/global scores; miss interactions; cheap screens.
 

@@ -223,6 +223,10 @@ Quantization for neural networks. Fixed-point and integer formats replace float3
 
 Post-Training Quantization (PTQ) converts a trained float model using calibration data without full retraining—fast but may lose accuracy on sensitive models. Quantization-Aware Training (QAT) simulates quantization during training (straight-through estimators for round operations) so weights adapt to discrete grids—more accurate, more expensive. When to quantize: after architecture and training are stable; validate calibration curves and subgroup metrics, not only top-1 accuracy. For clinical imaging, aggressive int4 weights can erase rare lesion cues; prefer mixed precision (int8 activations, higher precision sensitive layers) and pathology-stratified evaluation.
 
+![Mixed precision: FP32/FP16/BF16 range vs digits and loss-scaling training sketch (original).](../assets/figures/ml_fig_mixed_precision.png)
+
+*Figure — Automatic mixed precision (AMP) is not free lunch. **Left:** FP16 has a narrow dynamic range (~±6.5×10⁴) with ~3 decimal digits; BF16 keeps FP32-like range with coarser mantissa. **Right:** FP16 without loss scaling can overflow and diverge; loss-scaled FP16 or BF16 tracks FP32. Keep master weights in FP32, re-check rare-lesion metrics after AMP, and remember a faster predictor is still a predictor—not a causal mechanism.*
+
 ![Quantization bit-width vs relative size, latency proxy, and synthetic accuracy (scientific; original).](../assets/figures/ml_fig_quant_bits.png)
 
 *Figure — Bits as a clinical constraint curve. **Left:** synthetic held-out accuracy versus relative weight storage (log scale) as bit-width falls from 32→2; a teaching clinical floor marks when the diet becomes unsafe. **Right:** the same bit-widths with relative size bars plus latency and accuracy proxies—FLOPs and byte counts are design tools, not wall-clock. Measure PTQ and QAT on the target edge device; subgroup AUROC can fall before global accuracy. Compression preserves a prediction service, not a causal claim.*

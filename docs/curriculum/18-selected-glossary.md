@@ -14,6 +14,10 @@
 
 *Teaching map: AUC ranks; calibration checks probability honesty; utility asks whether acting on a threshold helps (original).*
 
+![Probability vs odds and Bayes LR update on odds (original).](../assets/figures/ml_fig_odds_vs_prob.png)
+
+*Figure — Glossary: odds = p/(1−p). **Left:** odds rise nonlinearly as probability approaches 1. **Right:** multiply prior odds by LR+, then convert back to posterior probability—do not add “probability points” as if they were odds. Model scores still require calibration for absolute risk; prediction ≠ causation.*
+
 ![Appraisal orientation graphic (original).](../assets/figures/ml_fig_appraisal_scorecard.png)
 
 *Teaching orientation for metrics and appraisal terms (original).*

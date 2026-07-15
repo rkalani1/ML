@@ -233,6 +233,10 @@ Within-cluster sum of squares (WSS/WCSS) decreases as k grows; the elbow method 
 
 *Figure — Silhouette as a k-choice companion to the elbow. **Left:** standardized two-feature synthetic data with three spherical blobs and k-means centroids (k = 3). **Right:** mean silhouette over k = 2…7 peaks at the generating structure (k = 3). Silhouette s(i) = (b(i) − a(i)) / max{a(i), b(i)} rewards compact, well-separated geometry; a high peak still does **not** prove clinical phenotypes, TOAST etiology, or treatment-effect strata—only that the partition fits the chosen distance. Use silhouette with stability (bootstrap / site holdout) and a pre-specified utility question, never as sole evidence for reifying clusters.*
 
+![Gap statistic for choosing k vs reference null (synthetic; original).](../assets/figures/ml_fig_gap_statistic.png)
+
+*Figure — Gap as another k heuristic. **Left:** three-blob synthetic geometry. **Right:** \(\mathrm{Gap}(k)=E^*[\log W_k]-\log W_k\) peaks near the generating \(k\). Compare observed within-cluster dispersion to a uniform reference; still a geometric score, not etiology. Pair gap/elbow/silhouette with stability and a pre-registered use case—clusters remain hypothesis generators, not causal subtypes.*
+
 ### Extrinsic methods: purity and Rand index
 
 When reference labels exist for audit (for example, known TOAST codes), purity measures the fraction of points in each cluster belonging to its majority class, aggregated—high purity can coexist with over-fragmentation (many tiny pure clusters). The Rand index is the fraction of point pairs on which the clustering and the reference agree about being same-cluster vs different-cluster; adjusted Rand corrects for chance. External indices validate recovery of a reference ontology; they do not prove the reference is the right biology.

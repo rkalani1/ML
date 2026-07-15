@@ -130,6 +130,10 @@ When classes are not linearly separable in input space, map inputs with φ(x) an
 
 Standard SVM is binary. Multiclass extensions use one-vs-rest (train K binary SVMs) or one-vs-one (train K(K−1)/2 pairwise SVMs and aggregate votes). Multilabel problems—for example simultaneous flags for atrial fibrillation, large-vessel occlusion, and hemorrhagic transformation risk—use a binary SVM per label (binary relevance), classifier chains that condition later labels on earlier predictions, or adapted ranking formulations. Label correlations matter: treating labels independently is simple but can produce incoherent combinations; chains and structured outputs capture dependence at higher cost.
 
+![Multi-label metrics: Hamming loss vs exact-match vs micro-F1 (synthetic; original).](../assets/figures/ml_fig_hamming_multilabel.png)
+
+*Figure — Multi-label scores are not interchangeable. **Left:** as the decision threshold moves, Hamming loss (mean per-label error), exact-match failure, and 1−micro-F1 peak in different places—exact match is harsh when many labels can fire. **Right:** per-label accuracy at the Hamming-best threshold still varies across clinical flags. Binary relevance ignores comorbidity structure; never treat co-predicted labels as a causal disease graph.*
+
 ### Prediction and computational complexity
 
 Prediction for a kernel SVM sums kernel evaluations against support vectors: cost is O(n_sv · d_eff) per query where d_eff is the cost of one kernel evaluation (often O(d) for RBF). Training via quadratic programming is roughly between O(n²) and O(n³) depending on solver and cache, with linear SVMs scalable via specialized methods (LIBLINEAR, Pegasos-style stochastic subgradient) at near O(n d) per epoch. For very large datasets, linear SVMs or approximate kernel expansions (random Fourier features, Nyström) scale better than full kernel QP. Conceptually, SVM optimizes a hinge-loss style objective with margin regularization rather than log loss; probabilities require post-hoc calibration (Platt scaling) if needed.

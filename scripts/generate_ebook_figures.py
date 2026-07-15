@@ -6052,6 +6052,51 @@ def main():
     fig_conformal_coverage()
     fig_glossary_sens_spec_ppv()
     fig_preface_study_design_triad()
+    # Continuous densify cycle-13 (ch06 / ch12 / ch13 / ch03 / ch14 / ch09)
+    # Generators live in scripts/cycle13_figures.py (imported for single entrypoint).
+    try:
+        from cycle13_figures import (  # type: ignore
+            fig_nested_fs_cv,
+            fig_attention_temperature,
+            fig_ppo_clip,
+            fig_km_censor,
+            fig_shap_collinearity,
+            fig_mixed_precision,
+            fig_hamming_multilabel,
+        )
+        fig_nested_fs_cv()
+        fig_attention_temperature()
+        fig_ppo_clip()
+        fig_km_censor()
+        fig_shap_collinearity()
+        fig_mixed_precision()
+        fig_hamming_multilabel()
+    except Exception as exc:  # pragma: no cover - best-effort regen path
+        print("WARN cycle-13 figures:", exc)
+    # Continuous densify cycle-14 (raise floor to ≥13)
+    try:
+        from cycle14_figures import (  # type: ignore
+            fig_pdp_not_cause,
+            fig_attention_heads,
+            fig_gap_statistic,
+            fig_viz_truncation,
+            fig_minhash_banding,
+            fig_lr_schedule,
+            fig_hard_negatives,
+            fig_odds_prob_glossary,
+            fig_group_dro,
+        )
+        fig_pdp_not_cause()
+        fig_attention_heads()
+        fig_gap_statistic()
+        fig_viz_truncation()
+        fig_minhash_banding()
+        fig_lr_schedule()
+        fig_hard_negatives()
+        fig_odds_prob_glossary()
+        fig_group_dro()
+    except Exception as exc:  # pragma: no cover
+        print("WARN cycle-14 figures:", exc)
     print("DONE figures in", OUT)
     missing_legacy = [n for n in LEGACY_NUMBERED_ASSETS if not (OUT / n).exists()]
     if missing_legacy:

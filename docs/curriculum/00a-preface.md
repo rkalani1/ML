@@ -73,6 +73,10 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 *Figure — Preface external-validation ladder (synthetic teaching). **Left:** resubstitution AUROC looks heroic; patient-wise CV, temporal split, external site, and prospective silent trial successively erode discrimination. **Right:** calibration error (ECE) often worsens on transport even when ranking still looks decent. Local AUROC is not a shipping license; prediction ≠ causation.*
 
+![Group DRO vs ERM: average AUROC vs worst-group floor (synthetic; original).](../assets/figures/ml_fig_group_dro.png)
+
+*Figure — Preface: average metrics can hide a failed site. **Left:** ERM looks strong overall while Site D (rare protocol) collapses; group DRO trades a little mean AUROC to lift the worst group. **Right:** training weights shift toward high-loss groups. Pre-specify groups—do not mine them on the test set. Robust training improves a prediction service under shift; it does not prove sites caused outcomes.*
+
 ## Reader’s map (teaching table)
 
 | Habit | What you do | What it prevents |

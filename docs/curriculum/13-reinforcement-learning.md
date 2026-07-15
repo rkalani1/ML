@@ -445,6 +445,10 @@ E[ min( r_t A_t , clip(r_t, 1-epsilon, 1+epsilon) A_t ) ],
 
 which removes incentives to push r_t far outside [1-epsilon, 1+epsilon]. An alternative PPO formulation uses an adaptive KL penalty coefficient. PPO is typically implemented as an actor-critic model: a value head estimates V for advantage computation (often via GAE), and multiple epochs of minibatch SGD reuse each batch of on-policy data carefully. PPO became a default strong baseline for continuous and discrete control due to stability and implementation simplicity relative to TRPO.
 
+![PPO clipped surrogate vs probability ratio r for A>0 and A<0 (original).](../assets/figures/ml_fig_ppo_clip.png)
+
+*Figure — Why the clip exists. Horizontal axis is the importance ratio \(r=\pi_\theta(a|s)/\pi_{\mathrm{old}}(a|s)\); shaded band is \([1-\varepsilon,1+\varepsilon]\). **Left:** when advantage \(A>0\), the PPO min objective stops rewarding ever-larger \(r\) past \(1+\varepsilon\). **Right:** when \(A<0\), clipping limits how hard a single batch can drive probability mass toward zero. PPO is a trust-region heuristic for on-policy control—not a license for bedside exploration with irreversible actions.*
+
 # REINFORCE with baseline (conceptual)
 # logp: log pi(a_t|s_t); returns: return-to-go; baseline: V(s_t)
 def reinforce_loss(logp, returns, baseline):

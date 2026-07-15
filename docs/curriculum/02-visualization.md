@@ -79,6 +79,10 @@ A scatter plot places one continuous variable on the horizontal axis and another
 
 A broken (or discontinuous) axis omits a middle range of values, often to zoom on small differences while still showing a large outlier or a distant baseline. Broken axes are dangerous: viewers may miss the break and over-read differences. If you must break an axis, mark the discontinuity boldly, state it in the caption, and consider whether two panels (overview + zoom) would be clearer. For publication and quality dashboards, prefer intact axes or explicitly labeled insets over subtle breaks.
 
+![Y-axis truncation exaggerates small rate differences across sites (original).](../assets/figures/ml_fig_axis_truncation.png)
+
+*Figure — Same four site rates, two stories. **Left:** truncated y-limits turn 0.5–1.0 point gaps into dramatic cliffs. **Right:** a zero baseline restores honest length encoding. Start quantitative axes at zero unless a labeled log scale or a clearly marked inset is justified. Misleading axes do not create causation—but they do create unjustified QI panic.*
+
 ## More Than One-Dimensional Data Visualizations
 
 ### Surface plot

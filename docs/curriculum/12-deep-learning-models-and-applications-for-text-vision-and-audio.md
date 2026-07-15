@@ -50,6 +50,10 @@ Dot-product attention scores compatibility of a query vector q with keys k_i by 
 
 Scaled dot-product attention Attention(Q,K,V) = softmax(QK^T / √d_k) V is the workhorse of Transformers. Scaling prevents dot products from growing with dimension in a way that saturates softmax. Attention maps are sometimes inspected for ‘explanations,’ but they are not causal attributions; use them as weak diagnostic visualizations only.
 
+![Attention / sampling temperature: sharp vs soft softmax mass (original).](../assets/figures/ml_fig_attention_temperature.png)
+
+*Figure — Temperature T rescales logits before softmax. **Left:** fixed key scores become nearly one-hot at low T and nearly uniform at high T. **Right:** entropy rises and peak weight falls as T grows. Training often uses T=1 with 1/√d_k scaling; generation may anneal T for diversity. Softmax temperature is not a clinical “confidence dial,” and attention weights remain associative geometry—not causal pathways in the chart.*
+
 A compact statement of the core algorithm—with an optional additive mask M holding 0 at allowed positions and −∞ at disallowed ones—makes the tensor shapes explicit:
 
 ```
@@ -95,6 +99,10 @@ Bare attention is permutation-equivariant: without position information, bag-of-
 ### Multi-head attention and architecture
 
 Multi-head attention runs h parallel attention heads with different learned projections, concatenates outputs, and projects again—allowing heads to specialize (syntax vs rare tokens, local vs long range). The original encoder stack applies multi-head self-attention and feedforward sublayers repeatedly. The decoder stack adds masked multi-head self-attention (causal mask so position t cannot attend to future tokens) and cross-attention over encoder outputs, then feedforward blocks. Encoder-only models (BERT-style) use bidirectional self-attention for understanding; decoder-only models (GPT-style) use causal masks for autoregressive generation; encoder–decoder models (T5-style) use both for conditional generation.
+
+![Multi-head attention specialization caricature: local, prefix, sparse heads (synthetic; original).](../assets/figures/ml_fig_attention_heads.png)
+
+*Figure — Heads are not interchangeable. Heatmaps show synthetic attention maps for three heads: local/positional band, prefix bias, and sparse content peaks. Specialization can help capacity, but inspecting one pretty head is not a clinical explanation and not a causal pathway through the note. Treat attention as associative geometry under a trained metric.*
 
 ## 12.3 Structured State-Space Models and Mamba
 

@@ -222,6 +222,10 @@ Anomaly detection flags points or sequences that deviate from a notion of normal
 
 Regression predicts a continuous (or conditionally continuous) target from features: length of stay, systolic blood pressure, infarct volume. Linear regression, generalized linear models, penalized regression, Gaussian processes, and neural regressors are options. Correlation quantifies association strength without necessarily producing a full predictive model; it is exploratory and vulnerable to confounding. Supervised regression estimates 𝔼[Y | X] or a full conditional distribution; correlation alone does not specify how to predict new cases under feature shift.
 
+![Partial dependence is not a causal effect: observational PDP vs do(X) under confounding (synthetic; original).](../assets/figures/ml_fig_pdp_not_cause.png)
+
+*Figure — PDP / ICE / SHAP follow the observational joint. **Left:** a confounder \(U\) drives both \(X\) and \(Y\); the binned observational mean of \(Y\) given \(X\) slopes strongly, while the approximate interventional \(E[Y\mid do(X)]\) is nearly flat. **Right:** solid arrows \(U\to X\), \(U\to Y\) explain the mirage; a weak dashed \(X\to Y\) does not license “change \(X\) to change \(Y\).” Prediction tools can still be useful—just keep claim types separate.*
+
 ### Classification
 
 Classification predicts discrete labels: stroke versus mimic, LVO versus no LVO, mRS 0–2 versus 3–6. Binary, multiclass, and multi-label settings differ in loss design and metrics. Logistic regression, linear discriminants, trees and forests, boosting, support vector machines, and deep networks are standard tools. Class imbalance, label noise, and calibration deserve first-class attention in medicine.
