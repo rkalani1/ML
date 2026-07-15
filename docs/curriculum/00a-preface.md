@@ -403,3 +403,6 @@ There is no separate further-reading chapter—the book is the curriculum. Read 
 
 ![c89 teaching panel 01 (original).](../assets/figures/ml_fig_c89_01.png)
 *Figure — SPIRIT-like protocol elements for ML papers. Synthetic teaching geometry—not a causal claim.*
+
+![c90 teaching panel 01 (original).](../assets/figures/ml_fig_c90_01.png)
+*Figure — Dataset card fields for transparency. Synthetic teaching geometry—not a causal claim.*

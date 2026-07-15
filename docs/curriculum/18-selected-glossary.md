@@ -598,3 +598,6 @@ Use likelihood ratios and calibrated probabilities when base rates change; never
 
 ![c89 teaching panel 19 (original).](../assets/figures/ml_fig_c89_19.png)
 *Figure — Abbrev strip: CV, OOD, SSL, RL, GNN. Synthetic teaching geometry—not a causal claim.*
+
+![c90 teaching panel 19 (original).](../assets/figures/ml_fig_c90_19.png)
+*Figure — Key identities: Bayes, chain, bias-var. Synthetic teaching geometry—not a causal claim.*
