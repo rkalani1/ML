@@ -11,24 +11,6 @@ A lab wants to regress 90-day mRS from admission labs. Linear models still disci
 ![Reliability of numeric predictions matters as much as fit.](../assets/figures/ml_fig_calibration.png)
 
 *Reliability of numeric predictions matters as much as fit.*
-## Learning Objectives
-
-Distinguish loss, cost, and objective functions and write them for squared error and log loss.
-
-Derive and compute ordinary least squares for univariate and multiple linear regression with a full numerical example.
-
-Build polynomial and piecewise regression models and evaluate with RSE, RMSE, R², and residual diagnostics.
-
-Explain ARIMA(p,d,q) intuition for clinical and epidemiologic time series.
-
-Formulate logistic and softmax regression, interpret coefficients, and evaluate with ROC, calibration, and information criteria.
-
-Use cross-validation, learning curves, Wald tests, likelihood-ratio tests, and pseudo-R² appropriately.
-
-Analyze overfitting, underfitting, and the bias–variance tradeoff; apply Ridge, Lasso, elastic net, and non-negative garrote.
-
-Connect optimization mathematics (derivatives, gradients, Jacobian, Hessian, Taylor) to GD variants, Newton methods, and early stopping.
-
 ## Loss, Cost, and Objective Functions
 
 Supervised learning fits a parametric mapping f(x; θ) from features x to a target y by optimizing a numerical criterion. Terminology varies across communities, but a useful distinction is: a loss ℓ(y, f(x; θ)) measures error on a single example; a cost (or empirical risk) averages loss over a training set, J(θ) = (1/n) ∑_i ℓ(y_i, f(x_i; θ)); an objective may add regularization, constraints, or priors, e.g. J(θ) + λ R(θ). Training solves θ̂ = argmin_θ of that objective (or a stochastic approximation thereof).

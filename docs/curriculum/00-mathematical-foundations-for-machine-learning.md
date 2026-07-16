@@ -18,36 +18,6 @@ The chapter assumes only that you once learned high-school algebra and are willi
 
 Two habits make this chapter pay off. First, work every numeric example with pen and paper; the intermediate steps are printed precisely so you can check yourself. Second, treat the chapter as a reference, not a gate — each concept carries a “→ Used in Chapter N” pointer, so when a later chapter invokes a gradient, an eigenvector, or Bayes’ theorem, you can return here for a full, self-contained treatment. You do not need to master all of it before Chapter 1; you need to know it is here.
 
-## Learning Objectives
-
-After working through this chapter, a reader will be able to:
-
-Read, pronounce, and write standard mathematical notation, including set, function, summation, and logic symbols, and the Greek letters used throughout machine learning.
-
-Manipulate algebraic expressions confidently; solve linear and quadratic equations and inequalities; and use the laws of exponents and logarithms fluently.
-
-Identify and reason about the core functions of machine learning — linear, polynomial, exponential, logarithmic, sigmoid/softmax, and ReLU — from their formulas and graphs.
-
-Evaluate sums and products, count with permutations and combinations, and expand binomials.
-
-Use radians, the unit circle, and sinusoids, and explain why trigonometry underlies Fourier features, positional encodings, and cosine similarity.
-
-Compute limits and derivatives, apply the chain rule, and locate maxima and minima of one-variable functions.
-
-Interpret and compute definite integrals as areas and as probabilities and expectations.
-
-Compute partial derivatives, gradients, Jacobians, and Hessians; apply the multivariable chain rule; and connect it explicitly to backpropagation and Taylor approximation.
-
-Perform vector and matrix operations, including dot products, norms, matrix multiplication, inverses, determinants, and solving linear systems.
-
-Find eigenvalues, eigenvectors, and singular values; test positive-definiteness; and explain how these underlie PCA and low-rank approximation.
-
-State the axioms of probability, apply conditional probability and Bayes’ theorem, and define random variables, expectation, and variance.
-
-Formulate an objective function, recognize convexity, and execute gradient descent by hand.
-
-Analyze algorithmic cost with Big-O notation and anticipate the numerical pitfalls of finite-precision computation.
-
 ## How to Use This Chapter
 
 Read it linearly the first time; the ordering is deliberate, and later sections lean on earlier ones (multivariable calculus in 0.9 assumes single-variable calculus from 0.6–0.8 and vectors from 0.10). After that, use it as a lookup: the symbol glossary and the topic-to-chapter map in 0.17 tell you exactly which foundation a given later chapter draws on. Each major section is self-contained and ends with practice problems whose answers are worked, so you can verify your understanding before moving on.

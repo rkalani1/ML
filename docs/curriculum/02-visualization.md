@@ -16,26 +16,6 @@ A quality dashboard shows a green line for door-to-needle. A density plot of NIH
 ![Calibration view as a visual truth check.](../assets/figures/ml_fig_calibration.png)
 
 *Calibration view as a visual truth check.*
-## Learning Objectives
-
-State the historical purpose of statistical graphics and treat visualization as analytic method, not decoration.
-
-Construct and interpret basic charts: pie, bar, histogram, line, scatter, and broken-axis displays—with caution where needed.
-
-Use multidimensional views including surface, contour, area, radar, heatmap, calendar, timeline, box, and violin plots.
-
-Read hierarchical visualizations (dendrogram, treemap, sunburst) and network views (node-link, arc, chord).
-
-Apply deviation and change charts: divergent bars, dumbbells, waterfalls, and beeswarms.
-
-Judge when 3-D graphics help versus when they distort, and design choropleth and bubble maps responsibly.
-
-Explain multi-dimensional scaling as a visualization of similarity structure, name the misread risks of nonlinear embeddings, and choose encodings that match perception.
-
-Build and read model-diagnostic displays—residual-versus-fitted plots, reliability/calibration diagrams, and row- and column-normalized confusion-matrix heatmaps—and state when each misleads.
-
-Detect and avoid misleading visualizations; connect figures to epidemiologic Table 1 and model diagnostics in stroke research.
-
 ## Background and History
 
 Visualization is the mapping of data to visual channels so that human perception can detect structure, anomaly, and comparison more efficiently than by scanning tables alone. Long before machine learning, scientists used graphics to argue about evidence: Playfair’s commercial and political charts in the late eighteenth century popularized line, bar, and pie forms; Nightingale’s polar area diagrams made sanitary reform vivid; Snow’s cholera map linked cases to a water pump; Minard’s flow map of Napoleon’s march combined geography, time, and attrition. Twentieth-century statisticians—notably Tukey—reframed graphics as tools for exploratory data analysis (EDA): the goal is to see what you did not expect, not only to decorate what you already believe.

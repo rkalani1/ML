@@ -12,22 +12,6 @@ A network analysis links hospitals, transfer patterns, and outcome codes. Graph 
 ![Graph/embedding geometry can drift across sites.](../assets/figures/ml_fig_site_shift.png)
 
 *Graph/embedding geometry can drift across sites.*
-## Learning Objectives
-
-Define graphs formally and represent them with adjacency matrices and lists.
-
-Compute MSTs with Prim and Kruskal and shortest paths with Dijkstra and A*.
-
-Apply bipartite matching ideas (Hungarian, Hopcroft-Karp) and interpret centrality measures.
-
-Carry out a numerical PageRank iteration and explain HITS hubs and authorities.
-
-Describe community detection with spectral clustering, Louvain, and Leiden.
-
-Explain GNN challenges, message passing, pooling, and GCN/GAT/GraphSAGE; outline HNSW for ANN search.
-
-Map methods to referral networks, comorbidity graphs, connectomics, and epidemiologic contact networks with causal caution.
-
 ## 15.1 What Is a Graph?
 
 A graph G = (V, E) consists of a set of nodes (vertices) V and a set of edges E connecting pairs of nodes. Edges may be undirected {i, j} or directed (i -> j). They may be unweighted or carry weights w_ij (travel time, correlation, number of shared patients, synaptic density proxies). Multigraphs allow multiple edges; simple graphs do not. A path is a sequence of distinct nodes joined by edges; a cycle returns to its start; a connected component is a maximal set of nodes mutually reachable when ignoring direction (weak connectivity) or respecting direction (strong connectivity).

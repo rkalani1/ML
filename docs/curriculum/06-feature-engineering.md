@@ -21,26 +21,6 @@ Two sites train the same classifier for early neurologic deterioration. One enco
 
 *Figure — Honest preprocessing. Wrong (top): imputer, scaler, vocabulary, and selector statistics are fit on the entire cohort, so validation and test rows leak into the fitted transforms. Right (bottom): fit μ, σ, imputer, and vocabulary on the training segment only, freeze those objects, and apply transform-only to validation and test. Nested cross-validation re-fits the same objects inside each training fold. Timing leakage (post-decision codes) and fit leakage (global statistics) are different failure modes—both invalidate reported performance.*
 
-## Learning Objectives
-
-Classify feature types and state their modeling implications for neurologic and epidemiologic data.
-
-Apply filter, wrapper (SFS/SBS, genetic algorithms), and embedded feature selection with honest nested validation.
-
-Scale numerical features (min–max, z-score, L1/L2 norms) and transform with log and Box–Cox under fit-on-train discipline.
-
-Encode categoricals with one-hot, dummy, effect, hashing, bin counting, and target encoding without leakage.
-
-Engineer text features (BoW, subword, n-grams, POS, Word2Vec/GloVe/FastText, TF–IDF/TextRank/RAKE/YAKE).
-
-Extract image and video features (HS corners, MSER, HOG, SIFT, watershed; motion vectors, optical flow, 3D CNN, GCN pointer).
-
-Describe time-series and signal features: stationarity, seasonality, trend, motifs, lags, change points, and smoothing.
-
-Distinguish MCAR, MAR, and MNAR missingness and translate each into legitimate imputation and missingness-indicator features that stay legal at index time.
-
-Audit clinical pipelines for leakage and document feature availability at inference time.
-
 ## Basic Concepts of Feature Engineering
 
 A learning algorithm never sees the patient, the stroke code, or the cohort protocol; it sees a matrix of features X and, in supervised settings, a target y. Feature engineering is the craft of transforming raw measurements—vital signs, NIH Stroke Scale (NIHSS) items, door-to-needle timestamps, imaging scores, comorbidity codes, laboratory panels, free-text notes, pixels, and waveforms—into representations that make the predictive or descriptive relationship easier to approximate.

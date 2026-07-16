@@ -11,24 +11,6 @@ A vendor demo animates a CNN highlighting an infarct core. Deep learning can ext
 ![Simple multilayer network diagram.](../assets/figures/ml_fig_mlp.png)
 
 *Simple multilayer network diagram.*
-## Learning Objectives
-
-State universal approximation ideas and contrast biological neurons with artificial units.
-
-Build perceptrons and multilayer perceptrons; select activations for hidden and output layers.
-
-Choose cost functions (MSE, cross-entropy, KL, Hellinger) matched to tasks.
-
-Apply optimizers: SGD with momentum, Nesterov, Adagrad, RMSprop, and Adam.
-
-Execute a numerical forward and backward pass; explain vanishing/exploding gradients.
-
-Use initialization, batch normalization, gradient clipping, dropout, and early stopping.
-
-Describe CNN convolution and architectures; RNN, LSTM, GRU, bidirectional and deep RNNs.
-
-Connect deep learning practice to neurologic imaging and sequential clinical data with leakage controls.
-
 ## 10.1 Universal Approximation and the Path to Deep Learning
 
 Linear and generalized linear models map features through a single affine transformation before a link function. Neural networks deepen this idea: they compose many affine maps with elementwise nonlinearities, allowing hierarchical feature construction. Early layers often capture local or generic structure; later layers capture task-specific abstractions. Deep learning emphasizes learning these representations from data end-to-end with gradient-based optimization rather than handcrafting every feature. The price is data hunger, computational cost, and a larger surface area for overfitting, leakage, and brittle deployment.

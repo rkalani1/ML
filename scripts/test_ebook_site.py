@@ -73,6 +73,19 @@ class EbookSiteTests(unittest.TestCase):
         ]
         self.assertGreaterEqual(len(ch), 10)
 
+    def test_chapters_do_not_have_learning_objective_sections(self) -> None:
+        heading = re.compile(r"^##\s+Learning objectives?\s*$", re.IGNORECASE | re.MULTILINE)
+        offenders = [
+            chapter.name
+            for chapter in sorted((self.docs / "curriculum").glob("[0-9][0-9]-*.md"))
+            if heading.search(chapter.read_text(encoding="utf-8"))
+        ]
+        self.assertEqual(
+            offenders,
+            [],
+            f"chapter-level learning-objective sections are not part of this book: {offenders}",
+        )
+
     def test_css_ebook_system(self) -> None:
         css = (self.docs / "stylesheets" / "extra.css").read_text(encoding="utf-8")
         self.assertIn("ebook-hero", css)

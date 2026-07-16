@@ -12,26 +12,6 @@ Your hospital’s edge device cannot run a 7-billion-parameter model during a co
 ![Smaller deployed nets still need appraisal discipline.](../assets/figures/ml_fig_mlp.png)
 
 *Smaller deployed nets still need appraisal discipline.*
-## Learning Objectives
-
-State why latency, energy, memory, and privacy constrain model deployment at the bedside and on the edge.
-
-Explain classical compression (BPE, bitmap indexes, Huffman, LZW) and sparse coding as foundations for efficient data and features.
-
-Construct a Huffman code from a symbol-frequency table, compute its average bits per symbol, and compare it against the fixed-length baseline and the entropy bound.
-
-Apply quantization (vector, µ-law/A-law intuition, PTQ, QAT, channel-wise) and pruning (magnitude, OBD/OBS, activation, Taylor; structured/unstructured).
-
-Describe LoRA, FlashAttention, MQA/GQA, sliding-window attention, gradient accumulation/checkpointing, and conjugate-gradient ideas for efficient training and inference.
-
-Connect transfer, multitask, meta, curriculum, and federated learning plus AutoML/NAS to practical efficiency.
-
-Explain knowledge distillation with temperature-scaled soft targets, and select the temperature T and mixing weight alpha for an edge student.
-
-Reason about hardware-aware serving (KV-cache size, supported dtypes, joules per inference) when choosing which compression levers to pull.
-
-Design evaluation protocols for compressed models under MSU/bedside constraints with clinical subgroup checks.
-
 ## 14.1 Why Lighter Models Matter
 
 A model that is accurate in a data center can still fail as a clinical tool if it is too slow, too large, too power-hungry, or too dependent on continuous cloud connectivity. Lighter models address the practical constraints of deployment: milliseconds of latency in a stroke alert pathway, limited RAM on a tablet at the bedside, intermittent connectivity in a mobile stroke unit (MSU), battery life for wearable continuous monitoring, and institutional rules that prefer keeping identifiable data on-device rather than streaming raw waveforms or images off-site. Compression and efficient design are therefore not cosmetic optimizations; they are often the difference between a research prototype and a system that can operate under real clinical logistics.

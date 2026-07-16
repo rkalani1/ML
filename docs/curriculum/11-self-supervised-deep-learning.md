@@ -12,24 +12,6 @@ Labeled stroke images are scarce; unlabeled scans are abundant. Self-supervised 
 ![Pretrain then fine-tune pipeline.](../assets/figures/ml_fig_pretrain_finetune.png)
 
 *Pretrain then fine-tune pipeline.*
-## Learning Objectives
-
-Distinguish generative vs discriminative and deterministic vs stochastic models in representation learning.
-
-Explain SOMs, Boltzmann machines, RBMs, DBNs, and DBMs at a conceptual and training level.
-
-Build and contrast autoencoder families: sparse, denoising, contractive, stacked, VAE, and U-Net.
-
-Train and diagnose GANs; use IS/FID; describe CGAN, DCGAN, WGAN/WGAN-GP, Pix2Pix, CycleGAN, StyleGAN.
-
-Apply contrastive and triplet losses and Siamese networks for metric learning.
-
-Summarize text-to-image stacks: zero-shot, autoregressive, diffusion, CLIP, VQ-GAN, DALL-E/Imagen/Parti/Stable Diffusion concepts.
-
-Trace the core training loops—contrastive divergence, adversarial min–max, and InfoNCE—and connect energy-based (RBM), adversarial (GAN), and score-based (diffusion) views of generative modeling.
-
-Design self-supervised pretraining strategies for unlabeled medical data with leakage-aware evaluation.
-
 ## 11.1 Representation Learning Concepts
 
 Labeled medical data are expensive; unlabeled scans, waveforms, and notes are abundant. Self-supervised learning (SSL) constructs pretext tasks from the structure of unlabeled inputs—predicting masked parts, contrasting augmented views, or modeling data density—so that learned representations transfer to downstream supervised tasks with fewer labels. The chapter surveys classical energy-based and autoencoding methods, adversarial generators, contrastive metric learning, and modern multimodal text-to-image systems that combine these ideas at scale. Throughout, keep a clinical ledger: what was unlabeled, what pretext was optimized, what downstream endpoint was pre-specified, and whether patients in pretraining could appear in evaluation.

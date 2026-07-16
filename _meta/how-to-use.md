@@ -13,13 +13,12 @@
 
 Each chapter aims for:
 
-1. Learning objectives  
-2. Conceptual core  
-3. Notation and worked math where relevant  
-4. Algorithms described for literacy (not vendor tutorials)  
-5. Synthetic clinical vignette framing  
-6. Pitfalls (leakage, shift, overclaim)  
-7. Practice prompts  
+1. Conceptual core
+2. Notation and worked math where relevant
+3. Algorithms described for literacy (not vendor tutorials)
+4. Synthetic clinical vignette framing
+5. Pitfalls (leakage, shift, overclaim)
+6. Practice prompts
 
 ## Web vs print habits
 

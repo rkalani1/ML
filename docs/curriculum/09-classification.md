@@ -15,22 +15,6 @@ A binary classifier flags LVO on CTA with impressive accuracy in the training ce
 ![Confusion matrix and ROC for a synthetic classifier.](../assets/figures/ml_fig_confusion_roc.png)
 
 *Confusion matrix and ROC for a synthetic classifier.*
-## Learning Objectives
-
-Formulate binary, multiclass, and multilabel classification problems and interpret decision boundaries and margins.
-
-Apply rule-based classifiers, Naive Bayes (including Gaussian with a worked prediction), k-NN with Voronoi geometry and KD-tree/LSH search, and soft-margin kernel SVMs.
-
-Grow and prune decision trees with ID3, CHAID, C4.5, and CART criteria; state computational complexity.
-
-Build ensembles: bagging, boosting, stacking, random forests, AdaBoost, GBDT for regression and classification, XGBoost, LightGBM, and CatBoost.
-
-Select models with nested validation; compute accuracy, precision, recall, F1, ROC-AUC, PR metrics, and calibration under class imbalance.
-
-Work numerical confusion-matrix and Naive Bayes examples end-to-end.
-
-Map classifiers and metrics to neurologic prediction with phenotype labels, index-time features, and cost-sensitive thresholds.
-
 ## 9.1 The Classification Problem
 
 Classification is supervised learning with a discrete target. Given training pairs (x_i, y_i) where x_i lives in a feature space X and y_i belongs to a finite label set Y = {1, …, K}, the goal is to learn a function f: X → Y that assigns labels to new inputs. When K = 2 we speak of binary classification; when K > 2 we speak of multiclass classification. Multilabel problems allow several labels to be active simultaneously and are usually reduced to collections of binary problems or modeled with structured outputs. Throughout this chapter we emphasize mutually exclusive classes unless multilabel is stated.

@@ -11,24 +11,6 @@ A multiparametric MRI radiomics pipeline has 1,200 features and 180 patients. Di
 ![Dimensionality reduction intuition along a dominant axis.](../assets/figures/ml_fig_pca.png)
 
 *Dimensionality reduction intuition along a dominant axis.*
-## Learning Objectives
-
-Explain the curse of dimensionality and how it motivates projection and decomposition in wide clinical and omics matrices.
-
-Derive PCA from covariance eigenstructure, compute a small PCA by hand, and relate PCA to SVD and incremental PCA.
-
-State the goals of LDA/Fisher discriminants versus unsupervised PCA for labeled neurologic phenotypes.
-
-Contrast nonlinear embeddings LLE, t-SNE, and UMAP and list caveats for cluster interpretation.
-
-Describe Fourier and wavelet decompositions and approximate aggregation for signals and time series.
-
-Apply matrix factorizations: Cholesky, NMF, SVD; and topic models LSI and LDA on clinical text matrices.
-
-Define tensors, mode-n unfolding, and CP, Tucker, and tensor-train decompositions at a conceptual level.
-
-Decide when reduction helps versus when it erases rare but critical clinical signals.
-
 ## High Dimensions Are Not Just More Numbers
 
 Modern neurologic datasets often describe each patient or sample with hundreds or millions of coordinates: CT perfusion maps vectorized into voxels, multiparametric MRI features, gene expression probes, proteomic peaks, continuous EEG channels, wearable accelerometry windows, or wide EHR panels joining every lab ordered during an admission. High dimensionality brings statistical and geometric pathologies collectively called the curse of dimensionality.

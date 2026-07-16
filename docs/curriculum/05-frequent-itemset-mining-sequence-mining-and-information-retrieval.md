@@ -12,24 +12,6 @@ A claims-analysis team wants frequent co-prescription patterns after TIA and a s
 ![Pattern mining sits on the unsupervised exploration path.](../assets/figures/ml_fig_supervised_unsupervised_map.png)
 
 *Pattern mining sits on the unsupervised exploration path.*
-## Learning Objectives
-
-Define market-basket transactions and compute support, confidence, and lift for association rules with a full numerical example.
-
-Explain information-retrieval concepts: documents, queries, relevance, inverted indexes, and TF–IDF ranking with cosine similarity.
-
-Describe hash tables and MinHash for large-scale set similarity, and justify their use for near-duplicate clinical notes or phenotypes.
-
-Compare tree structures (binary, 2-3, B/B+, red-black, trie/radix) and tree-search methods (BFS, DFS, beam search, MCTS) for indexing and planning.
-
-Explain Bloom filters, sliding windows, and skip lists as memory-efficient structures for streams and approximate membership.
-
-Run and contrast Apriori, FP-Growth, and ECLAT for frequent itemsets; explain GSP, SPADE, FreeSpan, and PrefixSpan for sequences.
-
-Formulate HMMs on care sequences: forward likelihood, Viterbi decoding, and Baum–Welch training; place HMMs in a brief PGM context.
-
-Apply co-occurrence, sequence, and retrieval methods to stroke pathways and evidence search without confusing support with causation.
-
 ## From Co-occurrence to Knowledge
 
 Unsupervised learning is not only about partitioning continuous points. Many datasets are discrete collections: items purchased together, events ordered in time, or words appearing in documents. Frequent itemset mining, sequence mining, and information retrieval (IR) extract structure from such collections without requiring class labels. They answer: Which items tend to appear together? Which ordered patterns repeat? Which documents are relevant to a query?

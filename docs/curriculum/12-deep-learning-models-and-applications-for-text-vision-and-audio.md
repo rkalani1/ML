@@ -16,24 +16,6 @@ A multimodal model claims to fuse note text, DWI, and audio dysphagia screens. C
 ![Site shift in embedding space.](../assets/figures/ml_fig_site_shift.png)
 
 *Site shift in embedding space.*
-## Learning Objectives
-
-Implement sequence-to-sequence models with dot-product, Bahdanau, Luong, self-, and cross-attention.
-
-Explain Transformer architecture: positional encoding, multi-head attention, encoder/decoder, masking.
-
-Summarize structured state-space models (S4) and Mamba as efficient sequence alternatives.
-
-Compare LLM families: BERT line, T5, GPT line, instruction-tuned chat models, Llama/Mistral MoE; fine-tune with RLHF, DPO, LoRA; cite evaluation benchmarks.
-
-Trace vision classification from LeNet through ResNet and Inception to ViT; detection (R-CNN family, SSD, YOLO); segmentation (U-Net, FCN, Mask R-CNN, DeepLab, SAM).
-
-Describe NeRF and 3D Gaussian splatting concepts for view synthesis.
-
-Outline audio models: WaveNet, Tacotron, wav2vec, Whisper.
-
-Apply these stacks to stroke imaging and clinical NLP with leakage, hallucination, and calibration awareness.
-
 ## 12.1 Sequence-to-Sequence and Attention
 
 Sequence-to-sequence (seq2seq) models map an input sequence (tokens, frames, time points) to an output sequence of possibly different length—machine translation, summarization, speech recognition, discharge-summary generation. The classic encoder–decoder RNN compresses the input into a single fixed vector passed to the decoder. That bottleneck discards positional detail for long inputs and motivates attention: at each decoder step, compute a weighted average of encoder states rather than a single summary. Clinical sequence pairs include: EMS narrative → structured last-known-well and anticoagulant flags; radiology impressions → ICD-style codes; serial NIHSS plus vitals → free-text deterioration alerts. Length mismatch and domain vocabulary make attention and subword tokenization essential rather than optional.

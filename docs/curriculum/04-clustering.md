@@ -11,24 +11,6 @@ A research coordinator proposes clustering ‘phenotypes’ of cryptogenic strok
 ![Clustering sketch with centroids.](../assets/figures/ml_fig_clustering.png)
 
 *Clustering sketch with centroids.*
-## Learning Objectives
-
-Define clustering as unsupervised partitioning and select similarity measures matched to feature type.
-
-Compute Euclidean, Manhattan, Mahalanobis, Hamming, edit-based, cosine, Jaccard, DTW, and basic graph similarities.
-
-Execute k-means, and contrast k-median and k-medoid objectives and robustness properties.
-
-Explain DBSCAN and OPTICS density clustering via core points, reachability, and noise.
-
-Describe hierarchical agglomerative single-linkage (SLINK) and divisive DIANA; outline BIRCH and CURE for large data.
-
-Fit conceptual Gaussian mixture models and Fuzzy C-means as soft clustering alternatives.
-
-Evaluate partitions with elbow/WSS, silhouette, Dunn, Davies–Bouldin, purity, and Rand index.
-
-Apply clustering cautiously to stroke phenotype discovery without reifying clusters as causal etiologies.
-
 ## What Clustering Is and Is Not
 
 Clustering algorithms group unlabeled observations so that items in the same group are more similar to each other than to items in other groups, under a stated similarity geometry. Formally, given points x_1, …, x_n in a feature space, a hard clustering is an assignment c: {1,…,n} → {1,…,k} (or a partition into nonempty sets C_1, …, C_k). Soft clustering returns responsibilities r_{ij} = P(cluster j | x_i), typically with Σ_j r_{ij} = 1.

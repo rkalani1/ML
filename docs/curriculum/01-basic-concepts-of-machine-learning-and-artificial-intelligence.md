@@ -19,28 +19,6 @@ An overnight resident asks whether ‘AI’ can rule out stroke on non-contrast 
 ![Train / validation / test split along a clinical timeline.](../assets/figures/ml_fig_train_val_test.png)
 
 *Train / validation / test split along a clinical timeline.*
-## Learning Objectives
-
-Place modern machine learning in a short historical arc from symbolic AI through statistical learning to large-scale generative systems.
-
-Distinguish artificial intelligence, machine learning, data mining, and data science with operational project-scoping language.
-
-Define an algorithm and evaluate learning systems along computational cost, predictive accuracy, and the accuracy–efficiency trade-off.
-
-Recognize major dataset modalities—tabular, temporal, streams, graphs, text, images/video, audio—and common numerical types.
-
-Map unsupervised, supervised, self-supervised, generative, and reinforcement tasks to clinical and epidemiologic problem statements.
-
-Explain ground-truth construction and k-fold cross-validation as disciplines against optimistic evaluation.
-
-Execute a step-by-step data workflow from question framing through monitoring under distribution shift.
-
-Connect cohort design, index time, phenotype quality, and external validation to honest ML claims in neurology and population health.
-
-Diagnose overfitting and underfitting, and reason about inductive bias, model capacity, and the bias–variance trade-off.
-
-Treat fairness, privacy, and transparency as first-class design constraints in the ML workflow, previewed here and deepened in Chapter 16.
-
 ## What This Chapter Is About
 
 Machine learning (ML) is the engineering practice of writing programs that improve task performance by processing data, rather than by hand-coding every decision rule. Artificial intelligence (AI) is the broader scientific and engineering project of building systems that perform tasks associated with intelligent behavior—perception, language, planning, and decision-making under uncertainty. Data science sits at the intersection of statistics, computing, and domain expertise, emphasizing measurement, data quality, analysis, and communication of uncertainty to decision-makers. Data mining historically names the discovery of patterns in large databases, often with an emphasis on scalable algorithms for association, clustering, and anomaly detection. These labels overlap heavily in practice, but confusing them produces bad project design: you may train a fashionable neural network when you needed a measurement plan, or you may build a dashboard when you needed a learning algorithm that generalizes.

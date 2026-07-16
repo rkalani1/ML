@@ -15,26 +15,6 @@ Missing NIHSS, duplicated MRNs, label drift after a documentation change—this 
 ![Distribution shift between cohorts.](../assets/figures/ml_fig_site_shift.png)
 
 *Distribution shift between cohorts.*
-## Learning Objectives
-
-Map problem complexity and the clinical data lifecycle from cohort design through monitoring.
-
-Apply stratified/cluster sampling and explain Monte Carlo, Metropolis-Hastings, Gibbs, and importance sampling.
-
-Identify noise types and classical filters (Butterworth, Wiener, Kalman) alongside ML denoisers.
-
-Handle imbalance and augmentation across tabular, image, text, and signal data; impute and interpolate missing values responsibly.
-
-Detect anomalies with isolation forest, one-class SVM, LOF, and RANSAC; monitor drift and cold start.
-
-Compute rater agreement (percent, Cohen, Fleiss, Krippendorff) with a worked kappa example.
-
-Utilize LLMs via RAG and prompt patterns (zero/few-shot, CoT, self-consistency, ToT) under governance.
-
-Report fairness metrics/mitigations and use SHAP/LIME for debugging with causal humility; work site-drift PPV numbers.
-
-Institute governance for clinical ML: datasheet discipline, reproducibility, train-serve parity, and multi-site harmonization.
-
 ## 16.1 Why Data—Not Algorithms—Usually Dominate Outcomes
 
 Across this textbook we have studied models: linear predictors, trees, neural networks, reinforcement learners, compressed edge models, and graph algorithms. In clinical and epidemiologic practice, the binding constraint is almost always the data. Labels are delayed, partial, and disputed; cohorts are selected by who arrives where with which insurance; scanners and coding systems change mid-study; the distribution at deployment is not the distribution in last year’s export. A modest model on carefully defined, well-labeled, prospectively monitored data routinely outperforms a fashionable architecture on a silent mess.

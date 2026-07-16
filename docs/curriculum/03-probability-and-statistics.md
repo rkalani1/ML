@@ -11,24 +11,6 @@ A hemorrhage-risk model quotes sensitivity 0.92 and specificity 0.88. Without pr
 ![Predicted risk versus observed frequency.](../assets/figures/ml_fig_calibration.png)
 
 *Predicted risk versus observed frequency.*
-## Learning Objectives
-
-Define random variables and distinguish continuous vs discrete types, dependent/independent/control variables, and independent trials.
-
-Compute and interpret arithmetic, geometric, and harmonic means; median; mode; variance, SD, covariance; range, quartiles, and boxplots; degrees of freedom.
-
-Apply joint and conditional probability and Bayes’ theorem with clinical base rates.
-
-Relate PDF, PMF, and CDF and recognize Normal, Uniform, Beta, Dirichlet, Binomial, Bernoulli, Geometric, Poisson, Weibull, power-law/exponential/Zipf/Pareto, Chi-square, and Boltzmann distributions.
-
-Use PP and QQ plots to assess distributional fit; define expectation and z-score normalization.
-
-State the CLT and LLN, describe sampling bias, and construct basic confidence intervals.
-
-Select conceptual families of hypothesis tests (t-tests, ANOVA/MANOVA/ANCOVA, chi-square, KS, Kruskal–Wallis, Mann–Whitney) and multiplicity corrections (Bonferroni, Tukey).
-
-Report effect sizes (Cohen’s d, odds ratios), correlations, and information-theoretic quantities (entropy, IG, KL, cross-entropy, JS); sketch MLE and EM.
-
 ## Why Probability Underwrites Clinical Machine Learning
 
 Every predictive model in neurology is a statement under uncertainty. Labels such as large-vessel occlusion on CTA, electrographic seizure on EEG, or 90-day modified Rankin Scale are noisy; future patients differ from historical registries; multiple models can fit the same finite sample. Probability supplies a coherent language for that uncertainty. Statistics supplies estimators, intervals, and tests that quantify how wrong finite-sample answers might be. Without this foundation, an AUC is a floating score, a calibrated probability is wishful labeling, and Bayesian updating—central to diagnosis and to many learning algorithms—cannot be stated precisely.

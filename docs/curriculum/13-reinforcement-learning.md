@@ -8,22 +8,6 @@ A simulation lab proposes reinforcement learning for sequential BP targets after
 ![Agent–environment loop for sequential decisions.](../assets/figures/ml_fig_rl_loop.png)
 
 *Agent–environment loop for sequential decisions.*
-## Learning Objectives
-
-Formalize sequential decision making as a Markov decision process with states, actions, transitions, rewards, and discounting.
-
-Define returns, policies, and value functions V and Q, and derive Bellman expectation and optimality equations with numerical backups.
-
-Contrast exploitation versus exploration and apply multi-armed bandit algorithms (epsilon-greedy, UCB, Thompson sampling).
-
-Implement dynamic programming (policy evaluation, policy iteration, value iteration) and sample-based methods (Monte Carlo, TD, SARSA, Q-learning, Dyna-Q) on small MDPs.
-
-Explain n-step returns, TD(lambda) with eligibility traces, and function approximation for continuous or large state spaces.
-
-Outline deep RL algorithms: DQN family (replay, target nets, DDQN, dueling, PER), policy gradients (REINFORCE, TRPO, PPO), actor-critic (A3C, DDPG, TD3, SAC), and world-model Dreamer variants.
-
-Critique clinical reward misspecification, offline RL coverage failure, and ethical limits on exploration at the bedside.
-
 ## 13.1 From Supervised Labels to Sequential Decisions
 
 Most of the methods in earlier chapters assume a fixed dataset of independent examples: given an input x, predict a label y or a continuous target. Reinforcement learning (RL) addresses a different problem. An agent repeatedly chooses actions that affect a dynamic environment. After each action the environment transitions to a new situation and emits a scalar reward signal. The agent’s objective is not to mimic a teacher’s labels on isolated examples, but to accumulate as much reward as possible over time—often over a long horizon in which early mistakes close off later opportunities.
