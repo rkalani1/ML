@@ -160,13 +160,13 @@ Tackling drift: monitor input quantiles, embedding distances, prediction-score d
 
 Cold start problem. New users, new hospitals, new devices, or new drugs lack history for personalized or site-adapted models. Mitigations: content-based features that do not need history; transfer from similar sites; hierarchical Bayesian pooling; explore under bandit constraints when ethical; collect minimum viable local labeled sets before trusting local fine-tunes. Cold start is acute when an MSU joins a network with different demographics and imaging vendors.
 
-Worked site-drift PPV numbers. Suppose a large-vessel occlusion alert model uses a fixed score threshold chosen at Site A where prevalence p_A = 0.20 among alerted patients, sensitivity Se=0.90, specificity Sp=0.80. Positive predictive value PPV = Se*p / (Se*p + (1-Sp)*(1-p)).
+Worked site-drift PPV numbers. Suppose a large-vessel occlusion alert model uses a fixed score threshold chosen at Site A where prevalence p_A = 0.20 among alerted patients, sensitivity Se=0.90, specificity Sp=0.80. Positive predictive value PPV = Se×p / (Se×p + (1−Sp)×(1−p)).
 
-At Site A: PPV_A = 0.90*0.20 / (0.90*0.20 + 0.20*0.80) = 0.18 / (0.18+0.16) = 0.18/0.34 ≈ 0.529 (52.9%).
+At Site A: PPV_A = 0.90×0.20 / (0.90×0.20 + 0.20×0.80) = 0.18 / (0.18+0.16) = 0.18/0.34 ≈ 0.529 (52.9%).
 
-At Site B with lower prevalence p_B = 0.05 among those scored (broader alerting), same Se/Sp: PPV_B = 0.90*0.05 / (0.90*0.05 + 0.20*0.95) = 0.045 / (0.045+0.19) = 0.045/0.235 ≈ 0.191 (19.1%).
+At Site B with lower prevalence p_B = 0.05 among those scored (broader alerting), same Se/Sp: PPV_B = 0.90×0.05 / (0.90×0.05 + 0.20×0.95) = 0.045 / (0.045+0.19) = 0.045/0.235 ≈ 0.191 (19.1%).
 
-The same model and threshold yields dramatically different clinical burden of false positives. If concept drift also reduces Sp to 0.70 at Site B (different scanners/artifacts), PPV_B’ = 0.045 / (0.045 + 0.30*0.95) = 0.045/0.330 ≈ 0.136 (13.6%). Always re-estimate calibration and PPV at each site; do not export thresholds blindly.
+The same model and threshold yields dramatically different clinical burden of false positives. If concept drift also reduces Sp to 0.70 at Site B (different scanners/artifacts), PPV_B’ = 0.045 / (0.045 + 0.30×0.95) = 0.045/0.330 ≈ 0.136 (13.6%). Always re-estimate calibration and PPV at each site; do not export thresholds blindly.
 
 ```python
 def ppv(se, sp, p):

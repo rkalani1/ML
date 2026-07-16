@@ -1183,7 +1183,7 @@ Hold on to two facts, because both return below:
 
 Along a contour, f does not change.
 
-The steepest way uphill is always perpendicular to the contour you are standing on.
+At a regular point where the gradient is nonzero, the steepest way uphill is perpendicular to the smooth contour you are standing on.
 
 The contour map is the flat “map” of the 3-D “mountain,” and reading it is exactly how we will reason about high-dimensional loss surfaces we cannot see.
 
@@ -1219,11 +1219,11 @@ The partials tell us the rate of change along each axis separately. Stack them i
 
 The gradient is a vector (bold, lowercase-style object) that lives in the same space as the inputs. It has two beautiful and central meanings:
 
-Direction. ∇f points in the direction of steepest ascent — the compass bearing along which f increases fastest from your current point. Its negative, −∇f, points in the direction of steepest descent.
+Direction. Relative to the ordinary Euclidean notion of a unit-length step, a nonzero ∇f points in the direction of steepest ascent — the compass bearing along which f increases fastest from your current point. Its negative, −∇f, points in the direction of steepest descent. At a stationary point ∇f = 𝟎, every first-order directional derivative is zero, so there is no unique steepest first-order direction.
 
 Magnitude. The length ‖∇f‖ is the rate of that fastest increase — how steep the steepest climb is.
 
-And, connecting back to contours: ∇f is always perpendicular to the level set through your point. That is why the steepest path uphill crosses the contours at right angles.
+And, connecting back to contours: at a regular point of a smooth level set, ∇f is perpendicular to that level set. That is why the steepest path uphill crosses regular contours at right angles.
 
 This single fact — walk opposite the gradient to go downhill fastest — is the entire idea behind gradient descent, the algorithm that trains essentially every model in this book:
 
@@ -1451,7 +1451,7 @@ The tie to convexity. A twice-differentiable function is convex on a convex doma
 
 Often we must minimize or maximize f while obeying a constraint — some equation g(𝐱) = 0 that our answer must satisfy (a fixed budget, a unit-length vector, a probability that sums to 1). The unconstrained rule “∇f = 𝟎” no longer applies, because the best point on the constraint curve is usually not flat.
 
-The geometric insight is elegant. Picture the contours of f and the constraint curve g = 0 drawn on the same map. As you slide along the constraint curve, you cross contours of f — the value of f rises or falls — until you reach the point where the constraint curve just grazes a contour of f without crossing it. At that tangent point you cannot do any better while staying legal. And “tangent” means the two curves share the same perpendicular direction — so their gradients are parallel:
+The geometric insight is elegant. Picture the contours of f and the constraint curve g = 0 drawn on the same map. As you slide along the constraint curve, you cross contours of f — the value of f rises or falls — until you reach a regular constrained optimum where the constraint curve just grazes a contour of f without crossing it. Under the usual differentiability and constraint-qualification condition ∇g ≠ 𝟎, “tangent” means the two curves share the same perpendicular direction — so their gradients are parallel:
 
 ∇f = λ ∇g.
 
@@ -1994,7 +1994,7 @@ But look at
 [ 2 4 ] det = (1)(4) − (2)(2) = 0
 ```
 
-Its second column, [2, 4], is just twice the first, [1, 2] — no new direction. Rank is only 1, the determinant is 0, and the matrix is singular. Rank deficiency, zero determinant, and non-invertibility are three faces of the same phenomenon: redundant columns. In data, this is what happens when one feature is a copy or a linear combination of others, and it is why such features must be spotted and removed.
+Its second column, [2, 4], is just twice the first, [1, 2] — no new direction. Rank is only 1, the determinant is 0, and the matrix is singular. Rank deficiency, zero determinant, and non-invertibility are three faces of the same phenomenon: redundant columns. In data, this is what happens when one feature is a copy or a linear combination of others. The dependency must be addressed for an unregularized identifiable parameterization—for example by removing a redundant column, reparameterizing, or using a method whose penalty or generalized solution handles non-uniqueness—not automatically by deleting every correlated feature.
 
 ### Matrices as geometric transformations
 
@@ -2145,7 +2145,7 @@ A matrix is symmetric if 𝐀ᵀ = 𝐀 (mirror-image across the diagonal), as o
 
 Spectral theorem (stated). Every real symmetric n × n matrix has n real eigenvalues and a set of n mutually orthogonal eigenvectors. Chosen to be unit length, these eigenvectors form an orthonormal basis for ℝⁿ.
 
-Two guarantees matter. First, the eigenvalues are guaranteed real — no imaginary numbers sneak in (a general non-symmetric matrix, like a pure rotation, can have complex eigenvalues). Second, the eigenvectors are guaranteed orthogonal, so they define a clean, right-angled coordinate system. This is exactly why symmetric matrices — covariance matrices, correlation matrices, Hessians, graph Laplacians — sit at the heart of so many methods: they always come with a set of perpendicular natural axes.
+Two guarantees matter. First, the eigenvalues are guaranteed real — no imaginary numbers sneak in (a general non-symmetric matrix, like a pure rotation, can have complex eigenvalues). Second, eigenvectors belonging to distinct eigenvalues are orthogonal, and even when an eigenvalue repeats one can choose an orthonormal basis within its eigenspace. Thus a real symmetric matrix admits a clean, right-angled eigenbasis. This is exactly why symmetric matrices — covariance matrices, correlation matrices, Hessians, graph Laplacians — sit at the heart of so many methods: they come with a set of perpendicular natural axes.
 
 ### Quadratic forms and positive (semi)definiteness
 
@@ -2507,13 +2507,13 @@ with eigenvalues 2 and 8 (§0.12). Their ratio is the condition number
 
 When κ = 1 the bowl is a perfectly round basin and gradient descent heads straight to the bottom. When κ is large the bowl is a long, narrow valley: a single learning rate cannot suit both directions at once. Stability requires η < 2 / λ_max — here η < 2/8 = 0.25 — because in the steep direction the update multiplies the error by (1 − η·8), which blows up once |1 − 8η| > 1. (Try η = 0.3: the x₂ error is multiplied by 1 − 2.4 = −1.4 each step and explodes.) But an η small enough to keep the steep direction stable is too small for the shallow direction, which then crawls. Large κ means slow, zig-zagging descent down the length of the valley.
 
-The cure is feature scaling. If we rescale the second coordinate so both directions have equal curvature — here substituting u = 2x₂ turns f into x₁² + u², a round bowl with κ = 1 — descent converges in almost a single step. This is exactly why we standardize features (subtract the mean, divide by the standard deviation) before training: it reshapes stretched valleys into round bowls that gradient descent handles easily.
+For this axis-aligned example, the cure is feature scaling. If we rescale the second coordinate so both directions have equal curvature — here substituting u = 2x₂ turns f into x₁² + u², a round bowl with κ = 1 — descent converges rapidly. Standardizing features (subtracting the mean and dividing by the standard deviation) often reduces curvature imbalance caused by different units, but it does not remove correlations or guarantee κ = 1. Rotated valleys may still need whitening, a better parameterization, or an optimizer/preconditioner that adapts across directions.
 
 → Used in Chapter 8: feature standardization and well-conditioned design matrices are what make regression optimizers converge quickly and stably.
 
 ### Equality constraints and Lagrange multipliers
 
-Sometimes we must minimize f subject to a constraint g(𝐱) = 0 — stay on a surface while seeking the lowest point on it. At the constrained optimum you cannot improve f without stepping off the constraint. Geometrically that happens exactly when the two gradients are parallel:
+Sometimes we must minimize f subject to a constraint g(𝐱) = 0 — stay on a surface while seeking the lowest point on it. At a differentiable local optimum satisfying the regularity condition ∇g ≠ 𝟎, the first-order feasible directions cannot improve f, which implies that the two gradients are parallel:
 
 ```
 ∇f = λ ∇g,
@@ -2841,7 +2841,7 @@ This section is a reference. The first table lists the symbols used throughout t
 
 Mathematics is the compression format of machine learning: a page of symbols stands in for pages of prose, and fluency with the symbols is what makes the rest of the book legible. This chapter rebuilt that fluency from an elementary base. It began with the language itself — sets, functions, and logic — and the algebra of numbers, exponents, and logarithms, then cataloged the handful of functions (linear, polynomial, exponential, logarithmic, sigmoid, softmax, ReLU) that recur everywhere in modeling. Summation and counting supplied the combinatorics behind probability; trigonometry and the unit circle supplied the sinusoids behind Fourier features, positional encodings, and cosine similarity.
 
-The calculus sequence is the analytic core. Single-variable derivatives measure change and locate optima; integrals measure accumulated area and, in probability, total mass and expectation. The multivariable extension — partial derivatives, the gradient as the direction of steepest ascent, the Jacobian and Hessian, and the second-order Taylor expansion — is exactly the machinery of backpropagation and of every optimizer in the book. Linear algebra supplied the other half: vectors and their norms, dot products, and cosine angles; matrices as data tables and as linear transformations, with multiplication, inverses, determinants, and linear systems; and the eigen- and singular-value decompositions that make PCA, low-rank approximation, and spectral methods possible. Probability contributed its axioms, conditional reasoning and Bayes’ theorem, random variables, expectation, and variance. Optimization tied calculus and linear algebra together through objective functions, convexity, and gradient descent. Finally, discrete mathematics and Big-O analysis governed which algorithms are affordable, and a short tour of floating-point arithmetic warned where exact mathematics and finite-precision computation diverge. With these tools in hand, no later chapter should be inaccessible; when one invokes a gradient, an eigenvector, or a posterior probability, the full treatment is here to return to.
+The calculus sequence is the analytic core. Single-variable derivatives measure change and help locate optima; integrals measure accumulated area and, in probability, total mass and expectation. The multivariable extension — partial derivatives, the gradient as the Euclidean steepest-ascent direction away from stationary points, the Jacobian and Hessian, and the second-order Taylor expansion — is the machinery of backpropagation and many gradient-based optimizers in the book. Linear algebra supplied the other half: vectors and their norms, dot products, and cosine angles; matrices as data tables and as linear transformations, with multiplication, inverses, determinants, and linear systems; and the eigen- and singular-value decompositions that make PCA, low-rank approximation, and spectral methods possible. Probability contributed its axioms, conditional reasoning and Bayes’ theorem, random variables, expectation, and variance. Optimization tied calculus and linear algebra together through objective functions, convexity, and gradient descent. Finally, discrete mathematics and Big-O analysis governed which algorithms are affordable, and a short tour of floating-point arithmetic warned where exact mathematics and finite-precision computation diverge. With these tools in hand, no later chapter should be inaccessible; when one invokes a gradient, an eigenvector, or a posterior probability, the full treatment is here to return to.
 
 ## Practice and Reflection
 

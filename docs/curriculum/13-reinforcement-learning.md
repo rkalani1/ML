@@ -107,7 +107,7 @@ Q^pi(s, a) = E_pi[G_t | S_t = s, A_t = a].
 
 These are related by V^pi(s) = sum_a pi(a|s) Q^pi(s, a) for stochastic policies, and V^pi(s) = Q^pi(s, pi(s)) for deterministic ones.
 
-An optimal state value is V*(s) = max_pi V^pi(s), and an optimal action value is Q*(s, a) = max_pi Q^pi(s, a). Any policy that achieves V* is optimal. In finite MDPs at least one deterministic optimal policy exists. Knowing Q* is especially convenient: a greedy policy pi*(s) in argmax_a Q*(s, a) is optimal without needing a separate model of P and R at decision time.
+An optimal state value is \(V^*(s) = \max_\pi V^\pi(s)\), and an optimal action value is \(Q^*(s,a) = \max_\pi Q^\pi(s,a)\). Any policy that achieves \(V^*\) is optimal. In finite MDPs at least one deterministic optimal policy exists. Knowing \(Q^*\) is especially convenient: a greedy policy \(\pi^*(s) \in \arg\max_a Q^*(s,a)\) is optimal without needing a separate model of P and R at decision time.
 
 Value functions compress long-horizon consequences into a single number per state or state-action pair. Learning or computing values is therefore a central algorithmic strategy: estimate values well, then act greedily (or softly) with respect to them. Prediction problems estimate V^pi or Q^pi for a fixed policy; control problems seek an optimal or near-optimal policy. This distinction organizes tabular and deep methods alike: first evaluate, then improve, or fuse both into a single optimality backup as in value iteration and Q-learning.
 
@@ -123,15 +123,15 @@ In matrix form for finite S, V^pi = r^pi + gamma P^pi V^pi, so V^pi = (I - gamma
 
 Optimal values satisfy the Bellman optimality equations:
 
-V*(s) = max_a sum_{s’} P(s’|s,a) [ R(s,a,s’) + gamma V*(s’) ],
+\(V^*(s) = \max_a \sum_{s'} P(s'\mid s,a) [R(s,a,s') + \gamma V^*(s')]\),
 
-Q*(s,a) = sum_{s’} P(s’|s,a) [ R(s,a,s’) + gamma max_{a’} Q*(s’,a’) ].
+\(Q^*(s,a) = \sum_{s'} P(s'\mid s,a) [R(s,a,s') + \gamma \max_{a'} Q^*(s',a')]\).
 
-These are nonlinear because of the max operator. They uniquely determine V* and Q* for gamma < 1 (or under mild conditions for episodic undiscounted problems). The optimality equations are both a characterization of the solution and a template for iterative algorithms: replace unknown values by current estimates and apply the right-hand side as an update.
+These are nonlinear because of the max operator. They uniquely determine \(V^*\) and \(Q^*\) for \(\gamma < 1\) (or under mild conditions for episodic undiscounted problems). The optimality equations are both a characterization of the solution and a template for iterative algorithms: replace unknown values by current estimates and apply the right-hand side as an update.
 
 ### Worked Bellman Backup (Single State)
 
-Suppose three actions from s with expected one-step returns already folded into R and known next values: action Left gives R=0 then V(s_L)=5; action Right gives R=1 then V(s_R)=3. With gamma=0.9, the action values are 0 + 0.9*5 = 4.5 and 1 + 0.9*3 = 3.7. The greedy choice is Left with backup 4.5. This single-state arithmetic is exactly what value iteration does for every state each sweep.
+Suppose three actions from s with expected one-step returns already folded into R and known next values: action Left gives \(R=0\) then \(V(s_L)=5\); action Right gives \(R=1\) then \(V(s_R)=3\). With \(\gamma=0.9\), the action values are \(0 + 0.9\times5 = 4.5\) and \(1 + 0.9\times3 = 3.7\). The greedy choice is Left with backup 4.5. This single-state arithmetic is exactly what value iteration does for every state each sweep.
 
 ### Worked Two-State MDP (Deterministic)
 
@@ -143,11 +143,11 @@ States {s1, s2}, actions {Stay, Go}, gamma = 0.9. From s1, Stay stays with rewar
 
 Iteration 1: s1 Stay->1.0, Go->0 so V1(s1)=1.0; s2 Stay->2.0, Go->0 so V1(s2)=2.0.
 
-Iteration 2: s1 Stay->1+0.9*1=1.9, Go->0+0.9*2=1.8 so V2(s1)=1.9; s2 Stay->2+0.9*2=3.8, Go->0+0.9*1=0.9 so V2(s2)=3.8.
+Iteration 2: in s1, Stay gives \(1+0.9\times1=1.9\) and Go gives \(0+0.9\times2=1.8\), so \(V_2(s_1)=1.9\); in s2, Stay gives \(2+0.9\times2=3.8\) and Go gives \(0+0.9\times1=0.9\), so \(V_2(s_2)=3.8\).
 
-Iteration 3: s1 Stay->1+0.9*1.9=2.71, Go->0+0.9*3.8=3.42 so V3(s1)=3.42 (greedy flips to Go); s2 Stay->5.42.
+Iteration 3: in s1, Stay gives \(1+0.9\times1.9=2.71\) and Go gives \(0+0.9\times3.8=3.42\), so \(V_3(s_1)=3.42\) (greedy flips to Go); in s2, Stay gives 5.42.
 
-Exact optimum under pi*(s1)=Go, pi*(s2)=Stay: V*(s2)=2/(1-0.9)=20, V*(s1)=0+0.9*20=18. Check Stay in s1: 1+0.9*18=17.2 < 18; Go in s2: 0+0.9*18=16.2 < 20. Thus a short-term sacrifice (reward 0 when leaving s1) is optimal because s2 is far more valuable. This pattern—forgoing immediate reward for a better state—is the essence of sequential decision quality and the reason myopic supervised “next-step” predictors are not substitutes for value functions when horizons are long.
+Exact optimum under \(\pi^*(s_1)=\mathrm{Go}\), \(\pi^*(s_2)=\mathrm{Stay}\): \(V^*(s_2)=2/(1-0.9)=20\), \(V^*(s_1)=0+0.9\times20=18\). Check Stay in s1: \(1+0.9\times18=17.2 < 18\); Go in s2: \(0+0.9\times18=16.2 < 20\). Thus a short-term sacrifice (reward 0 when leaving s1) is optimal because s2 is far more valuable. This pattern—forgoing immediate reward for a better state—is the essence of sequential decision quality and the reason myopic supervised “next-step” predictors are not substitutes for value functions when horizons are long.
 
 ```python
 # Value iteration on the two-state MDP.
@@ -226,13 +226,13 @@ assert ucb1_select([1.0, 0.0], [1, 0], t=1) == 1
 
 ## 13.8 Optimal Policy, Control versus Prediction
 
-An optimal policy pi* satisfies V^{pi*}(s) = V*(s) for all s (or almost all s under the relevant measure). In finite discounted MDPs, V* and Q* exist and are unique; at least one deterministic optimal policy exists even if many stochastic optima also exist. Softmax or entropy-regularized objectives (as in SAC later) intentionally prefer stochastic policies for robustness and exploration.
+An optimal policy \(\pi^*\) satisfies \(V^{\pi^*}(s) = V^*(s)\) for all s (or almost all s under the relevant measure). In finite discounted MDPs, \(V^*\) and \(Q^*\) exist and are unique; at least one deterministic optimal policy exists even if many stochastic optima also exist. Softmax or entropy-regularized objectives (as in SAC later) intentionally prefer stochastic policies for robustness and exploration.
 
 ### Prediction versus Control
 
 Prediction (policy evaluation) answers: “If we follow protocol pi, what is the expected long-run return from each state?” Control answers: “What policy maximizes return?” Monte Carlo and TD evaluation are prediction methods; Q-learning and policy iteration are control methods. In epidemiology, prediction resembles estimating outcomes under a fixed care pathway; control resembles finding a better pathway. Causal identification requirements differ: observational prediction of V^pi for the historical policy is closer to descriptive prognosis; claiming that a new pi’ would improve outcomes requires assumptions about counterfactual actions—exactly the offline RL problem revisited in the clinical notes.
 
-Greedy policies with respect to Q* are optimal. Greedy policies with respect to approximate Q can be arbitrarily bad if approximation errors concentrate on critical state-action pairs—hence the importance of coverage, function-class capacity, and conservative updates in offline settings. Always separate the scientific claim (“we estimated value under historical care”) from the interventional claim (“we recommend a new automated policy”).
+Greedy policies with respect to \(Q^*\) are optimal. Greedy policies with respect to approximate Q can be arbitrarily bad if approximation errors concentrate on critical state-action pairs—hence the importance of coverage, function-class capacity, and conservative updates in offline settings. Always separate the scientific claim (“we estimated value under historical care”) from the interventional claim (“we recommend a new automated policy”).
 
 ## 13.9 Tabular Monte Carlo: Policy Evaluation and Policy Improvement
 
@@ -324,7 +324,7 @@ Q-learning targets the optimal action value directly:
 
 Q(S,A) <- Q(S,A) + alpha [ R + gamma max_{a’} Q(S’,a’) - Q(S,A) ].
 
-Behavior may be epsilon-greedy for exploration, but the backup uses a greedy max, so the learned Q approaches Q* independent of the exploration policy (under tabular conditions: all pairs visited infinitely often, appropriate alpha). This off-policy character is powerful: one can learn about optimal behavior while acting suboptimally to explore.
+Behavior may be epsilon-greedy for exploration, but the backup uses a greedy max, so the learned Q approaches \(Q^*\) independent of the exploration policy (under tabular conditions: all pairs visited infinitely often, appropriate alpha). This off-policy character is powerful: one can learn about optimal behavior while acting suboptimally to explore.
 
 Expected SARSA replaces Q(S’,A’) by the expectation under the current policy, reducing variance. Double Q-learning maintains two tables to reduce maximization bias from always taking max of noisy estimates.
 
@@ -358,7 +358,7 @@ trading bias and variance as n varies. TD(lambda) unifies these via lambda-retur
 
 ### Eligibility Traces
 
-Each state (or state-action pair) maintains a trace e(s) that spikes when visited and decays by gamma*lambda each step. The TD error delta updates all states in proportion to their traces: V(s) <- V(s) + alpha * delta * e(s). Accumulating traces add 1 on visits; replacing traces reset to 1. Traces implement multi-step credit assignment without waiting for episode end. Setting lambda=0 recovers one-step TD; lambda=1 approaches Monte Carlo (with appropriate implementations). Intermediate lambda often works best.
+Each state (or state-action pair) maintains a trace \(e(s)\) that spikes when visited and decays by \(\gamma\lambda\) each step. The TD error δ updates all states in proportion to their traces: \(V(s) \leftarrow V(s) + \alpha\,\delta\,e(s)\). Accumulating traces add 1 on visits; replacing traces reset to 1. Traces implement multi-step credit assignment without waiting for episode end. Setting \(\lambda=0\) recovers one-step TD; \(\lambda=1\) approaches Monte Carlo (with appropriate implementations). Intermediate λ often works best.
 
 In deep RL, classical eligibility traces are less common in pure form, but n-step returns and generalized advantage estimation (GAE) play related roles in actor-critic algorithms such as A3C and PPO. GAE computes advantages as an exponentially weighted mixture of multi-step TD residuals, controlled by a lambda-like parameter that again trades bias and variance.
 
@@ -384,7 +384,7 @@ L(theta) = E[( r + gamma max_{a’} Q(s’,a’; theta^-) * (1-done) - Q(s,a; th
 
 ### Double DQN (DDQN)
 
-Vanilla DQN’s max operator uses the same network to select and evaluate actions, causing maximization bias. DDQN selects a* = argmax_{a’} Q(s’,a’; theta) with the online net and evaluates Q(s’,a*; theta^-) with the target net, reducing overestimation.
+Vanilla DQN’s max operator uses the same network to select and evaluate actions, causing maximization bias. DDQN selects \(a^* = \arg\max_{a'} Q(s',a';\theta)\) with the online net and evaluates \(Q(s',a^*;\theta^-)\) with the target net, reducing overestimation.
 
 ### Dueling Networks
 
@@ -457,7 +457,7 @@ Conceptually, Dreamer sits near Dyna: both leverage a learned model for addition
 
 ## 13.18 Reward Design Pitfalls
 
-The reward function is a specification of desired behavior—and specifications go wrong. Reward hacking (specification gaming) occurs when the agent maximizes the literal reward in ways that violate the designer’s intent: a cleaning robot that hides dirt under a rug, a game agent that pauses forever to avoid dying if survival time is rewarded poorly, or a recommender that optimizes clicks by promoting outrage. Sparse rewards make learning hard; dense shaping rewards can speed learning but may change the optimal policy if not potential-based. Potential-based shaping restricts the added reward to the form F(s, s’) = gamma*Phi(s’) - Phi(s) for some potential function Phi over states. Because these bonus terms telescope along any trajectory, they cancel in every policy comparison and provably leave the set of optimal policies unchanged while still guiding early learning toward promising states. Shaping that is not of this form—for example, a flat bonus each time the agent moves nearer the goal—can silently install a new optimal policy that harvests the bonus (loitering near the goal) instead of solving the task; this is a common and easily missed source of reward hacking.
+The reward function is a specification of desired behavior—and specifications go wrong. Reward hacking (specification gaming) occurs when the agent maximizes the literal reward in ways that violate the designer’s intent: a cleaning robot that hides dirt under a rug, a game agent that pauses forever to avoid dying if survival time is rewarded poorly, or a recommender that optimizes clicks by promoting outrage. Sparse rewards make learning hard; dense shaping rewards can speed learning but may change the optimal policy if not potential-based. Potential-based shaping restricts the added reward to the form \(F(s,s') = \gamma\Phi(s') - \Phi(s)\) for some potential function Φ over states. In the standard discounted-MDP construction, these bonus terms telescope and preserve optimal policies when terminal handling is compatible—for example, terminal states are modeled as absorbing or terminal potential is fixed to zero. In a finite episodic implementation with an unconstrained nonzero terminal potential, the remaining boundary term can change policy comparisons, so the invariance theorem should not be invoked without stating that convention. Shaping that is not potential-based—or uses incompatible terminal handling—can silently install a new optimal policy that harvests the bonus instead of solving the task; this is a common and easily missed source of reward hacking.
 
 Misaligned proxies: optimizing an easy metric (time-on-site) instead of true utility (user wellbeing). Scale and shaping: poorly scaled rewards cause vanishing or exploding advantages in deep RL. Non-stationarity: if rewards depend on other agents or changing users, the MDP assumption weakens. Safety constraints: hard constraints (do not exceed torque limits) are often better as constrained MDPs or shields than as mild penalties the agent can trade off. Evaluation: always inspect trajectories qualitatively; high return is not sufficient evidence of desired behavior.
 
@@ -513,7 +513,7 @@ Reinforcement learning studies agents that interact with environments to maximiz
 
 ## Practice and Reflection
 
-(1) For the two-state MDP in Section 13.6 with gamma = 0.5, recompute V* and pi* analytically. How does the optimal action in s1 change compared with gamma = 0.9?
+(1) For the two-state MDP in Section 13.6 with \(\gamma = 0.5\), recompute \(V^*\) and \(\pi^*\) analytically. How does the optimal action in s1 change compared with \(\gamma = 0.9\)?
 
 (2) Implement value iteration for a 4x4 gridworld with a single terminal goal (+1) and step cost -0.04. Plot V and the greedy policy for gamma in {0.5, 0.9, 0.99}.
 

@@ -151,6 +151,11 @@ def main() -> int:
 
     for page in html_files:
         data = page.read_text(encoding="utf-8")
+        relative = page.relative_to(site)
+        if relative.parts and relative.parts[0] == "curriculum" and re.search(r"<em\b", data, re.IGNORECASE):
+            failures.append(
+                f"{relative} contains raw emphasis markup; formulas may have been parsed as Markdown emphasis"
+            )
         if LEGACY_CAPTION_RE.search(data):
             failures.append(f"{page.relative_to(site)} retains a nonsemantic adjacent image caption")
         if len(re.findall(r"<figcaption\b", data, re.IGNORECASE)) != len(

@@ -81,7 +81,7 @@ Linear predictor: z = β₀·1 + β₁·x₁ + β₂·x₂ = −1.0 + 0.8·(1.0)
 
 Probability: p = σ(z) = 1/(1 + e^−z) = 1/(1 + e^0) = 1/(1 + 1) = 0.5. At z = 0 the logistic curve is exactly at its midpoint, so this patient sits on the decision boundary and the model predicts a coin flip.
 
-Log-loss for the true label y = 1: ℓ = −ln p = −ln(0.5) = ln 2 ≈ 0.693. That is the loss of an uninformative 50/50 guess—the reference value any useful model must beat.
+Log-loss for the true label y = 1: ℓ = −ln p = −ln(0.5) = ln 2 ≈ 0.693. That is the loss for this one positive example under a 50/50 prediction. It is a useful arithmetic reference here, not a universal performance baseline: a dataset-level null model should predict the training prevalence (or an appropriately estimated base rate), and individual cases from a useful probabilistic model can still have loss above 0.693.
 
 Now take one gradient-descent step. The per-example gradient of log-loss with respect to βⱼ is (p − y)·xⱼ, with x₀ = 1. Here p − y = 0.5 − 1 = −0.5, so the three partials are (p−y)·x₀ = (−0.5)(1) = −0.5, (p−y)·x₁ = (−0.5)(1.0) = −0.5, and (p−y)·x₂ = (−0.5)(0.5) = −0.25. Because the prediction (0.5) undershoots the truth (1), every component is negative, so descent will raise the coefficients on the positive features and push z upward. With learning rate η = 0.5 and the rule βⱼ ← βⱼ − η·(p−y)·xⱼ:
 
@@ -141,7 +141,7 @@ Elastic net: compromise for grouped clinical features.
 
 Non-negative garrote: shrink/select relative to an initial estimate with c_j ≥ 0.
 
-Always scale features before a shared λ; choose λ by nested CV or temporal holdout.
+Standardize continuous features before applying a shared λ when their units differ; define how binary indicators and already comparable features are handled. Choose λ by nested CV or temporal holdout.
 
 ## Optimization Mathematics for Model Fitting
 
@@ -175,7 +175,7 @@ Early stopping monitors validation loss during iterative optimization and stops 
 |------|--------|-----------------|
 | 1 | Split train / validation / test (or nested CV) | Group by patient and site; respect time |
 | 2 | Track validation loss (or primary clinical metric) each epoch | Do not open the test set while choosing patience |
-| 3 | Stop when val metric fails to improve for *p* epochs | Document *p*; common defaults 5–20 depending on schedule |
+| 3 | Stop when val metric fails to improve for `p` epochs | Document `p`; common defaults 5–20 depending on schedule |
 | 4 | Restore weights from best validation epoch | Or refit train+val with fixed step count—write it down |
 | 5 | Report final metrics once on held-out test | One look; no further tuning |
 

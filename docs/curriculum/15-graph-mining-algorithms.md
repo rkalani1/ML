@@ -80,13 +80,13 @@ def kruskal(n, edges):
     return mst, total
 ```
 
-## 15.4 Shortest Paths: Dijkstra and A*
+## 15.4 Shortest Paths: Dijkstra and A\*
 
 Shortest-path problems seek a minimum-weight path from a source s to a target t (or to all nodes). Edge weights must be carefully defined: travel time, risk, or 1 for hop count. Negative weights require Bellman-Ford; Dijkstra requires nonnegative weights.
 
 Dijkstra’s algorithm. Maintain tentative distances d(v), initially 0 at s and infinity elsewhere. Use a priority queue to repeatedly extract the node u with smallest d(u) and relax its outgoing edges: if d(u)+w(u,v) < d(v), update d(v) and predecessor. With a binary heap, time is O(m log n). Dijkstra is optimal for nonnegative weights and underpins routing in transfer networks and many map services.
 
-A* search. A* augments Dijkstra with a heuristic h(v) estimating remaining cost to the goal. Nodes are prioritized by f(v)=g(v)+h(v), where g is the cost from the start. If h is admissible (never overestimates) and consistent, A* finds optimal paths while expanding fewer nodes than Dijkstra when the heuristic is informative. Euclidean distance is a classic admissible heuristic for spatial graphs; in hospital routing, estimated ambulance time from population centroids can serve as h if carefully calibrated not to overestimate.
+A\* search. A\* augments Dijkstra with a heuristic h(v) estimating remaining cost to the goal. Nodes are prioritized by f(v)=g(v)+h(v), where g is the cost from the start. If h is admissible (never overestimates) and consistent, A\* finds optimal paths while expanding fewer nodes than Dijkstra when the heuristic is informative. Euclidean distance is a classic admissible heuristic for spatial graphs; in hospital routing, estimated ambulance time from population centroids can serve as h if carefully calibrated not to overestimate.
 
 Clinical mapping: prehospital routing to the nearest EVT-capable center is a shortest-path problem on a road network with time-dependent weights; do not confuse network distance with clinical appropriateness when bypass rules depend on last-known-well and severity.
 
@@ -311,13 +311,13 @@ When to use / when not. Use aggregation or edge-DP when the scientific claim is 
 
 ## 15.13 Synthesis
 
-Classical graph algorithms answer precise structural questions: MSTs for cheap connectors, Dijkstra/A* for routes, Hungarian/Hopcroft-Karp for assignments, centrality and PageRank/HITS for importance, spectral/Louvain/Leiden for modules. GNNs extend learning to relational data via message passing, with GCN, GAT, and GraphSAGE as canonical models. HNSW brings graph ideas to high-dimensional search. For neurologist-epidemiologists, the highest value is often careful graph construction and classical metrics, with deep models reserved for settings with sufficient data, clear inductive tasks, and rigorous external validation.
+Classical graph algorithms answer precise structural questions: MSTs for cheap connectors, Dijkstra/A\* for routes, Hungarian/Hopcroft-Karp for assignments, centrality and PageRank/HITS for importance, spectral/Louvain/Leiden for modules. GNNs extend learning to relational data via message passing, with GCN, GAT, and GraphSAGE as canonical models. HNSW brings graph ideas to high-dimensional search. For neurologist-epidemiologists, the highest value is often careful graph construction and classical metrics, with deep models reserved for settings with sufficient data, clear inductive tasks, and rigorous external validation.
 
-## 15.14 Worked Dijkstra and A* on a Transfer Graph
+## 15.14 Worked Dijkstra and A\* on a Transfer Graph
 
 Five hospitals: Community A, B, C; Primary Stroke Center P; Comprehensive Center Z. Undirected road-time weights (minutes): A-P 25, B-P 30, C-P 40, P-Z 35, A-Z 70, B-Z 80, C-Z 50, A-B 20, B-C 25. Patient at A needs Z. Dijkstra from A: initialize d(A)=0. Expand A: d(P)=25, d(Z)=70, d(B)=20. Expand B: d(P)=min(25,20+30)=25, d(C)=45, d(Z)=min(70,20+80)=70. Expand P: d(Z)=min(70,25+35)=60. Expand C: d(Z)=min(60,45+50)=60. Shortest A->Z is 60 minutes via A-P-Z (or ties). Routing through C instead costs d(C) + (C-Z) = 45 + 50 = 95, clearly worse — and note there is no direct A-C edge, so A reaches C only via B at cost 20 + 25 = 45.
 
-A* with heuristic h = straight-line lower bound: suppose h(Z)=0, h(P)=30, h(C)=45, h(B)=55, h(A)=50, all admissible if never above true remaining time. f=g+h prioritizes expanding P earlier than exploring long detours toward B, reducing expansions on larger maps. If h overestimates (inadmissible), A* may return suboptimal routes—dangerous when used for clinical logistics recommendations. Always separate routing suggestion tools from clinical eligibility rules (time last known well, severity).
+A\* with heuristic h = straight-line lower bound: suppose h(Z)=0, h(P)=30, h(C)=45, h(B)=55, h(A)=50, all admissible if never above true remaining time. f=g+h prioritizes expanding P earlier than exploring long detours toward B, reducing expansions on larger maps. If h overestimates (inadmissible), A\* may return suboptimal routes—dangerous when used for clinical logistics recommendations. Always separate routing suggestion tools from clinical eligibility rules (time last known well, severity).
 
 ## 15.15 Worked Centrality and Community on a Small Referral Network
 
@@ -405,13 +405,13 @@ Networks break the independence assumption most models rest on: outcomes spill o
 
 ## Chapter Summary
 
-Graph mining extracts structure from relational data. Classical algorithms include minimum spanning trees (Prim, Kruskal), shortest paths (Dijkstra, A*), matching (Hungarian, Hopcroft-Karp), centrality measures, PageRank and HITS link analysis, and community detection (spectral, Louvain, Leiden). Graph neural networks address learning on graphs via message passing, with GCN, GAT, and GraphSAGE as core architectures, facing challenges of over-smoothing, scalability, and shift. HNSW enables fast approximate nearest-neighbor search on embedding graphs. Clinical applications span referral networks, comorbidity and connectomics, and outbreak contact graphs—always with careful edge definition, privacy, and causal humility.
+Graph mining extracts structure from relational data. Classical algorithms include minimum spanning trees (Prim, Kruskal), shortest paths (Dijkstra, A\*), matching (Hungarian, Hopcroft-Karp), centrality measures, PageRank and HITS link analysis, and community detection (spectral, Louvain, Leiden). Graph neural networks address learning on graphs via message passing, with GCN, GAT, and GraphSAGE as core architectures, facing challenges of over-smoothing, scalability, and shift. HNSW enables fast approximate nearest-neighbor search on embedding graphs. Clinical applications span referral networks, comorbidity and connectomics, and outbreak contact graphs—always with careful edge definition, privacy, and causal humility.
 
 ## Practice and Reflection
 
 (1) Run Kruskal by hand on a 5-node complete graph with distinct edge weights of your choosing; verify the MST weight with Prim from two different starts.
 
-(2) Execute Dijkstra on a small directed graph; then design an admissible heuristic and discuss which nodes A* would skip.
+(2) Execute Dijkstra on a small directed graph; then design an admissible heuristic and discuss which nodes A\* would skip.
 
 (3) Implement the four-node PageRank example; report ranks for alpha in {0.5, 0.85, 0.99} and explain the trend.
 
@@ -431,4 +431,4 @@ Graph mining extracts structure from relational data. Classical algorithms inclu
 
 (11) A colleague proposes publishing a “de-identified” physician referral graph as a raw edge list. Name two structural features that enable re-identification and give one differentially private or aggregated alternative that still answers a population-level question.
 
-(12) In the Dijkstra transfer example, add a new edge P-C of weight 10 and recompute the shortest A->Z path. Does the given A* heuristic remain admissible after this change? Justify by comparing each h-value to the new true remaining cost.
+(12) In the Dijkstra transfer example, add a new edge P-C of weight 10 and recompute the shortest A->Z path. Does the given A\* heuristic remain admissible after this change? Justify by comparing each h-value to the new true remaining cost.

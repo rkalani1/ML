@@ -230,6 +230,19 @@ class EbookSiteTests(unittest.TestCase):
                 "the sum runs away to infinity",
                 "near-flat ⇒ near a minimum",
                 "stacking many weight matrices, each a learned transformation, is exactly what gives",
+                "space is sublinear in the number of elements for a target false-positive rate",
+                "both methods equalize local density",
+                "Between-cluster distance is an artifact",
+                "they cancel in every policy comparison and provably leave the set of optimal policies unchanged",
+                "The steepest way uphill is always perpendicular",
+                "∇f is always perpendicular",
+                "The eigenvectors are guaranteed orthogonal",
+                "such features must be spotted and removed",
+                "it reshapes stretched valleys into round bowls",
+                "happens exactly when the two gradients are parallel",
+                "of every optimizer in the book",
+                "the reference value any useful model must beat",
+                "therefore carries roughly a 90% posterior probability of LVO",
             ):
                 self.assertNotIn(false_claim, blob)
             math = chapters["00-mathematical-foundations-for-machine-learning.md"]
@@ -237,10 +250,23 @@ class EbookSiteTests(unittest.TestCase):
             self.assertIn("therefore is not a local minimum", math)
             self.assertIn("Convergence of gradient descent is a separate result", math)
             self.assertIn("\\mathbf W^\\mathsf T", math)
+            self.assertIn("at a regular point of a smooth level set", math)
+            self.assertIn("constraint-qualification condition", math)
+            self.assertIn("it does not remove correlations or guarantee κ = 1", math)
             rl = chapters["13-reinforcement-learning.md"]
             self.assertIn("if count == 0:", rl)
+            self.assertIn("terminal handling is compatible", rl)
             graph = chapters["15-graph-mining-algorithms.md"]
             self.assertRegex(graph, r"(?s)```python\s+edges = \[\(0, 1\)")
+            mining = chapters["05-frequent-itemset-mining-sequence-mining-and-information-retrieval.md"]
+            self.assertIn("m therefore grows linearly with n", mining)
+            self.assertIn("A_{s_{t-1},s_t}", mining)
+            reduction = chapters["07-dimensionality-reduction-and-data-decomposition.md"]
+            self.assertIn("Between-cluster distance is not globally calibrated", reduction)
+            regression = chapters["08-regression-analysis.md"]
+            self.assertIn("not a universal performance baseline", regression)
+            classification = chapters["09-classification.md"]
+            self.assertIn("not an empirically calibrated bedside estimate", classification)
 
     def test_python_markdown_fences_compile(self) -> None:
         pattern = re.compile(r"(?ms)^```python[^\n]*\n(.*?)^```[ \t]*$")
@@ -277,6 +303,8 @@ class EbookSiteTests(unittest.TestCase):
         )
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
         self.assertIn("ALL_PASS", r.stdout)
+        self.assertIn("BOUNDED_SAMPLE chapters=18/19", r.stdout)
+        self.assertGreaterEqual(r.stdout.count("PASS "), 50)
 
 
 if __name__ == "__main__":

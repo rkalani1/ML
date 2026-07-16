@@ -151,7 +151,7 @@ MCTS: simulation-driven; needs a reward model; asymptotically improves with more
 
 ### Bloom Filters
 
-A Bloom filter is a probabilistic set-membership structure: it can say “definitely not present” or “possibly present,” never “definitely present” without false positives. It uses a bit array of size m and k independent hash functions. To insert x, set bits h₁(x), …, h_k(x). To query x, check those bits; if any is zero, x is absent; if all are one, x may be present (or a false positive). There are no false negatives for standard Bloom filters. Each insert or query touches exactly k bits, so both run in O(k) time regardless of how many elements have been stored, and space is sublinear in the number of elements for a target false-positive rate.
+A Bloom filter is a probabilistic set-membership structure: it can say “definitely not present” or “possibly present,” never “definitely present” without false positives. It uses a bit array of size m and k independent hash functions. To insert x, set bits h₁(x), …, h_k(x). To query x, check those bits; if any is zero, x is absent; if all are one, x may be present (or a false positive). There are no false negatives for standard Bloom filters. Each insert or query touches exactly k bits, so both run in O(k) time regardless of how many elements have been stored. For n inserted elements and a fixed target false-positive probability ε, the usual optimal design requires approximately m = −n ln(ε)/(ln 2)² bits and k = (m/n) ln 2 hashes; m therefore grows linearly with n at a constant bits-per-item rate. The advantage is compact probabilistic membership relative to storing exact keys, not sublinear asymptotic space in n.
 
 Applications include web caches (avoid looking up missing keys), distributed databases (skip empty partitions), and streaming analytics. Counting Bloom filters and scalable variants handle deletions and growth. Clinical systems can use Bloom filters to screen whether a hashed patient token might belong to a registry before a privacy-preserving join—still requiring careful privacy review because false positives and side channels matter.
 
@@ -230,13 +230,13 @@ Probabilistic graphical models (PGMs) represent joint distributions with graphs:
 
 ### Markov Models and Hidden Markov Models
 
-A first-order Markov chain on discrete states S assumes P(s_t | s_{1:t−1}) = P(s_t | s_{t−1}). Transition matrix A with A_{ij} = P(s_t = j | s_{t−1} = i) and initial distribution π fully specify the process. In an HMM, states are latent; we observe emissions o_t with emission probabilities B_{j}(o) = P(o_t = o | s_t = j). The joint probability of a state path and observation sequence factors as π_{s₁} B_{s₁}(o₁) ∏_{t=2}^T A_{s_{t−1}s_t} B_{s_t}(o_t).
+A first-order Markov chain on discrete states S assumes \(P(s_t \mid s_{1:t-1}) = P(s_t \mid s_{t-1})\). A transition matrix with \(A_{ij} = P(s_t = j \mid s_{t-1} = i)\) and initial distribution π fully specify the process. In an HMM, states are latent; we observe emissions \(o_t\) with emission probabilities \(B_j(o) = P(o_t = o \mid s_t = j)\). The joint probability of a state path and observation sequence factors as \(\pi_{s_1} B_{s_1}(o_1) \prod_{t=2}^{T} A_{s_{t-1},s_t} B_{s_t}(o_t)\).
 
 Three canonical HMM problems: (1) Likelihood—compute P(O | θ) for observations O and parameters θ = (π, A, B). (2) Decoding—find the most likely state path argmax_S P(S | O, θ). (3) Learning—estimate θ from data, usually with EM (Baum–Welch) when states are unobserved.
 
 ### Forward Algorithm (Likelihood)
 
-Naive summation over all |S|^T paths is exponential. The forward algorithm defines α_t(j) = P(o₁,…,o_t, s_t = j | θ) and recurses: α₁(j) = π_j B_j(o₁), α_{t+1}(j) = [∑_i α_t(i) A_{ij}] B_j(o_{t+1}). Then P(O | θ) = ∑_j α_T(j). Time complexity is O(|S|² T). In practice one works in log-space or uses scaling to avoid underflow.
+Naive summation over all \(|S|^T\) paths is exponential. The forward algorithm defines \(\alpha_t(j) = P(o_1,\ldots,o_t, s_t = j \mid \theta)\) and recurses: \(\alpha_1(j) = \pi_j B_j(o_1)\), \(\alpha_{t+1}(j) = [\sum_i \alpha_t(i) A_{ij}] B_j(o_{t+1})\). Then \(P(O \mid \theta) = \sum_j \alpha_T(j)\). Time complexity is \(O(|S|^2 T)\). In practice one works in log-space or uses scaling to avoid underflow.
 
 ### Viterbi Algorithm (Decoding)
 
