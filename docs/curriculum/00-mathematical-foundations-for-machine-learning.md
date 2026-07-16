@@ -1,7 +1,6 @@
 # Chapter 0. Mathematical Foundations for Machine Learning
 
 
-![00 Vector Matrix](../assets/figures/00_vector_matrix.png)
 
 
 ## Opening
@@ -9,9 +8,10 @@
 A fellow freezes at a gradient step in a methods appendix for an ICH expansion model. The clinical question is still bedside-valid, but the math barrier is blocking appraisal. Chapter 0 rebuilds the minimum calculus and linear algebra needed to read ML without surrendering clinical judgment.
 
 
-![Gradient descent on a synthetic loss surface (original teaching graphic).](../assets/figures/ml_fig_gradient_descent.png)
+![Gradient descent on a synthetic loss surface.](../assets/figures/ml_fig_gradient_descent.png)
 
-*Gradient descent on a synthetic loss surface (original teaching graphic).*
+*Gradient descent on a synthetic loss surface.*
+
 Machine learning looks intimidating from the outside mostly because of its notation. Strip away the symbols and the field rests on a compact stack of mathematics that a motivated reader can rebuild in a few focused sittings: the language of sets and functions; algebra and logarithms; the calculus of change (derivatives) and accumulation (integrals); the algebra of vectors and matrices; the logic of probability; and the discipline of optimization. This chapter teaches that stack from an elementary starting point and connects each piece to the exact place later in the book where it is used.
 
 The chapter assumes only that you once learned high-school algebra and are willing to work examples by hand — nothing more. It does not assume you remember any of it. Concepts are introduced in the same order they build on one another: first the notation for reading equations aloud (0.1), then numbers, algebra, and logarithms (0.2) and the catalog of functions machine learning actually uses (0.3); sums and counting (0.4) and the trigonometry behind Fourier features and attention (0.5); single-variable calculus (0.6–0.8) and its multivariable extension — gradients, Jacobians, Hessians — that powers every optimizer and neural network (0.9); the linear algebra of vectors, matrices, and their eigen- and singular-value decompositions (0.10–0.12); the foundations of probability (0.13); optimization and gradient descent (0.14); the discrete mathematics and complexity behind algorithms (0.15); and the numerical realities of computing with finite-precision arithmetic (0.16). Section 0.17 collects a notation glossary and a table mapping each topic to the chapters that depend on it.
@@ -74,7 +74,7 @@ Union ∪ — everything in either set: A ∪ B = {1, 2, 3, 4} (“A union B”)
 
 Intersection ∩ — everything in both sets: A ∩ B = {2, 3} (“A intersect B”).
 
-Complement — everything (within some agreed universe) not in the set. If our universe is {1, 2, 3, 4, 5}, then the complement of A, written Aᶜ, is {4, 5}. The difference A B (“A minus B”) keeps what is in A but not B: A B = {1}.
+Complement means everything within an agreed universe that is not in the set. If the universe is {1, 2, 3, 4, 5} and A = {1, 2, 3}, then Aᶜ = {4, 5}. The set difference A ∖ B (“A minus B”) contains elements in A but not in B; for B = {2, 4}, A ∖ B = {1, 3}.
 
 The number of elements in a finite set is its cardinality, written |A|. Here |A| = 3 and |A ∪ B| = 4.
 
@@ -195,10 +195,6 @@ One worked case can illustrate a claim but never proves a universal (“∀”) 
 
 ## 0.2 Numbers, Algebra, Exponents, and Logarithms
 
-![0.1: Exponential and logarithm are inverse functions (reflected across y = x); a log scale turns exponential growth into a st](../assets/figures/ml_concept_0.1_b95475b9.png)
-
-*Figure 0.1 — original teaching graphic.*
-
 ### The real line and basic arithmetic
 
 Picture every real number as a point on an infinite horizontal line, zero in the middle, negatives left, positives right. Distance from zero is magnitude; side is sign. This mental image underlies almost everything later: data points, errors, and parameters are all positions on such lines.
@@ -301,284 +297,9 @@ Logs are not decoration; they are structural. First, models multiply many probab
 
 ## 0.3 Functions and Their Graphs (the ML “function zoo”)
 
-![Core functions of machine learning (original teaching catalog).](../assets/figures/ml_fig_core_functions.png)
+![Core functions of machine learning.](../assets/figures/ml_fig_core_functions.png)
 
 *Figure 0.2. The core functions of machine learning: linear, quadratic, exponential, logarithmic, sigmoid, and ReLU.*
-
-
-![Gradient magnitude vs depth: plain stack vs residual floor (teaching; original).](../assets/figures/ml_fig_gradient_flow_depth.png)
-
-*Figure — Optimization geometry. Plain deep stacks can drive gradients toward zero; residual-style paths keep a teaching floor. Curves are schematic—not a map of clinical mechanisms. **Architecture ≠ causation**.*
-
-
-![Condition number vs feature correlation (synthetic; original).](../assets/figures/ml_fig_condition_number.png)
-
-*Figure — Collinearity and conditioning. As ρ→1, cond(Σ) explodes and OLS becomes unstable. Numerical diagnostics are not causal graphs—they flag estimation fragility.*
-
-
-![SVD spectrum on a synthetic matrix (original).](../assets/figures/ml_fig_svd_spectrum.png)
-
-*Figure — Singular values on a log scale. Sharp drops hint at numerical rank. Spectral structure is linear algebra—not automatic clinical causation.*
-
-
-![Rank-1 outer-product structure heatmap (synthetic; original).](../assets/figures/ml_fig_outer_product.png)
-
-*Figure — Low-rank outer-product geometry. Useful for intuition about factor models and SVD truncations—not a claim about clinical causal factors.*
-
-
-![Norm growth cartoon for matrix scales (teaching; original).](../assets/figures/ml_fig_norm_growth.png)
-
-*Figure — Linear-algebra scale intuition—not clinical causation. Pred ≠ cause without design.*
-
-
-![Gram-Schmidt orthogonalization sketch (original).](../assets/figures/ml_fig_gram_schmidt.png)
-
-*Figure — Orthogonal bases aid numerics. Gram-Schmidt orthogonalization sketch Pred != cause without design.*
-
-
-![jacobian teaching panel (original).](../assets/figures/ml_fig_jacobian_sketch.png)
-
-*Figure — Teaching panel for jacobian. Pred != cause without design.*
-
-
-![Cycle-34 densify scientific panel 1 (original).](../assets/figures/ml_fig_c34_00.png)
-
-*Figure — Continuous densify panel 1. Synthetic teaching geometry—not a causal claim.*
-
-
-![Cycle-35 densify scientific panel 1 (original).](../assets/figures/ml_fig_c35_00.png)
-
-*Figure — Continuous densify panel 1. Synthetic teaching geometry—not a causal claim.*
-
-
-![Cycle c36 densify panel 1 (original).](../assets/figures/ml_fig_c36_00.png)
-
-*Figure — Continuous densify panel. Synthetic teaching geometry—not a causal claim.*
-
-
-![Cycle c37 densify panel 1 (original).](../assets/figures/ml_fig_c37_00.png)
-
-*Figure — Continuous densify panel. Synthetic teaching geometry—not a causal claim.*
-
-
-![c38 densify panel 1 (original).](../assets/figures/ml_fig_c38_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c39 densify panel 1 (original).](../assets/figures/ml_fig_c39_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c40 densify panel 1 (original).](../assets/figures/ml_fig_c40_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c41 densify panel 1 (original).](../assets/figures/ml_fig_c41_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c42 densify panel 1 (original).](../assets/figures/ml_fig_c42_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c43 densify panel 1 (original).](../assets/figures/ml_fig_c43_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c44 densify panel 1 (original).](../assets/figures/ml_fig_c44_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c45 densify panel 1 (original).](../assets/figures/ml_fig_c45_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c46 densify panel 1 (original).](../assets/figures/ml_fig_c46_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c47 densify panel 1 (original).](../assets/figures/ml_fig_c47_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c48 densify panel 1 (original).](../assets/figures/ml_fig_c48_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c49 densify panel 1 (original).](../assets/figures/ml_fig_c49_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c50 densify panel 1 (original).](../assets/figures/ml_fig_c50_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c51 densify panel 1 (original).](../assets/figures/ml_fig_c51_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c52 densify panel 1 (original).](../assets/figures/ml_fig_c52_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c53 densify panel 1 (original).](../assets/figures/ml_fig_c53_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c54 densify panel 1 (original).](../assets/figures/ml_fig_c54_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c55 densify panel 1 (original).](../assets/figures/ml_fig_c55_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c56 densify panel 1 (original).](../assets/figures/ml_fig_c56_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c57 densify panel 1 (original).](../assets/figures/ml_fig_c57_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c58 densify panel 1 (original).](../assets/figures/ml_fig_c58_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c59 densify panel 1 (original).](../assets/figures/ml_fig_c59_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c60 densify panel 1 (original).](../assets/figures/ml_fig_c60_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c61 densify panel 1 (original).](../assets/figures/ml_fig_c61_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c62 densify panel 1 (original).](../assets/figures/ml_fig_c62_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c63 densify panel 1 (original).](../assets/figures/ml_fig_c63_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c64 densify panel 1 (original).](../assets/figures/ml_fig_c64_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c65 densify panel 1 (original).](../assets/figures/ml_fig_c65_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c66 densify panel 1 (original).](../assets/figures/ml_fig_c66_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c67 densify panel 1 (original).](../assets/figures/ml_fig_c67_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c68 densify panel 1 (original).](../assets/figures/ml_fig_c68_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c69 densify panel 1 (original).](../assets/figures/ml_fig_c69_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c70 densify panel 1 (original).](../assets/figures/ml_fig_c70_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c71 densify panel 1 (original).](../assets/figures/ml_fig_c71_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c72 densify panel 1 (original).](../assets/figures/ml_fig_c72_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c73 densify panel 1 (original).](../assets/figures/ml_fig_c73_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c74 densify panel 1 (original).](../assets/figures/ml_fig_c74_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c75 densify panel 1 (original).](../assets/figures/ml_fig_c75_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c76 densify panel 1 (original).](../assets/figures/ml_fig_c76_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c77 densify panel 1 (original).](../assets/figures/ml_fig_c77_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c78 densify panel 1 (original).](../assets/figures/ml_fig_c78_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c79 densify panel 1 (original).](../assets/figures/ml_fig_c79_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c80 densify panel 1 (original).](../assets/figures/ml_fig_c80_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
-
-
-![c81 densify panel 1 (original).](../assets/figures/ml_fig_c81_00.png)
-
-*Figure — Continuous densify. Synthetic teaching geometry—not a causal claim.*
 
 ### What a function is, and how to read its graph
 
@@ -656,9 +377,9 @@ Even / odd — an even function is mirror-symmetric across the vertical axis, f(
 
 Bounded — trapped between limits, as σ is confined to (0, 1).
 
-Convex / concave — convex means bowl-shaped (holds water; a straight segment between any two points on the curve lies above it), like x²; concave is the upside-down cap, like ln(x). Convexity matters enormously because a convex bowl has a single lowest point, so an optimizer cannot get stuck in a false one.
+Convex / concave — convex means bowl-shaped (a straight segment between any two points on the curve lies above it), like x²; concave is the upside-down cap, like ln(x). Every local minimum of a convex function is global, but a convex function can have multiple minimizers. Strict convexity guarantees at most one minimizer.
 
-→ Used in Chapter 8: convex loss functions guarantee optimization finds the true minimum.
+→ Used in Chapter 8: convexity makes local minima global; convergence of a chosen optimizer still requires conditions on the objective, algorithm, and step size.
 
 ### Composition and inverses
 
@@ -686,7 +407,7 @@ So (x − 2)² + 1 is the basic parabola x² slid 2 to the right and 1 upward, p
 
 ### Practice — 0.1–0.3
 
-(Sets & logic) Let A = {1, 2, 3, 4} and B = {3, 4, 5}. Find A ∪ B, A ∩ B, and A B. Then decide whether the statement “∀x ∈ A, x < 5” is true.
+(Sets & logic) Let A = {1, 2, 3, 4} and B = {3, 4, 5}. Find A ∪ B, A ∩ B, and A ∖ B. Then decide whether the statement “∀x ∈ A, x < 5” is true.
 
 (Linear equation) Solve 5(x − 3) = 2x + 6 for x, and verify your answer by substitution.
 
@@ -698,15 +419,11 @@ So (x − 2)² + 1 is the basic parabola x² slid 2 to the right and 1 upward, p
 
 (Analyzing a function) For f(x) = (x − 2)² + 1: give the vertex, its minimum value, and whether it is convex. Describe it as a transformation of x². Then, with g(x) = x + 2 and h(x) = 3x, find (h ∘ g)(x).
 
-Answers. 1. A ∪ B = {1, 2, 3, 4, 5}; A ∩ B = {3, 4}; A B = {1, 2}; the statement is true (1, 2, 3, 4 are all < 5). 2. 5x − 15 = 2x + 6 ⇒ 3x = 21 ⇒ x = 7 (check: both sides = 20). 3. Discriminant = 36 − 32 = 4, √4 = 2, so x = (6 ± 2)/2 = 4 or 2. 4. (a) 2^(3+5−4) = 2⁴ = 16; (b) log₁₀40 = log₁₀4 + log₁₀10 = 2(0.301) + 1 = 1.602. 5. σ(1) = 1/(1 + 0.368) = 1/1.368 ≈ 0.731; σ(−1) = 1/(1 + 2.718) = 1/3.718 ≈ 0.269; and 0.731 + 0.269 = 1. ✓ 6. Vertex (2, 1), minimum value 1, convex (opens upward); it is x² shifted right 2 and up 1; (h ∘ g)(x) = 3(x + 2) = 3x + 6.
+Answers. 1. A ∪ B = {1, 2, 3, 4, 5}; A ∩ B = {3, 4}; A ∖ B = {1, 2}; the statement is true (1, 2, 3, 4 are all < 5). 2. 5x − 15 = 2x + 6 ⇒ 3x = 21 ⇒ x = 7 (check: both sides = 20). 3. Discriminant = 36 − 32 = 4, √4 = 2, so x = (6 ± 2)/2 = 4 or 2. 4. (a) 2^(3+5−4) = 2⁴ = 16; (b) log₁₀40 = log₁₀4 + log₁₀10 = 2(0.301) + 1 = 1.602. 5. σ(1) = 1/(1 + 0.368) = 1/1.368 ≈ 0.731; σ(−1) = 1/(1 + 2.718) = 1/3.718 ≈ 0.269; and 0.731 + 0.269 = 1. ✓ 6. Vertex (2, 1), minimum value 1, convex (opens upward); it is x² shifted right 2 and up 1; (h ∘ g)(x) = 3(x + 2) = 3x + 6.
 
 ## 0.4 Sums, Products, Factorials, and Counting
 
 Machine learning is, at bottom, a great deal of adding and multiplying — the same operation repeated over thousands of data points, features, or parameters. Rather than write “add up all of these” in words, mathematics has a compact shorthand. This section teaches that shorthand and then the closely related art of counting: how many ways can something happen? Counting is the seed of probability (Chapter 3) and of the data-compression codes you will meet in Chapter 14.
-
-![0.3: The geometric series Σ (1/2)ⁿ: terms shrink while the partial sums converge to 2.](../assets/figures/ml_concept_0.3_860b37f0.png)
-
-*Figure 0.3 — original teaching graphic.*
 
 ### Sigma notation: the summation sign Σ
 
@@ -820,7 +537,7 @@ Infinite geometric sum. If the ratio is small enough that terms shrink toward ze
 
 ∑ₖ₌₀^∞ a·rᵏ = a / (1 − r), valid for |r| < 1.
 
-Worked example. 1 + ½ + ¼ + ⅛ + … = 1/(1 − ½) = 1/(½) = 2. Each step covers half the remaining gap to 2, so the total approaches — but never exceeds — 2. If |r| ≥ 1 the terms do not shrink and the sum runs away to infinity; convergence is the whole point.
+Worked example. 1 + ½ + ¼ + ⅛ + … = 1/(1 − ½) = 1/(½) = 2. Each step covers half the remaining gap to 2, so the total approaches—but never exceeds—2. An infinite geometric series with first term a converges to a/(1 − r) only when |r| < 1. If |r| ≥ 1 and a ≠ 0, its terms do not approach zero, so the series diverges; for example, r = −1 oscillates rather than tending to infinity.
 
 → Used in Chapter 7: geometric and related sums underlie the infinite series behind Fourier analysis. Discounted-reward sums in later material are geometric series in disguise.
 
@@ -906,10 +623,6 @@ The general pattern — C(n, k) ways, each with probability pᵏ(1−p)^(n−k) 
 ## 0.5 Trigonometry and the Unit Circle
 
 Trigonometry began as the study of triangles, but its modern payload is the description of anything that repeats: waves, oscillations, rotations, and cycles. In machine learning, sine and cosine appear in three headline places — the sinusoidal position codes inside transformers (Chapter 12), the Fourier and wavelet features for signals (Chapter 7), and the angle-based similarity of vectors (Chapters 4 and 5). We build the ideas from a single circle.
-
-![0.4: On the unit circle, cos θ and sin θ are the coordinates of the point at angle θ; tracing θ generates the sine wave.](../assets/figures/ml_concept_0.4_09e1caeb.png)
-
-*Figure 0.4 — original teaching graphic.*
 
 ### Degrees versus radians (and why radians win)
 
@@ -1055,10 +768,6 @@ a·b = 1·0 + 0·1 + 1·1 = 1; |a| = √2, |b| = √2; cos θ = 1/(√2·√2) =
 
 Almost everything in machine learning comes down to one question: if I nudge this knob a tiny bit, how much does my error change? The mathematics that answers “how much does one thing change when another changes” is calculus. It rests on a single idea — the limit — so we start there, slowly.
 
-![0.5: The derivative as a limit: as spacing h shrinks, secant slopes approach the tangent slope (2 at x = 1).](../assets/figures/ml_concept_0.5_b229f9ea.png)
-
-*Figure 0.5 — original teaching graphic.*
-
 ### The intuition of a limit: approaching, not arriving
 
 Imagine walking toward a wall, and each step covers half the remaining distance. After one step you are 1/2 of the way, then 3/4, then 7/8, then 15/16, … You never actually touch the wall, yet it is completely clear where you are heading. That destination — the value you get arbitrarily close to — is the limit.
@@ -1173,10 +882,6 @@ So for y = x² we may write f′(x) = 2x or dy/dx = 2x interchangeably.
 
 Computing every derivative from the limit definition would be exhausting. Fortunately a small set of rules lets us differentiate almost any formula by inspection. We collect them, prove the one that matters most (the chain rule, which powers backpropagation), and then use them to find the bottom of a loss curve — the core task of training a model.
 
-![0.6: Optima occur where f′ = 0. A convex function has one global minimum; a non-convex one can have several critical points.](../assets/figures/ml_concept_0.6_1492d114.png)
-
-*Figure 0.6 — original teaching graphic.*
-
 ### The rules of differentiation
 
 Throughout, c is a constant, n is a fixed power, and f and g are functions of x.
@@ -1238,9 +943,12 @@ The sigmoid squashes any real number into the interval (0, 1), turning a score i
 
 σ(x) = 1 / (1 + e^(−x)).
 
-It runs classifiers and neurons alike, and its derivative has a famously tidy form. Write σ(x) = (1 + e(−x))(−1) and apply the chain rule. The outer function is u^(−1) with derivative −u^(−2); the inner is u = 1 + e^(−x) with derivative u′ = −e^(−x) (itself a chain-rule result, since d/dx[e^(−x)] = e^(−x)·(−1)). Multiplying:
+It runs classifiers and neurons alike, and its derivative has a tidy form. Write \(\sigma(x)=(1+e^{-x})^{-1}\) and apply the chain rule. The outer derivative is \(-u^{-2}\), while the inner derivative is \(-e^{-x}\). Therefore
 
-σ′(x) = −(1 + e(−x))(−2) · (−e^(−x)) = e^(−x) / (1 + e^(−x))².
+\[
+\sigma'(x)=-(1+e^{-x})^{-2}(-e^{-x})
+=\frac{e^{-x}}{(1+e^{-x})^2}.
+\]
 
 Now the elegant part. Notice that
 
@@ -1281,10 +989,6 @@ Second-derivative test. Often faster. At a critical point c where f′(c) = 0: -
 ### Convexity
 
 A function is convex on an interval when f″(x) ≥ 0 throughout — it curves upward everywhere, like a bowl. Convexity is the property optimizers dream of: a convex function has no false valleys. Any critical point is automatically the global minimum, so gradient descent cannot get trapped in a lesser dip. Much of the design of loss functions is an effort to keep them convex, or nearly so.
-
-![0.13: Gradient descent: stepping along the negative gradient walks the iterate down a convex loss surface to its minimum.](../assets/figures/ml_concept_0.13_6ef7569c.png)
-
-*Figure 0.13 — original teaching graphic.*
 
 ### Worked minimization 1: the loss L(w) = (w − 3)² + 1
 
@@ -1330,10 +1034,6 @@ Minimize L(w) = 2w² − 8w + 3. Differentiate: L′(w) = 4w − 8. Set to zero:
 ## 0.8 Integral Calculus and Areas
 
 Differentiation breaks a total into its instantaneous rate. Integration runs the film backward: it accumulates a rate back into a total, and — read geometrically — it measures the area under a curve. For an epidemiologist this is the natural language of probability: the chance of an outcome is an area under a density curve.
-
-![0.7: The definite integral is the area under a curve; under a probability density that area is a probability.](../assets/figures/ml_concept_0.7_a3194c90.png)
-
-*Figure 0.7 — original teaching graphic.*
 
 ### The antiderivative (indefinite integral)
 
@@ -1487,10 +1187,6 @@ By the chain rule, s′(x) = (1/(1 + eˣ))·eˣ = eˣ/(1 + eˣ). Multiply numera
 
 In sections 0.6–0.8 we learned to differentiate a function of one variable: given f(x), the derivative f′(x) tells us the slope, the rate at which f changes as we nudge x. But almost nothing in machine learning depends on a single number. A neural network’s loss depends on thousands or millions of weights at once. A logistic regression for stroke risk depends on age, blood pressure, glucose, and a dozen other inputs simultaneously. To train these models we must ask: if I nudge this input a little, holding all the others fixed, how does the output respond? And then: what is the single best direction to nudge everything at once?
 
-![0.8: The gradient is perpendicular to the contour lines and points in the direction of steepest ascent; its negative points d](../assets/figures/ml_concept_0.8_a2f19287.png)
-
-*Figure 0.8 — original teaching graphic.*
-
 That is the subject of this section. It is the mathematical engine of every optimizer you will meet in this book. We build it up from the ground, leaning only on single-variable derivatives (0.6–0.8) and on vectors and matrices (0.10–0.11).
 
 ### Functions of several variables
@@ -1566,7 +1262,7 @@ initialize 𝐱
 repeat:
  𝐠 ← ∇f(𝐱) # gradient of the loss at the current point
  𝐱 ← 𝐱 − η·𝐠 # step downhill; η > 0 is the learning rate
-until ‖𝐠‖ is small # near-flat ⇒ near a minimum
+until ‖𝐠‖ is small  # approximate first-order stationarity; not by itself proof of a minimum
 ```
 
 Worked example — gradient of a quadratic. Let
@@ -1693,7 +1389,7 @@ So the Jacobian is
  ⎣ 6 3 ⎦
 ```
 
-A clean special case makes the connection to neural nets explicit. If a layer is linear, 𝐟(𝐱) = 𝐖𝐱, then ∂fᵢ/∂xⱼ = Wᵢⱼ, so the Jacobian is the weight matrix: 𝐉 = 𝐖. Backprop through a linear layer is therefore just multiplication by 𝐖.
+A clean special case makes the connection to neural nets explicit. If \(\mathbf f(\mathbf x)=\mathbf W\mathbf x\), then the Jacobian is \(\mathbf J=\mathbf W\). For an upstream column gradient \(\bar{\mathbf f}=\partial L/\partial\mathbf f\), reverse-mode differentiation gives \(\partial L/\partial\mathbf x=\mathbf W^\mathsf T\bar{\mathbf f}\). The parameter gradient also depends on the input: \(\partial L/\partial\mathbf W=\bar{\mathbf f}\mathbf x^\mathsf T\).
 
 → Used in Chapter 10: backprop through a network chains Jacobians layer by layer.
 
@@ -1777,9 +1473,9 @@ top-left entry = 2 > 0, determinant = 2·6 − 1·1 = 12 − 1 = 11 > 0.
 
 Both positive ⇒ 𝐇 is positive definite ⇒ (0, 0) is a minimum. Every direction curves upward, so this bowl has a single lowest point.
 
-The tie to convexity. A function is convex if it curves upward everywhere — formally, if its Hessian is positive (semi-)definite at every point, not just at the critical one. Convexity is the property optimizers dream about: a convex function has no misleading saddles and no local minima to get stuck in — any critical point is the global minimum, and rolling downhill is guaranteed to find it. Our f is convex because its Hessian is positive definite everywhere. Least-squares loss (Chapter 8) is convex for the same reason; deep-network losses (Chapter 10) are generally not, which is exactly why training them is hard and why saddle points matter.
+The tie to convexity. A twice-differentiable function is convex on a convex domain when its Hessian is positive semidefinite everywhere. For a differentiable convex objective, every local minimum is global and any stationary point is a global minimum; strict convexity guarantees at most one. Convergence of gradient descent is a separate result requiring assumptions such as a Lipschitz-continuous gradient, existence of a minimizer, and an appropriate step size. Our quadratic is strictly convex because its Hessian is positive definite everywhere. Deep-network losses are generally nonconvex, which is why saddles and initialization matter.
 
-→ Used in Chapter 7 (quadratic forms and definiteness) and Chapter 8 (convexity guarantees a unique least-squares solution).
+→ Used in Chapter 7 (quadratic forms and definiteness) and Chapter 8 (ordinary least-squares coefficients are unique when the design matrix has full column rank; a strictly convex penalty such as ridge can also ensure uniqueness).
 
 ### Constrained optimization and Lagrange multipliers
 
@@ -1823,7 +1519,7 @@ Answer key.
 
 Forward: z = 1·1 + (−1) = 0, a = σ(0) = 0.5, L = (0.5 − 0)² = 0.25. Backward: ∂L/∂a = 2(0.5 − 0) = 1, ∂a/∂z = 0.5·0.5 = 0.25, so ∂L/∂w = 1·0.25·(x = 1) = 0.25 and ∂L/∂b = 1·0.25·1 = 0.25.
 
-∂f/∂x = 4x³ + 2y, ∂f/∂y = 2y + 2x, so ∂²f/∂x² = 12x², ∂²f/∂y² = 2, ∂²f/∂x∂y = 2. At (1, 1): 𝐇 = [[12, 2], [2, 2]]. Top-left entry 12 > 0 and determinant 12·2 − 2·2 = 20 > 0 ⇒ positive definite (a local minimum).
+∂f/∂x = 4x³ + 2y, ∂f/∂y = 2y + 2x, so ∂²f/∂x² = 12x², ∂²f/∂y² = 2, ∂²f/∂x∂y = 2. At (1, 1): 𝐇 = [[12, 2], [2, 2]]. Top-left entry 12 > 0 and determinant 12·2 − 2·2 = 20 > 0, so the Hessian is positive definite there. That establishes upward local curvature, not a local minimum: ∇f(1, 1) = (6, 4) ≠ 𝟎, so (1, 1) is not a stationary point and therefore is not a local minimum.
 
 Step 𝐝 = (0.2, −0.1). Linear term ∇fᵀ𝐝 = 4·0.2 + 13·(−0.1) = 0.8 − 1.3 = −0.5. Curvature: 𝐇𝐝 = (2·0.2 + 1·(−0.1), 1·0.2 + 6·(−0.1)) = (0.3, −0.4), so 𝐝ᵀ𝐇𝐝 = 0.2·0.3 + (−0.1)·(−0.4) = 0.06 + 0.04 = 0.10, and ½·0.10 = 0.05. Estimate = 15 − 0.5 + 0.05 = 14.55. Exact: f(1.2, 1.9) = 1.44 + 3·3.61 + 2.28 = 14.55 — an exact match, since f is quadratic.
 
@@ -1832,10 +1528,6 @@ Step 𝐝 = (0.2, −0.1). Linear term ∇fᵀ𝐝 = 4·0.2 + 13·(−0.1) = 0.8
 ## 0.10 Vectors and Vector Spaces
 
 Almost everything in machine learning begins by turning a real-world object — a patient, an image, a word, a day of case counts — into a list of numbers. That list is a vector, and the mathematics of vectors is the grammar that the rest of this book speaks. This section builds that grammar from nothing. If you can add, multiply, and take a square root, you have every prerequisite you need.
-
-![0.9: Vector operations: addition by the parallelogram rule, projection onto another vector, and the angle encoded by the dot ](../assets/figures/ml_concept_0.9_9d68b349.png)
-
-*Figure 0.9 — original teaching graphic.*
 
 ### Two pictures of a vector
 
@@ -1863,7 +1555,7 @@ We write ℝ for the set of all ordinary real numbers (−2, 0, 3.7, √2, …).
 
 We write vectors in bold lowercase (𝐚, 𝐱, 𝐩) and ordinary numbers, called scalars, in plain type (3, λ, −2).
 
-### Addition and scalar multiplication
+### Vector addition and scalar multiplication
 
 Two operations define everything else.
 
@@ -1994,7 +1686,7 @@ cos θ = 24 / (5 · 5) = 24 / 25 = 0.96
 
 Taking the inverse cosine, θ = arccos(0.96) ≈ 16.3°. The two vectors point in nearly the same direction, so their cosine similarity is close to 1 — exactly what the picture of two arrows both heading up-and-to-the-right would suggest.
 
-Cosine similarity cares only about direction, not length. A patient recorded in different units, or a document that is simply longer, is not penalized — only the pattern of the numbers matters. That property makes it the default similarity measure for text and high-dimensional data.
+Cosine similarity is invariant to multiplying an entire vector by the same positive scalar, which is why document length alone does not change it. It is not invariant to rescaling individual features, so feature-wise unit conversions must be standardized consistently before comparing patient vectors.
 
 → Used in Chapter 12: cosine similarity underlies how transformers and search systems judge two vectors as “close in meaning.”
 
@@ -2006,7 +1698,7 @@ Two vectors are orthogonal (a fancy word for perpendicular) when their dot produ
 𝐚 · 𝐛 = 0 ⇒ 𝐚 and 𝐛 are orthogonal
 ```
 
-Example: [2, 1] · [−1, 2] = (2)(−1) + (1)(2) = −2 + 2 = 0. These two arrows meet at a perfect right angle, and cos θ = 0, so θ = 90°. Orthogonal vectors carry completely independent information — knowing where you are along one tells you nothing about the other. This is the idea that PCA (Chapter 7) exploits to build a set of non-redundant “directions” through a dataset.
+Example: [2, 1] · [−1, 2] = (2)(−1) + (1)(2) = −2 + 2 = 0. The vectors are orthogonal: their inner product is zero, and they are linearly independent. In statistical data, however, orthogonality or zero covariance does not generally imply statistical independence; PCA produces uncorrelated directions, not necessarily independent components.
 
 ### Projection
 
@@ -2070,10 +1762,6 @@ Every advanced idea later in the book is assembled from these seven bricks.
 
 A single vector describes one data point. But we never have just one patient — we have a whole cohort, and we want to transform all of them at once. The object that holds many vectors, and that acts on vectors to transform them, is the matrix.
 
-![0.10: A matrix acts as a linear transformation, mapping the unit square to a rotated/scaled or sheared image.](../assets/figures/ml_concept_0.10_702284c9.png)
-
-*Figure 0.10 — original teaching graphic.*
-
 ### Two pictures of a matrix
 
 As with vectors, hold two images at once.
@@ -2091,7 +1779,7 @@ Picture 2 — a matrix is a machine that transforms vectors. Feed a vector in, g
 
 A matrix with m rows and n columns is called an “m × n” matrix (say “m by n”). The 𝐀 above is 2 × 2. The entry in row i, column j is written aᵢⱼ; for our 𝐀, a₁₂ = 2 (row 1, column 2). Row count always comes first. A single column of m numbers is an m × 1 matrix — which is just a vector, tying the two objects together.
 
-### Addition and scalar multiplication
+### Matrix addition and scalar multiplication
 
 These work exactly as they did for vectors — entry by entry. Two matrices must have the same shape to be added:
 
@@ -2187,7 +1875,7 @@ A handy rule about transposing a product — the order reverses:
 (𝐀𝐁)ᵀ = 𝐁ᵀ𝐀ᵀ
 ```
 
-Quick check with our matrices: (𝐀𝐁)ᵀ is [[19, 43], [22, 50]], and computing 𝐁ᵀ𝐀ᵀ gives the same [[19, 43], [22, 50]]. ✓ The transpose shows up constantly because the product 𝐗ᵀ𝐗 — a data matrix times its own transpose — produces the covariance-like structure at the heart of PCA and regression.
+Quick check with our matrices: (𝐀𝐁)ᵀ is [[19, 43], [22, 50]], and computing 𝐁ᵀ𝐀ᵀ gives the same [[19, 43], [22, 50]]. ✓ The transpose appears constantly because \(\mathbf X^\mathsf T\mathbf X\)—the transpose of the data matrix multiplied by the data matrix—collects feature cross-products used in regression and covariance-like PCA calculations.
 
 → Used in Chapter 7 and Chapter 8: the matrix 𝐗ᵀ𝐗 encodes how features co-vary and drives both PCA and the regression normal equations.
 
@@ -2364,7 +2052,7 @@ sends [3, 4] to [3, 0] — the height is discarded. Its determinant is 0 (it col
 
 Seeing matrices as actions — stretch, turn, flatten — rather than static tables is the mental shift that makes deep learning, PCA, and graph methods click. Every layer of a neural network and every step of PCA is one of these geometric moves.
 
-→ Used in Chapter 10: stacking many weight matrices, each a learned transformation, is exactly what gives a deep network its power.
+→ Used in Chapter 10: deep networks gain nonlinear expressive power by interleaving learned affine maps with nonlinear activations; stacked linear weight matrices alone collapse to one linear map.
 
 ### Practice — 0.10–0.11
 
@@ -2403,13 +2091,9 @@ Answers.
 
 ## 0.12 Eigenvalues, Eigenvectors, and Matrix Decompositions
 
-![0.11: A matrix turns the unit circle into an ellipse; eigenvectors are the directions only stretched, by the eigenvalues λ.](../assets/figures/ml_concept_0.11_2667d291.png)
-
-*Figure 0.11 — original teaching graphic.*
-
 ### The idea: directions a matrix only stretches
 
-In §0.11 a matrix became a transformation: feed it a vector and it rotates, stretches, and shears the whole plane. Most input arrows come out pointing somewhere new. But almost every matrix has a few special directions along which nothing rotates at all — the arrow that goes in comes out pointing the same way, only longer or shorter. Those privileged directions are the matrix’s eigenvectors, and the stretch factor along each one is its eigenvalue.
+In §0.11 a matrix became a transformation: feed it a vector and it can rotate, stretch, or shear space. Some square transformations have special directions that are not rotated: an eigenvector remains on the same line, scaled by its eigenvalue. Not every real matrix has a real eigenvector; a 90-degree planar rotation is a standard counterexample, while complex eigenvectors are beyond this introduction.
 
 Think of a sheet of rubber pinned at the origin and stretched. Some fibres get dragged sideways as the sheet deforms; but a few fibres just get longer or shorter while staying on their own line. Find those fibres and you understand the deformation completely — everything else is a blend of them. For a data scientist the payoff is enormous: eigenvectors are the “natural axes” of a matrix, the coordinate system in which a complicated transformation becomes simple scaling.
 
@@ -2477,7 +2161,7 @@ For λ₂ = 1:
 
 giving 𝐯₂ = [1, −1]. Verify directly: 𝐀𝐯₁ = [2·1 + 1·1, 1·1 + 2·1] = [3, 3] = 3·[1, 1] ✓, and 𝐀𝐯₂ = [2 − 1, 1 − 2] = [1, −1] = 1·[1, −1] ✓.
 
-Notice 𝐯₁ · 𝐯₂ = (1)(1) + (1)(−1) = 0: the two eigenvectors are orthogonal. That is not luck — it happens for every symmetric matrix, as we discuss below.
+Notice 𝐯₁ · 𝐯₂ = (1)(1) + (1)(−1) = 0: the two eigenvectors are orthogonal. For a real symmetric matrix, eigenvectors associated with distinct eigenvalues are orthogonal, and every repeated-eigenvalue eigenspace admits an orthonormal basis.
 
 ### Geometric meaning: invariant axes and stretch factors
 
@@ -2591,17 +2275,13 @@ The dropped part is 𝐀 − 𝐀₁ = [[0.5, −0.5], [−0.5, 0.5]], whose ove
 
 Here is the connection that makes §0.12 worth the effort. In principal component analysis you have a cloud of data points and you compute their covariance matrix — a symmetric, positive-semidefinite matrix whose (i, j) entry is how feature i and feature j vary together. Its eigenvectors are the principal components: the orthogonal directions along which the data varies most, and its eigenvalues are the variances captured along each direction.
 
-Suppose two standardized features have covariance matrix [[2, 1], [1, 2]] — our example again. The top principal component is [1, 1]/√2 (the features rise and fall together) with variance 3; the second is [1, −1]/√2 with variance 1. The total variance is the trace, 2 + 2 = 4, so the first component alone captures 3/4 = 75% of the variation. Projecting every data point onto that single axis compresses two features into one while keeping three-quarters of the signal. PCA is nothing more than “take the eigenvectors (equivalently, the singular vectors of the centered data matrix) and keep the top few.”
+Suppose two standardized features have covariance—equivalently, correlation—matrix [[1, 0.5], [0.5, 1]]. The top principal direction is [1, 1]/√2 with eigenvalue 1.5; the second is [1, −1]/√2 with eigenvalue 0.5. The total variance is the trace, 2, so the first component captures 1.5/2 = 75% of the variance.
 
 → Used in Chapter 7: PCA, SVD, and low-rank approximation are the workhorses of dimensionality reduction, denoising, and compression — the single most important application of this section. → Used in Chapter 12: attention layers and modern model-compression schemes exploit the fact that large matrices are often close to low-rank, so a few singular directions carry most of the meaning.
 
 ## 0.13 Foundations of Probability
 
 Probability is the mathematics of uncertainty. As a clinician you already reason probabilistically every day — a positive test raises your suspicion, a negative one lowers it — but you do so with intuition. This section gives you the formal machinery behind that intuition. We build only the foundations you need to reach Chapter 3, which develops statistics, estimation, and inference in depth. Here we cover the grammar: outcomes, events, the rules that combine them, Bayes’ theorem, and the two objects that dominate machine learning — random variables and their expectations.
-
-![0.12: Bayes' theorem in natural frequencies: a 90%-accurate test still yields a low positive predictive value when disease is ](../assets/figures/ml_concept_0.12_59812f8d.png)
-
-*Figure 0.12 — original teaching graphic.*
 
 ### Sample space, events, and the three axioms
 
@@ -2777,9 +2457,9 @@ f( t𝐱 + (1−t)𝐲 ) ≤ t f(𝐱) + (1−t) f(𝐲).
 
 The left side is the function’s value at a point between 𝐱 and 𝐲; the right side is the straight-line interpolation of the two heights. “Curve sits on or below the connecting line” is the whole idea. For a twice-differentiable function this is equivalent — tying §0.9 to §0.12 — to the Hessian being positive semidefinite everywhere (in one variable, f″(x) ≥ 0, the test you already saw).
 
-Why do we care so much? Convexity guarantees no bad local minima. In a convex function every local minimum is automatically the global minimum, and there are no saddle points to stall on. So if we find any level-ground point, we are done — the optimizer cannot get trapped. Least-squares regression, ridge regression, logistic regression, and support-vector machines are all convex, which is why they are so reliable. Neural networks are not convex; training them is the art of doing well anyway.
+Why do we care so much? In a differentiable convex objective, every local minimum is global and every stationary point is a global minimum. That geometric statement does not by itself guarantee convergence of a particular optimizer. Least-squares, ridge, logistic-regression, and standard support-vector-machine objectives are convex in their usual parameterizations, subject to their stated domains and formulations. Neural-network training objectives are generally nonconvex.
 
-→ Used in Chapter 8: linear and logistic regression are convex, so their training is guaranteed to reach the one true optimum.
+→ Used in Chapter 8: linear- and logistic-regression objectives are convex under their standard formulations, so any finite stationary point is global. Uniqueness, existence of a finite logistic-regression solution (which can fail under complete separation), and convergence of a chosen optimizer require additional conditions.
 
 ### Stationarity: ∇f = 0
 
@@ -2861,7 +2541,7 @@ The cure is feature scaling. If we rescale the second coordinate so both directi
 
 → Used in Chapter 8: feature standardization and well-conditioned design matrices are what make regression optimizers converge quickly and stably.
 
-### Constrained optimization and Lagrange multipliers
+### Equality constraints and Lagrange multipliers
 
 Sometimes we must minimize f subject to a constraint g(𝐱) = 0 — stay on a surface while seeking the lowest point on it. At the constrained optimum you cannot improve f without stepping off the constraint. Geometrically that happens exactly when the two gradients are parallel:
 
@@ -2910,10 +2590,6 @@ Answers.
 ## 0.15 Discrete Mathematics, Graphs, and Algorithmic Complexity
 
 Continuous mathematics (calculus, linear algebra) describes smooth quantities. Discrete mathematics describes countable, separated things: sets, relationships, networks, and the step-by-step cost of algorithms. This section equips you with the vocabulary of structure and the arithmetic of scale.
-
-![0.14: Asymptotic growth of common complexity classes; the gap between O(n log n) and O(n²) or O(2ⁿ) decides what is computable](../assets/figures/ml_concept_0.14_93423239.png)
-
-*Figure 0.14 — original teaching graphic.*
 
 ### Sets, relations, and functions
 
@@ -3009,7 +2685,7 @@ To make it concrete, approximate operation counts:
 
 Consider counting a constant-cost operation:
 
-```
+```text
 count = 0
 for i in 1..n:
  for j in 1..n:
@@ -3020,7 +2696,7 @@ The inner loop runs n times for each of the n outer passes, so the body executes
 
 Now a common variant that only looks at distinct pairs:
 
-```
+```text
 for i in 1..n:
  for j in i+1..n:
  compare(i, j) # constant work
@@ -3044,7 +2720,7 @@ Because the budget is finite, most reals cannot be stored exactly. Famously, 0.1
 
 0.1 + 0.2 → 0.30000000000000004, not exactly 0.3.
 
-The gap between 1.0 and the next representable number is machine epsilon, ≈ 2.2 × 10⁻¹⁶ for doubles. Every stored value carries a relative rounding error of about this size. Usually harmless — until errors are amplified.
+For IEEE-754 binary64, the gap from 1.0 to the next larger representable number is 2⁻⁵² ≈ 2.22 × 10⁻¹⁶. Under round-to-nearest, the relative error of a normal rounded result is bounded by the unit roundoff 2⁻⁵³ ≈ 1.11 × 10⁻¹⁶; exactly representable values have zero rounding error, and subnormal, underflow, or overflow cases require separate treatment.
 
 ### Overflow and underflow
 
@@ -3106,7 +2782,7 @@ That cubic term has teeth: doubling the dimension makes a matrix multiply 2³ = 
 
 ### Determinism, seeds, and reproducibility
 
-Computers cannot make truly random numbers; they run a pseudo-random number generator that produces a fixed, deterministic sequence from a starting seed. Setting the seed makes every random step — shuffles, weight initialization, sampling, train/test splits — repeat exactly, which is essential for debugging and for scientific reproducibility. Two cautions remain: floating-point addition is not associative, so summing numbers in a different order can give slightly different results, and parallel or GPU reductions may reorder those sums between runs. Full determinism therefore needs both a fixed seed and controlled execution order. → Used in Chapter 8 / Chapter 10 (reproducible training) and Chapter 16 (data and evaluation challenges).
+Most ML libraries use deterministic pseudo-random number generators whose draws repeat from a fixed seed. Hardware entropy sources can also provide nondeterministic bits. A fixed seed reproduces software draws only when algorithms, library versions, execution order, and deterministic kernels are also controlled; it does not by itself guarantee bit-for-bit reproducibility across platforms or parallel hardware. → Used in Chapter 8 / Chapter 10 (reproducible training) and Chapter 16 (data and evaluation challenges).
 
 ### Practice — 0.13, 0.15, 0.16
 
@@ -3190,2270 +2866,6 @@ This section is a reference. The first table lists the symbols used throughout t
 | 0.14 Optimization, convexity, gradient descent | Ch8 (regression, regularization), Ch10 (SGD/Adam), Ch13 |
 | 0.15 Graphs & algorithmic complexity | Ch1 (evaluating algorithms), Ch5 (mining), Ch15 (graph algorithms) |
 | 0.16 Numerical computation | Ch8/Ch10 (stable training), Ch16 (reproducibility, train–serve skew) |
-
-
-![c82 teaching panel 00 (original).](../assets/figures/ml_fig_c82_00.png)
-*Figure — Gradient steps on a convex quadratic bowl and its contours—optimization geometry, not a clinical claim. Synthetic teaching geometry—not a causal claim.*
-
-
-![c83 teaching panel 00 (original).](../assets/figures/ml_fig_c83_00.png)
-*Figure — SVD building blocks for low-rank matrix approximation. Synthetic teaching geometry—not a causal claim.*
-
-
-![c84 teaching panel 00 (original).](../assets/figures/ml_fig_c84_00.png)
-*Figure — L1 / L2 / L∞ unit balls—geometry behind regularizers. Synthetic teaching geometry—not a causal claim.*
-
-
-![c85 teaching panel 00 (original).](../assets/figures/ml_fig_c85_00.png)
-*Figure — Activation shapes control gradient flow through deep stacks. Synthetic teaching geometry—not a causal claim.*
-
-
-![c86 teaching panel 00 (original).](../assets/figures/ml_fig_c86_00.png)
-*Figure — Lp penalty shapes (|x|, x², x⁴) alter solution geometry. Synthetic teaching geometry—not a causal claim.*
-
-
-![c87 teaching panel 00 (original).](../assets/figures/ml_fig_c87_00.png)
-*Figure — Linear maps stretch and rotate vectors (Av vs v). Synthetic teaching geometry—not a causal claim.*
-
-
-![c88 teaching panel 00 (original).](../assets/figures/ml_fig_c88_00.png)
-*Figure — Dot product as signed projection length. Synthetic teaching geometry—not a causal claim.*
-
-
-![c89 teaching panel 00 (original).](../assets/figures/ml_fig_c89_00.png)
-*Figure — Condition number: stretched level sets. Synthetic teaching geometry—not a causal claim.*
-
-
-![c90 teaching panel 00 (original).](../assets/figures/ml_fig_c90_00.png)
-*Figure — Jacobian local linearization of f. Synthetic teaching geometry—not a causal claim.*
-
-
-![c91 teaching panel 00 (original).](../assets/figures/ml_fig_c91_00.png)
-*Figure — Eigenvectors of a 2x2 stretch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c92 teaching panel 00 (original).](../assets/figures/ml_fig_c92_00.png)
-*Figure — Matrix rank as dimension of column space. Synthetic teaching geometry—not a causal claim.*
-
-
-![c93 teaching panel 00 (original).](../assets/figures/ml_fig_c93_00.png)
-*Figure — SVD singular values decay. Synthetic teaching geometry—not a causal claim.*
-
-
-![c94 teaching panel 00 (original).](../assets/figures/ml_fig_c94_00.png)
-*Figure — Cholesky factor triangle idea. Synthetic teaching geometry—not a causal claim.*
-
-
-![c95 teaching panel 00 (original).](../assets/figures/ml_fig_c95_00.png)
-*Figure — Pseudoinverse least-squares map. Synthetic teaching geometry—not a causal claim.*
-
-
-![c96 teaching panel 00 (original).](../assets/figures/ml_fig_c96_00.png)
-*Figure — Householder reflection sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c97 teaching panel 00 (original).](../assets/figures/ml_fig_c97_00.png)
-*Figure — QR decomposition thin/full forms. Synthetic teaching geometry—not a causal claim.*
-
-
-![c98 teaching panel 00 (original).](../assets/figures/ml_fig_c98_00.png)
-*Figure — Determinant as parallelogram area. Synthetic teaching geometry—not a causal claim.*
-
-
-![c99 teaching panel 00 (original).](../assets/figures/ml_fig_c99_00.png)
-*Figure — Trace as sum of eigenvalues. Synthetic teaching geometry—not a causal claim.*
-
-
-![c100 teaching panel 00 (original).](../assets/figures/ml_fig_c100_00.png)
-*Figure — Neumann series inverse sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c101 teaching panel 00 (original).](../assets/figures/ml_fig_c101_00.png)
-*Figure — Cramers rule geometric view. Synthetic teaching geometry—not a causal claim.*
-
-
-![c102 teaching panel 00 (original).](../assets/figures/ml_fig_c102_00.png)
-*Figure — Moore-Penrose properties strip. Synthetic teaching geometry—not a causal claim.*
-
-
-![c103 teaching panel 00 (original).](../assets/figures/ml_fig_c103_00.png)
-*Figure — Singular vectors left/right roles. Synthetic teaching geometry—not a causal claim.*
-
-
-![c104 teaching panel 00 (original).](../assets/figures/ml_fig_c104_00.png)
-*Figure — Orthogonal Procrustes alignment. Synthetic teaching geometry—not a causal claim.*
-
-
-![c105 teaching panel 00 (original).](../assets/figures/ml_fig_c105_00.png)
-*Figure — Woodbury matrix identity cartoon. Synthetic teaching geometry—not a causal claim.*
-
-
-![c106 teaching panel 00 (original).](../assets/figures/ml_fig_c106_00.png)
-*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
-
-
-![c107 teaching panel 00 (original).](../assets/figures/ml_fig_c107_00.png)
-*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
-
-
-![c108 teaching panel 00 (original).](../assets/figures/ml_fig_c108_00.png)
-*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
-
-
-![c109 teaching panel 00 (original).](../assets/figures/ml_fig_c109_00.png)
-*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c110 teaching panel 00 (original).](../assets/figures/ml_fig_c110_00.png)
-*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
-
-
-![c111 teaching panel 00 (original).](../assets/figures/ml_fig_c111_00.png)
-*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
-
-
-![c112 teaching panel 00 (original).](../assets/figures/ml_fig_c112_00.png)
-*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
-
-
-![c113 teaching panel 00 (original).](../assets/figures/ml_fig_c113_00.png)
-*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
-
-
-![c114 teaching panel 00 (original).](../assets/figures/ml_fig_c114_00.png)
-*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c115 teaching panel 00 (original).](../assets/figures/ml_fig_c115_00.png)
-*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
-
-
-![c116 teaching panel 00 (original).](../assets/figures/ml_fig_c116_00.png)
-*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
-
-
-![c117 teaching panel 00 (original).](../assets/figures/ml_fig_c117_00.png)
-*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
-
-
-![c118 teaching panel 00 (original).](../assets/figures/ml_fig_c118_00.png)
-*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
-
-
-![c119 teaching panel 00 (original).](../assets/figures/ml_fig_c119_00.png)
-*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c120 teaching panel 00 (original).](../assets/figures/ml_fig_c120_00.png)
-*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
-
-
-![c121 teaching panel 00 (original).](../assets/figures/ml_fig_c121_00.png)
-*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
-
-
-![c122 teaching panel 00 (original).](../assets/figures/ml_fig_c122_00.png)
-*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
-
-
-![c123 teaching panel 00 (original).](../assets/figures/ml_fig_c123_00.png)
-*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
-
-
-![c124 teaching panel 00 (original).](../assets/figures/ml_fig_c124_00.png)
-*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c125 teaching panel 00 (original).](../assets/figures/ml_fig_c125_00.png)
-*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
-
-
-![c126 teaching panel 00 (original).](../assets/figures/ml_fig_c126_00.png)
-*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
-
-
-![c127 teaching panel 00 (original).](../assets/figures/ml_fig_c127_00.png)
-*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
-
-
-![c128 teaching panel 00 (original).](../assets/figures/ml_fig_c128_00.png)
-*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
-
-
-![c129 teaching panel 00 (original).](../assets/figures/ml_fig_c129_00.png)
-*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c130 teaching panel 00 (original).](../assets/figures/ml_fig_c130_00.png)
-*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
-
-
-![c131 teaching panel 00 (original).](../assets/figures/ml_fig_c131_00.png)
-*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
-
-
-![c132 teaching panel 00 (original).](../assets/figures/ml_fig_c132_00.png)
-*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
-
-
-![c133 teaching panel 00 (original).](../assets/figures/ml_fig_c133_00.png)
-*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
-
-
-![c134 teaching panel 00 (original).](../assets/figures/ml_fig_c134_00.png)
-*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c135 teaching panel 00 (original).](../assets/figures/ml_fig_c135_00.png)
-*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
-
-
-![c136 teaching panel 00 (original).](../assets/figures/ml_fig_c136_00.png)
-*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
-
-
-![c137 teaching panel 00 (original).](../assets/figures/ml_fig_c137_00.png)
-*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
-
-
-![c138 teaching panel 00 (original).](../assets/figures/ml_fig_c138_00.png)
-*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
-
-
-![c139 teaching panel 00 (original).](../assets/figures/ml_fig_c139_00.png)
-*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c140 teaching panel 00 (original).](../assets/figures/ml_fig_c140_00.png)
-*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
-
-
-![c141 teaching panel 00 (original).](../assets/figures/ml_fig_c141_00.png)
-*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
-
-
-![c142 teaching panel 00 (original).](../assets/figures/ml_fig_c142_00.png)
-*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
-
-
-![c143 teaching panel 00 (original).](../assets/figures/ml_fig_c143_00.png)
-*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
-
-
-![c144 teaching panel 00 (original).](../assets/figures/ml_fig_c144_00.png)
-*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c145 teaching panel 00 (original).](../assets/figures/ml_fig_c145_00.png)
-*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
-
-
-![c146 teaching panel 00 (original).](../assets/figures/ml_fig_c146_00.png)
-*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
-
-
-![c147 teaching panel 00 (original).](../assets/figures/ml_fig_c147_00.png)
-*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
-
-
-![c148 teaching panel 00 (original).](../assets/figures/ml_fig_c148_00.png)
-*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
-
-
-![c149 teaching panel 00 (original).](../assets/figures/ml_fig_c149_00.png)
-*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c150 teaching panel 00 (original).](../assets/figures/ml_fig_c150_00.png)
-*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
-
-
-![c151 teaching panel 00 (original).](../assets/figures/ml_fig_c151_00.png)
-*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
-
-
-![c152 teaching panel 00 (original).](../assets/figures/ml_fig_c152_00.png)
-*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
-
-
-![c153 teaching panel 00 (original).](../assets/figures/ml_fig_c153_00.png)
-*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
-
-
-![c154 teaching panel 00 (original).](../assets/figures/ml_fig_c154_00.png)
-*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c155 teaching panel 00 (original).](../assets/figures/ml_fig_c155_00.png)
-*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
-
-
-![c156 teaching panel 00 (original).](../assets/figures/ml_fig_c156_00.png)
-*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
-
-
-![c157 teaching panel 00 (original).](../assets/figures/ml_fig_c157_00.png)
-*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
-
-
-![c158 teaching panel 00 (original).](../assets/figures/ml_fig_c158_00.png)
-*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
-
-
-![c159 teaching panel 00 (original).](../assets/figures/ml_fig_c159_00.png)
-*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c160 teaching panel 00 (original).](../assets/figures/ml_fig_c160_00.png)
-*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
-
-
-![c161 teaching panel 00 (original).](../assets/figures/ml_fig_c161_00.png)
-*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
-
-
-![c162 teaching panel 00 (original).](../assets/figures/ml_fig_c162_00.png)
-*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
-
-
-![c163 teaching panel 00 (original).](../assets/figures/ml_fig_c163_00.png)
-*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
-
-
-![c164 teaching panel 00 (original).](../assets/figures/ml_fig_c164_00.png)
-*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c165 teaching panel 00 (original).](../assets/figures/ml_fig_c165_00.png)
-*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
-
-
-![c166 teaching panel 00 (original).](../assets/figures/ml_fig_c166_00.png)
-*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
-
-
-![c167 teaching panel 00 (original).](../assets/figures/ml_fig_c167_00.png)
-*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
-
-
-![c168 teaching panel 00 (original).](../assets/figures/ml_fig_c168_00.png)
-*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
-
-
-![c169 teaching panel 00 (original).](../assets/figures/ml_fig_c169_00.png)
-*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c170 teaching panel 00 (original).](../assets/figures/ml_fig_c170_00.png)
-*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
-
-
-![c171 teaching panel 00 (original).](../assets/figures/ml_fig_c171_00.png)
-*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
-
-
-![c172 teaching panel 00 (original).](../assets/figures/ml_fig_c172_00.png)
-*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
-
-
-![c173 teaching panel 00 (original).](../assets/figures/ml_fig_c173_00.png)
-*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
-
-
-![c174 teaching panel 00 (original).](../assets/figures/ml_fig_c174_00.png)
-*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c175 teaching panel 00 (original).](../assets/figures/ml_fig_c175_00.png)
-*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
-
-
-![c176 teaching panel 00 (original).](../assets/figures/ml_fig_c176_00.png)
-*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
-
-
-![c177 teaching panel 00 (original).](../assets/figures/ml_fig_c177_00.png)
-*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
-
-
-![c178 teaching panel 00 (original).](../assets/figures/ml_fig_c178_00.png)
-*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
-
-
-![c179 teaching panel 00 (original).](../assets/figures/ml_fig_c179_00.png)
-*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c180 teaching panel 00 (original).](../assets/figures/ml_fig_c180_00.png)
-*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
-
-
-![c181 teaching panel 00 (original).](../assets/figures/ml_fig_c181_00.png)
-*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
-
-
-![c182 teaching panel 00 (original).](../assets/figures/ml_fig_c182_00.png)
-*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
-
-
-![c183 teaching panel 00 (original).](../assets/figures/ml_fig_c183_00.png)
-*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
-
-
-![c184 teaching panel 00 (original).](../assets/figures/ml_fig_c184_00.png)
-*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c185 teaching panel 00 (original).](../assets/figures/ml_fig_c185_00.png)
-*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
-
-
-![c186 teaching panel 00 (original).](../assets/figures/ml_fig_c186_00.png)
-*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
-
-
-![c187 teaching panel 00 (original).](../assets/figures/ml_fig_c187_00.png)
-*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
-
-
-![c188 teaching panel 00 (original).](../assets/figures/ml_fig_c188_00.png)
-*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
-
-
-![c189 teaching panel 00 (original).](../assets/figures/ml_fig_c189_00.png)
-*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c190 teaching panel 00 (original).](../assets/figures/ml_fig_c190_00.png)
-*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
-
-
-![c191 teaching panel 00 (original).](../assets/figures/ml_fig_c191_00.png)
-*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
-
-
-![c192 teaching panel 00 (original).](../assets/figures/ml_fig_c192_00.png)
-*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
-
-
-![c193 teaching panel 00 (original).](../assets/figures/ml_fig_c193_00.png)
-*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
-
-
-![c194 teaching panel 00 (original).](../assets/figures/ml_fig_c194_00.png)
-*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c195 teaching panel 00 (original).](../assets/figures/ml_fig_c195_00.png)
-*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
-
-
-![c196 teaching panel 00 (original).](../assets/figures/ml_fig_c196_00.png)
-*Figure — Krylov subspace iteration. Synthetic teaching geometry—not a causal claim.*
-
-
-![c197 teaching panel 00 (original).](../assets/figures/ml_fig_c197_00.png)
-*Figure — Gershgorin disk theorem. Synthetic teaching geometry—not a causal claim.*
-
-
-![c198 teaching panel 00 (original).](../assets/figures/ml_fig_c198_00.png)
-*Figure — Power method convergence. Synthetic teaching geometry—not a causal claim.*
-
-
-![c199 teaching panel 00 (original).](../assets/figures/ml_fig_c199_00.png)
-*Figure — Arnoldi process sketch. Synthetic teaching geometry—not a causal claim.*
-
-
-![c200 teaching panel 00 (original).](../assets/figures/ml_fig_c200_00.png)
-*Figure — Rayleigh quotient. Synthetic teaching geometry—not a causal claim.*
-
-
-![c201 teaching panel 00 (original).](../assets/figures/ml_fig_c201_00.png)
-*Figure — Condition number error magnification. Synthetic teaching geometry—not a causal claim.*
-
-
-![c202 teaching panel 00 (original).](../assets/figures/ml_fig_c202_00.png)
-*Figure — Schatten-p norms of singular values. Synthetic teaching geometry—not a causal claim.*
-
-
-![c203 teaching panel 00 (original).](../assets/figures/ml_fig_c203_00.png)
-*Figure — Matrix determinant as parallelogram volume. Synthetic teaching geometry—not a causal claim.*
-
-
-![c204 teaching panel 00 (original).](../assets/figures/ml_fig_c204_00.png)
-*Figure — Moore-Penrose singular reciprocal. Synthetic teaching geometry—not a causal claim.*
-
-
-![c205 teaching panel 00 (original).](../assets/figures/ml_fig_c205_00.png)
-*Figure — QR factorization geometry. Synthetic teaching geometry—not a causal claim.*
-
-
-![c206 teaching panel 00 (original).](../assets/figures/ml_fig_c206_00.png)
-*Figure — Cholesky factor lower triangle. Synthetic teaching geometry—not a causal claim.*
-
-
-![c207 teaching panel 00 (original).](../assets/figures/ml_fig_c207_00.png)
-*Figure — Singular value energy decay spectrum. Synthetic teaching geometry—not a causal claim.*
-
-
-![c208 teaching panel 00 (original).](../assets/figures/ml_fig_c208_00.png)
-*Figure — Condition number stretch ellipse. Synthetic teaching geometry—not a causal claim.*
-
-
-![c209 teaching panel 00 (original).](../assets/figures/ml_fig_c209_00.png)
-*Figure — Eigenvalue gap spectral clustering. Synthetic teaching geometry—not a causal claim.*
-
-
-![c210 teaching panel 00 (original).](../assets/figures/ml_fig_c210_00.png)
-*Figure — Power iteration dominant eigenvector. Synthetic teaching geometry—not a causal claim.*
-
-
-![c211 teaching panel 00 (original).](../assets/figures/ml_fig_c211_00.png)
-*Figure — Frobenius residual matrix heat. Synthetic teaching geometry—not a causal claim.*
-
-
-![c212 teaching panel 00 (original).](../assets/figures/ml_fig_c212_00.png)
-*Figure — Trace and determinant of SPD. Synthetic teaching geometry—not a causal claim.*
-
-
-![c213 teaching panel 00 (original).](../assets/figures/ml_fig_c213_00.png)
-*Figure — SVD truncation tail energy. Synthetic teaching geometry—not a causal claim.*
-
-
-![c214 teaching panel 00 (original).](../assets/figures/ml_fig_c214_00.png)
-*Figure — Condition number residual growth. Synthetic teaching geometry—not a causal claim.*
-
-
-![c215 teaching panel 00 (original).](../assets/figures/ml_fig_c215_00.png)
-*Figure — Householder reflector geometry. Synthetic teaching geometry—not a causal claim.*
-
-
-![c216 teaching panel 00 (original).](../assets/figures/ml_fig_c216_00.png)
-*Figure — Givens plane rotation steps. Synthetic teaching geometry—not a causal claim.*
-
-
-![c217 teaching panel 00 (original).](../assets/figures/ml_fig_c217_00.png)
-*Figure — LU partial pivoting necessity. Synthetic teaching geometry—not a causal claim.*
-
-
-![c218 teaching panel 00 (original).](../assets/figures/ml_fig_c218_00.png)
-*Figure — Economy SVD factor shapes. Synthetic teaching geometry—not a causal claim.*
-
-
-![c219 teaching panel 00 (original).](../assets/figures/ml_fig_c219_00.png)
-*Figure — Schur triangular eigen form. Synthetic teaching geometry—not a causal claim.*
-
-
-![c220 teaching panel 00 (original).](../assets/figures/ml_fig_c220_00.png)
-*Figure — Krylov subspace residual drop. Synthetic teaching geometry—not a causal claim.*
-
-
-![c221 teaching panel 00 (original).](../assets/figures/ml_fig_c221_00.png)
-*Figure — Householder reflection geometry. Synthetic teaching geometry—not a causal claim.*
-
-
-![c222 teaching panel 00 (original).](../assets/figures/ml_fig_c222_00.png)
-*Figure — Truncated SVD energy vs rank. Synthetic teaching geometry—not a causal claim.*
-
-
-![c223 teaching panel 00 (original).](../assets/figures/ml_fig_c223_00.png)
-*Figure — Givens plane rotation zeroing. Synthetic teaching geometry—not a causal claim.*
-
-
-![c224 teaching panel 00 (original).](../assets/figures/ml_fig_c224_00.png)
-*Figure — Lanczos tridiagonal projection. Synthetic teaching geometry—not a causal claim.*
-
-
-![c225 teaching panel 00 (original).](../assets/figures/ml_fig_c225_00.png)
-*Figure — Cholesky lower-triangular factor. Synthetic teaching geometry—not a causal claim.*
-
-
-![c226 teaching panel 00 (original).](../assets/figures/ml_fig_c226_00.png)
-*Figure — Pseudoinverse singular threshold. Synthetic teaching geometry—not a causal claim.*
-
-
-![c227 teaching panel 00 (original).](../assets/figures/ml_fig_c227_00.png)
-*Figure — Matrix condition number error amp. Synthetic teaching geometry—not a causal claim.*
-
-
-![c228 teaching panel 00 (original).](../assets/figures/ml_fig_c228_00.png)
-*Figure — Arnoldi Hessenberg structure. Synthetic teaching geometry—not a causal claim.*
-
-
-![c229 teaching panel 00 (original).](../assets/figures/ml_fig_c229_00.png)
-*Figure — Gram-Schmidt orthogonalization. Synthetic teaching geometry—not a causal claim.*
-
-
-![c230 teaching panel 00 (original).](../assets/figures/ml_fig_c230_00.png)
-*Figure — Woodbury low-rank inverse. Synthetic teaching geometry—not a causal claim.*
-
-
-![c231 teaching panel 00 (original).](../assets/figures/ml_fig_c231_00.png)
-*Figure — Economy SVD shape diagram. Synthetic teaching geometry—not a causal claim.*
-
-
-![c232 teaching panel 00 (original).](../assets/figures/ml_fig_c232_00.png)
-*Figure — Matrix sketch size vs epsilon. Synthetic teaching geometry—not a causal claim.*
-
-
-![c233 teaching panel 00 (original).](../assets/figures/ml_fig_c233_00.png)
-*Figure — QR iteration residual decay. Synthetic teaching geometry—not a causal claim.*
-
-
-![c234 teaching panel 00 (original).](../assets/figures/ml_fig_c234_00.png)
-*Figure — Conjugate gradient residual. Synthetic teaching geometry—not a causal claim.*
-
-
-![c235 teaching panel 00 (original).](../assets/figures/ml_fig_c235_00.png)
-*Figure — Jacobi eigenvalue sweep residual. Synthetic teaching geometry—not a causal claim.*
-
-
-![c236 teaching panel 00 (original).](../assets/figures/ml_fig_c236_00.png)
-*Figure — GMRES residual restart. Synthetic teaching geometry—not a causal claim.*
-
-
-![c237 teaching panel 00 (original).](../assets/figures/ml_fig_c237_00.png)
-*Figure — Power iteration residual decay. Synthetic teaching geometry—not a causal claim.*
-
-
-![c238 teaching panel 00 (original).](../assets/figures/ml_fig_c238_00.png)
-*Figure — BiCGSTAB residual path. Synthetic teaching geometry—not a causal claim.*
-
-
-![c239 teaching panel 00 (original).](../assets/figures/ml_fig_c239_00.png)
-*Figure — Lanczos residual orthogonal loss. Synthetic teaching geometry—not a causal claim.*
-
-
-![c240 teaching panel 00 (original).](../assets/figures/ml_fig_c240_00.png)
-*Figure — MINRES residual path. Synthetic teaching geometry—not a causal claim.*
-
-
-![c241 teaching panel 00 (original).](../assets/figures/ml_fig_c241_00.png)
-*Figure — QMR residual bi-orthogonal path. Synthetic teaching geometry—not a causal claim.*
-
-
-![c242 teaching panel 00 (original).](../assets/figures/ml_fig_c242_00.png)
-*Figure — CG residual A-norm path. Synthetic teaching geometry—not a causal claim.*
-
-
-![c243 teaching panel 00 (original).](../assets/figures/ml_fig_c243_00.png)
-*Figure — LSQR residual least-squares path. Synthetic teaching geometry—not a causal claim.*
-
-
-![c244 teaching panel 00 (original).](../assets/figures/ml_fig_c244_00.png)
-*Figure — IDR residual defect path. Synthetic teaching geometry—not a causal claim.*
-
-
-![c245 teaching panel 00 (original).](../assets/figures/ml_fig_c245_00.png)
-*Figure — SYMMLQ residual Krylov path. Synthetic teaching geometry—not a causal claim.*
-
-
-![c246 teaching panel 00 (original).](../assets/figures/ml_fig_c246_00.png)
-*Figure — TFQMR residual transpose path. Synthetic teaching geometry—not a causal claim.*
-
-
-![c247 teaching panel 00 (original).](../assets/figures/ml_fig_c247_00.png)
-*Figure — CGS residual bi-CG path. Synthetic teaching geometry—not a causal claim.*
-
-
-![c248 teaching panel 00 (original).](../assets/figures/ml_fig_c248_00.png)
-*Figure — FGMRES flexible residual path. Synthetic teaching geometry—not a causal claim.*
-
-
-![c249 teaching panel 00 (original).](../assets/figures/ml_fig_c249_00.png)
-*Figure — IDR-S residual defect path. Synthetic teaching geometry—not a causal claim.*
-
-
-![c250 teaching panel 00 (original).](../assets/figures/ml_fig_c250_00.png)
-*Figure — QMR-SYM residual path. Synthetic teaching geometry—not a causal claim.*
-
-
-![c251 teaching panel 00 (original).](../assets/figures/ml_fig_c251_00.png)
-*Figure — MINRES-QLP residual path. Synthetic teaching geometry—not a causal claim.*
-
-
-![c252 teaching panel 00 (original).](../assets/figures/ml_fig_c252_00.png)
-*Figure — BiCG residual dual path. Synthetic teaching geometry—not a causal claim.*
-
-
-![c253 teaching panel 00 (original).](../assets/figures/ml_fig_c253_00.png)
-*Figure — LSQR least-squares residual. Synthetic teaching geometry—not a causal claim.*
-
-
-![c254 teaching panel 00 (original).](../assets/figures/ml_fig_c254_00.png)
-*Figure — GMRES(m) restart residual. Synthetic teaching geometry—not a causal claim.*
-
-
-![c255 teaching panel 00 (original).](../assets/figures/ml_fig_c255_00.png)
-*Figure — CGNE residual normal eq. Synthetic teaching geometry—not a causal claim.*
-
-
-![c256 teaching panel 00 (original).](../assets/figures/ml_fig_c256_00.png)
-*Figure — TFQMR transpose residual. Synthetic teaching geometry—not a causal claim.*
-
-
-![c257 teaching panel 00 (original).](../assets/figures/ml_fig_c257_00.png)
-*Figure — Arnoldi orthogonal loss path c257. Synthetic teaching geometry—not a causal claim.*
-
-
-![c258 teaching panel 00 (original).](../assets/figures/ml_fig_c258_00.png)
-*Figure — Householder QR residual c258. Synthetic teaching geometry—not a causal claim.*
-
-
-![c259 teaching panel 00 (original).](../assets/figures/ml_fig_c259_00.png)
-*Figure — Cholesky condition path c259. Synthetic teaching geometry—not a causal claim.*
-
-
-![c260 teaching panel 00 (original).](../assets/figures/ml_fig_c260_00.png)
-*Figure — SVD singular decay path c260. Synthetic teaching geometry—not a causal claim.*
-
-
-![c261 teaching panel 00 (original).](../assets/figures/ml_fig_c261_00.png)
-*Figure — Jacobi iteration residual c261. Synthetic teaching geometry—not a causal claim.*
-
-
-![c262 teaching panel 00 (original).](../assets/figures/ml_fig_c262_00.png)
-*Figure — Gauss-Seidel residual c262. Synthetic teaching geometry—not a causal claim.*
-
-
-![c263 teaching panel 00 (original).](../assets/figures/ml_fig_c263_00.png)
-*Figure — SOR omega residual path c263. Synthetic teaching geometry—not a causal claim.*
-
-
-![c264 teaching panel 00 (original).](../assets/figures/ml_fig_c264_00.png)
-*Figure — Chebyshev semi-iter residual c264. Synthetic teaching geometry—not a causal claim.*
-
-
-![c265 teaching panel 00 (original).](../assets/figures/ml_fig_c265_00.png)
-*Figure — Multigrid V-cycle residual c265. Synthetic teaching geometry—not a causal claim.*
-
-
-![c266 teaching panel 00 (original).](../assets/figures/ml_fig_c266_00.png)
-*Figure — Preconditioned CG residual c266. Synthetic teaching geometry—not a causal claim.*
-
-
-![c267 teaching panel 00 (original).](../assets/figures/ml_fig_c267_00.png)
-*Figure — Deflated CG residual path c267. Synthetic teaching geometry—not a causal claim.*
-
-
-![c268 teaching panel 00 (original).](../assets/figures/ml_fig_c268_00.png)
-*Figure — Block CG residual path c268. Synthetic teaching geometry—not a causal claim.*
-
-
-![c269 teaching panel 00 (original).](../assets/figures/ml_fig_c269_00.png)
-*Figure — Flexible GMRES residual c269. Synthetic teaching geometry—not a causal claim.*
-
-
-![c270 teaching panel 00 (original).](../assets/figures/ml_fig_c270_00.png)
-*Figure — Recycling Krylov residual c270. Synthetic teaching geometry—not a causal claim.*
-
-
-![c271 teaching panel 00 (original).](../assets/figures/ml_fig_c271_00.png)
-*Figure — Sketch-and-project residual c271. Synthetic teaching geometry—not a causal claim.*
-
-
-![c272 teaching panel 00 (original).](../assets/figures/ml_fig_c272_00.png)
-*Figure — Krylov subspace residual path c272. Synthetic teaching geometry—not a causal claim.*
-
-
-![c273 teaching panel 00 (original).](../assets/figures/ml_fig_c273_00.png)
-*Figure — Arnoldi orthogonal loss path c273. Synthetic teaching geometry—not a causal claim.*
-
-
-![c274 teaching panel 00 (original).](../assets/figures/ml_fig_c274_00.png)
-*Figure — Householder QR residual c274. Synthetic teaching geometry—not a causal claim.*
-
-
-![c275 teaching panel 00 (original).](../assets/figures/ml_fig_c275_00.png)
-*Figure — Cholesky condition path c275. Synthetic teaching geometry—not a causal claim.*
-
-
-![c276 teaching panel 00 (original).](../assets/figures/ml_fig_c276_00.png)
-*Figure — SVD singular decay path c276. Synthetic teaching geometry—not a causal claim.*
-
-
-![c277 teaching panel 00 (original).](../assets/figures/ml_fig_c277_00.png)
-*Figure — Jacobi iteration residual c277. Synthetic teaching geometry—not a causal claim.*
-
-
-![c278 teaching panel 00 (original).](../assets/figures/ml_fig_c278_00.png)
-*Figure — Gauss-Seidel residual c278. Synthetic teaching geometry—not a causal claim.*
-
-
-![c279 teaching panel 00 (original).](../assets/figures/ml_fig_c279_00.png)
-*Figure — SOR omega residual path c279. Synthetic teaching geometry—not a causal claim.*
-
-
-![c280 teaching panel 00 (original).](../assets/figures/ml_fig_c280_00.png)
-*Figure — Chebyshev semi-iter residual c280. Synthetic teaching geometry—not a causal claim.*
-
-
-![c281 teaching panel 00 (original).](../assets/figures/ml_fig_c281_00.png)
-*Figure — Multigrid V-cycle residual c281. Synthetic teaching geometry—not a causal claim.*
-
-
-![c282 teaching panel 00 (original).](../assets/figures/ml_fig_c282_00.png)
-*Figure — Preconditioned CG residual c282. Synthetic teaching geometry—not a causal claim.*
-
-
-![c283 teaching panel 00 (original).](../assets/figures/ml_fig_c283_00.png)
-*Figure — Deflated CG residual path c283. Synthetic teaching geometry—not a causal claim.*
-
-
-![c284 teaching panel 00 (original).](../assets/figures/ml_fig_c284_00.png)
-*Figure — Block CG residual path c284. Synthetic teaching geometry—not a causal claim.*
-
-
-![c285 teaching panel 00 (original).](../assets/figures/ml_fig_c285_00.png)
-*Figure — Flexible GMRES residual c285. Synthetic teaching geometry—not a causal claim.*
-
-
-![c286 teaching panel 00 (original).](../assets/figures/ml_fig_c286_00.png)
-*Figure — Recycling Krylov residual c286. Synthetic teaching geometry—not a causal claim.*
-
-
-![c287 teaching panel 00 (original).](../assets/figures/ml_fig_c287_00.png)
-*Figure — Sketch-and-project residual c287. Synthetic teaching geometry—not a causal claim.*
-
-
-![c288 teaching panel 00 (original).](../assets/figures/ml_fig_c288_00.png)
-*Figure — Krylov subspace residual path c288. Synthetic teaching geometry—not a causal claim.*
-
-
-![c289 teaching panel 00 (original).](../assets/figures/ml_fig_c289_00.png)
-*Figure — Arnoldi orthogonal loss path c289. Synthetic teaching geometry—not a causal claim.*
-
-
-![c290 teaching panel 00 (original).](../assets/figures/ml_fig_c290_00.png)
-*Figure — Householder QR residual c290. Synthetic teaching geometry—not a causal claim.*
-
-
-![c291 teaching panel 00 (original).](../assets/figures/ml_fig_c291_00.png)
-*Figure — Cholesky condition path c291. Synthetic teaching geometry—not a causal claim.*
-
-
-![c292 teaching panel 00 (original).](../assets/figures/ml_fig_c292_00.png)
-*Figure — SVD singular decay path c292. Synthetic teaching geometry—not a causal claim.*
-
-
-![c293 teaching panel 00 (original).](../assets/figures/ml_fig_c293_00.png)
-*Figure — Jacobi iteration residual c293. Synthetic teaching geometry—not a causal claim.*
-
-
-![c294 teaching panel 00 (original).](../assets/figures/ml_fig_c294_00.png)
-*Figure — Gauss-Seidel residual c294. Synthetic teaching geometry—not a causal claim.*
-
-
-![c295 teaching panel 00 (original).](../assets/figures/ml_fig_c295_00.png)
-*Figure — SOR omega residual path c295. Synthetic teaching geometry—not a causal claim.*
-
-
-![c296 teaching panel 00 (original).](../assets/figures/ml_fig_c296_00.png)
-*Figure — Chebyshev semi-iter residual c296. Synthetic teaching geometry—not a causal claim.*
-
-
-![c297 teaching panel 00 (original).](../assets/figures/ml_fig_c297_00.png)
-*Figure — Multigrid V-cycle residual c297. Synthetic teaching geometry—not a causal claim.*
-
-
-![c298 teaching panel 00 (original).](../assets/figures/ml_fig_c298_00.png)
-*Figure — Preconditioned CG residual c298. Synthetic teaching geometry—not a causal claim.*
-
-
-![c299 teaching panel 00 (original).](../assets/figures/ml_fig_c299_00.png)
-*Figure — Deflated CG residual path c299. Synthetic teaching geometry—not a causal claim.*
-
-
-![c300 teaching panel 00 (original).](../assets/figures/ml_fig_c300_00.png)
-*Figure — Block CG residual path c300. Synthetic teaching geometry—not a causal claim.*
-
-
-![c301 teaching panel 00 (original).](../assets/figures/ml_fig_c301_00.png)
-*Figure — Flexible GMRES residual c301. Synthetic teaching geometry—not a causal claim.*
-
-
-![c302 teaching panel 00 (original).](../assets/figures/ml_fig_c302_00.png)
-*Figure — Recycling Krylov residual c302. Synthetic teaching geometry—not a causal claim.*
-
-
-![c303 teaching panel 00 (original).](../assets/figures/ml_fig_c303_00.png)
-*Figure — Sketch-and-project residual c303. Synthetic teaching geometry—not a causal claim.*
-
-
-![c304 teaching panel 00 (original).](../assets/figures/ml_fig_c304_00.png)
-*Figure — Krylov subspace residual path c304. Synthetic teaching geometry—not a causal claim.*
-
-
-![c305 teaching panel 00 (original).](../assets/figures/ml_fig_c305_00.png)
-*Figure — Arnoldi orthogonal loss path c305. Synthetic teaching geometry—not a causal claim.*
-
-
-![c306 teaching panel 00 (original).](../assets/figures/ml_fig_c306_00.png)
-*Figure — Householder QR residual c306. Synthetic teaching geometry—not a causal claim.*
-
-
-![c307 teaching panel 00 (original).](../assets/figures/ml_fig_c307_00.png)
-*Figure — Cholesky condition path c307. Synthetic teaching geometry—not a causal claim.*
-
-
-![c308 teaching panel 00 (original).](../assets/figures/ml_fig_c308_00.png)
-*Figure — SVD singular decay path c308. Synthetic teaching geometry—not a causal claim.*
-
-
-![c309 teaching panel 00 (original).](../assets/figures/ml_fig_c309_00.png)
-*Figure — Jacobi iteration residual c309. Synthetic teaching geometry—not a causal claim.*
-
-
-![c310 teaching panel 00 (original).](../assets/figures/ml_fig_c310_00.png)
-*Figure — Gauss-Seidel residual c310. Synthetic teaching geometry—not a causal claim.*
-
-
-![c311 teaching panel 00 (original).](../assets/figures/ml_fig_c311_00.png)
-*Figure — SOR omega residual path c311. Synthetic teaching geometry—not a causal claim.*
-
-
-![c312 teaching panel 00 (original).](../assets/figures/ml_fig_c312_00.png)
-*Figure — Chebyshev semi-iter residual c312. Synthetic teaching geometry—not a causal claim.*
-
-
-![c313 teaching panel 00 (original).](../assets/figures/ml_fig_c313_00.png)
-*Figure — Multigrid V-cycle residual c313. Synthetic teaching geometry—not a causal claim.*
-
-
-![c314 teaching panel 00 (original).](../assets/figures/ml_fig_c314_00.png)
-*Figure — Preconditioned CG residual c314. Synthetic teaching geometry—not a causal claim.*
-
-
-![c315 teaching panel 00 (original).](../assets/figures/ml_fig_c315_00.png)
-*Figure — Deflated CG residual path c315. Synthetic teaching geometry—not a causal claim.*
-
-
-![c316 teaching panel 00 (original).](../assets/figures/ml_fig_c316_00.png)
-*Figure — Block CG residual path c316. Synthetic teaching geometry—not a causal claim.*
-
-
-![c317 teaching panel 00 (original).](../assets/figures/ml_fig_c317_00.png)
-*Figure — Flexible GMRES residual c317. Synthetic teaching geometry—not a causal claim.*
-
-
-![c318 teaching panel 00 (original).](../assets/figures/ml_fig_c318_00.png)
-*Figure — Recycling Krylov residual c318. Synthetic teaching geometry—not a causal claim.*
-
-
-![c319 teaching panel 00 (original).](../assets/figures/ml_fig_c319_00.png)
-*Figure — Sketch-and-project residual c319. Synthetic teaching geometry—not a causal claim.*
-
-
-![c320 teaching panel 00 (original).](../assets/figures/ml_fig_c320_00.png)
-*Figure — Krylov subspace residual path c320. Synthetic teaching geometry—not a causal claim.*
-
-
-![c321 teaching panel 00 (original).](../assets/figures/ml_fig_c321_00.png)
-*Figure — Arnoldi orthogonal loss path c321. Synthetic teaching geometry—not a causal claim.*
-
-
-![c322 teaching panel 00 (original).](../assets/figures/ml_fig_c322_00.png)
-*Figure — Householder QR residual c322. Synthetic teaching geometry—not a causal claim.*
-
-
-![c323 teaching panel 00 (original).](../assets/figures/ml_fig_c323_00.png)
-*Figure — Cholesky condition path c323. Synthetic teaching geometry—not a causal claim.*
-
-
-![c324 teaching panel 00 (original).](../assets/figures/ml_fig_c324_00.png)
-*Figure — SVD singular decay path c324. Synthetic teaching geometry—not a causal claim.*
-
-
-![c325 teaching panel 00 (original).](../assets/figures/ml_fig_c325_00.png)
-*Figure — Jacobi iteration residual c325. Synthetic teaching geometry—not a causal claim.*
-
-
-![c326 teaching panel 00 (original).](../assets/figures/ml_fig_c326_00.png)
-*Figure — Gauss-Seidel residual c326. Synthetic teaching geometry—not a causal claim.*
-
-
-![c327 teaching panel 00 (original).](../assets/figures/ml_fig_c327_00.png)
-*Figure — SOR omega residual path c327. Synthetic teaching geometry—not a causal claim.*
-
-
-![c328 teaching panel 00 (original).](../assets/figures/ml_fig_c328_00.png)
-*Figure — Chebyshev semi-iter residual c328. Synthetic teaching geometry—not a causal claim.*
-
-
-![c329 teaching panel 00 (original).](../assets/figures/ml_fig_c329_00.png)
-*Figure — Multigrid V-cycle residual c329. Synthetic teaching geometry—not a causal claim.*
-
-
-![c330 teaching panel 00 (original).](../assets/figures/ml_fig_c330_00.png)
-*Figure — Preconditioned CG residual c330. Synthetic teaching geometry—not a causal claim.*
-
-
-![c331 teaching panel 00 (original).](../assets/figures/ml_fig_c331_00.png)
-*Figure — Deflated CG residual path c331. Synthetic teaching geometry—not a causal claim.*
-
-
-![c332 teaching panel 00 (original).](../assets/figures/ml_fig_c332_00.png)
-*Figure — Block CG residual path c332. Synthetic teaching geometry—not a causal claim.*
-
-
-![c333 teaching panel 00 (original).](../assets/figures/ml_fig_c333_00.png)
-*Figure — Flexible GMRES residual c333. Synthetic teaching geometry—not a causal claim.*
-
-
-![c334 teaching panel 00 (original).](../assets/figures/ml_fig_c334_00.png)
-*Figure — Recycling Krylov residual c334. Synthetic teaching geometry—not a causal claim.*
-
-
-![c335 teaching panel 00 (original).](../assets/figures/ml_fig_c335_00.png)
-*Figure — Sketch-and-project residual c335. Synthetic teaching geometry—not a causal claim.*
-
-
-![c336 teaching panel 00 (original).](../assets/figures/ml_fig_c336_00.png)
-*Figure — Krylov subspace residual path c336. Synthetic teaching geometry—not a causal claim.*
-
-
-![c337 teaching panel 00 (original).](../assets/figures/ml_fig_c337_00.png)
-*Figure — Arnoldi orthogonal loss path c337. Synthetic teaching geometry—not a causal claim.*
-
-
-![c338 teaching panel 00 (original).](../assets/figures/ml_fig_c338_00.png)
-*Figure — Householder QR residual c338. Synthetic teaching geometry—not a causal claim.*
-
-
-![c339 teaching panel 00 (original).](../assets/figures/ml_fig_c339_00.png)
-*Figure — Cholesky condition path c339. Synthetic teaching geometry—not a causal claim.*
-
-
-![c340 teaching panel 00 (original).](../assets/figures/ml_fig_c340_00.png)
-*Figure — SVD singular decay path c340. Synthetic teaching geometry—not a causal claim.*
-
-
-![c341 teaching panel 00 (original).](../assets/figures/ml_fig_c341_00.png)
-*Figure — Jacobi iteration residual c341. Synthetic teaching geometry—not a causal claim.*
-
-
-![c342 teaching panel 00 (original).](../assets/figures/ml_fig_c342_00.png)
-*Figure — Gauss-Seidel residual c342. Synthetic teaching geometry—not a causal claim.*
-
-
-![c343 teaching panel 00 (original).](../assets/figures/ml_fig_c343_00.png)
-*Figure — SOR omega residual path c343. Synthetic teaching geometry—not a causal claim.*
-
-
-![c344 teaching panel 00 (original).](../assets/figures/ml_fig_c344_00.png)
-*Figure — Chebyshev semi-iter residual c344. Synthetic teaching geometry—not a causal claim.*
-
-
-![c345 teaching panel 00 (original).](../assets/figures/ml_fig_c345_00.png)
-*Figure — Multigrid V-cycle residual c345. Synthetic teaching geometry—not a causal claim.*
-
-
-![c346 teaching panel 00 (original).](../assets/figures/ml_fig_c346_00.png)
-*Figure — Preconditioned CG residual c346. Synthetic teaching geometry—not a causal claim.*
-
-
-![c347 teaching panel 00 (original).](../assets/figures/ml_fig_c347_00.png)
-*Figure — Deflated CG residual path c347. Synthetic teaching geometry—not a causal claim.*
-
-
-![c348 teaching panel 00 (original).](../assets/figures/ml_fig_c348_00.png)
-*Figure — Block CG residual path c348. Synthetic teaching geometry—not a causal claim.*
-
-
-![c349 teaching panel 00 (original).](../assets/figures/ml_fig_c349_00.png)
-*Figure — Flexible GMRES residual c349. Synthetic teaching geometry—not a causal claim.*
-
-
-![c350 teaching panel 00 (original).](../assets/figures/ml_fig_c350_00.png)
-*Figure — Recycling Krylov residual c350. Synthetic teaching geometry—not a causal claim.*
-
-
-![c351 teaching panel 00 (original).](../assets/figures/ml_fig_c351_00.png)
-*Figure — Sketch-and-project residual c351. Synthetic teaching geometry—not a causal claim.*
-
-
-![c352 teaching panel 00 (original).](../assets/figures/ml_fig_c352_00.png)
-*Figure — Krylov subspace residual path c352. Synthetic teaching geometry—not a causal claim.*
-
-
-![c353 teaching panel 00 (original).](../assets/figures/ml_fig_c353_00.png)
-*Figure — Arnoldi orthogonal loss path c353. Synthetic teaching geometry—not a causal claim.*
-
-
-![c354 teaching panel 00 (original).](../assets/figures/ml_fig_c354_00.png)
-*Figure — Householder QR residual c354. Synthetic teaching geometry—not a causal claim.*
-
-
-![c355 teaching panel 00 (original).](../assets/figures/ml_fig_c355_00.png)
-*Figure — Cholesky condition path c355. Synthetic teaching geometry—not a causal claim.*
-
-
-![c356 teaching panel 00 (original).](../assets/figures/ml_fig_c356_00.png)
-*Figure — SVD singular decay path c356. Synthetic teaching geometry—not a causal claim.*
-
-
-![c357 teaching panel 00 (original).](../assets/figures/ml_fig_c357_00.png)
-*Figure — Jacobi iteration residual c357. Synthetic teaching geometry—not a causal claim.*
-
-
-![c358 teaching panel 00 (original).](../assets/figures/ml_fig_c358_00.png)
-*Figure — Gauss-Seidel residual c358. Synthetic teaching geometry—not a causal claim.*
-
-
-![c359 teaching panel 00 (original).](../assets/figures/ml_fig_c359_00.png)
-*Figure — SOR omega residual path c359. Synthetic teaching geometry—not a causal claim.*
-
-
-![c360 teaching panel 00 (original).](../assets/figures/ml_fig_c360_00.png)
-*Figure — Chebyshev semi-iter residual c360. Synthetic teaching geometry—not a causal claim.*
-
-
-![c361 teaching panel 00 (original).](../assets/figures/ml_fig_c361_00.png)
-*Figure — Multigrid V-cycle residual c361. Synthetic teaching geometry—not a causal claim.*
-
-
-![c362 teaching panel 00 (original).](../assets/figures/ml_fig_c362_00.png)
-*Figure — Preconditioned CG residual c362. Synthetic teaching geometry—not a causal claim.*
-
-
-![c363 teaching panel 00 (original).](../assets/figures/ml_fig_c363_00.png)
-*Figure — Deflated CG residual path c363. Synthetic teaching geometry—not a causal claim.*
-
-
-![c364 teaching panel 00 (original).](../assets/figures/ml_fig_c364_00.png)
-*Figure — Block CG residual path c364. Synthetic teaching geometry—not a causal claim.*
-
-
-![c365 teaching panel 00 (original).](../assets/figures/ml_fig_c365_00.png)
-*Figure — Flexible GMRES residual c365. Synthetic teaching geometry—not a causal claim.*
-
-
-![c366 teaching panel 00 (original).](../assets/figures/ml_fig_c366_00.png)
-*Figure — Recycling Krylov residual c366. Synthetic teaching geometry—not a causal claim.*
-
-
-![c367 teaching panel 00 (original).](../assets/figures/ml_fig_c367_00.png)
-*Figure — Sketch-and-project residual c367. Synthetic teaching geometry—not a causal claim.*
-
-
-![c368 teaching panel 00 (original).](../assets/figures/ml_fig_c368_00.png)
-*Figure — Krylov subspace residual path c368. Synthetic teaching geometry—not a causal claim.*
-
-
-![c369 teaching panel 00 (original).](../assets/figures/ml_fig_c369_00.png)
-*Figure — Arnoldi orthogonal loss path c369. Synthetic teaching geometry—not a causal claim.*
-
-
-![c370 teaching panel 00 (original).](../assets/figures/ml_fig_c370_00.png)
-*Figure — Householder QR residual c370. Synthetic teaching geometry—not a causal claim.*
-
-
-![c371 teaching panel 00 (original).](../assets/figures/ml_fig_c371_00.png)
-*Figure — Cholesky condition path c371. Synthetic teaching geometry—not a causal claim.*
-
-
-![c372 teaching panel 00 (original).](../assets/figures/ml_fig_c372_00.png)
-*Figure — SVD singular decay path c372. Synthetic teaching geometry—not a causal claim.*
-
-
-![c373 teaching panel 00 (original).](../assets/figures/ml_fig_c373_00.png)
-*Figure — Jacobi iteration residual c373. Synthetic teaching geometry—not a causal claim.*
-
-
-![c374 teaching panel 00 (original).](../assets/figures/ml_fig_c374_00.png)
-*Figure — Gauss-Seidel residual c374. Synthetic teaching geometry—not a causal claim.*
-
-
-![c375 teaching panel 00 (original).](../assets/figures/ml_fig_c375_00.png)
-*Figure — SOR omega residual path c375. Synthetic teaching geometry—not a causal claim.*
-
-
-![c376 teaching panel 00 (original).](../assets/figures/ml_fig_c376_00.png)
-*Figure — Chebyshev semi-iter residual c376. Synthetic teaching geometry—not a causal claim.*
-
-
-![c377 teaching panel 00 (original).](../assets/figures/ml_fig_c377_00.png)
-*Figure — Multigrid V-cycle residual c377. Synthetic teaching geometry—not a causal claim.*
-
-
-![c378 teaching panel 00 (original).](../assets/figures/ml_fig_c378_00.png)
-*Figure — Preconditioned CG residual c378. Synthetic teaching geometry—not a causal claim.*
-
-
-![c379 teaching panel 00 (original).](../assets/figures/ml_fig_c379_00.png)
-*Figure — Deflated CG residual path c379. Synthetic teaching geometry—not a causal claim.*
-
-
-![c380 teaching panel 00 (original).](../assets/figures/ml_fig_c380_00.png)
-*Figure — Block CG residual path c380. Synthetic teaching geometry—not a causal claim.*
-
-
-![c381 teaching panel 00 (original).](../assets/figures/ml_fig_c381_00.png)
-*Figure — Flexible GMRES residual c381. Synthetic teaching geometry—not a causal claim.*
-
-
-![c382 teaching panel 00 (original).](../assets/figures/ml_fig_c382_00.png)
-*Figure — Recycling Krylov residual c382. Synthetic teaching geometry—not a causal claim.*
-
-
-![c383 teaching panel 00 (original).](../assets/figures/ml_fig_c383_00.png)
-*Figure — Sketch-and-project residual c383. Synthetic teaching geometry—not a causal claim.*
-
-
-![c384 teaching panel 00 (original).](../assets/figures/ml_fig_c384_00.png)
-*Figure — Krylov subspace residual path c384. Synthetic teaching geometry—not a causal claim.*
-
-
-![c385 teaching panel 00 (original).](../assets/figures/ml_fig_c385_00.png)
-*Figure — Arnoldi orthogonal loss path c385. Synthetic teaching geometry—not a causal claim.*
-
-
-![c386 teaching panel 00 (original).](../assets/figures/ml_fig_c386_00.png)
-*Figure — Householder QR residual c386. Synthetic teaching geometry—not a causal claim.*
-
-
-![c387 teaching panel 00 (original).](../assets/figures/ml_fig_c387_00.png)
-*Figure — Cholesky condition path c387. Synthetic teaching geometry—not a causal claim.*
-
-
-![c388 teaching panel 00 (original).](../assets/figures/ml_fig_c388_00.png)
-*Figure — SVD singular decay path c388. Synthetic teaching geometry—not a causal claim.*
-
-
-![c389 teaching panel 00 (original).](../assets/figures/ml_fig_c389_00.png)
-*Figure — Jacobi iteration residual c389. Synthetic teaching geometry—not a causal claim.*
-
-
-![c390 teaching panel 00 (original).](../assets/figures/ml_fig_c390_00.png)
-*Figure — Gauss-Seidel residual c390. Synthetic teaching geometry—not a causal claim.*
-
-
-![c391 teaching panel 00 (original).](../assets/figures/ml_fig_c391_00.png)
-*Figure — SOR omega residual path c391. Synthetic teaching geometry—not a causal claim.*
-
-
-![c392 teaching panel 00 (original).](../assets/figures/ml_fig_c392_00.png)
-*Figure — Chebyshev semi-iter residual c392. Synthetic teaching geometry—not a causal claim.*
-
-
-![c393 teaching panel 00 (original).](../assets/figures/ml_fig_c393_00.png)
-*Figure — Multigrid V-cycle residual c393. Synthetic teaching geometry—not a causal claim.*
-
-
-![c394 teaching panel 00 (original).](../assets/figures/ml_fig_c394_00.png)
-*Figure — Preconditioned CG residual c394. Synthetic teaching geometry—not a causal claim.*
-
-
-![c395 teaching panel 00 (original).](../assets/figures/ml_fig_c395_00.png)
-*Figure — Deflated CG residual path c395. Synthetic teaching geometry—not a causal claim.*
-
-
-![c396 teaching panel 00 (original).](../assets/figures/ml_fig_c396_00.png)
-*Figure — Block CG residual path c396. Synthetic teaching geometry—not a causal claim.*
-
-
-![c397 teaching panel 00 (original).](../assets/figures/ml_fig_c397_00.png)
-*Figure — Flexible GMRES residual c397. Synthetic teaching geometry—not a causal claim.*
-
-
-![c398 teaching panel 00 (original).](../assets/figures/ml_fig_c398_00.png)
-*Figure — Recycling Krylov residual c398. Synthetic teaching geometry—not a causal claim.*
-
-
-![c399 teaching panel 00 (original).](../assets/figures/ml_fig_c399_00.png)
-*Figure — Sketch-and-project residual c399. Synthetic teaching geometry—not a causal claim.*
-
-
-![c400 teaching panel 00 (original).](../assets/figures/ml_fig_c400_00.png)
-*Figure — Krylov subspace residual path c400. Synthetic teaching geometry—not a causal claim.*
-
-
-![c401 teaching panel 00 (original).](../assets/figures/ml_fig_c401_00.png)
-*Figure — Arnoldi orthogonal loss path c401. Synthetic teaching geometry—not a causal claim.*
-
-
-![c402 teaching panel 00 (original).](../assets/figures/ml_fig_c402_00.png)
-*Figure — Householder QR residual c402. Synthetic teaching geometry—not a causal claim.*
-
-
-![c403 teaching panel 00 (original).](../assets/figures/ml_fig_c403_00.png)
-*Figure — Cholesky condition path c403. Synthetic teaching geometry—not a causal claim.*
-
-
-![c404 teaching panel 00 (original).](../assets/figures/ml_fig_c404_00.png)
-*Figure — SVD singular decay path c404. Synthetic teaching geometry—not a causal claim.*
-
-
-![c405 teaching panel 00 (original).](../assets/figures/ml_fig_c405_00.png)
-*Figure — Jacobi iteration residual c405. Synthetic teaching geometry—not a causal claim.*
-
-
-![c406 teaching panel 00 (original).](../assets/figures/ml_fig_c406_00.png)
-*Figure — Gauss-Seidel residual c406. Synthetic teaching geometry—not a causal claim.*
-
-
-![c407 teaching panel 00 (original).](../assets/figures/ml_fig_c407_00.png)
-*Figure — SOR omega residual path c407. Synthetic teaching geometry—not a causal claim.*
-
-
-![c408 teaching panel 00 (original).](../assets/figures/ml_fig_c408_00.png)
-*Figure — Chebyshev semi-iter residual c408. Synthetic teaching geometry—not a causal claim.*
-
-
-![c409 teaching panel 00 (original).](../assets/figures/ml_fig_c409_00.png)
-*Figure — Multigrid V-cycle residual c409. Synthetic teaching geometry—not a causal claim.*
-
-
-![c410 teaching panel 00 (original).](../assets/figures/ml_fig_c410_00.png)
-*Figure — Preconditioned CG residual c410. Synthetic teaching geometry—not a causal claim.*
-
-
-![c411 teaching panel 00 (original).](../assets/figures/ml_fig_c411_00.png)
-*Figure — Deflated CG residual path c411. Synthetic teaching geometry—not a causal claim.*
-
-
-![c412 teaching panel 00 (original).](../assets/figures/ml_fig_c412_00.png)
-*Figure — Block CG residual path c412. Synthetic teaching geometry—not a causal claim.*
-
-
-![c413 teaching panel 00 (original).](../assets/figures/ml_fig_c413_00.png)
-*Figure — Flexible GMRES residual c413. Synthetic teaching geometry—not a causal claim.*
-
-
-![c414 teaching panel 00 (original).](../assets/figures/ml_fig_c414_00.png)
-*Figure — Recycling Krylov residual c414. Synthetic teaching geometry—not a causal claim.*
-
-
-![c415 teaching panel 00 (original).](../assets/figures/ml_fig_c415_00.png)
-*Figure — Sketch-and-project residual c415. Synthetic teaching geometry—not a causal claim.*
-
-
-![c416 teaching panel 00 (original).](../assets/figures/ml_fig_c416_00.png)
-*Figure — Krylov subspace residual path c416. Synthetic teaching geometry—not a causal claim.*
-
-
-![c417 teaching panel 00 (original).](../assets/figures/ml_fig_c417_00.png)
-*Figure — Arnoldi orthogonal loss path c417. Synthetic teaching geometry—not a causal claim.*
-
-
-![c418 teaching panel 00 (original).](../assets/figures/ml_fig_c418_00.png)
-*Figure — Householder QR residual c418. Synthetic teaching geometry—not a causal claim.*
-
-
-![c419 teaching panel 00 (original).](../assets/figures/ml_fig_c419_00.png)
-*Figure — Cholesky condition path c419. Synthetic teaching geometry—not a causal claim.*
-
-
-![c420 teaching panel 00 (original).](../assets/figures/ml_fig_c420_00.png)
-*Figure — SVD singular decay path c420. Synthetic teaching geometry—not a causal claim.*
-
-
-![c421 teaching panel 00 (original).](../assets/figures/ml_fig_c421_00.png)
-*Figure — Jacobi iteration residual c421. Synthetic teaching geometry—not a causal claim.*
-
-
-![c422 teaching panel 00 (original).](../assets/figures/ml_fig_c422_00.png)
-*Figure — Gauss-Seidel residual c422. Synthetic teaching geometry—not a causal claim.*
-
-
-![c423 teaching panel 00 (original).](../assets/figures/ml_fig_c423_00.png)
-*Figure — SOR omega residual path c423. Synthetic teaching geometry—not a causal claim.*
-
-
-![c424 teaching panel 00 (original).](../assets/figures/ml_fig_c424_00.png)
-*Figure — Chebyshev semi-iter residual c424. Synthetic teaching geometry—not a causal claim.*
-
-
-![c425 teaching panel 00 (original).](../assets/figures/ml_fig_c425_00.png)
-*Figure — Multigrid V-cycle residual c425. Synthetic teaching geometry—not a causal claim.*
-
-
-![c426 teaching panel 00 (original).](../assets/figures/ml_fig_c426_00.png)
-*Figure — Preconditioned CG residual c426. Synthetic teaching geometry—not a causal claim.*
-
-
-![c427 teaching panel 00 (original).](../assets/figures/ml_fig_c427_00.png)
-*Figure — Deflated CG residual path c427. Synthetic teaching geometry—not a causal claim.*
-
-
-![c428 teaching panel 00 (original).](../assets/figures/ml_fig_c428_00.png)
-*Figure — Block CG residual path c428. Synthetic teaching geometry—not a causal claim.*
-
-
-![c429 teaching panel 00 (original).](../assets/figures/ml_fig_c429_00.png)
-*Figure — Flexible GMRES residual c429. Synthetic teaching geometry—not a causal claim.*
-
-
-![c430 teaching panel 00 (original).](../assets/figures/ml_fig_c430_00.png)
-*Figure — Recycling Krylov residual c430. Synthetic teaching geometry—not a causal claim.*
-
-
-![c431 teaching panel 00 (original).](../assets/figures/ml_fig_c431_00.png)
-*Figure — Sketch-and-project residual c431. Synthetic teaching geometry—not a causal claim.*
-
-
-![c432 teaching panel 00 (original).](../assets/figures/ml_fig_c432_00.png)
-*Figure — Krylov subspace residual path c432. Synthetic teaching geometry—not a causal claim.*
-
-
-![c433 teaching panel 00 (original).](../assets/figures/ml_fig_c433_00.png)
-*Figure — Arnoldi orthogonal loss path c433. Synthetic teaching geometry—not a causal claim.*
-
-
-![c434 teaching panel 00 (original).](../assets/figures/ml_fig_c434_00.png)
-*Figure — Householder QR residual c434. Synthetic teaching geometry—not a causal claim.*
-
-
-![c435 teaching panel 00 (original).](../assets/figures/ml_fig_c435_00.png)
-*Figure — Cholesky condition path c435. Synthetic teaching geometry—not a causal claim.*
-
-
-![c436 teaching panel 00 (original).](../assets/figures/ml_fig_c436_00.png)
-*Figure — SVD singular decay path c436. Synthetic teaching geometry—not a causal claim.*
-
-
-![c437 teaching panel 00 (original).](../assets/figures/ml_fig_c437_00.png)
-*Figure — Jacobi iteration residual c437. Synthetic teaching geometry—not a causal claim.*
-
-
-![c438 teaching panel 00 (original).](../assets/figures/ml_fig_c438_00.png)
-*Figure — Gauss-Seidel residual c438. Synthetic teaching geometry—not a causal claim.*
-
-
-![c439 teaching panel 00 (original).](../assets/figures/ml_fig_c439_00.png)
-*Figure — SOR omega residual path c439. Synthetic teaching geometry—not a causal claim.*
-
-
-![c440 teaching panel 00 (original).](../assets/figures/ml_fig_c440_00.png)
-*Figure — Chebyshev semi-iter residual c440. Synthetic teaching geometry—not a causal claim.*
-
-
-![c441 teaching panel 00 (original).](../assets/figures/ml_fig_c441_00.png)
-*Figure — Multigrid V-cycle residual c441. Synthetic teaching geometry—not a causal claim.*
-
-
-![c442 teaching panel 00 (original).](../assets/figures/ml_fig_c442_00.png)
-*Figure — Preconditioned CG residual c442. Synthetic teaching geometry—not a causal claim.*
-
-
-![c443 teaching panel 00 (original).](../assets/figures/ml_fig_c443_00.png)
-*Figure — Deflated CG residual path c443. Synthetic teaching geometry—not a causal claim.*
-
-
-![c444 teaching panel 00 (original).](../assets/figures/ml_fig_c444_00.png)
-*Figure — Block CG residual path c444. Synthetic teaching geometry—not a causal claim.*
-
-
-![c445 teaching panel 00 (original).](../assets/figures/ml_fig_c445_00.png)
-*Figure — Flexible GMRES residual c445. Synthetic teaching geometry—not a causal claim.*
-
-
-![c446 teaching panel 00 (original).](../assets/figures/ml_fig_c446_00.png)
-*Figure — Recycling Krylov residual c446. Synthetic teaching geometry—not a causal claim.*
-
-
-![c447 teaching panel 00 (original).](../assets/figures/ml_fig_c447_00.png)
-*Figure — Sketch-and-project residual c447. Synthetic teaching geometry—not a causal claim.*
-
-
-![c448 teaching panel 00 (original).](../assets/figures/ml_fig_c448_00.png)
-*Figure — Krylov subspace residual path c448. Synthetic teaching geometry—not a causal claim.*
-
-
-![c449 teaching panel 00 (original).](../assets/figures/ml_fig_c449_00.png)
-*Figure — Arnoldi orthogonal loss path c449. Synthetic teaching geometry—not a causal claim.*
-
-
-![c450 teaching panel 00 (original).](../assets/figures/ml_fig_c450_00.png)
-*Figure — Householder QR residual c450. Synthetic teaching geometry—not a causal claim.*
-
-
-![c451 teaching panel 00 (original).](../assets/figures/ml_fig_c451_00.png)
-*Figure — Cholesky condition path c451. Synthetic teaching geometry—not a causal claim.*
-
-
-![c452 teaching panel 00 (original).](../assets/figures/ml_fig_c452_00.png)
-*Figure — SVD singular decay path c452. Synthetic teaching geometry—not a causal claim.*
-
-
-![c453 teaching panel 00 (original).](../assets/figures/ml_fig_c453_00.png)
-*Figure — Jacobi iteration residual c453. Synthetic teaching geometry—not a causal claim.*
-
-
-![c454 teaching panel 00 (original).](../assets/figures/ml_fig_c454_00.png)
-*Figure — Gauss-Seidel residual c454. Synthetic teaching geometry—not a causal claim.*
-
-
-![c455 teaching panel 00 (original).](../assets/figures/ml_fig_c455_00.png)
-*Figure — SOR omega residual path c455. Synthetic teaching geometry—not a causal claim.*
-
-
-![c456 teaching panel 00 (original).](../assets/figures/ml_fig_c456_00.png)
-*Figure — Chebyshev semi-iter residual c456. Synthetic teaching geometry—not a causal claim.*
-
-
-![c457 teaching panel 00 (original).](../assets/figures/ml_fig_c457_00.png)
-*Figure — Multigrid V-cycle residual c457. Synthetic teaching geometry—not a causal claim.*
-
-
-![c458 teaching panel 00 (original).](../assets/figures/ml_fig_c458_00.png)
-*Figure — Preconditioned CG residual c458. Synthetic teaching geometry—not a causal claim.*
-
-
-![c459 teaching panel 00 (original).](../assets/figures/ml_fig_c459_00.png)
-*Figure — Deflated CG residual path c459. Synthetic teaching geometry—not a causal claim.*
-
-
-![c460 teaching panel 00 (original).](../assets/figures/ml_fig_c460_00.png)
-*Figure — Block CG residual path c460. Synthetic teaching geometry—not a causal claim.*
-
-
-![c461 teaching panel 00 (original).](../assets/figures/ml_fig_c461_00.png)
-*Figure — Flexible GMRES residual c461. Synthetic teaching geometry—not a causal claim.*
-
-
-![c462 teaching panel 00 (original).](../assets/figures/ml_fig_c462_00.png)
-*Figure — Recycling Krylov residual c462. Synthetic teaching geometry—not a causal claim.*
-
-
-![c463 teaching panel 00 (original).](../assets/figures/ml_fig_c463_00.png)
-*Figure — Sketch-and-project residual c463. Synthetic teaching geometry—not a causal claim.*
-
-
-![c464 teaching panel 00 (original).](../assets/figures/ml_fig_c464_00.png)
-*Figure — Krylov subspace residual path c464. Synthetic teaching geometry—not a causal claim.*
-
-
-![c465 teaching panel 00 (original).](../assets/figures/ml_fig_c465_00.png)
-*Figure — Arnoldi orthogonal loss path c465. Synthetic teaching geometry—not a causal claim.*
-
-
-![c466 teaching panel 00 (original).](../assets/figures/ml_fig_c466_00.png)
-*Figure — Householder QR residual c466. Synthetic teaching geometry—not a causal claim.*
-
-
-![c467 teaching panel 00 (original).](../assets/figures/ml_fig_c467_00.png)
-*Figure — Cholesky condition path c467. Synthetic teaching geometry—not a causal claim.*
-
-
-![c468 teaching panel 00 (original).](../assets/figures/ml_fig_c468_00.png)
-*Figure — SVD singular decay path c468. Synthetic teaching geometry—not a causal claim.*
-
-
-![c469 teaching panel 00 (original).](../assets/figures/ml_fig_c469_00.png)
-*Figure — Jacobi iteration residual c469. Synthetic teaching geometry—not a causal claim.*
-
-
-![c470 teaching panel 00 (original).](../assets/figures/ml_fig_c470_00.png)
-*Figure — Gauss-Seidel residual c470. Synthetic teaching geometry—not a causal claim.*
-
-
-![c471 teaching panel 00 (original).](../assets/figures/ml_fig_c471_00.png)
-*Figure — SOR omega residual path c471. Synthetic teaching geometry—not a causal claim.*
-
-
-![c472 teaching panel 00 (original).](../assets/figures/ml_fig_c472_00.png)
-*Figure — Chebyshev semi-iter residual c472. Synthetic teaching geometry—not a causal claim.*
-
-
-![c473 teaching panel 00 (original).](../assets/figures/ml_fig_c473_00.png)
-*Figure — Multigrid V-cycle residual c473. Synthetic teaching geometry—not a causal claim.*
-
-
-![c474 teaching panel 00 (original).](../assets/figures/ml_fig_c474_00.png)
-*Figure — Preconditioned CG residual c474. Synthetic teaching geometry—not a causal claim.*
-
-
-![c475 teaching panel 00 (original).](../assets/figures/ml_fig_c475_00.png)
-*Figure — Deflated CG residual path c475. Synthetic teaching geometry—not a causal claim.*
-
-
-![c476 teaching panel 00 (original).](../assets/figures/ml_fig_c476_00.png)
-*Figure — Block CG residual path c476. Synthetic teaching geometry—not a causal claim.*
-
-
-![c477 teaching panel 00 (original).](../assets/figures/ml_fig_c477_00.png)
-*Figure — Flexible GMRES residual c477. Synthetic teaching geometry—not a causal claim.*
-
-
-![c478 teaching panel 00 (original).](../assets/figures/ml_fig_c478_00.png)
-*Figure — Recycling Krylov residual c478. Synthetic teaching geometry—not a causal claim.*
-
-
-![c479 teaching panel 00 (original).](../assets/figures/ml_fig_c479_00.png)
-*Figure — Sketch-and-project residual c479. Synthetic teaching geometry—not a causal claim.*
-
-
-![c480 teaching panel 00 (original).](../assets/figures/ml_fig_c480_00.png)
-*Figure — Krylov subspace residual path c480. Synthetic teaching geometry—not a causal claim.*
-
-
-![c481 teaching panel 00 (original).](../assets/figures/ml_fig_c481_00.png)
-*Figure — Arnoldi orthogonal loss path c481. Synthetic teaching geometry—not a causal claim.*
-
-
-![c482 teaching panel 00 (original).](../assets/figures/ml_fig_c482_00.png)
-*Figure — Householder QR residual c482. Synthetic teaching geometry—not a causal claim.*
-
-
-![c483 teaching panel 00 (original).](../assets/figures/ml_fig_c483_00.png)
-*Figure — Cholesky condition path c483. Synthetic teaching geometry—not a causal claim.*
-
-
-![c484 teaching panel 00 (original).](../assets/figures/ml_fig_c484_00.png)
-*Figure — SVD singular decay path c484. Synthetic teaching geometry—not a causal claim.*
-
-
-![c485 teaching panel 00 (original).](../assets/figures/ml_fig_c485_00.png)
-*Figure — Jacobi iteration residual c485. Synthetic teaching geometry—not a causal claim.*
-
-
-![c486 teaching panel 00 (original).](../assets/figures/ml_fig_c486_00.png)
-*Figure — Gauss-Seidel residual c486. Synthetic teaching geometry—not a causal claim.*
-
-
-![c487 teaching panel 00 (original).](../assets/figures/ml_fig_c487_00.png)
-*Figure — SOR omega residual path c487. Synthetic teaching geometry—not a causal claim.*
-
-
-![c488 teaching panel 00 (original).](../assets/figures/ml_fig_c488_00.png)
-*Figure — Chebyshev semi-iter residual c488. Synthetic teaching geometry—not a causal claim.*
-
-
-![c489 teaching panel 00 (original).](../assets/figures/ml_fig_c489_00.png)
-*Figure — Multigrid V-cycle residual c489. Synthetic teaching geometry—not a causal claim.*
-
-
-![c490 teaching panel 00 (original).](../assets/figures/ml_fig_c490_00.png)
-*Figure — Preconditioned CG residual c490. Synthetic teaching geometry—not a causal claim.*
-
-
-![c491 teaching panel 00 (original).](../assets/figures/ml_fig_c491_00.png)
-*Figure — Deflated CG residual path c491. Synthetic teaching geometry—not a causal claim.*
-
-
-![c492 teaching panel 00 (original).](../assets/figures/ml_fig_c492_00.png)
-*Figure — Block CG residual path c492. Synthetic teaching geometry—not a causal claim.*
-
-
-![c493 teaching panel 00 (original).](../assets/figures/ml_fig_c493_00.png)
-*Figure — Flexible GMRES residual c493. Synthetic teaching geometry—not a causal claim.*
-
-
-![c494 teaching panel 00 (original).](../assets/figures/ml_fig_c494_00.png)
-*Figure — Recycling Krylov residual c494. Synthetic teaching geometry—not a causal claim.*
-
-
-![c495 teaching panel 00 (original).](../assets/figures/ml_fig_c495_00.png)
-*Figure — Sketch-and-project residual c495. Synthetic teaching geometry—not a causal claim.*
-
-
-![c496 teaching panel 00 (original).](../assets/figures/ml_fig_c496_00.png)
-*Figure — Krylov subspace residual path c496. Synthetic teaching geometry—not a causal claim.*
-
-
-![c497 teaching panel 00 (original).](../assets/figures/ml_fig_c497_00.png)
-*Figure — Arnoldi orthogonal loss path c497. Synthetic teaching geometry—not a causal claim.*
-
-
-![c498 teaching panel 00 (original).](../assets/figures/ml_fig_c498_00.png)
-*Figure — Householder QR residual c498. Synthetic teaching geometry—not a causal claim.*
-
-
-![c499 teaching panel 00 (original).](../assets/figures/ml_fig_c499_00.png)
-*Figure — Cholesky condition path c499. Synthetic teaching geometry—not a causal claim.*
-
-
-![c500 teaching panel 00 (original).](../assets/figures/ml_fig_c500_00.png)
-*Figure — SVD singular decay path c500. Synthetic teaching geometry—not a causal claim.*
-
-
-![c501 teaching panel 00 (original).](../assets/figures/ml_fig_c501_00.png)
-*Figure — Jacobi iteration residual c501. Synthetic teaching geometry—not a causal claim.*
-
-
-![c502 teaching panel 00 (original).](../assets/figures/ml_fig_c502_00.png)
-*Figure — Gauss-Seidel residual c502. Synthetic teaching geometry—not a causal claim.*
-
-
-![c503 teaching panel 00 (original).](../assets/figures/ml_fig_c503_00.png)
-*Figure — SOR omega residual path c503. Synthetic teaching geometry—not a causal claim.*
-
-
-![c504 teaching panel 00 (original).](../assets/figures/ml_fig_c504_00.png)
-*Figure — Chebyshev semi-iter residual c504. Synthetic teaching geometry—not a causal claim.*
-
-
-![c505 teaching panel 00 (original).](../assets/figures/ml_fig_c505_00.png)
-*Figure — Multigrid V-cycle residual c505. Synthetic teaching geometry—not a causal claim.*
-
-
-![c506 teaching panel 00 (original).](../assets/figures/ml_fig_c506_00.png)
-*Figure — Preconditioned CG residual c506. Synthetic teaching geometry—not a causal claim.*
-
-
-![c507 teaching panel 00 (original).](../assets/figures/ml_fig_c507_00.png)
-*Figure — Deflated CG residual path c507. Synthetic teaching geometry—not a causal claim.*
-
-
-![c508 teaching panel 00 (original).](../assets/figures/ml_fig_c508_00.png)
-*Figure — Block CG residual path c508. Synthetic teaching geometry—not a causal claim.*
-
-
-![c509 teaching panel 00 (original).](../assets/figures/ml_fig_c509_00.png)
-*Figure — Flexible GMRES residual c509. Synthetic teaching geometry—not a causal claim.*
-
-
-![c510 teaching panel 00 (original).](../assets/figures/ml_fig_c510_00.png)
-*Figure — Recycling Krylov residual c510. Synthetic teaching geometry—not a causal claim.*
-
-
-![c511 teaching panel 00 (original).](../assets/figures/ml_fig_c511_00.png)
-*Figure — Sketch-and-project residual c511. Synthetic teaching geometry—not a causal claim.*
-
-
-![c512 teaching panel 00 (original).](../assets/figures/ml_fig_c512_00.png)
-*Figure — Krylov subspace residual path c512. Synthetic teaching geometry—not a causal claim.*
-
-
-![c513 teaching panel 00 (original).](../assets/figures/ml_fig_c513_00.png)
-*Figure — Arnoldi orthogonal loss path c513. Synthetic teaching geometry—not a causal claim.*
-
-
-![c514 teaching panel 00 (original).](../assets/figures/ml_fig_c514_00.png)
-*Figure — Householder QR residual c514. Synthetic teaching geometry—not a causal claim.*
-
-
-![c515 teaching panel 00 (original).](../assets/figures/ml_fig_c515_00.png)
-*Figure — Cholesky condition path c515. Synthetic teaching geometry—not a causal claim.*
-
-
-![c516 teaching panel 00 (original).](../assets/figures/ml_fig_c516_00.png)
-*Figure — SVD singular decay path c516. Synthetic teaching geometry—not a causal claim.*
-
-
-![c517 teaching panel 00 (original).](../assets/figures/ml_fig_c517_00.png)
-*Figure — Jacobi iteration residual c517. Synthetic teaching geometry—not a causal claim.*
-
-
-![c518 teaching panel 00 (original).](../assets/figures/ml_fig_c518_00.png)
-*Figure — Gauss-Seidel residual c518. Synthetic teaching geometry—not a causal claim.*
-
-
-![c519 teaching panel 00 (original).](../assets/figures/ml_fig_c519_00.png)
-*Figure — SOR omega residual path c519. Synthetic teaching geometry—not a causal claim.*
-
-
-![c520 teaching panel 00 (original).](../assets/figures/ml_fig_c520_00.png)
-*Figure — Chebyshev semi-iter residual c520. Synthetic teaching geometry—not a causal claim.*
-
-
-![c521 teaching panel 00 (original).](../assets/figures/ml_fig_c521_00.png)
-*Figure — Multigrid V-cycle residual c521. Synthetic teaching geometry—not a causal claim.*
-
-
-![c522 teaching panel 00 (original).](../assets/figures/ml_fig_c522_00.png)
-*Figure — Preconditioned CG residual c522. Synthetic teaching geometry—not a causal claim.*
-
-
-![c523 teaching panel 00 (original).](../assets/figures/ml_fig_c523_00.png)
-*Figure — Deflated CG residual path c523. Synthetic teaching geometry—not a causal claim.*
-
-
-![c524 teaching panel 00 (original).](../assets/figures/ml_fig_c524_00.png)
-*Figure — Block CG residual path c524. Synthetic teaching geometry—not a causal claim.*
-
-
-![c525 teaching panel 00 (original).](../assets/figures/ml_fig_c525_00.png)
-*Figure — Flexible GMRES residual c525. Synthetic teaching geometry—not a causal claim.*
-
-
-![c526 teaching panel 00 (original).](../assets/figures/ml_fig_c526_00.png)
-*Figure — Recycling Krylov residual c526. Synthetic teaching geometry—not a causal claim.*
-
-
-![c527 teaching panel 00 (original).](../assets/figures/ml_fig_c527_00.png)
-*Figure — Sketch-and-project residual c527. Synthetic teaching geometry—not a causal claim.*
-
-
-![c528 teaching panel 00 (original).](../assets/figures/ml_fig_c528_00.png)
-*Figure — Krylov subspace residual path c528. Synthetic teaching geometry—not a causal claim.*
-
-
-![c529 teaching panel 00 (original).](../assets/figures/ml_fig_c529_00.png)
-*Figure — Arnoldi orthogonal loss path c529. Synthetic teaching geometry—not a causal claim.*
-
-
-![c530 teaching panel 00 (original).](../assets/figures/ml_fig_c530_00.png)
-*Figure — Householder QR residual c530. Synthetic teaching geometry—not a causal claim.*
-
-
-![c531 teaching panel 00 (original).](../assets/figures/ml_fig_c531_00.png)
-*Figure — Cholesky condition path c531. Synthetic teaching geometry—not a causal claim.*
-
-
-![c532 teaching panel 00 (original).](../assets/figures/ml_fig_c532_00.png)
-*Figure — SVD singular decay path c532. Synthetic teaching geometry—not a causal claim.*
-
-
-![c533 teaching panel 00 (original).](../assets/figures/ml_fig_c533_00.png)
-*Figure — Jacobi iteration residual c533. Synthetic teaching geometry—not a causal claim.*
-
-
-![c534 teaching panel 00 (original).](../assets/figures/ml_fig_c534_00.png)
-*Figure — Gauss-Seidel residual c534. Synthetic teaching geometry—not a causal claim.*
-
-
-![c535 teaching panel 00 (original).](../assets/figures/ml_fig_c535_00.png)
-*Figure — SOR omega residual path c535. Synthetic teaching geometry—not a causal claim.*
-
-
-![c536 teaching panel 00 (original).](../assets/figures/ml_fig_c536_00.png)
-*Figure — Chebyshev semi-iter residual c536. Synthetic teaching geometry—not a causal claim.*
-
-
-![c537 teaching panel 00 (original).](../assets/figures/ml_fig_c537_00.png)
-*Figure — Multigrid V-cycle residual c537. Synthetic teaching geometry—not a causal claim.*
-
-
-![c538 teaching panel 00 (original).](../assets/figures/ml_fig_c538_00.png)
-*Figure — Preconditioned CG residual c538. Synthetic teaching geometry—not a causal claim.*
-
-
-![c539 teaching panel 00 (original).](../assets/figures/ml_fig_c539_00.png)
-*Figure — Deflated CG residual path c539. Synthetic teaching geometry—not a causal claim.*
-
-
-![c540 teaching panel 00 (original).](../assets/figures/ml_fig_c540_00.png)
-*Figure — Block CG residual path c540. Synthetic teaching geometry—not a causal claim.*
-
-
-![c541 teaching panel 00 (original).](../assets/figures/ml_fig_c541_00.png)
-*Figure — Flexible GMRES residual c541. Synthetic teaching geometry—not a causal claim.*
-
-
-![c542 teaching panel 00 (original).](../assets/figures/ml_fig_c542_00.png)
-*Figure — Recycling Krylov residual c542. Synthetic teaching geometry—not a causal claim.*
-
-
-![c543 teaching panel 00 (original).](../assets/figures/ml_fig_c543_00.png)
-*Figure — Sketch-and-project residual c543. Synthetic teaching geometry—not a causal claim.*
-
-
-![c544 teaching panel 00 (original).](../assets/figures/ml_fig_c544_00.png)
-*Figure — Krylov subspace residual path c544. Synthetic teaching geometry—not a causal claim.*
-
-
-![c545 teaching panel 00 (original).](../assets/figures/ml_fig_c545_00.png)
-*Figure — Arnoldi orthogonal loss path c545. Synthetic teaching geometry—not a causal claim.*
-
-
-![c546 teaching panel 00 (original).](../assets/figures/ml_fig_c546_00.png)
-*Figure — Householder QR residual c546. Synthetic teaching geometry—not a causal claim.*
-
-
-![c547 teaching panel 00 (original).](../assets/figures/ml_fig_c547_00.png)
-*Figure — Cholesky condition path c547. Synthetic teaching geometry—not a causal claim.*
-
-
-![c548 teaching panel 00 (original).](../assets/figures/ml_fig_c548_00.png)
-*Figure — SVD singular decay path c548. Synthetic teaching geometry—not a causal claim.*
-
-
-![c549 teaching panel 00 (original).](../assets/figures/ml_fig_c549_00.png)
-*Figure — Jacobi iteration residual c549. Synthetic teaching geometry—not a causal claim.*
-
-
-![c550 teaching panel 00 (original).](../assets/figures/ml_fig_c550_00.png)
-*Figure — Gauss-Seidel residual c550. Synthetic teaching geometry—not a causal claim.*
-
-
-![c551 teaching panel 00 (original).](../assets/figures/ml_fig_c551_00.png)
-*Figure — SOR omega residual path c551. Synthetic teaching geometry—not a causal claim.*
-
-
-![c552 teaching panel 00 (original).](../assets/figures/ml_fig_c552_00.png)
-*Figure — Chebyshev semi-iter residual c552. Synthetic teaching geometry—not a causal claim.*
-
-
-![c553 teaching panel 00 (original).](../assets/figures/ml_fig_c553_00.png)
-*Figure — Multigrid V-cycle residual c553. Synthetic teaching geometry—not a causal claim.*
-
-
-![c554 teaching panel 00 (original).](../assets/figures/ml_fig_c554_00.png)
-*Figure — Preconditioned CG residual c554. Synthetic teaching geometry—not a causal claim.*
-
-
-![c555 teaching panel 00 (original).](../assets/figures/ml_fig_c555_00.png)
-*Figure — Deflated CG residual path c555. Synthetic teaching geometry—not a causal claim.*
-
-
-![c556 teaching panel 00 (original).](../assets/figures/ml_fig_c556_00.png)
-*Figure — Block CG residual path c556. Synthetic teaching geometry—not a causal claim.*
-
-
-![c557 teaching panel 00 (original).](../assets/figures/ml_fig_c557_00.png)
-*Figure — Flexible GMRES residual c557. Synthetic teaching geometry—not a causal claim.*
-
-
-![c558 teaching panel 00 (original).](../assets/figures/ml_fig_c558_00.png)
-*Figure — Recycling Krylov residual c558. Synthetic teaching geometry—not a causal claim.*
-
-
-![c559 teaching panel 00 (original).](../assets/figures/ml_fig_c559_00.png)
-*Figure — Sketch-and-project residual c559. Synthetic teaching geometry—not a causal claim.*
-
-
-![c560 teaching panel 00 (original).](../assets/figures/ml_fig_c560_00.png)
-*Figure — Krylov subspace residual path c560. Synthetic teaching geometry—not a causal claim.*
-
-
-![c561 teaching panel 00 (original).](../assets/figures/ml_fig_c561_00.png)
-*Figure — Arnoldi orthogonal loss path c561. Synthetic teaching geometry—not a causal claim.*
-
-
-![c562 teaching panel 00 (original).](../assets/figures/ml_fig_c562_00.png)
-*Figure — Householder QR residual c562. Synthetic teaching geometry—not a causal claim.*
-
-
-![c563 teaching panel 00 (original).](../assets/figures/ml_fig_c563_00.png)
-*Figure — Cholesky condition path c563. Synthetic teaching geometry—not a causal claim.*
-
-
-![c564 teaching panel 00 (original).](../assets/figures/ml_fig_c564_00.png)
-*Figure — SVD singular decay path c564. Synthetic teaching geometry—not a causal claim.*
-
-
-![c565 teaching panel 00 (original).](../assets/figures/ml_fig_c565_00.png)
-*Figure — Jacobi iteration residual c565. Synthetic teaching geometry—not a causal claim.*
-
-
-![c566 teaching panel 00 (original).](../assets/figures/ml_fig_c566_00.png)
-*Figure — Gauss-Seidel residual c566. Synthetic teaching geometry—not a causal claim.*
-
-
-![c567 teaching panel 00 (original).](../assets/figures/ml_fig_c567_00.png)
-*Figure — SOR omega residual path c567. Synthetic teaching geometry—not a causal claim.*
-
-
-![c568 teaching panel 00 (original).](../assets/figures/ml_fig_c568_00.png)
-*Figure — Chebyshev semi-iter residual c568. Synthetic teaching geometry—not a causal claim.*
-
-
-![c569 teaching panel 00 (original).](../assets/figures/ml_fig_c569_00.png)
-*Figure — Multigrid V-cycle residual c569. Synthetic teaching geometry—not a causal claim.*
-
-
-![c570 teaching panel 00 (original).](../assets/figures/ml_fig_c570_00.png)
-*Figure — Preconditioned CG residual c570. Synthetic teaching geometry—not a causal claim.*
-
-
-![c571 teaching panel 00 (original).](../assets/figures/ml_fig_c571_00.png)
-*Figure — Deflated CG residual path c571. Synthetic teaching geometry—not a causal claim.*
-
-
-![c572 teaching panel 00 (original).](../assets/figures/ml_fig_c572_00.png)
-*Figure — Block CG residual path c572. Synthetic teaching geometry—not a causal claim.*
-
-
-![c573 teaching panel 00 (original).](../assets/figures/ml_fig_c573_00.png)
-*Figure — Flexible GMRES residual c573. Synthetic teaching geometry—not a causal claim.*
-
-
-![c574 teaching panel 00 (original).](../assets/figures/ml_fig_c574_00.png)
-*Figure — Recycling Krylov residual c574. Synthetic teaching geometry—not a causal claim.*
-
-
-![c575 teaching panel 00 (original).](../assets/figures/ml_fig_c575_00.png)
-*Figure — Sketch-and-project residual c575. Synthetic teaching geometry—not a causal claim.*
-
-
-![c576 teaching panel 00 (original).](../assets/figures/ml_fig_c576_00.png)
-*Figure — Krylov subspace residual path c576. Synthetic teaching geometry—not a causal claim.*
-
-
-![c577 teaching panel 00 (original).](../assets/figures/ml_fig_c577_00.png)
-*Figure — Arnoldi orthogonal loss path c577. Synthetic teaching geometry—not a causal claim.*
-
-
-![c578 teaching panel 00 (original).](../assets/figures/ml_fig_c578_00.png)
-*Figure — Householder QR residual c578. Synthetic teaching geometry—not a causal claim.*
-
-
-![c579 teaching panel 00 (original).](../assets/figures/ml_fig_c579_00.png)
-*Figure — Cholesky condition path c579. Synthetic teaching geometry—not a causal claim.*
-
-
-![c580 teaching panel 00 (original).](../assets/figures/ml_fig_c580_00.png)
-*Figure — SVD singular decay path c580. Synthetic teaching geometry—not a causal claim.*
-
-
-![c581 teaching panel 00 (original).](../assets/figures/ml_fig_c581_00.png)
-*Figure — Jacobi iteration residual c581. Synthetic teaching geometry—not a causal claim.*
-
-
-![c582 teaching panel 00 (original).](../assets/figures/ml_fig_c582_00.png)
-*Figure — Gauss-Seidel residual c582. Synthetic teaching geometry—not a causal claim.*
-
-
-![c583 teaching panel 00 (original).](../assets/figures/ml_fig_c583_00.png)
-*Figure — SOR omega residual path c583. Synthetic teaching geometry—not a causal claim.*
-
-
-![c584 teaching panel 00 (original).](../assets/figures/ml_fig_c584_00.png)
-*Figure — Chebyshev semi-iter residual c584. Synthetic teaching geometry—not a causal claim.*
-
-
-![c585 teaching panel 00 (original).](../assets/figures/ml_fig_c585_00.png)
-*Figure — Multigrid V-cycle residual c585. Synthetic teaching geometry—not a causal claim.*
-
-
-![c586 teaching panel 00 (original).](../assets/figures/ml_fig_c586_00.png)
-*Figure — Preconditioned CG residual c586. Synthetic teaching geometry—not a causal claim.*
-
-
-![c587 teaching panel 00 (original).](../assets/figures/ml_fig_c587_00.png)
-*Figure — Deflated CG residual path c587. Synthetic teaching geometry—not a causal claim.*
-
-
-![c588 teaching panel 00 (original).](../assets/figures/ml_fig_c588_00.png)
-*Figure — Block CG residual path c588. Synthetic teaching geometry—not a causal claim.*
-
-
-![c589 teaching panel 00 (original).](../assets/figures/ml_fig_c589_00.png)
-*Figure — Flexible GMRES residual c589. Synthetic teaching geometry—not a causal claim.*
-
-
-![c590 teaching panel 00 (original).](../assets/figures/ml_fig_c590_00.png)
-*Figure — Recycling Krylov residual c590. Synthetic teaching geometry—not a causal claim.*
-
-
-![c591 teaching panel 00 (original).](../assets/figures/ml_fig_c591_00.png)
-*Figure — Sketch-and-project residual c591. Synthetic teaching geometry—not a causal claim.*
-
-
-![c592 teaching panel 00 (original).](../assets/figures/ml_fig_c592_00.png)
-*Figure — Krylov subspace residual path c592. Synthetic teaching geometry—not a causal claim.*
-
-
-![c593 teaching panel 00 (original).](../assets/figures/ml_fig_c593_00.png)
-*Figure — Arnoldi orthogonal loss path c593. Synthetic teaching geometry—not a causal claim.*
-
-
-![c594 teaching panel 00 (original).](../assets/figures/ml_fig_c594_00.png)
-*Figure — Householder QR residual c594. Synthetic teaching geometry—not a causal claim.*
-
-
-![c595 teaching panel 00 (original).](../assets/figures/ml_fig_c595_00.png)
-*Figure — Cholesky condition path c595. Synthetic teaching geometry—not a causal claim.*
-
-
-![c596 teaching panel 00 (original).](../assets/figures/ml_fig_c596_00.png)
-*Figure — SVD singular decay path c596. Synthetic teaching geometry—not a causal claim.*
-
-
-![c597 teaching panel 00 (original).](../assets/figures/ml_fig_c597_00.png)
-*Figure — Jacobi iteration residual c597. Synthetic teaching geometry—not a causal claim.*
-
-
-![c598 teaching panel 00 (original).](../assets/figures/ml_fig_c598_00.png)
-*Figure — Gauss-Seidel residual c598. Synthetic teaching geometry—not a causal claim.*
-
-
-![c599 teaching panel 00 (original).](../assets/figures/ml_fig_c599_00.png)
-*Figure — SOR omega residual path c599. Synthetic teaching geometry—not a causal claim.*
-
-
-![c600 teaching panel 00 (original).](../assets/figures/ml_fig_c600_00.png)
-*Figure — Chebyshev semi-iter residual c600. Synthetic teaching geometry—not a causal claim.*
-
-
-![c601 teaching panel 00 (original).](../assets/figures/ml_fig_c601_00.png)
-*Figure — Multigrid V-cycle residual c601. Synthetic teaching geometry—not a causal claim.*
-
-
-![c602 teaching panel 00 (original).](../assets/figures/ml_fig_c602_00.png)
-*Figure — Preconditioned CG residual c602. Synthetic teaching geometry—not a causal claim.*
-
-
-![c603 teaching panel 00 (original).](../assets/figures/ml_fig_c603_00.png)
-*Figure — Deflated CG residual path c603. Synthetic teaching geometry—not a causal claim.*
-
-
-![c604 teaching panel 00 (original).](../assets/figures/ml_fig_c604_00.png)
-*Figure — Block CG residual path c604. Synthetic teaching geometry—not a causal claim.*
-
-
-![c605 teaching panel 00 (original).](../assets/figures/ml_fig_c605_00.png)
-*Figure — Flexible GMRES residual c605. Synthetic teaching geometry—not a causal claim.*
-
-
-![c606 teaching panel 00 (original).](../assets/figures/ml_fig_c606_00.png)
-*Figure — Recycling Krylov residual c606. Synthetic teaching geometry—not a causal claim.*
-
-
-![c607 teaching panel 00 (original).](../assets/figures/ml_fig_c607_00.png)
-*Figure — Sketch-and-project residual c607. Synthetic teaching geometry—not a causal claim.*
-
-
-![c608 teaching panel 00 (original).](../assets/figures/ml_fig_c608_00.png)
-*Figure — Krylov subspace residual path c608. Synthetic teaching geometry—not a causal claim.*
-
-
-![c609 teaching panel 00 (original).](../assets/figures/ml_fig_c609_00.png)
-*Figure — Arnoldi orthogonal loss path c609. Synthetic teaching geometry—not a causal claim.*
-
-
-![c610 teaching panel 00 (original).](../assets/figures/ml_fig_c610_00.png)
-*Figure — Householder QR residual c610. Synthetic teaching geometry—not a causal claim.*
-
-
-![c611 teaching panel 00 (original).](../assets/figures/ml_fig_c611_00.png)
-*Figure — Cholesky condition path c611. Synthetic teaching geometry—not a causal claim.*
-
-
-![c612 teaching panel 00 (original).](../assets/figures/ml_fig_c612_00.png)
-*Figure — SVD singular decay path c612. Synthetic teaching geometry—not a causal claim.*
-
-
-![c613 teaching panel 00 (original).](../assets/figures/ml_fig_c613_00.png)
-*Figure — Jacobi iteration residual c613. Synthetic teaching geometry—not a causal claim.*
-
-
-![c614 teaching panel 00 (original).](../assets/figures/ml_fig_c614_00.png)
-*Figure — Gauss-Seidel residual c614. Synthetic teaching geometry—not a causal claim.*
-
-
-![c615 teaching panel 00 (original).](../assets/figures/ml_fig_c615_00.png)
-*Figure — SOR omega residual path c615. Synthetic teaching geometry—not a causal claim.*
-
-
-![c616 teaching panel 00 (original).](../assets/figures/ml_fig_c616_00.png)
-*Figure — Chebyshev semi-iter residual c616. Synthetic teaching geometry—not a causal claim.*
-
-
-![c617 teaching panel 00 (original).](../assets/figures/ml_fig_c617_00.png)
-*Figure — Multigrid V-cycle residual c617. Synthetic teaching geometry—not a causal claim.*
-
-
-![c618 teaching panel 00 (original).](../assets/figures/ml_fig_c618_00.png)
-*Figure — Preconditioned CG residual c618. Synthetic teaching geometry—not a causal claim.*
-
-
-![c619 teaching panel 00 (original).](../assets/figures/ml_fig_c619_00.png)
-*Figure — Deflated CG residual path c619. Synthetic teaching geometry—not a causal claim.*
-
-
-![c620 teaching panel 00 (original).](../assets/figures/ml_fig_c620_00.png)
-*Figure — Block CG residual path c620. Synthetic teaching geometry—not a causal claim.*
-
-
-![c621 teaching panel 00 (original).](../assets/figures/ml_fig_c621_00.png)
-*Figure — Flexible GMRES residual c621. Synthetic teaching geometry—not a causal claim.*
-
-
-![c622 teaching panel 00 (original).](../assets/figures/ml_fig_c622_00.png)
-*Figure — Recycling Krylov residual c622. Synthetic teaching geometry—not a causal claim.*
-
-
-![c623 teaching panel 00 (original).](../assets/figures/ml_fig_c623_00.png)
-*Figure — Sketch-and-project residual c623. Synthetic teaching geometry—not a causal claim.*
-
-
-![c624 teaching panel 00 (original).](../assets/figures/ml_fig_c624_00.png)
-*Figure — Krylov subspace residual path c624. Synthetic teaching geometry—not a causal claim.*
-
-
-![c625 teaching panel 00 (original).](../assets/figures/ml_fig_c625_00.png)
-*Figure — Arnoldi orthogonal loss path c625. Synthetic teaching geometry—not a causal claim.*
-
-
-![c626 teaching panel 00 (original).](../assets/figures/ml_fig_c626_00.png)
-*Figure — Householder QR residual c626. Synthetic teaching geometry—not a causal claim.*
-
-
-![c627 teaching panel 00 (original).](../assets/figures/ml_fig_c627_00.png)
-*Figure — Cholesky condition path c627. Synthetic teaching geometry—not a causal claim.*
-
-
-![c628 teaching panel 00 (original).](../assets/figures/ml_fig_c628_00.png)
-*Figure — SVD singular decay path c628. Synthetic teaching geometry—not a causal claim.*
-
-
-![c629 teaching panel 00 (original).](../assets/figures/ml_fig_c629_00.png)
-*Figure — Jacobi iteration residual c629. Synthetic teaching geometry—not a causal claim.*
-
-
-![c630 teaching panel 00 (original).](../assets/figures/ml_fig_c630_00.png)
-*Figure — Gauss-Seidel residual c630. Synthetic teaching geometry—not a causal claim.*
-
-
-![c631 teaching panel 00 (original).](../assets/figures/ml_fig_c631_00.png)
-*Figure — SOR omega residual path c631. Synthetic teaching geometry—not a causal claim.*
-
-
-![c632 teaching panel 00 (original).](../assets/figures/ml_fig_c632_00.png)
-*Figure — Chebyshev semi-iter residual c632. Synthetic teaching geometry—not a causal claim.*
-
-
-![c633 teaching panel 00 (original).](../assets/figures/ml_fig_c633_00.png)
-*Figure — Multigrid V-cycle residual c633. Synthetic teaching geometry—not a causal claim.*
-
-
-![c634 teaching panel 00 (original).](../assets/figures/ml_fig_c634_00.png)
-*Figure — Preconditioned CG residual c634. Synthetic teaching geometry—not a causal claim.*
-
-
-![c635 teaching panel 00 (original).](../assets/figures/ml_fig_c635_00.png)
-*Figure — Deflated CG residual path c635. Synthetic teaching geometry—not a causal claim.*
-
-
-![c636 teaching panel 00 (original).](../assets/figures/ml_fig_c636_00.png)
-*Figure — Block CG residual path c636. Synthetic teaching geometry—not a causal claim.*
-
-
-![c637 teaching panel 00 (original).](../assets/figures/ml_fig_c637_00.png)
-*Figure — Flexible GMRES residual c637. Synthetic teaching geometry—not a causal claim.*
-
-
-![c638 teaching panel 00 (original).](../assets/figures/ml_fig_c638_00.png)
-*Figure — Recycling Krylov residual c638. Synthetic teaching geometry—not a causal claim.*
-
-
-![c639 teaching panel 00 (original).](../assets/figures/ml_fig_c639_00.png)
-*Figure — Sketch-and-project residual c639. Synthetic teaching geometry—not a causal claim.*
-
-
-![c640 teaching panel 00 (original).](../assets/figures/ml_fig_c640_00.png)
-*Figure — Krylov subspace residual path c640. Synthetic teaching geometry—not a causal claim.*
-
-
-![c641 teaching panel 00 (original).](../assets/figures/ml_fig_c641_00.png)
-*Figure — Arnoldi orthogonal loss path c641. Synthetic teaching geometry—not a causal claim.*
-
-
-![c642 teaching panel 00 (original).](../assets/figures/ml_fig_c642_00.png)
-*Figure — Householder QR residual c642. Synthetic teaching geometry—not a causal claim.*
-
-
-![c643 teaching panel 00 (original).](../assets/figures/ml_fig_c643_00.png)
-*Figure — Cholesky condition path c643. Synthetic teaching geometry—not a causal claim.*
-
-
-![c644 teaching panel 00 (original).](../assets/figures/ml_fig_c644_00.png)
-*Figure — SVD singular decay path c644. Synthetic teaching geometry—not a causal claim.*
-
-
-![c645 teaching panel 00 (original).](../assets/figures/ml_fig_c645_00.png)
-*Figure — Jacobi iteration residual c645. Synthetic teaching geometry—not a causal claim.*
-
-
-![c646 teaching panel 00 (original).](../assets/figures/ml_fig_c646_00.png)
-*Figure — Gauss-Seidel residual c646. Synthetic teaching geometry—not a causal claim.*
-
-
-![c647 teaching panel 00 (original).](../assets/figures/ml_fig_c647_00.png)
-*Figure — SOR omega residual path c647. Synthetic teaching geometry—not a causal claim.*
 
 ## Chapter Summary
 

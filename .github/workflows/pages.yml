@@ -7,8 +7,6 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: pages
@@ -23,18 +21,30 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install
-        run: pip install mkdocs-material pymdown-extensions
-      - name: Originality scan
-        run: python scripts/originality_scan.py
-      - name: Build
-        run: mkdocs build --strict
-      - uses: actions/upload-pages-artifact@v3
+        run: pip install --requirement requirements.txt
+      - name: Third-party residue and structural gates
+        run: |
+          python scripts/originality_scan.py
+          python scripts/check_figure_coverage.py
+          python scripts/build_asset_manifest.py --check
+          python scripts/verify_math_examples.py
+          python scripts/test_ebook_site.py .
+      - name: Build and harden rendered site
+        run: |
+          mkdocs build --strict --clean
+          python scripts/postprocess_site.py --site-dir site
+          python scripts/validate_rendered_site.py --site-dir site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: site
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

@@ -1,17 +1,12 @@
 site_name: Machine Learning & AI for Neurologists
 site_description: Open-source ebook on ML and AI literacy for neurology and stroke.
 site_url: https://rkalani1.github.io/ML/
-repo_url: https://github.com/rkalani1/ML
-repo_name: rkalani1/ML
-edit_uri: ""
 copyright: >
   Open-source ebook · CC BY 4.0 content · ISC site code · Educational only — not medical advice.
 
 theme:
   name: material
-  font:
-    text: Source Sans 3
-    code: JetBrains Mono
+  font: false
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -55,7 +50,6 @@ markdown_extensions:
 
 extra_javascript:
   - javascripts/mathjax.js
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 use_directory_urls: false
 
@@ -69,24 +63,25 @@ extra:
 
 nav:
   - Introduction: index.md
+  - Evidence register: evidence-register.md
   - Book:
-    - "01. Mathematical Foundations for Machine Learning": curriculum/00-mathematical-foundations-for-machine-learning.md
-    - "02. Preface": curriculum/00a-preface.md
-    - "03. Basic Concepts of Machine Learning and Artificial...": curriculum/01-basic-concepts-of-machine-learning-and-artificial-intelligence.md
-    - "04. Visualization": curriculum/02-visualization.md
-    - "05. Probability and Statistics": curriculum/03-probability-and-statistics.md
-    - "06. Clustering": curriculum/04-clustering.md
-    - "07. Frequent Itemset Mining, Sequence Mining, and Inf...": curriculum/05-frequent-itemset-mining-sequence-mining-and-information-retrieval.md
-    - "08. Feature Engineering": curriculum/06-feature-engineering.md
-    - "09. Dimensionality Reduction and Data Decomposition": curriculum/07-dimensionality-reduction-and-data-decomposition.md
-    - "10. Regression Analysis": curriculum/08-regression-analysis.md
-    - "11. Classification": curriculum/09-classification.md
-    - "12. Neural Networks and Deep Learning": curriculum/10-neural-networks-and-deep-learning.md
-    - "13. Self-Supervised Deep Learning": curriculum/11-self-supervised-deep-learning.md
-    - "14. Deep Learning Models and Applications for Text, V...": curriculum/12-deep-learning-models-and-applications-for-text-vision-and-audio.md
-    - "15. Reinforcement Learning": curriculum/13-reinforcement-learning.md
-    - "16. Making Lighter Neural Network and Machine Learnin...": curriculum/14-making-lighter-neural-network-and-machine-learning-models.md
-    - "17. Graph Mining Algorithms": curriculum/15-graph-mining-algorithms.md
-    - "18. Concepts and Challenges of Working with Data": curriculum/16-concepts-and-challenges-of-working-with-data.md
-    - "19. Closing Synthesis: Senior Practice in Clinical Ne...": curriculum/17-closing-synthesis-senior-practice.md
-    - "20. Selected Glossary": curriculum/18-selected-glossary.md
+    - "Preface": curriculum/00a-preface.md
+    - "00. Mathematical Foundations for Machine Learning": curriculum/00-mathematical-foundations-for-machine-learning.md
+    - "01. Basic Concepts of Machine Learning and Artificial Intelligence": curriculum/01-basic-concepts-of-machine-learning-and-artificial-intelligence.md
+    - "02. Visualization": curriculum/02-visualization.md
+    - "03. Probability and Statistics": curriculum/03-probability-and-statistics.md
+    - "04. Clustering": curriculum/04-clustering.md
+    - "05. Frequent Itemset Mining, Sequence Mining, and Information Retrieval": curriculum/05-frequent-itemset-mining-sequence-mining-and-information-retrieval.md
+    - "06. Feature Engineering": curriculum/06-feature-engineering.md
+    - "07. Dimensionality Reduction and Data Decomposition": curriculum/07-dimensionality-reduction-and-data-decomposition.md
+    - "08. Regression Analysis": curriculum/08-regression-analysis.md
+    - "09. Classification": curriculum/09-classification.md
+    - "10. Neural Networks and Deep Learning": curriculum/10-neural-networks-and-deep-learning.md
+    - "11. Self-Supervised Deep Learning": curriculum/11-self-supervised-deep-learning.md
+    - "12. Deep Learning Models and Applications for Text, Vision, and Audio": curriculum/12-deep-learning-models-and-applications-for-text-vision-and-audio.md
+    - "13. Reinforcement Learning": curriculum/13-reinforcement-learning.md
+    - "14. Making Lighter Neural Network and Machine Learning Models": curriculum/14-making-lighter-neural-network-and-machine-learning-models.md
+    - "15. Graph Mining Algorithms": curriculum/15-graph-mining-algorithms.md
+    - "16. Concepts and Challenges of Working with Data": curriculum/16-concepts-and-challenges-of-working-with-data.md
+    - "17. Closing Synthesis: Senior Practice in Clinical Neurology and Epidemiology": curriculum/17-closing-synthesis-senior-practice.md
+    - "18. Selected Glossary": curriculum/18-selected-glossary.md

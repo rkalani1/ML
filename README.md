@@ -8,6 +8,6 @@
 Content CC BY 4.0 · Site code ISC · Educational only (not medical advice).
 
 ```bash
-pip install mkdocs-material pymdown-extensions
+python -m pip install -r requirements.txt
 mkdocs serve
 ```

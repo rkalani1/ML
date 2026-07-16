@@ -31,11 +31,11 @@ def main() -> int:
                 if re.search(pat, line):
                     bad.append(f"{p.relative_to(DOCS)}:{i}: {name}: {line[:100]}")
     if bad:
-        print("ORIGINALITY SCAN FAIL")
+        print("THIRD-PARTY RESIDUE SCAN FAIL")
         for b in bad[:50]:
             print(b)
         return 1
-    print("ORIGINALITY SCAN OK")
+    print("THIRD-PARTY RESIDUE SCAN OK")
     return 0
 
 

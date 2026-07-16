@@ -4,11 +4,11 @@
    Does NOT enable navigation.tabs (tabs stay hidden).
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,500&display=swap');
 
 :root {
-  --ebook-primary: #0d9488;
-  --ebook-deep: #0f766e;
+  --ebook-primary: #0f766e;
+  --ebook-deep: #115e59;
   --ebook-ink: #1e293b;
   --ebook-muted: #64748b;
   --ebook-gold: rgba(201, 162, 39, 0.12);
@@ -16,11 +16,283 @@
   --ebook-glow-strong: rgba(13, 148, 136, 0.28);
   --ebook-surface: rgba(255, 255, 255, 0.78);
   --ebook-rule: rgba(15, 118, 110, 0.14);
-  --ebook-serif: "Cormorant Garamond", "Palatino Linotype", Palatino, Georgia, serif;
-  --ebook-sans: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --ebook-serif: "Source Serif 4", "Palatino Linotype", Palatino, Georgia, serif;
+  --ebook-sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --md-text-font: var(--ebook-sans);
+  --md-code-font: "IBM Plex Mono", Consolas, monospace;
   --ebook-measure: 42rem;
   --ebook-radius: 1.15rem;
   --ebook-shadow: 0 8px 28px rgba(15, 23, 42, 0.06);
+}
+
+/* Programmatic captions, full-resolution affordance, and non-color link cues. */
+.md-typeset p a:not(.figure-zoom),
+.md-typeset li a,
+.md-typeset td a,
+.md-typeset figcaption a {
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+}
+
+.teaching-figure {
+  margin: 1.25rem 0 1.7rem;
+}
+.figure-zoom {
+  display: block;
+  color: inherit;
+  cursor: zoom-in;
+  text-decoration: none !important;
+}
+.figure-zoom-hint {
+  display: inline-block;
+  margin-left: 0.45rem;
+  color: var(--ebook-primary);
+  font-family: var(--ebook-sans);
+  font-size: 0.78em;
+  font-style: normal;
+  font-weight: 600;
+}
+.opening-figure-gallery {
+  margin: 0.85rem 0 1.2rem;
+  border: 1px solid var(--ebook-rule);
+  border-radius: 0.8rem;
+  background: var(--ebook-surface);
+}
+.opening-figure-gallery > summary {
+  cursor: pointer;
+  padding: 0.72rem 0.9rem;
+  color: var(--ebook-deep);
+  font-family: var(--ebook-sans);
+  font-weight: 650;
+}
+.opening-figure-gallery[open] {
+  padding: 0 0.9rem 0.8rem;
+}
+
+@media screen and (max-width: 560px) {
+  .md-typeset .feature-figure {
+    display: none;
+  }
+  .figure-zoom-hint {
+    display: block;
+    margin: 0.35rem 0 0;
+  }
+}
+
+@media print {
+  .figure-zoom-hint {
+    display: none !important;
+  }
+  .opening-figure-gallery > summary {
+    display: none !important;
+  }
+  .opening-figure-gallery:not([open]) > *:not(summary) {
+    display: block !important;
+  }
+  .md-content__inner::after {
+    content: "Machine Learning & AI for Neurologists · CC BY 4.0 · Educational only — not medical advice.";
+    display: block;
+    margin-top: 1.2rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #aaa;
+    color: #333;
+    font: 8.5pt/1.35 var(--ebook-sans);
+  }
+}
+
+/* Editorial landing components: compact, semantic, and responsive. */
+@media screen {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  .ebook-hero--split {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(13rem, 0.65fr);
+    gap: clamp(1rem, 2.5vw, 2rem);
+    align-items: center;
+  }
+
+  .ebook-hero--split .hero-copy,
+  .ebook-hero--split .hero-art {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+  }
+
+  .ebook-hero--split .hero-art img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    border: 0;
+    filter: drop-shadow(0 18px 30px rgba(15, 23, 42, 0.20));
+  }
+
+  .ebook-hero--split .hero-art {
+    width: 100%;
+    margin: 0.15rem 0 0;
+  }
+
+  .route-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+    margin: 1rem 0 2.25rem;
+  }
+
+  .route-grid > a {
+    display: grid;
+    gap: 0.26rem;
+    min-height: 8.4rem;
+    padding: 1.15rem 1.2rem;
+    color: var(--ebook-ink);
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.84);
+    border: 1px solid rgba(15, 118, 110, 0.18);
+    border-radius: var(--ebook-radius);
+    box-shadow: var(--ebook-shadow);
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  .route-grid > a:hover {
+    transform: translateY(-3px);
+    border-color: rgba(15, 118, 110, 0.46);
+    box-shadow: 0 16px 34px rgba(15, 76, 72, 0.11);
+  }
+
+  .route-grid strong {
+    font-family: var(--ebook-serif);
+    font-size: 1.08rem;
+    line-height: 1.25;
+  }
+
+  .route-grid > a > span:last-child {
+    color: var(--ebook-muted);
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .route-kicker {
+    color: var(--ebook-deep);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .feature-figure {
+    margin: 1.1rem 0 1.75rem;
+    padding: clamp(0.8rem, 2vw, 1.25rem);
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.90), rgba(236, 253, 245, 0.72));
+    border: 1px solid rgba(15, 118, 110, 0.16);
+    border-radius: var(--ebook-radius);
+    box-shadow: var(--ebook-shadow);
+  }
+
+  .feature-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .feature-figure figcaption {
+    margin: 0.65rem auto 0;
+    max-width: 52rem;
+    color: var(--ebook-muted);
+    font-size: 0.78rem;
+    line-height: 1.45;
+    text-align: center;
+  }
+
+  .md-typeset .admonition.note > .admonition-title {
+    font-family: var(--ebook-sans);
+    letter-spacing: 0.01em;
+  }
+
+  [data-md-color-scheme="slate"] .route-grid > a,
+  [data-md-color-scheme="slate"] .feature-figure {
+    background: rgba(15, 23, 42, 0.72);
+    border-color: rgba(94, 234, 212, 0.22);
+  }
+
+  [data-md-color-scheme="slate"] .route-grid > a {
+    color: #ecfdf5;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .ebook-hero--split {
+    grid-template-columns: 1fr;
+  }
+
+  .ebook-hero--split .hero-art {
+    width: 100%;
+    margin-inline: auto;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .route-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .route-grid > a {
+    min-height: 0;
+  }
+
+  .ebook-hero--split .hero-art {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  .ebook-hero--split {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    align-items: center !important;
+  }
+
+  .ebook-hero--split .hero-art {
+    display: none !important;
+  }
+
+  .route-grid {
+    display: none !important;
+  }
+
+  .ebook-start {
+    display: none !important;
+  }
+
+  .feature-figure {
+    padding: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
 }
 
 /* Selection + smooth anchors */
