@@ -97,7 +97,7 @@ class EbookSiteTests(unittest.TestCase):
         )
         objective_prose = re.compile(
             r"\b(?:"
-            r"you(?:\s+will|['’]ll)\s+(?:learn|be\s+able\s+to|compute|observe|practice|inspect|possess)|"
+            r"you(?:\s+will|['’]ll)\s+(?:learn|understand|be\s+able\s+to|compute|observe|practice|inspect|possess)|"
             r"by\s+the\s+end\s+of\s+(?:this|the)\s+chapter|"
             r"(?:the\s+)?(?:goal|objective)\s+of\s+this\s+chapter|"
             r"this\s+chapter\s+(?:will\s+)?(?:teach(?:es)?|equip(?:s)?|train(?:s)?|"

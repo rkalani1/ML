@@ -34,6 +34,11 @@ def build(root: Path) -> dict[str, object]:
         if not path.is_file() or path.suffix.lower() not in {".png", ".svg"}:
             continue
         data = path.read_bytes()
+        # Git may materialize text SVGs with CRLF on Windows while Pages deploys
+        # LF bytes from the repository. Hash the canonical text representation
+        # so the provenance gate is stable across developer platforms.
+        if path.suffix.lower() == ".svg":
+            data = data.replace(b"\r\n", b"\n")
         width, height = dimensions(path)
         if b"Matplotlib" in data:
             software = "Matplotlib"

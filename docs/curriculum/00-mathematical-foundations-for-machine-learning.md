@@ -149,7 +149,7 @@ Necessary vs. sufficient trips up even careful readers. If P ⇒ Q, then P is su
 
 ### Reading an equation aloud
 
-You will understand formulas faster if you voice them. Take a preview from Chapter 8:
+Reading formulas aloud can make their structure easier to parse. Take a preview from Chapter 8:
 
 ŷ = wᵀx + b
 
