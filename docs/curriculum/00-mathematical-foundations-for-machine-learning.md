@@ -12,15 +12,15 @@ A fellow freezes at a gradient step in a methods appendix for an ICH expansion m
 
 *Gradient descent on a synthetic loss surface.*
 
-Machine learning looks intimidating from the outside mostly because of its notation. Strip away the symbols and the field rests on a compact stack of mathematics that a motivated reader can rebuild in a few focused sittings: the language of sets and functions; algebra and logarithms; the calculus of change (derivatives) and accumulation (integrals); the algebra of vectors and matrices; the logic of probability; and the discipline of optimization. This chapter teaches that stack from an elementary starting point and connects each piece to the exact place later in the book where it is used.
+Machine learning looks intimidating from the outside mostly because of its notation. Strip away the symbols and the field rests on a compact stack of mathematics: the language of sets and functions; algebra and logarithms; the calculus of change (derivatives) and accumulation (integrals); the algebra of vectors and matrices; the logic of probability; and the discipline of optimization. The stack begins with elementary notation and connects each piece to its later applications in the book.
 
 The chapter assumes only that you once learned high-school algebra and are willing to work examples by hand — nothing more. It does not assume you remember any of it. Concepts are introduced in the same order they build on one another: first the notation for reading equations aloud (0.1), then numbers, algebra, and logarithms (0.2) and the catalog of functions machine learning actually uses (0.3); sums and counting (0.4) and the trigonometry behind Fourier features and attention (0.5); single-variable calculus (0.6–0.8) and its multivariable extension — gradients, Jacobians, Hessians — that powers every optimizer and neural network (0.9); the linear algebra of vectors, matrices, and their eigen- and singular-value decompositions (0.10–0.12); the foundations of probability (0.13); optimization and gradient descent (0.14); the discrete mathematics and complexity behind algorithms (0.15); and the numerical realities of computing with finite-precision arithmetic (0.16). Section 0.17 collects a notation glossary and a table mapping each topic to the chapters that depend on it.
 
 Two habits make this chapter pay off. First, work every numeric example with pen and paper; the intermediate steps are printed precisely so you can check yourself. Second, treat the chapter as a reference, not a gate — each concept carries a “→ Used in Chapter N” pointer, so when a later chapter invokes a gradient, an eigenvector, or Bayes’ theorem, you can return here for a full, self-contained treatment. You do not need to master all of it before Chapter 1; you need to know it is here.
 
-## How to Use This Chapter
+## Mathematical Roadmap and Reference Structure
 
-Read it linearly the first time; the ordering is deliberate, and later sections lean on earlier ones (multivariable calculus in 0.9 assumes single-variable calculus from 0.6–0.8 and vectors from 0.10). After that, use it as a lookup: the symbol glossary and the topic-to-chapter map in 0.17 tell you exactly which foundation a given later chapter draws on. Each major section is self-contained and ends with practice problems whose answers are worked, so you can verify your understanding before moving on.
+The ordering is cumulative: multivariable calculus in 0.9 uses single-variable calculus from 0.6–0.8 and vectors from 0.10. The symbol glossary and topic map in 0.17 connect later methods to their mathematical foundations. Each major section is self-contained and ends with fully worked practice problems.
 
 ## 0.1 Reading Mathematics: Notation, Sets, and Logic
 
@@ -2775,7 +2775,7 @@ while i > 1:
 
 (Cancellation.) Using 5-significant-digit arithmetic, the true values 12345.4 and 12343.6 are stored as 12345 and 12344. Compute the stored difference and the true difference, and report the relative error. What general rule does this illustrate?
 
-Answers. 1. P(+) = 0.90·0.05 + 0.20·0.95 = 0.045 + 0.19 = 0.235; P(D|+) = 0.045/0.235 ≈ 0.191 (19.1%) — false positives from the healthy 95% dominate. 2. E[X] = 2.5; E[X²] = 30/4 = 7.5, so Var(X) = 7.5 − 6.25 = 1.25; E[X + Y] = 5, Var(X + Y) = 2.5. 3. (a) O(log n); (b) O(n²); (c) O(n); (d) O(n log n); (e) O(2ⁿ). 4. O(log n) — i halves each pass. 5. m = 802; 802 + log(exp(−2) + exp(−1) + 1) = 802 + log(1.5032) ≈ 802.408; naïve fails because exp(800) ≈ 10³⁴⁷ overflows the double’s ceiling of ≈ 1.8 × 10³⁰⁸. 6. Stored 12345 − 12344 = 1; true 1.8; relative error |1 − 1.8|/1.8 ≈ 44% — never subtract two nearly-equal numbers.
+Answers. 1. P(+) = 0.90·0.05 + 0.20·0.95 = 0.045 + 0.19 = 0.235; P(D|+) = 0.045/0.235 ≈ 0.191 (19.1%) — false positives from the healthy 95% dominate. 2. E[X] = 2.5; E[X²] = 30/4 = 7.5, so Var(X) = 7.5 − 6.25 = 1.25; E[X + Y] = 5, Var(X + Y) = 2.5. 3. (a) O(log n); (b) O(n²); (c) O(n); (d) O(n log n); (e) O(2ⁿ). 4. O(log n) — i halves each pass. 5. m = 802; 802 + log(exp(−2) + exp(−1) + 1) = 802 + log(1.5032) ≈ 802.408; naïve fails because exp(800) ≈ 10³⁴⁷ overflows the double’s ceiling of ≈ 1.8 × 10³⁰⁸. 6. Stored 12345 − 12344 = 1; true 1.8; relative error |1 − 1.8|/1.8 ≈ 44% — avoid subtracting nearly equal rounded approximations when relative accuracy of the difference matters.
 
 ## 0.17 Notation Glossary and Map to the Book
 

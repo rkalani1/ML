@@ -19,13 +19,11 @@ An overnight resident asks whether ‘AI’ can rule out stroke on non-contrast 
 ![Train / validation / test split along a clinical timeline.](../assets/figures/ml_fig_train_val_test.png)
 
 *Train / validation / test split along a clinical timeline.*
-## What This Chapter Is About
+## Definitions and Scope
 
 Machine learning (ML) is the engineering practice of writing programs that improve task performance by processing data, rather than by hand-coding every decision rule. Artificial intelligence (AI) is the broader scientific and engineering project of building systems that perform tasks associated with intelligent behavior—perception, language, planning, and decision-making under uncertainty. Data science sits at the intersection of statistics, computing, and domain expertise, emphasizing measurement, data quality, analysis, and communication of uncertainty to decision-makers. Data mining historically names the discovery of patterns in large databases, often with an emphasis on scalable algorithms for association, clustering, and anomaly detection. These labels overlap heavily in practice, but confusing them produces bad project design: you may train a fashionable neural network when you needed a measurement plan, or you may build a dashboard when you needed a learning algorithm that generalizes.
 
-This chapter builds a shared vocabulary for the rest of the book. We sketch a short history of AI and ML; separate data science, machine learning, data mining, and AI; define what an algorithm is; and show how to evaluate learning systems by computational complexity, runtime, accuracy, and the balance between accuracy and efficiency. We survey types of input data you will meet in clinics and registries, and the families of tasks ML can perform. We then treat ground-truth labels and k-fold cross-validation as the core of honest supervised evaluation, and close with a step-by-step data workflow. A fully worked numerical model-selection example and extended clinical–epidemiologic notes for stroke and population research anchor abstractions in practice.
-
-If you remember only one principle from this chapter, let it be this: learning is not fitting the past—it is preparing to predict and act under uncertainty about the future, using assumptions you can name and evaluations you can defend, including the epidemiologic assumptions that define who is studied and when information is allowed to enter the model.
+Learning is not merely fitting the past; it is preparing to predict or act under future uncertainty using named assumptions and defensible evaluation. Those assumptions include who enters the data, how labels are defined, when information becomes available, how computation scales, and whether performance survives validation outside the training sample.
 
 ## A Short History of Artificial Intelligence and Machine Learning
 

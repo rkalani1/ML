@@ -18,7 +18,7 @@ Unsupervised learning is not only about partitioning continuous points. Many dat
 
 These topics share a combinatorial flavor. The space of possible subsets, subsequences, or term combinations grows explosively with vocabulary size. Effective algorithms combine clever counting with monotonicity properties that allow aggressive pruning, and they rely on classical data structures—hashes, trees, filters, and indexes—to make counting and search feasible at scale. They also share evaluation challenges: a statistically frequent pattern need not be actionable, and a high cosine score need not match a clinician’s true information need.
 
-This chapter builds the mathematical and algorithmic vocabulary needed to apply these methods carefully, with worked examples and clinical–epidemiologic notes throughout. We begin with basic transactional concepts, then cover IR systems and the supporting data structures, then frequent-pattern and sequence algorithms, and finally Hidden Markov Models for sequential prediction under partial observability.
+The method family spans transactional concepts, information-retrieval systems and their data structures, frequent-pattern and sequence algorithms, and Hidden Markov Models for sequential prediction under partial observability.
 
 ## Basic Concepts: Transactions, Support, Confidence, and Lift
 

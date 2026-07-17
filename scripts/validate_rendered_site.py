@@ -22,6 +22,11 @@ class Document(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.references: list[tuple[str, str]] = []
         self.images: list[dict[str, str]] = []
+        self.gallery_images: list[dict[str, str]] = []
+        self.teaching_figure_images: list[dict[str, str]] = []
+        self.toggles: list[dict[str, str]] = []
+        self.header_toggle_buttons: list[dict[str, str]] = []
+        self.code_buttons: list[dict[str, str]] = []
         self.sources: list[dict[str, str]] = []
         self.figure_count = 0
         self.figcaption_count = 0
@@ -36,6 +41,8 @@ class Document(HTMLParser):
         self.title_text: list[str] = []
         self._in_title = False
         self.skip_targets: list[str] = []
+        self._gallery_depth = 0
+        self._teaching_figure_depth = 0
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = {key.lower(): value or "" for key, value in attrs}
@@ -46,6 +53,10 @@ class Document(HTMLParser):
             self.main_count += 1
         if tag == "figure":
             self.figure_count += 1
+            if "teaching-figure" in values.get("class", "").split():
+                self._teaching_figure_depth += 1
+        if tag == "details" and "opening-figure-gallery" in values.get("class", "").split():
+            self._gallery_depth += 1
         if tag == "figcaption":
             self.figcaption_count += 1
         if tag == "title":
@@ -73,6 +84,20 @@ class Document(HTMLParser):
             self.references.append(("href", values["href"]))
         if tag == "img":
             self.images.append(values)
+            if self._gallery_depth:
+                self.gallery_images.append(values)
+            if self._teaching_figure_depth:
+                self.teaching_figure_images.append(values)
+        if tag == "input" and values.get("id") in {"__drawer", "__search"}:
+            self.toggles.append(values)
+        if (
+            tag == "label"
+            and values.get("for") in {"__drawer", "__search"}
+            and "md-header__button" in values.get("class", "").split()
+        ):
+            self.header_toggle_buttons.append(values)
+        if tag == "button" and "md-code__button" in values.get("class", "").split():
+            self.code_buttons.append(values)
 
     def handle_data(self, data: str) -> None:
         if self._heading_tag:
@@ -82,6 +107,10 @@ class Document(HTMLParser):
 
     def handle_endtag(self, tag: str) -> None:
         tag = tag.lower()
+        if tag == "details" and self._gallery_depth:
+            self._gallery_depth -= 1
+        if tag == "figure" and self._teaching_figure_depth:
+            self._teaching_figure_depth -= 1
         if tag == "title":
             self._in_title = False
         if self._heading_tag == tag:
@@ -148,6 +177,26 @@ def main() -> int:
         failures.append(f"site has {len(all_files)} files (limit {max_files})")
     if total_bytes > args.max_site_mb * 1024 * 1024:
         failures.append(f"site is {total_bytes / 1024 / 1024:.2f} MiB (limit {args.max_site_mb:.2f})")
+    controls_js = site / "javascripts" / "header-controls.js"
+    if not controls_js.is_file():
+        failures.append("keyboard-accessible header-control script is missing")
+    else:
+        script = controls_js.read_text(encoding="utf-8")
+        for token in (
+            "keydown",
+            'event.key !== "Enter"',
+            'event.key !== " "',
+            "aria-expanded",
+            "button.md-code__button",
+            "Copy code to clipboard",
+        ):
+            if token not in script:
+                failures.append(f"header-control script lacks required behavior: {token}")
+    ebook_css = site / "stylesheets" / "extra.css"
+    if not ebook_css.is_file() or '.md-header__button[role="button"]:focus-visible' not in ebook_css.read_text(
+        encoding="utf-8"
+    ):
+        failures.append("header controls lack a visible keyboard-focus rule")
 
     for page in html_files:
         data = page.read_text(encoding="utf-8")
@@ -200,6 +249,32 @@ def main() -> int:
             )
         if not " ".join(document.title_text).strip():
             failures.append(f"{page.relative_to(site)} has an empty title")
+        for toggle in document.toggles:
+            if not (toggle.get("aria-label", "").strip() or toggle.get("aria-labelledby", "").strip()):
+                failures.append(
+                    f"{page.relative_to(site)} toggle lacks an accessible name: {toggle.get('id', '')}"
+                )
+        if len(document.header_toggle_buttons) != 2:
+            failures.append(
+                f"{page.relative_to(site)} has {len(document.header_toggle_buttons)} accessible header toggles (expected 2)"
+            )
+        for button in document.header_toggle_buttons:
+            expected = "Toggle navigation" if button.get("for") == "__drawer" else "Toggle search"
+            if button.get("role") != "button" or button.get("tabindex") != "0":
+                failures.append(
+                    f"{page.relative_to(site)} header toggle is not keyboard focusable: {button.get('for', '')}"
+                )
+            if button.get("aria-label") != expected:
+                failures.append(
+                    f"{page.relative_to(site)} header toggle has the wrong accessible name: {button.get('for', '')}"
+                )
+            if button.get("aria-expanded") not in {"true", "false"}:
+                failures.append(
+                    f"{page.relative_to(site)} header toggle lacks expansion state: {button.get('for', '')}"
+                )
+        for button in document.code_buttons:
+            if button.get("aria-label") != "Copy code to clipboard" or button.get("type") != "button":
+                failures.append(f"{page.relative_to(site)} code-copy button lacks explicit semantics")
         for skip in document.skip_targets:
             if skip.startswith("#") and skip[1:] not in document.ids:
                 failures.append(f"{page.relative_to(site)} skip link target is missing: {skip}")
@@ -217,6 +292,16 @@ def main() -> int:
                 failures.append(f"{page.relative_to(site)} image lacks decoding policy: {image.get('src', '')}")
             if not re.fullmatch(r"\d+", image.get("width", "")) or not re.fullmatch(r"\d+", image.get("height", "")):
                 failures.append(f"{page.relative_to(site)} image lacks numeric dimensions: {image.get('src', '')}")
+        for image in document.gallery_images:
+            if image.get("loading") != "eager":
+                failures.append(
+                    f"{page.relative_to(site)} print-expanded gallery image is not eager: {image.get('src', '')}"
+                )
+        for image in document.teaching_figure_images:
+            if image.get("loading") != "eager":
+                failures.append(
+                    f"{page.relative_to(site)} print-visible teaching figure image is not eager: {image.get('src', '')}"
+                )
         for source in document.sources:
             if not re.fullmatch(r"\d+", source.get("width", "")) or not re.fullmatch(r"\d+", source.get("height", "")):
                 failures.append(f"{page.relative_to(site)} picture source lacks numeric dimensions: {source.get('srcset', '')}")

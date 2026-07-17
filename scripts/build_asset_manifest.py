@@ -35,7 +35,14 @@ def build(root: Path) -> dict[str, object]:
             continue
         data = path.read_bytes()
         width, height = dimensions(path)
-        software = "Matplotlib" if b"Matplotlib" in data else ("hand-authored SVG" if path.suffix.lower() == ".svg" else "not detected")
+        if b"Matplotlib" in data:
+            software = "Matplotlib"
+        elif b"Generated deterministically by scripts/regenerate_accuracy_figures.py" in data:
+            software = "Python SVG generator (scripts/regenerate_accuracy_figures.py)"
+        elif path.suffix.lower() == ".svg":
+            software = "hand-authored SVG"
+        else:
+            software = "not detected"
         assets.append(
             {
                 "path": path.relative_to(root).as_posix(),

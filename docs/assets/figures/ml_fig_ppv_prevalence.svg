@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" role="img" aria-labelledby="title desc">
+  <metadata>Generated deterministically by scripts/regenerate_accuracy_figures.py.</metadata>
+  <title id="title">Positive predictive value across disease prevalence</title>
+  <desc id="desc">For a fixed screen with sensitivity 0.85 and specificity 0.70, positive predictive value is 13.0 percent at 5 percent prevalence and 41.5 percent at 20 percent prevalence. Positive predictive value rises as prevalence rises.</desc>
+  <rect width="1000" height="650" rx="24" fill="#fbfdff"/>
+  <style>
+    text { font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif; fill: #142033; }
+    .title { font-size: 30px; font-weight: 700; }
+    .subtitle { font-size: 18px; fill: #526277; }
+    .axis { font-size: 18px; font-weight: 600; }
+    .tick { font-size: 15px; fill: #526277; }
+    .callout-title { font-size: 17px; font-weight: 700; }
+    .callout-value { font-size: 17px; fill: #08746f; }
+    .curve-label { font-size: 16px; font-weight: 600; fill: #08746f; }
+    .note { font-size: 16px; fill: #526277; }
+  </style>
+  <text x="112" y="54" class="title">PPV changes with prevalence</text>
+  <text x="112" y="88" class="subtitle">Fixed screen: sensitivity 0.85 · specificity 0.70 · LR+ 2.83</text>
+  <path d="M 112.0 142.0 V 508.0" stroke="#d8e2ea" stroke-width="1"/>
+  <path d="M 296.5 142.0 V 508.0" stroke="#d8e2ea" stroke-width="1"/>
+  <path d="M 480.9 142.0 V 508.0" stroke="#d8e2ea" stroke-width="1"/>
+  <path d="M 665.4 142.0 V 508.0" stroke="#d8e2ea" stroke-width="1"/>
+  <path d="M 849.9 142.0 V 508.0" stroke="#d8e2ea" stroke-width="1"/>
+  <path d="M 112.0 508.0 H 896.0" stroke="#d8e2ea" stroke-width="1"/>
+  <path d="M 112.0 434.8 H 896.0" stroke="#d8e2ea" stroke-width="1"/>
+  <path d="M 112.0 361.6 H 896.0" stroke="#d8e2ea" stroke-width="1"/>
+  <path d="M 112.0 288.4 H 896.0" stroke="#d8e2ea" stroke-width="1"/>
+  <path d="M 112.0 215.2 H 896.0" stroke="#d8e2ea" stroke-width="1"/>
+  <path d="M 112.0 142.0 H 896.0" stroke="#d8e2ea" stroke-width="1"/>
+  <path d="M 112.0 142.0 V 508.0 H 896.0" fill="none" stroke="#142033" stroke-width="2"/>
+  <text x="112.0" y="537.0" text-anchor="middle" class="tick">0.0</text>
+  <text x="296.5" y="537.0" text-anchor="middle" class="tick">0.2</text>
+  <text x="480.9" y="537.0" text-anchor="middle" class="tick">0.4</text>
+  <text x="665.4" y="537.0" text-anchor="middle" class="tick">0.6</text>
+  <text x="849.9" y="537.0" text-anchor="middle" class="tick">0.8</text>
+  <text x="94.0" y="514.0" text-anchor="end" class="tick">0.0</text>
+  <text x="94.0" y="440.8" text-anchor="end" class="tick">0.2</text>
+  <text x="94.0" y="367.6" text-anchor="end" class="tick">0.4</text>
+  <text x="94.0" y="294.4" text-anchor="end" class="tick">0.6</text>
+  <text x="94.0" y="221.2" text-anchor="end" class="tick">0.8</text>
+  <text x="94.0" y="148.0" text-anchor="end" class="tick">1.0</text>
+  <path d="M 112.00 508.00 L 116.61 502.86 L 121.22 497.82 L 125.84 492.86 L 130.45 487.99 L 135.06 483.21 L 139.67 478.51 L 144.28 473.89 L 148.89 469.35 L 153.51 464.89 L 158.12 460.50 L 162.73 456.19 L 167.34 451.95 L 171.95 447.77 L 176.56 443.67 L 181.18 439.63 L 185.79 435.65 L 190.40 431.74 L 195.01 427.89 L 199.62 424.10 L 204.24 420.37 L 208.85 416.69 L 213.46 413.07 L 218.07 409.51 L 222.68 406.00 L 227.29 402.54 L 231.91 399.14 L 236.52 395.78 L 241.13 392.47 L 245.74 389.21 L 250.35 386.00 L 254.96 382.83 L 259.58 379.71 L 264.19 376.63 L 268.80 373.60 L 273.41 370.61 L 278.02 367.65 L 282.64 364.74 L 287.25 361.87 L 291.86 359.04 L 296.47 356.24 L 301.08 353.49 L 305.69 350.77 L 310.31 348.08 L 314.92 345.43 L 319.53 342.81 L 324.14 340.23 L 328.75 337.68 L 333.36 335.17 L 337.98 332.68 L 342.59 330.23 L 347.20 327.81 L 351.81 325.41 L 356.42 323.05 L 361.04 320.72 L 365.65 318.41 L 370.26 316.13 L 374.87 313.88 L 379.48 311.66 L 384.09 309.46 L 388.71 307.29 L 393.32 305.14 L 397.93 303.02 L 402.54 300.93 L 407.15 298.86 L 411.76 296.81 L 416.38 294.79 L 420.99 292.78 L 425.60 290.80 L 430.21 288.85 L 434.82 286.91 L 439.44 285.00 L 444.05 283.11 L 448.66 281.24 L 453.27 279.39 L 457.88 277.56 L 462.49 275.74 L 467.11 273.95 L 471.72 272.18 L 476.33 270.43 L 480.94 268.69 L 485.55 266.98 L 490.16 265.28 L 494.78 263.60 L 499.39 261.93 L 504.00 260.29 L 508.61 258.66 L 513.22 257.04 L 517.84 255.45 L 522.45 253.87 L 527.06 252.30 L 531.67 250.75 L 536.28 249.22 L 540.89 247.70 L 545.51 246.20 L 550.12 244.71 L 554.73 243.23 L 559.34 241.77 L 563.95 240.33 L 568.56 238.90 L 573.18 237.48 L 577.79 236.07 L 582.40 234.68 L 587.01 233.30 L 591.62 231.94 L 596.24 230.59 L 600.85 229.25 L 605.46 227.92 L 610.07 226.60 L 614.68 225.30 L 619.29 224.01 L 623.91 222.73 L 628.52 221.46 L 633.13 220.20 L 637.74 218.96 L 642.35 217.72 L 646.96 216.50 L 651.58 215.29 L 656.19 214.09 L 660.80 212.90 L 665.41 211.71 L 670.02 210.54 L 674.64 209.38 L 679.25 208.23 L 683.86 207.09 L 688.47 205.96 L 693.08 204.84 L 697.69 203.73 L 702.31 202.63 L 706.92 201.53 L 711.53 200.45 L 716.14 199.37 L 720.75 198.31 L 725.36 197.25 L 729.98 196.20 L 734.59 195.16 L 739.20 194.13 L 743.81 193.11 L 748.42 192.09 L 753.04 191.09 L 757.65 190.09 L 762.26 189.10 L 766.87 188.11 L 771.48 187.14 L 776.09 186.17 L 780.71 185.21 L 785.32 184.26 L 789.93 183.32 L 794.54 182.38 L 799.15 181.45 L 803.76 180.53 L 808.38 179.61 L 812.99 178.70 L 817.60 177.80 L 822.21 176.91 L 826.82 176.02 L 831.44 175.14 L 836.05 174.26 L 840.66 173.39 L 845.27 172.53 L 849.88 171.68" fill="none" stroke="#0f8f88" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="158.12" cy="460.50" r="10" fill="#c89519" stroke="#ffffff" stroke-width="3"/>
+  <path d="M 166.1 455.5 L 218 438" fill="none" stroke="#08746f" stroke-width="2"/>
+  <rect x="218" y="397" width="188" height="68" rx="12" fill="#ffffff" stroke="#d8e2ea"/>
+  <text x="234" y="424" class="callout-title">5% prevalence</text>
+  <text x="234" y="450" class="callout-value">PPV 13.0%</text>
+  <circle cx="296.47" cy="356.24" r="10" fill="#c89519" stroke="#ffffff" stroke-width="3"/>
+  <path d="M 304.5 350.2 L 360 307" fill="none" stroke="#08746f" stroke-width="2"/>
+  <rect x="360" y="266" width="204" height="68" rx="12" fill="#ffffff" stroke="#d8e2ea"/>
+  <text x="376" y="293" class="callout-title">20% prevalence</text>
+  <text x="376" y="319" class="callout-value">PPV 41.5%</text>
+  <path d="M 619.3 217.0 L 654 178" fill="none" stroke="#08746f" stroke-width="2"/>
+  <text x="665" y="176" class="curve-label">Same test, different base rate</text>
+  <text x="504.0" y="574" text-anchor="middle" class="axis">Disease prevalence P(D+)</text>
+  <text x="35" y="325.0" text-anchor="middle" class="axis" transform="rotate(-90 35 325.0)">Positive predictive value P(D+ | test+)</text>
+  <text x="112" y="622" class="note">Predictive value changes with prevalence; sensitivity and specificity are held constant.</text>
+</svg>

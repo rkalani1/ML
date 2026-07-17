@@ -65,9 +65,15 @@ Joint probability P(A ∩ B) describes co-occurrence. Conditional probability P(
 
 Suppose in an ED population of suspected acute ischemic stroke, P(LVO) = 0.20. A bedside scale has sensitivity P(+ | LVO) = 0.85 and specificity P(− | no LVO) = 0.70, so P(+ | no LVO) = 0.30. A patient screens positive. Then P(+) = 0.85·0.20 + 0.30·0.80 = 0.17 + 0.24 = 0.41, and P(LVO | +) = 0.17/0.41 ≈ 0.4146 ≈ 41.5%. Despite 85% sensitivity, PPV is only about 41.5% because false positives among the 80% without LVO dominate the marginal. At prevalence 0.05, the same sens/spec yield P(+) = 0.3275 and PPV ≈ 13.0%. Likelihood ratios LR+ = 0.85/0.30 ≈ 2.833 and LR− = 0.15/0.70 ≈ 0.214 travel across base rates; predictive values do not.
 
-![PPV vs prevalence with chapter LVO sens/spec.](../assets/figures/ml_fig_ppv_prevalence.png)
-
-*Scientific recompute of the same claim: at π=0.20, PPV≈0.41; at π=0.05, PPV≈0.13.*
+<figure class="teaching-figure ppv-responsive-figure">
+  <a class="figure-zoom" href="../assets/figures/ml_fig_ppv_prevalence.svg" title="Open full-resolution figure">
+    <picture>
+      <source media="(max-width: 600px)" srcset="../assets/figures/ml_fig_ppv_prevalence_mobile.svg" width="600" height="900">
+      <img src="../assets/figures/ml_fig_ppv_prevalence.svg" alt="PPV curve for a screen with sensitivity 0.85 and specificity 0.70: PPV is 13.0% at 5% prevalence and 41.5% at 20% prevalence." width="1000" height="650" loading="lazy" decoding="async">
+    </picture>
+  </a>
+  <figcaption>Scientific recompute of the same claim: at π=0.20, PPV≈0.41; at π=0.05, PPV≈0.13.<span class="figure-zoom-hint" aria-hidden="true">Open full resolution ↗</span></figcaption>
+</figure>
 
 ```
 prev, sens, spec = 0.20, 0.85, 0.70
@@ -121,7 +127,7 @@ Expectation E[X] is the probability-weighted average (sum or integral). Linearit
 
 *Parent density is skewed; means of n=5 remain skewed; means of n=40 are nearly Gaussian.*
 
-Z-score normalization transforms a value via z = (x − μ)/σ (or sample estimates s). Features on incommensurate scales become comparable; many distance-based learners (k-means, k-NN, PCA) require this discipline. Z-scores assume a roughly symmetric scale meaning; they do not fix heavy tails or coding errors. Robust alternatives use median and IQR.
+Z-score normalization transforms a value via z = (x − μ)/σ (or sample estimates using s). Distance-based methods such as k-means and k-NN often benefit from scaling when measurement units should not dominate. PCA requires centering; standardizing each feature to unit variance is a separate analysis choice. Z-scores require finite, nonzero variance—not symmetry—although SD-based interpretation is less robust under skew or heavy tails. Robust alternatives use the median and IQR.
 
 The law of large numbers (LLN): sample averages converge to expectations under i.i.d. sampling with finite mean—the philosophical backbone of ‘more data helps.’ The central limit theorem (CLT): standardized sums become approximately normal for large n under mild conditions—justifying many Wald intervals and z-tests. Sampling bias (nonrandom selection, volunteer bias, collider stratification) breaks the link between sample and target population no matter how large n grows. Confidence intervals at level 1−α are random intervals that cover the true parameter with probability 1−α under the model in repeated sampling; approximate Wald interval for a proportion: p̂ ± z_{α/2} √(p̂(1−p̂)/n).
 
@@ -169,7 +175,7 @@ E-step: compute each point’s responsibility—the posterior probability it bel
 
 M-step: re-estimate parameters as responsibility-weighted statistics: π ← (1/n) Σ_i r_i; μ_1 ← (Σ_i r_i x_i)/(Σ_i r_i); σ_1² ← (Σ_i r_i (x_i − μ_1)²)/(Σ_i r_i); and symmetrically for component 2 using weights (1 − r_i). This is a weighted version of the ordinary Gaussian MLE.
 
-Each iteration provably does not decrease the observed-data likelihood, so EM climbs to a stationary point—usually a local, not global, maximum, which is why several random initializations and a best-likelihood pick are standard. EM underpins Gaussian mixture clustering, many HMM estimators (Baum–Welch), and missing-data algorithms. Clinically, a NIHSS histogram with a mild-stroke bulk and a severe-stroke tail can be fit as such a mixture, with responsibilities giving each patient a soft membership rather than a hard threshold cut; the same soft labels should never be reported as verified etiologic subtypes.
+Each iteration does not decrease the observed-data likelihood. Under standard regularity conditions, limit points are stationary; they are often local maxima rather than the global maximum, and ridges or saddle behavior can also occur. Several random initializations and comparison of attained likelihoods are therefore standard. EM underpins Gaussian mixture clustering, many HMM estimators (Baum–Welch), and missing-data algorithms. Clinically, a NIHSS histogram with a mild-stroke bulk and a severe-stroke tail can be fit as such a mixture, with responsibilities giving each patient a soft membership rather than a hard threshold cut; the same soft labels should never be reported as verified etiologic subtypes.
 
 ```
 # Bernoulli MLE sketch

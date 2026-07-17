@@ -31,7 +31,7 @@ Computational complexity still matters at scale: naive pairwise distances are O(
 
 ## 16.3 Sampling from Complex Data: Stratified, Cluster, Monte Carlo, and MCMC
 
-Sampling determines who enters the analysis and which uncertainties we can claim to represent. Stratified sampling draws within predefined strata (site, age band, stroke subtype) to guarantee representation and reduce variance of stratified estimators. Cluster sampling draws groups (hospitals, households) then individuals within clusters—cheaper operationally but requires cluster-robust variance; treating clustered draws as i.i.d. understates uncertainty.
+Sampling determines who enters the analysis and which uncertainties we can claim to represent. Stratified sampling draws within predefined strata (site, age band, stroke subtype) to guarantee allocated representation and, when strata are internally homogeneous and estimates are correctly weighted, can improve precision. Cluster sampling draws groups (hospitals, households) then individuals within clusters—cheaper operationally but requires cluster-robust variance; treating clustered draws as i.i.d. understates uncertainty.
 
 Monte Carlo (MC) sampling estimates expectations by drawing independent samples from a distribution p and averaging f(x). The law of large numbers justifies convergence; variance of the estimator is Var(f(X))/n. Crude MC fails when p is hard to sample or when rare regions dominate f.
 
@@ -72,7 +72,7 @@ Noise corrupts measurements, labels, and images. Types by statistical structure:
 
 Noise reduction. Machine learning denoisers learn mappings from noisy to clean examples (or self-supervised variants). Classical signal filters remain essential baselines and real-time tools:
 
-Butterworth filter. A low-pass (or band-pass) design with maximally flat passband; order controls the sharpness of cutoff. Used to remove high-frequency interference from EEG/ECG while preserving signal band—always inspect phase effects and filter both directions (filtfilt) when offline.
+Butterworth filter. A low-pass (or band-pass) design with maximally flat passband; order controls the sharpness of cutoff. It can remove high-frequency interference from EEG/ECG while preserving a chosen signal band. Inspect phase effects; when zero-phase, noncausal filtering is appropriate, consider forward–backward filtering and inspect edge and transient artifacts.
 
 Wiener filter. Optimal linear filter under stationary signal and noise spectra: minimizes mean squared error using power spectral densities. Adaptive Wiener variants estimate local statistics in images.
 
@@ -160,7 +160,7 @@ Tackling drift: monitor input quantiles, embedding distances, prediction-score d
 
 Cold start problem. New users, new hospitals, new devices, or new drugs lack history for personalized or site-adapted models. Mitigations: content-based features that do not need history; transfer from similar sites; hierarchical Bayesian pooling; explore under bandit constraints when ethical; collect minimum viable local labeled sets before trusting local fine-tunes. Cold start is acute when an MSU joins a network with different demographics and imaging vendors.
 
-Worked site-drift PPV numbers. Suppose a large-vessel occlusion alert model uses a fixed score threshold chosen at Site A where prevalence p_A = 0.20 among alerted patients, sensitivity Se=0.90, specificity Sp=0.80. Positive predictive value PPV = Se×p / (Se×p + (1−Sp)×(1−p)).
+Worked site-drift PPV numbers. Suppose a large-vessel occlusion alert model uses a fixed score threshold chosen at Site A where prevalence p_A = 0.20 among all patients scored before thresholding, sensitivity Se=0.90, specificity Sp=0.80. Positive predictive value PPV = Se×p / (Se×p + (1−Sp)×(1−p)).
 
 At Site A: PPV_A = 0.90×0.20 / (0.90×0.20 + 0.20×0.80) = 0.18 / (0.18+0.16) = 0.18/0.34 ≈ 0.529 (52.9%).
 
@@ -264,7 +264,7 @@ Train-serve skew arises when the research feature pipeline differs from the prod
 
 Multi-site studies amplify every data pathology: different EHRs, coding cultures, scanner fleets, and outcome ascertainment. Harmonization strategies include common data models, centralized data dictionaries, and imaging-protocol standardization. When features still carry a site signature, ComBat-style batch adjustment models each feature as a site-specific location-and-scale shift and empirical-Bayes shrinks those shifts toward a common mean before removing them. Concretely, cortical-thickness or DTI fractional-anisotropy values differ systematically between a 1.5T GE scanner and a 3T Siemens scanner; ComBat can strip that vendor/field-strength batch effect so a multiple-sclerosis-versus-control comparison is not confounded by which site imaged which patient. The essential caution: harmonize only after protecting the biological covariates of interest in the model, because when site is entangled with population (a specialty MS center scans sicker patients), naive batch correction will regress out real disease signal along with the scanner effect. Hierarchical models with random site intercepts are a gentler alternative that borrows strength across sites without hard-erasing site differences. Harmonize outcomes too: an mRS obtained by structured interview is not interchangeable with one abstracted from a chart note.
 
-Reporting spirit (TRIPOD and related guidance): define the prediction goal, population, index time, features available at prediction, outcome definitions, handling of missing data, validation design (internal vs external), calibration, and clinical utility. Pre-register analysis plans when possible. Distinguish prediction from causal claims. A neurologist-epidemiologist who masters this chapter’s threats will reject more papers—and more vendor demos—for the right reasons.
+Reporting spirit (TRIPOD and related guidance): define the prediction goal, population, index time, features available at prediction, outcome definitions, handling of missing data, validation design (internal vs external), calibration, and clinical utility. Pre-register analysis plans when possible. Distinguish prediction from causal claims. These threats are grounds for rejecting papers or vendor demos when the design cannot support the claim.
 
 ## 16.14 Worked Capstone Scenario: Imbalance Meets Site Drift
 

@@ -477,7 +477,8 @@ html {
 .md-typeset a:focus-visible,
 .ebook-start a:focus-visible,
 .chapter-list a:focus-visible,
-.md-nav__link:focus-visible {
+.md-nav__link:focus-visible,
+.md-header__button[role="button"]:focus-visible {
   outline: 2px solid var(--ebook-primary);
   outline-offset: 2px;
 }
