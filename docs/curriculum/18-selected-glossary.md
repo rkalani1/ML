@@ -22,9 +22,15 @@
 
 *Six term families: paradigms, mechanics, evaluation, data/time, causal caution, deploy/govern.*
 
-![PPV versus prevalence at fixed sensitivity and specificity.](../assets/figures/ml_fig_ppv_prevalence.png)
-
-*PPV of a fixed screen (sens 0.85, spec 0.70) collapses as prevalence falls — LR+ travels; PPV does not.*
+<figure class="teaching-figure ppv-responsive-figure">
+  <a class="figure-zoom" href="../assets/figures/ml_fig_ppv_prevalence.svg" title="Open full-resolution figure">
+    <picture>
+      <source media="(max-width: 600px)" srcset="../assets/figures/ml_fig_ppv_prevalence_mobile.svg" width="600" height="900">
+      <img src="../assets/figures/ml_fig_ppv_prevalence.svg" alt="PPV curve for a screen with sensitivity 0.85 and specificity 0.70: PPV is 13.0% at 5% prevalence and 41.5% at 20% prevalence." width="1000" height="650" loading="lazy" decoding="async">
+    </picture>
+  </a>
+  <figcaption>PPV of a fixed screen (sens 0.85, spec 0.70) collapses as prevalence falls — LR+ travels; PPV does not.<span class="figure-zoom-hint" aria-hidden="true">Open full resolution ↗</span></figcaption>
+</figure>
 
 ![The accuracy trap under class imbalance.](../assets/figures/ml_fig_accuracy_trap.png)
 
@@ -145,7 +151,7 @@ Knowledge distillation. Training a small “student” model to mimic the output
 
 Label noise. Errors or inconsistencies in outcome labels—from coding, chart review, or rater disagreement—that can bias learned patterns, distort measured performance, and reduce validity; no universal numerical ceiling follows without a specified noise model and target.
 
-LASSO. Linear regression with an L1 penalty that shrinks coefficients and drives some exactly to zero, performing simultaneous fitting and feature selection.
+LASSO. Linear regression with an L1 penalty that shrinks coefficients and can drive some exactly to zero, combining fitting with a form of feature selection whose result depends on the data, penalty, and predictor geometry.
 
 Learning rate. The step-size multiplier on the gradient in gradient-based optimization; too large diverges, too small crawls or stalls.
 

@@ -134,7 +134,7 @@ Two engineering realities sharpen the warning for p ≫ n biomedical data. Spuri
 
 ### Fourier Transform
 
-The Fourier transform decomposes a signal into sinusoidal frequency components. For discrete sampled series, the Discrete Fourier Transform (DFT) and its fast implementation (FFT) yield complex coefficients whose magnitudes form a power spectrum. Band powers (delta, theta, alpha, beta, gamma in EEG; respiratory and cardiac bands in physiology) become compact features. Fourier analysis assumes stationarity over the analysis window; sliding-window spectrograms (STFT) track time-varying spectra.
+The Fourier transform decomposes a signal into sinusoidal frequency components. For discrete sampled series, the Discrete Fourier Transform (DFT) and its fast implementation (FFT) yield complex coefficients whose magnitudes form an amplitude spectrum; appropriately normalized squared magnitudes estimate power. Band powers (delta, theta, alpha, beta, gamma in EEG; respiratory and cardiac bands in physiology) become compact features. Fourier analysis assumes stationarity over the analysis window; sliding-window spectrograms (STFT) track time-varying spectra.
 
 ### Wavelet Transform
 

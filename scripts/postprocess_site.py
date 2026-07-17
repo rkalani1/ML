@@ -10,6 +10,9 @@ from urllib.parse import unquote, urlsplit
 from xml.etree import ElementTree
 
 IMG_RE = re.compile(r"<img\b[^>]*>", re.IGNORECASE)
+INPUT_RE = re.compile(r"<input\b[^>]*>", re.IGNORECASE)
+LABEL_RE = re.compile(r"<label\b[^>]*>", re.IGNORECASE)
+BUTTON_RE = re.compile(r"<button\b[^>]*>", re.IGNORECASE)
 LEGACY_FIGURE_RE = re.compile(
     r"<p>\s*(<img\b[^>]*>)\s*</p>\s*<p>\s*<em>((?:(?!</?p\b).)*?)</em>\s*</p>",
     re.IGNORECASE | re.DOTALL,
@@ -73,6 +76,48 @@ def enhance(tag: str, site: Path, html: Path) -> tuple[str, int]:
     return re.sub(r"\s*/?>$", lambda match: insertion + match.group(0), tag), 1
 
 
+def label_toggle(tag: str) -> tuple[str, int]:
+    attrs = attributes(tag)
+    labels = {"__drawer": "Toggle navigation", "__search": "Toggle search"}
+    label = labels.get(attrs.get("id", ""))
+    if not label or attrs.get("aria-label") or attrs.get("aria-labelledby"):
+        return tag, 0
+    return re.sub(r"\s*/?>$", lambda match: f' aria-label="{label}"' + match.group(0), tag), 1
+
+
+def enhance_header_toggle(tag: str) -> tuple[str, int]:
+    attrs = attributes(tag)
+    classes = set(attrs.get("class", "").split())
+    labels = {"__drawer": "Toggle navigation", "__search": "Toggle search"}
+    label = labels.get(attrs.get("for", ""))
+    if "md-header__button" not in classes or not label:
+        return tag, 0
+    additions: list[str] = []
+    for name, value in (
+        ("role", "button"),
+        ("tabindex", "0"),
+        ("aria-label", label),
+        ("aria-expanded", "false"),
+    ):
+        if name not in attrs:
+            additions.append(f'{name}="{value}"')
+    if not additions:
+        return tag, 0
+    insertion = " " + " ".join(additions)
+    return re.sub(r"\s*>$", lambda match: insertion + match.group(0), tag), 1
+
+
+def label_code_button(tag: str) -> tuple[str, int]:
+    attrs = attributes(tag)
+    if "md-code__button" not in attrs.get("class", "").split() or attrs.get("aria-label"):
+        return tag, 0
+    additions = ['aria-label="Copy code to clipboard"']
+    if "type" not in attrs:
+        additions.append('type="button"')
+    insertion = " " + " ".join(additions)
+    return re.sub(r"\s*>$", lambda match: insertion + match.group(0), tag), 1
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--site-dir", type=Path, default=Path("site"))
@@ -80,7 +125,11 @@ def main() -> int:
     site = args.site_dir.resolve()
     changed_tags = 0
     semantic_figures = 0
+    eager_figure_images = 0
     opening_galleries = 0
+    labeled_toggles = 0
+    accessible_toggle_buttons = 0
+    labeled_code_buttons = 0
     html_files = sorted(site.rglob("*.html"))
     for html in html_files:
         source = html.read_text(encoding="utf-8")
@@ -92,6 +141,30 @@ def main() -> int:
             return result
 
         rendered = IMG_RE.sub(replace, source)
+
+        def accessible_toggle(match: re.Match[str]) -> str:
+            nonlocal labeled_toggles
+            result, count = label_toggle(match.group(0))
+            labeled_toggles += count
+            return result
+
+        rendered = INPUT_RE.sub(accessible_toggle, rendered)
+
+        def accessible_button(match: re.Match[str]) -> str:
+            nonlocal accessible_toggle_buttons
+            result, count = enhance_header_toggle(match.group(0))
+            accessible_toggle_buttons += count
+            return result
+
+        rendered = LABEL_RE.sub(accessible_button, rendered)
+
+        def accessible_code_button(match: re.Match[str]) -> str:
+            nonlocal labeled_code_buttons
+            result, count = label_code_button(match.group(0))
+            labeled_code_buttons += count
+            return result
+
+        rendered = BUTTON_RE.sub(accessible_code_button, rendered)
         def figure(match: re.Match[str]) -> str:
             nonlocal semantic_figures
             semantic_figures += 1
@@ -106,6 +179,23 @@ def main() -> int:
             )
 
         rendered = LEGACY_FIGURE_RE.sub(figure, rendered)
+
+        def eager_figure(match: re.Match[str]) -> str:
+            nonlocal eager_figure_images
+            result, count = re.subn(
+                r'\bloading=(["\'])lazy\1',
+                'loading="eager"',
+                match.group(0),
+                flags=re.IGNORECASE,
+            )
+            eager_figure_images += count
+            return result
+
+        # Printing can begin before offscreen lazy images are requested. Every
+        # semantic teaching figure is therefore eager in the release artifact;
+        # the per-page image ceiling keeps the resulting fetch cost bounded.
+        rendered = FIGURE_RE.sub(eager_figure, rendered)
+
         def opening(match: re.Match[str]) -> str:
             nonlocal opening_galleries
             body = match.group(2)
@@ -115,6 +205,12 @@ def main() -> int:
             opening_galleries += 1
             first = figures[0]
             extras = "".join(item.group(0) for item in figures[1:])
+            extras = re.sub(
+                r'\bloading=(["\'])lazy\1',
+                'loading="eager"',
+                extras,
+                flags=re.IGNORECASE,
+            )
             remainder = FIGURE_RE.sub("", body[first.end():])
             gallery = (
                 '<details class="opening-figure-gallery">'
@@ -127,7 +223,10 @@ def main() -> int:
             html.write_text(rendered, encoding="utf-8")
     print(
         f"POSTPROCESS_OK html_files={len(html_files)} enhanced_images={changed_tags} "
-        f"semantic_figures={semantic_figures} opening_galleries={opening_galleries}"
+        f"semantic_figures={semantic_figures} eager_figure_images={eager_figure_images} "
+        f"opening_galleries={opening_galleries} "
+        f"labeled_toggles={labeled_toggles} accessible_toggle_buttons={accessible_toggle_buttons} "
+        f"labeled_code_buttons={labeled_code_buttons}"
     )
     return 0
 

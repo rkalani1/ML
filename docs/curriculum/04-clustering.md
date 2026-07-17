@@ -5,7 +5,7 @@
 
 ## Opening
 
-A research coordinator proposes clustering ‘phenotypes’ of cryptogenic stroke from EHR labs and imaging codes. Clustering can discover structure—or invent comforting noise. This chapter teaches how to ask which one you just saw.
+A research coordinator proposes clustering ‘phenotypes’ of cryptogenic stroke from EHR labs and imaging codes. Clustering can discover structure—or invent comforting noise. The central appraisal question is which one the analysis produced.
 
 
 ![Clustering sketch with centroids.](../assets/figures/ml_fig_clustering.png)
@@ -236,7 +236,7 @@ print(round(s_A, 3))  # 0.864
 
 A practical evaluation battery for a stroke clustering paper: (1) pre-specify features and scaling; (2) report WSS elbow and silhouette distributions for a range of k; (3) report Dunn and Davies–Bouldin as secondary; (4) if labels exist for audit, report adjusted Rand and purity without claiming etiology; (5) bootstrap cluster stability (Jaccard of matched clusters across resamples); (6) site-holdout replication; (7) outcome association only as descriptive secondary analysis with multiplicity humility.
 
-## Other Clustering Variants You Will Encounter
+## Other Clustering Variants
 
 Beyond the TOC core, several variants appear in clinical papers. Spectral clustering uses eigenvectors of graph Laplacians built from similarity graphs—effective for non-convex clusters when similarities are well tuned, but sensitive to graph construction. Mean-shift finds modes of a kernel density estimate without fixing k, related in spirit to density methods. Hierarchical density methods (HDBSCAN) combine ideas from OPTICS and hierarchy to extract stable clusters across density levels. Constrained clustering incorporates must-link and cannot-link hints from partial labels—semi-supervised structure discovery when experts can say ‘these two cases should not share a phenotype’ without full labeling.
 

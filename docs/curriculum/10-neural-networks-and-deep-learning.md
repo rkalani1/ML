@@ -5,7 +5,7 @@
 
 ## Opening
 
-A vendor demo animates a CNN highlighting an infarct core. Deep learning can extract hierarchical image features; it can also memorize scanner fingerprints. This chapter gives neurologists the vocabulary to interrogate both.
+A vendor demo animates a CNN highlighting an infarct core. Deep learning can extract hierarchical image features; it can also memorize scanner fingerprints. The relevant vocabulary distinguishes genuine hierarchical feature extraction from scanner-fingerprint memorization.
 
 
 ![Simple multilayer network diagram.](../assets/figures/ml_fig_mlp.png)
@@ -177,7 +177,7 @@ Sequential data (text, time series, audio frames, EEG windows) invite models wit
 
 ### LSTM and GRU
 
-A vanilla RNN overwrites its whole hidden state each step, so information must survive repeated multiplication by W_h and repeated squashing by φ; across long horizons the product of Jacobians shrinks toward zero (vanishing) or blows up (exploding). Gated cells fix this by adding an explicitly protected memory and learned valves that decide what to keep, overwrite, and expose.
+A vanilla RNN overwrites its whole hidden state each step, so information must survive repeated multiplication by W_h and repeated squashing by φ; across long horizons the product of Jacobians shrinks toward zero (vanishing) or blows up (exploding). Gated cells help mitigate this by adding an explicitly protected memory path and learned valves that decide what to keep, overwrite, and expose; they do not guarantee that gradient pathologies disappear.
 
 Long short-term memory (LSTM) carries a cell state c_t (protected long-term memory) alongside the hidden state h_t (the exposed working copy). Writing [h_{t−1}, x_t] for the concatenated previous hidden state and current input, each step computes three sigmoid gates in (0,1) and one tanh candidate:
 

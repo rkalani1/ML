@@ -74,16 +74,62 @@ class EbookSiteTests(unittest.TestCase):
         self.assertGreaterEqual(len(ch), 10)
 
     def test_chapters_do_not_have_learning_objective_sections(self) -> None:
-        heading = re.compile(r"^##\s+Learning objectives?\s*$", re.IGNORECASE | re.MULTILINE)
-        offenders = [
-            chapter.name
-            for chapter in sorted((self.docs / "curriculum").glob("[0-9][0-9]-*.md"))
-            if heading.search(chapter.read_text(encoding="utf-8"))
-        ]
+        label = (
+            r"objectives?|"
+            r"(?:(?:key\s+)?learning|chapter)\s+(?:objectives?|goals?|outcomes?)|"
+            r"what\s+(?:you(?:['’]ll|\s+will))\s+learn|"
+            r"after\s+(?:reading\s+)?this\s+chapter|"
+            r"by\s+the\s+end\s+of\s+this\s+chapter"
+        )
+        numbered = r"(?:\d+(?:\.\d+)*[.)]?\s+)?"
+        atx_heading = re.compile(
+            rf"^\s{{0,3}}#{{1,6}}\s+{numbered}(?:{label})\s*[:—–-]?\s*#*\s*$",
+            re.IGNORECASE | re.MULTILINE,
+        )
+        setext_heading = re.compile(
+            rf"^\s*{numbered}(?:{label})\s*[:—–-]?\s*\n\s*(?:=+|-+)\s*$",
+            re.IGNORECASE | re.MULTILINE,
+        )
+        html_heading = re.compile(r"<h[1-6]\b[^>]*>(.*?)</h[1-6]>", re.IGNORECASE | re.DOTALL)
+        label_only = re.compile(
+            rf"^\s*{numbered}(?:{label})\s*[:—–-]?\s*$",
+            re.IGNORECASE,
+        )
+        objective_prose = re.compile(
+            r"\b(?:"
+            r"you(?:\s+will|['’]ll)\s+(?:learn|be\s+able\s+to|compute|observe|practice|inspect|possess)|"
+            r"by\s+the\s+end\s+of\s+(?:this|the)\s+chapter|"
+            r"(?:the\s+)?(?:goal|objective)\s+of\s+this\s+chapter|"
+            r"this\s+chapter\s+(?:will\s+)?(?:teach(?:es)?|equip(?:s)?|train(?:s)?|"
+            r"give(?:s)?\s+(?:you|readers?|neurologists?)|dissect)|"
+            r"(?:mastering|masters)\s+this\s+chapter"
+            r")\b",
+            re.IGNORECASE,
+        )
+        meta_pedagogy = re.compile(
+            r"(?:^\s*#{1,6}\s+(?:How to Use This Chapter|What This Chapter Is About)\s*$|"
+            r"\bThis chapter builds\b|\bStudents should implement\b)",
+            re.IGNORECASE | re.MULTILINE,
+        )
+        offenders = []
+        for chapter in sorted((self.docs / "curriculum").glob("[0-9][0-9]-*.md")):
+            text = chapter.read_text(encoding="utf-8")
+            raw_html_objective = any(
+                label_only.fullmatch(re.sub(r"<[^>]+>", " ", match).strip())
+                for match in html_heading.findall(text)
+            )
+            if (
+                atx_heading.search(text)
+                or setext_heading.search(text)
+                or raw_html_objective
+                or objective_prose.search(text)
+                or meta_pedagogy.search(text)
+            ):
+                offenders.append(chapter.name)
         self.assertEqual(
             offenders,
             [],
-            f"chapter-level learning-objective sections are not part of this book: {offenders}",
+            f"chapter-level learning-objective headings or promises are not part of this book: {offenders}",
         )
 
     def test_css_ebook_system(self) -> None:
@@ -115,6 +161,13 @@ class EbookSiteTests(unittest.TestCase):
         self.assertIn(".md-header", css)
         self.assertIn("display: none", css)
         self.assertIn("prefers-reduced-motion", css)
+        self.assertIn('.md-header__button[role="button"]:focus-visible', css)
+        controls = (self.docs / "javascripts" / "header-controls.js").read_text(encoding="utf-8")
+        self.assertIn("javascripts/header-controls.js", self.yml)
+        self.assertIn("keydown", controls)
+        self.assertIn("aria-expanded", controls)
+        self.assertIn("button.md-code__button", controls)
+        self.assertIn("Copy code to clipboard", controls)
 
     def test_navigation_labels_are_not_truncated(self) -> None:
         nav = self.yml.split("nav:", 1)[-1]
@@ -243,12 +296,35 @@ class EbookSiteTests(unittest.TestCase):
                 "of every optimizer in the book",
                 "the reference value any useful model must beat",
                 "therefore carries roughly a 90% posterior probability of LVO",
+                "never subtract two nearly-equal numbers",
+                "so EM climbs to a stationary point",
+                "Gated cells fix this",
+                "to guarantee representation and reduce variance",
+                "filter both directions (filtfilt) when offline",
+                "many distance-based learners (k-means, k-NN, PCA) require this discipline",
+                "Z-scores assume a roughly symmetric",
+                "exactly the assumption under which principled multiple imputation",
+                "a troponin is never drawn precisely because",
+                "magnitudes form a power spectrum",
+                "is a privacy breach and a reportable event",
+                "gamma in [0, 1) scales future rewards",
+                "Students should implement",
+                "values decrease with distance from the goal",
+                "Soft policies that continue to explore are required",
+                "prevalence p_A = 0.20 among alerted patients",
+                "drives some exactly to zero",
             ):
                 self.assertNotIn(false_claim, blob)
             math = chapters["00-mathematical-foundations-for-machine-learning.md"]
             self.assertIn("∇f(1, 1) = (6, 4) ≠ 𝟎", math)
             self.assertIn("therefore is not a local minimum", math)
             self.assertIn("Convergence of gradient descent is a separate result", math)
+            self.assertIn(
+                "avoid subtracting nearly equal rounded approximations when relative accuracy of the difference matters",
+                math,
+            )
+            self.assertIn("HIPAA Privacy Rule de-identification guidance", blob)
+            self.assertIn("HHS breach-notification framework", blob)
             self.assertIn("\\mathbf W^\\mathsf T", math)
             self.assertIn("at a regular point of a smooth level set", math)
             self.assertIn("constraint-qualification condition", math)
@@ -305,6 +381,28 @@ class EbookSiteTests(unittest.TestCase):
         self.assertIn("ALL_PASS", r.stdout)
         self.assertIn("BOUNDED_SAMPLE chapters=18/19", r.stdout)
         self.assertGreaterEqual(r.stdout.count("PASS "), 50)
+
+    def test_accuracy_figure_matches_asserted_source_data(self) -> None:
+        import subprocess
+
+        script = self.root / "scripts" / "regenerate_accuracy_figures.py"
+        self.assertTrue(script.exists(), "regenerate_accuracy_figures.py missing")
+        result = subprocess.run(
+            [sys.executable, str(script), "--check"],
+            capture_output=True,
+            text=True,
+            cwd=str(self.root),
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn("ACCURACY_FIGURES_OK 2", result.stdout)
+        for chapter_name in (
+            "03-probability-and-statistics.md",
+            "18-selected-glossary.md",
+        ):
+            chapter = (self.docs / "curriculum" / chapter_name).read_text(encoding="utf-8")
+            self.assertIn("<picture>", chapter)
+            self.assertIn('media="(max-width: 600px)"', chapter)
+            self.assertIn("ml_fig_ppv_prevalence_mobile.svg", chapter)
 
 
 if __name__ == "__main__":

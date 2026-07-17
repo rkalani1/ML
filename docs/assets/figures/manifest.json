@@ -3,7 +3,7 @@
   "audit_date": "2026-07-16",
   "scope": "docs/assets/figures PNG and SVG assets",
   "caveat": "Hashes and software metadata support traceability but do not prove authorship or eliminate copyright risk.",
-  "asset_count": 69,
+  "asset_count": 70,
   "assets": [
     {
       "path": "docs/assets/figures/ml_clinical_model_path.png",
@@ -429,12 +429,21 @@
       "provenance_assertion": "Teaching asset present in this repository; authorship and rights have not been independently verified."
     },
     {
-      "path": "docs/assets/figures/ml_fig_ppv_prevalence.png",
-      "sha256": "8739a8ca647103d7d7cd40f2317b5fb54fca1382f9185eaab047c89283a9a05d",
-      "bytes": 71445,
-      "width": 959,
-      "height": 662,
-      "software_metadata": "Matplotlib",
+      "path": "docs/assets/figures/ml_fig_ppv_prevalence.svg",
+      "sha256": "2a2b37293573389b1ad71fbc226fb9af4a2f0a39c39f2180ac71a5bf16ac8586",
+      "bytes": 6956,
+      "width": 1000,
+      "height": 650,
+      "software_metadata": "Python SVG generator (scripts/regenerate_accuracy_figures.py)",
+      "provenance_assertion": "Teaching asset present in this repository; authorship and rights have not been independently verified."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_ppv_prevalence_mobile.svg",
+      "sha256": "782060e340af877a76ee2ec38e3bf89b89f02b9232e1173f2eaca4cf868883b8",
+      "bytes": 7018,
+      "width": 600,
+      "height": 900,
+      "software_metadata": "Python SVG generator (scripts/regenerate_accuracy_figures.py)",
       "provenance_assertion": "Teaching asset present in this repository; authorship and rights have not been independently verified."
     },
     {
