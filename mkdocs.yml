@@ -52,6 +52,7 @@ markdown_extensions:
 extra_javascript:
   - javascripts/mathjax.js
   - javascripts/header-controls.js
+  - javascripts/lazy-images.js
 
 use_directory_urls: false
 

@@ -24,6 +24,8 @@ window.MathJax = {
     const script = document.createElement("script");
     script.src = bundle;
     script.defer = true;
+    script.integrity = "sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei";
+    script.crossOrigin = "anonymous";
     script.dataset.mathjaxBundle = "3.2.2";
     document.head.appendChild(script);
   }
