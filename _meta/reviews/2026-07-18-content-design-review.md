@@ -147,11 +147,12 @@ source before editing. No numbers, benchmarks, or citations were invented.
 
 ## Evidence-register deltas
 
-No new rows were required (no new consequential quantitative claim was introduced; the two
-one-line method mentions are qualitative and carry their primary sources inline). The intro
-audit date was widened to 15–16 July 2026 for consistency. Owner may optionally add rows for
-the t-SNE/UMAP initialization correction and the Llama 4 / SAM 3 currency notes in a future
-pass.
+Three primary-source-verified rows were added for the 18 July currency/accuracy pass:
+M-13 (t-SNE/UMAP global-structure preservation as an initialization artifact; Kobak &
+Linderman 2021), M-14 (Llama 4 and SAM 3 model currency; Meta AI), and M-15 (QLoRA, GRPO,
+and FlashAttention-4 method currency). The intro was widened to "July 2026 editorial audits
+(15–18 July)" and the Known-frontier note now records the 18 July pass. The M-01…M-12 rows
+and the boundedness contract are unchanged.
 
 ## Not changed (deliberate)
 
