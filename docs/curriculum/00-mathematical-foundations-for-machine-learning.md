@@ -2851,7 +2851,7 @@ Work these by hand; several deliberately combine two or three sections. Brief an
 
 (Sigmoid + log-loss.) A logistic model has z = −1.0 + 0.8(1.0) + 0.4(0.5). Compute z, the probability p = σ(z), and the log-loss −ln p for true label y = 1. (Answer: z = 0; p = 0.5; loss = ln 2 ≈ 0.693.)
 
-(Gradient step.) For L(w) = (w − 3)² + 1, compute L′(w), and starting at w = 0 with learning rate η = 0.2, take two gradient-descent steps. (Answer: L′ = 2(w−3); w₁ = 1.2, w₂ = 2.04, approaching the minimum at w = 3.)
+(Gradient step.) For L(w) = (w − 3)² + 1, compute L′(w), and starting at w = 0 with learning rate η = 0.2, take two gradient-descent steps. (Answer: L′ = 2(w−3); w₁ = 1.2, w₂ = 1.92, approaching the minimum at w = 3.)
 
 (Eigen/PCA.) Find the eigenvalues and eigenvectors of 𝐀 = [[2, 1], [1, 2]] and state which eigenvector is the first principal direction. (Answer: λ = 3 with 𝐯 = [1,1]/√2; λ = 1 with 𝐯 = [1,−1]/√2; the λ = 3 direction is first.)
 

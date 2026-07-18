@@ -131,7 +131,7 @@ These are nonlinear because of the max operator. They uniquely determine \(V^*\)
 
 ### Worked Bellman Backup (Single State)
 
-Suppose three actions from s with expected one-step returns already folded into R and known next values: action Left gives \(R=0\) then \(V(s_L)=5\); action Right gives \(R=1\) then \(V(s_R)=3\). With \(\gamma=0.9\), the action values are \(0 + 0.9\times5 = 4.5\) and \(1 + 0.9\times3 = 3.7\). The greedy choice is Left with backup 4.5. This single-state arithmetic is exactly what value iteration does for every state each sweep.
+Suppose two actions from s with expected one-step returns already folded into R and known next values: action Left gives \(R=0\) then \(V(s_L)=5\); action Right gives \(R=1\) then \(V(s_R)=3\). With \(\gamma=0.9\), the action values are \(0 + 0.9\times5 = 4.5\) and \(1 + 0.9\times3 = 3.7\). The greedy choice is Left with backup 4.5. This single-state arithmetic is exactly what value iteration does for every state each sweep.
 
 ### Worked Two-State MDP (Deterministic)
 

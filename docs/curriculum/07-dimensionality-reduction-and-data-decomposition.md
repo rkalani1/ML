@@ -122,7 +122,7 @@ Caveats are essential for scientific use. t-SNE does not preserve global distanc
 
 ### UMAP
 
-Uniform Manifold Approximation and Projection (UMAP) constructs a fuzzy topological representation of the high-dimensional data and finds a low-dimensional layout that preserves that structure, grounded in Riemannian geometry and algebraic topology motivations. Empirically UMAP often preserves more global structure than t-SNE, scales better, and supports transform of new points more naturally. Hyperparameters (n_neighbors, min_dist, metric) still strongly affect plots. The same scientific cautions apply: embeddings are hypotheses generators, not automatic cluster proofs.
+Uniform Manifold Approximation and Projection (UMAP) constructs a fuzzy topological representation of the high-dimensional data and finds a low-dimensional layout that preserves that structure, grounded in Riemannian geometry and algebraic topology motivations. Early comparisons reported that UMAP preserves more global structure than t-SNE, but later work (Kobak and Linderman, 2021, Nature Biotechnology) attributed most of that gap to initialization: UMAP defaults to spectral (Laplacian-eigenmaps) starts while t-SNE historically began from random ones, and matching the initialization closes most of the difference. UMAP does still tend to scale better and to transform new points more naturally. Hyperparameters (n_neighbors, min_dist, metric) still strongly affect plots. The same scientific cautions apply: embeddings are hypotheses generators, not automatic cluster proofs.
 
 ### How Neighbor Embeddings Mislead: A Reading Guide
 

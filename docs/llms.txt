@@ -1,0 +1,36 @@
+# Machine Learning & AI for Neurologists
+
+> Open-source teaching ebook on ML and AI literacy for neurology and stroke. Content is CC BY 4.0; site code is ISC. Educational only — not medical advice, not device clearance, and not local deployment policy. Worked numerical examples are recomputed by scripts/verify_math_examples.py; a bounded set of consequential claims is checked in the evidence register.
+
+## Start
+
+- [Introduction](https://rkalani1.github.io/ML/index.html): Landing page, reading routes, and the cumulative-validation framing (data validity → internal → external → clinical utility).
+- [Evidence register](https://rkalani1.github.io/ML/evidence-register.html): Bounded log of consequential technical claims checked against primary or official sources. A checked row is narrow: it does not certify every sentence in a chapter or establish clinical utility. Unreviewed claims, benchmark currency, and deployment advice remain needs-confirmation.
+
+## Book
+
+- [Preface](https://rkalani1.github.io/ML/curriculum/00a-preface.html): How to read the book; prediction vs etiology vs decision support.
+- [00. Mathematical Foundations for Machine Learning](https://rkalani1.github.io/ML/curriculum/00-mathematical-foundations-for-machine-learning.html): Notation, algebra, calculus, probability, linear algebra, and optimization as a reference.
+- [01. Basic Concepts of Machine Learning and Artificial Intelligence](https://rkalani1.github.io/ML/curriculum/01-basic-concepts-of-machine-learning-and-artificial-intelligence.html): Lifecycle, task taxonomy, honest splits, bias–variance, leakage, and fairness as design constraints.
+- [02. Visualization](https://rkalani1.github.io/ML/curriculum/02-visualization.html): Descriptive statistics, correlation, and honest plotting.
+- [03. Probability and Statistics](https://rkalani1.github.io/ML/curriculum/03-probability-and-statistics.html): Distributions, Bayes and PPV, estimation, and information measures.
+- [04. Clustering](https://rkalani1.github.io/ML/curriculum/04-clustering.html): k-means, mixtures, silhouette, and evaluation without labels.
+- [05. Frequent Itemset Mining, Sequence Mining, and Information Retrieval](https://rkalani1.github.io/ML/curriculum/05-frequent-itemset-mining-sequence-mining-and-information-retrieval.html): Association rules, sequence patterns, and Bloom filters.
+- [06. Feature Engineering](https://rkalani1.github.io/ML/curriculum/06-feature-engineering.html): Fit-on-train scaling, encoding, and leakage discipline.
+- [07. Dimensionality Reduction and Data Decomposition](https://rkalani1.github.io/ML/curriculum/07-dimensionality-reduction-and-data-decomposition.html): PCA, and the interpretation limits of t-SNE and UMAP.
+- [08. Regression Analysis](https://rkalani1.github.io/ML/curriculum/08-regression-analysis.html): OLS, logistic regression, residual scale, and baselines.
+- [09. Classification](https://rkalani1.github.io/ML/curriculum/09-classification.html): Thresholds, calibration, prevalence transport, and decision utility beyond AUROC.
+- [10. Neural Networks and Deep Learning](https://rkalani1.github.io/ML/curriculum/10-neural-networks-and-deep-learning.html): Backpropagation, activations, and the Adam optimizer.
+- [11. Self-Supervised Deep Learning](https://rkalani1.github.io/ML/curriculum/11-self-supervised-deep-learning.html): Pretext tasks, contrastive learning, and pretrain/fine-tune caveats.
+- [12. Deep Learning Models and Applications for Text, Vision, and Audio](https://rkalani1.github.io/ML/curriculum/12-deep-learning-models-and-applications-for-text-vision-and-audio.html): Attention and transformers, LoRA/QLoRA, RLHF/DPO/GRPO, and multimodal models.
+- [13. Reinforcement Learning](https://rkalani1.github.io/ML/curriculum/13-reinforcement-learning.html): Bellman backups, value iteration, and potential-based reward shaping.
+- [14. Making Lighter Neural Network and Machine Learning Models](https://rkalani1.github.io/ML/curriculum/14-making-lighter-neural-network-and-machine-learning-models.html): Quantization, pruning, distillation, and efficient attention.
+- [15. Graph Mining Algorithms](https://rkalani1.github.io/ML/curriculum/15-graph-mining-algorithms.html): PageRank, shortest paths, and community structure.
+- [16. Concepts and Challenges of Working with Data](https://rkalani1.github.io/ML/curriculum/16-concepts-and-challenges-of-working-with-data.html): Missingness, dataset shift, drift/PSI, rater agreement, fairness, and governance.
+- [17. Closing Synthesis: Senior Practice in Clinical Neurology and Epidemiology](https://rkalani1.github.io/ML/curriculum/17-closing-synthesis-senior-practice.html): One end-to-end appraisal from data to drift.
+- [18. Selected Glossary](https://rkalani1.github.io/ML/curriculum/18-selected-glossary.html): Shared vocabulary and the prevalence-to-PPV reference table.
+
+## Related
+
+- [Critical appraisal companion (CRIT-APP)](https://rkalani1.github.io/CRIT-APP/): Sibling open-source ebook on critical appraisal of clinical evidence.
+- [Source repository](https://github.com/rkalani1/ML): MkDocs source, teaching-figure assets, and the accuracy/originality/structural gates in scripts/.

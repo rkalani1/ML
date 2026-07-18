@@ -1,6 +1,6 @@
 # Evidence register
 
-This register records consequential technical claims checked against primary papers or official references during the 15 July 2026 editorial audit. A checked row is narrow: it does **not** certify every sentence in the chapter or establish clinical utility.
+This register records consequential technical claims checked against primary papers or official references during the 15–16 July 2026 editorial audit. A checked row is narrow: it does **not** certify every sentence in the chapter or establish clinical utility.
 
 | ID | Chapter and claim | Primary or official source | Verified conclusion | Status |
 | --- | --- | --- | --- | --- |
