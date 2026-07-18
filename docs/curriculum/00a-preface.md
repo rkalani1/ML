@@ -1,26 +1,29 @@
 # Preface
 
 ## Opening
-![Skill stack built by this open-source ebook.](../assets/figures/ml_fig_skill_stack.png)
 
-*Skill stack built by this open-source ebook.*
+A telestroke consult ends. The hub radiologist mentions a new large-vessel occlusion detector with a ‘state-of-the-art AUROC.’ The spoke hospital asks whether to buy it this quarter. This book exists so that conversation starts with definitions, data, and decision impact—not vendor vocabulary.
 
-![Boundaries of this open-source ebook.](../assets/figures/ml_fig_boundaries.png)
+![What this open-source ebook builds, from hand computation up to clinical appraisal.](../assets/figures/ml_fig_skill_stack.png)
 
-*Boundaries of this open-source ebook.*
+*What the book builds: from recomputing the math by hand up to auditing a model’s clinical claim.*
 
-![Reading path through the open-source ebook.](../assets/figures/ml_fig_reader_journey.png)
+![What this open-source ebook covers and what it deliberately leaves out.](../assets/figures/ml_fig_boundaries.png)
 
-*Reading path through the open-source ebook.*
+*What the book is and is not: methods literacy and honest appraisal, not device clearance or local deployment policy.*
+
+![A suggested reading path through the open-source ebook.](../assets/figures/ml_fig_reader_journey.png)
+
+*A reading path: start with the lifecycle, reach for the math as a reference, and finish at senior appraisal.*
 
 
 ![How to read this open-source ebook.](../assets/figures/ml_fig_how_to_read.png)
 
 *Study path: recompute by hand → map method to clinical claim → audit metrics beyond AUC → external validation.*
 
-![Model appraisal scorecard.](../assets/figures/ml_fig_appraisal_scorecard.png)
+![How the open-source ebook scores a model across discrimination, calibration, and decision utility.](../assets/figures/ml_fig_appraisal_scorecard.png)
 
-*Orientation graphic for how this open-source ebook treats models.*
+*How the book scores a model: discrimination, calibration, and decision utility kept separate, never collapsed into one number.*
 
 ![Curriculum map — open-source ML ebook path.](../assets/figures/ml_fig_curriculum_map.png)
 
@@ -30,10 +33,7 @@
 
 *Keep claim types separate in journal club: a high AUROC predicts; it does not prove cause or mandate action.*
 
-
-A telestroke consult ends. The hub radiologist mentions a new large-vessel occlusion detector with a ‘state-of-the-art AUROC.’ The spoke hospital asks whether to buy it this quarter. This book exists so that conversation starts with definitions, data, and decision impact—not vendor vocabulary.
-
-This expanded edition is designed so that studying this document alone delivers the topical mastery a careful reader would gain from a full curriculum on machine learning and artificial intelligence: foundations, unsupervised learning, feature engineering and decomposition, supervised methods, deep and self-supervised learning, multimodal models, reinforcement learning, efficient models, graph mining, and data challenges. Exposition is original; the syllabus is comprehensive.
+The book covers the major algorithm families a neurologist meets in the literature: foundations, unsupervised learning, feature engineering and decomposition, supervised methods, deep and self-supervised learning, multimodal models, reinforcement learning, efficient models, graph mining, and data challenges.
 
 You are a neurologist and epidemiologist. Examples emphasize stroke systems, neuroimaging, EHR phenotyping, multi-site validation, index time, leakage, calibration, and causal caution—while remaining faithful to general ML/AI theory and algorithms.
 

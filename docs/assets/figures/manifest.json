@@ -3,7 +3,7 @@
   "audit_date": "2026-07-16",
   "scope": "docs/assets/figures PNG and SVG assets",
   "caveat": "Hashes and software metadata support traceability but do not prove authorship or eliminate copyright risk.",
-  "asset_count": 70,
+  "asset_count": 69,
   "assets": [
     {
       "path": "docs/assets/figures/ml_clinical_model_path.png",
@@ -624,15 +624,6 @@
       "width": 959,
       "height": 430,
       "software_metadata": "not detected",
-      "provenance_assertion": "Teaching asset present in this repository; authorship and rights have not been independently verified."
-    },
-    {
-      "path": "docs/assets/figures/swarm3h_ssl_pipeline.png",
-      "sha256": "79d0bae3e31f70c14bfe39f940d269b1892a50cfb719684dbd0799a8bf5fe842",
-      "bytes": 21378,
-      "width": 901,
-      "height": 406,
-      "software_metadata": "Matplotlib",
       "provenance_assertion": "Teaching asset present in this repository; authorship and rights have not been independently verified."
     }
   ]
