@@ -25,7 +25,6 @@ theme:
         name: Light mode
   features:
     - navigation.tracking
-    - navigation.expand
     - navigation.top
     - navigation.footer
     - search.suggest
@@ -58,6 +57,7 @@ use_directory_urls: false
 
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/mobile-orientation.css
 
 extra:
   social:
@@ -68,23 +68,28 @@ nav:
   - Introduction: index.md
   - Evidence register: evidence-register.md
   - Book:
-    - "Preface": curriculum/00a-preface.md
-    - "00. Mathematical Foundations for Machine Learning": curriculum/00-mathematical-foundations-for-machine-learning.md
-    - "01. Basic Concepts of Machine Learning and Artificial Intelligence": curriculum/01-basic-concepts-of-machine-learning-and-artificial-intelligence.md
-    - "02. Visualization": curriculum/02-visualization.md
-    - "03. Probability and Statistics": curriculum/03-probability-and-statistics.md
-    - "04. Clustering": curriculum/04-clustering.md
-    - "05. Frequent Itemset Mining, Sequence Mining, and Information Retrieval": curriculum/05-frequent-itemset-mining-sequence-mining-and-information-retrieval.md
-    - "06. Feature Engineering": curriculum/06-feature-engineering.md
-    - "07. Dimensionality Reduction and Data Decomposition": curriculum/07-dimensionality-reduction-and-data-decomposition.md
-    - "08. Regression Analysis": curriculum/08-regression-analysis.md
-    - "09. Classification": curriculum/09-classification.md
-    - "10. Neural Networks and Deep Learning": curriculum/10-neural-networks-and-deep-learning.md
-    - "11. Self-Supervised Deep Learning": curriculum/11-self-supervised-deep-learning.md
-    - "12. Deep Learning Models and Applications for Text, Vision, and Audio": curriculum/12-deep-learning-models-and-applications-for-text-vision-and-audio.md
-    - "13. Reinforcement Learning": curriculum/13-reinforcement-learning.md
-    - "14. Making Lighter Neural Network and Machine Learning Models": curriculum/14-making-lighter-neural-network-and-machine-learning-models.md
-    - "15. Graph Mining Algorithms": curriculum/15-graph-mining-algorithms.md
-    - "16. Concepts and Challenges of Working with Data": curriculum/16-concepts-and-challenges-of-working-with-data.md
-    - "17. Closing Synthesis: Senior Practice in Clinical Neurology and Epidemiology": curriculum/17-closing-synthesis-senior-practice.md
-    - "18. Selected Glossary": curriculum/18-selected-glossary.md
+    - Foundations:
+      - "Preface": curriculum/00a-preface.md
+      - "00. Mathematical Foundations for Machine Learning": curriculum/00-mathematical-foundations-for-machine-learning.md
+      - "01. Basic Concepts of Machine Learning and Artificial Intelligence": curriculum/01-basic-concepts-of-machine-learning-and-artificial-intelligence.md
+      - "02. Visualization": curriculum/02-visualization.md
+      - "03. Probability and Statistics": curriculum/03-probability-and-statistics.md
+    - Core Methods:
+      - "04. Clustering": curriculum/04-clustering.md
+      - "05. Frequent Itemset Mining, Sequence Mining, and Information Retrieval": curriculum/05-frequent-itemset-mining-sequence-mining-and-information-retrieval.md
+      - "06. Feature Engineering": curriculum/06-feature-engineering.md
+      - "07. Dimensionality Reduction and Data Decomposition": curriculum/07-dimensionality-reduction-and-data-decomposition.md
+      - "08. Regression Analysis": curriculum/08-regression-analysis.md
+      - "09. Classification": curriculum/09-classification.md
+    - Deep Learning:
+      - "10. Neural Networks and Deep Learning": curriculum/10-neural-networks-and-deep-learning.md
+      - "11. Self-Supervised Deep Learning": curriculum/11-self-supervised-deep-learning.md
+      - "12. Deep Learning Models and Applications for Text, Vision, and Audio": curriculum/12-deep-learning-models-and-applications-for-text-vision-and-audio.md
+    - Clinical Translation:
+      - "13. Reinforcement Learning": curriculum/13-reinforcement-learning.md
+      - "14. Making Lighter Neural Network and Machine Learning Models": curriculum/14-making-lighter-neural-network-and-machine-learning-models.md
+      - "15. Graph Mining Algorithms": curriculum/15-graph-mining-algorithms.md
+      - "16. Concepts and Challenges of Working with Data": curriculum/16-concepts-and-challenges-of-working-with-data.md
+      - "17. Closing Synthesis: Senior Practice in Clinical Neurology and Epidemiology": curriculum/17-closing-synthesis-senior-practice.md
+    - Reference:
+      - "18. Selected Glossary": curriculum/18-selected-glossary.md

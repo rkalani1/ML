@@ -1,0 +1,120 @@
+/* Compact chapter orientation plus persistent route strip (OBS-010). */
+.mobile-page-orientation,
+.mobile-route-strip {
+  display: none;
+}
+
+.ebook-hero .ebook-start > p {
+  display: contents;
+}
+
+@media screen and (max-width: 600px) {
+  .md-header__inner {
+    min-height: 3.5rem;
+  }
+
+  .md-header__button {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    padding: 0.62rem;
+  }
+
+  .md-header__title {
+    min-width: 0;
+    height: auto;
+    margin: 0 0.25rem;
+    line-height: 1.1;
+  }
+
+  .md-header__title > .md-header__ellipsis {
+    display: none;
+  }
+
+  .mobile-page-orientation {
+    display: flex;
+    align-items: baseline;
+    gap: 0.32rem;
+    min-width: 0;
+    min-height: 44px;
+    padding: 0.35rem 0;
+    color: #fff;
+    font-family: var(--ebook-sans);
+    font-size: 0.75rem;
+    line-height: 1.18;
+    text-decoration: none;
+  }
+
+  .mobile-page-orientation strong {
+    flex: 0 0 auto;
+    color: #99f6e4;
+    letter-spacing: 0.08em;
+  }
+
+  .mobile-page-orientation span:last-child {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  .mobile-page-orientation:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+  }
+
+  .mobile-route-strip {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 0.55rem 0.35rem;
+    background: rgba(15, 18, 32, 0.94);
+  }
+
+  .mobile-route-strip a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.35rem 0.7rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+    color: #fff;
+    font-family: var(--ebook-sans);
+    font-size: 0.76rem;
+    font-weight: 650;
+    text-decoration: none;
+  }
+
+  .mobile-route-strip a:first-child {
+    border-left: 0;
+  }
+
+  .mobile-route-strip a[aria-current="page"] {
+    color: #99f6e4;
+  }
+
+  .mobile-route-strip a:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: -2px;
+  }
+
+  .md-typeset .model-path-disclosure {
+    margin: 0.15rem 0 0;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .md-typeset ol.model-path-steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0.25rem 0 0.65rem;
+    padding: 0;
+  }
+
+  .md-typeset ol.model-path-steps li {
+    margin: 0;
+    padding: 0.48rem 0.55rem;
+  }
+}
