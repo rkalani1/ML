@@ -1,4 +1,11 @@
 (() => {
+  const wideLayout = window.matchMedia("(min-width: 901px)");
+  const syncResponsiveDisclosures = () => {
+    document.querySelectorAll(".model-path-disclosure").forEach((details) => {
+      details.open = wideLayout.matches;
+    });
+  };
+
   const selector = [
     'label.md-header__button[for="__drawer"]',
     'label.md-header__button[for="__search"]',
@@ -36,6 +43,39 @@
       }
       if (!button.hasAttribute("type")) button.setAttribute("type", "button");
     });
+
+    const query = document.querySelector('[data-md-component="search-query"]');
+    const result = document.querySelector('[data-md-component="search-result"]');
+    const meta = result && result.querySelector(".md-search-result__meta");
+    if (meta) {
+      meta.setAttribute("role", "status");
+      meta.setAttribute("aria-live", "polite");
+      meta.setAttribute("aria-atomic", "true");
+    }
+    if (query && result && query.dataset.searchReadiness !== "true") {
+      query.dataset.searchReadiness = "true";
+
+      // Root cause recorded 2026-07-25: Material's search worker initializes
+      // asynchronously. A value entered or pasted before its subscriber mounts
+      // remains visible, but no query event is replayed after initialization.
+      // Re-emit the key event Material consumes for paste, autofill, and values
+      // entered before the subscriber mounts.
+      const replayStrandedQuery = (expectedValue) => {
+        if (query.value !== expectedValue) return;
+        query.dispatchEvent(new KeyboardEvent("keyup", {
+          bubbles: true,
+          key: query.value.slice(-1) || "Unidentified",
+        }));
+      };
+      const scheduleReplay = () => {
+        const expectedValue = query.value;
+        [0, 350, 1000].forEach((delay) => {
+          window.setTimeout(() => replayStrandedQuery(expectedValue), delay);
+        });
+      };
+      query.addEventListener("input", scheduleReplay);
+      scheduleReplay();
+    }
   };
 
   if (document.readyState === "loading") {
@@ -46,4 +86,6 @@
   if (window.document$ && typeof window.document$.subscribe === "function") {
     window.document$.subscribe(enhance);
   }
+  wideLayout.addEventListener("change", syncResponsiveDisclosures);
+  syncResponsiveDisclosures();
 })();

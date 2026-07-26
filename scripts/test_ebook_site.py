@@ -174,6 +174,61 @@ class EbookSiteTests(unittest.TestCase):
         self.assertNotIn("...", nav)
         self.assertNotIn("…", nav)
 
+    def test_post_launch_navigation_and_orientation(self) -> None:
+        self.assertNotIn("navigation.expand", self.yml)
+        header = (self.root / "overrides" / "partials" / "header.html").read_text(encoding="utf-8")
+        index = (self.docs / "index.md").read_text(encoding="utf-8")
+        controls = (self.docs / "javascripts" / "header-controls.js").read_text(encoding="utf-8")
+        self.assertIn("mobile-page-orientation", header)
+        self.assertIn("syncResponsiveDisclosures", controls)
+        if self.root.name.upper() == "CRIT-APP":
+            for group in ("Foundations:", "Study Designs:", "Interpretation:", "Clinical Application:"):
+                self.assertIn(group, self.yml)
+            self.assertIn("hero-diagram", index)
+            self.assertLess(index.index("ebook-start"), index.index("hero-diagram"))
+        else:
+            for group in ("Foundations:", "Core Methods:", "Deep Learning:", "Clinical Translation:", "Reference:"):
+                self.assertIn(group, self.yml)
+            self.assertIn("model-path-steps", index)
+            self.assertIn("model-path-disclosure", index)
+            self.assertIn('querySelectorAll(".model-path-disclosure")', controls)
+            self.assertIn("mobile-route-strip", header)
+            self.assertLess(index.index("ebook-start"), index.index("model-path-disclosure"))
+
+    def test_mobile_diagram_disclosure_has_explicit_high_contrast_surface(self) -> None:
+        css = (self.docs / "stylesheets" / "extra.css").read_text(encoding="utf-8")
+        class_name = "hero-diagram" if self.root.name.upper() == "CRIT-APP" else "model-path-disclosure"
+        expected_background = "#312e81" if self.root.name.upper() == "CRIT-APP" else "#134e4a"
+        match = re.search(
+            rf"\.md-typeset \.{class_name} > summary\s*\{{(?P<body>[^}}]+)\}}",
+            css,
+        )
+        self.assertIsNotNone(match)
+        block = match.group("body")
+        self.assertIn(f"background: {expected_background};", block)
+        self.assertIn("color: #fff;", block)
+
+    def test_search_initialization_race_is_recovered_and_announced(self) -> None:
+        controls = (self.docs / "javascripts" / "header-controls.js").read_text(encoding="utf-8")
+        for token in (
+            "Root cause recorded 2026-07-25",
+            "searchReadiness",
+            "replayStrandedQuery",
+            'new KeyboardEvent("keyup"',
+            '"aria-live", "polite"',
+            '"aria-atomic", "true"',
+        ):
+            self.assertIn(token, controls)
+        corpus = "\n".join(
+            path.read_text(encoding="utf-8", errors="replace")
+            for path in self.docs.rglob("*.md")
+        ).casefold()
+        probes = ("randomized",) if self.root.name.upper() == "CRIT-APP" else (
+            "calibration", "leakage", "external validation",
+        )
+        for probe in probes:
+            self.assertIn(probe, corpus)
+
     def test_curriculum_numbering_matches_source(self) -> None:
         nav = self.yml.split("nav:", 1)[-1]
         landing = (self.docs / "index.md").read_text(encoding="utf-8")
