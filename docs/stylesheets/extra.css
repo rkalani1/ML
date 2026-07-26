@@ -71,7 +71,7 @@
 
 @media screen and (max-width: 560px) {
   .md-typeset .feature-figure {
-    display: block;
+    display: none;
   }
   .figure-zoom-hint {
     display: block;
@@ -147,19 +147,6 @@
 
   .md-typeset table {
     font-variant-numeric: tabular-nums;
-  }
-}
-
-@media screen and (max-width: 560px) {
-  .feature-figure {
-    margin: 0.9rem 0 1.45rem;
-    padding: 0.65rem;
-    border-radius: 0.85rem;
-  }
-
-  .feature-figure figcaption {
-    padding-inline: 0.2rem;
-    text-align: left;
   }
 }
 
