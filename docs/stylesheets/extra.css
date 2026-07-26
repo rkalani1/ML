@@ -79,6 +79,84 @@
   }
 }
 
+/* ==========================================================================
+   2026 design refinement — stronger wayfinding without changing book content
+   ========================================================================== */
+@media screen {
+  .md-grid {
+    max-width: 88rem;
+  }
+
+  .md-header__inner {
+    min-height: 3.15rem;
+  }
+
+  .md-sidebar--primary .md-sidebar__scrollwrap,
+  .md-sidebar--secondary .md-sidebar__scrollwrap {
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(15, 118, 110, 0.30) transparent;
+  }
+
+  .md-nav--primary > .md-nav__list > .md-nav__item--nested {
+    margin-block: 0.35rem;
+    padding-block: 0.2rem;
+    border-top: 1px solid var(--ebook-rule);
+  }
+
+  .md-nav--primary > .md-nav__list > .md-nav__item--nested > .md-nav__link {
+    color: var(--ebook-ink);
+    font-family: var(--ebook-serif);
+    font-weight: 650;
+    letter-spacing: 0.01em;
+  }
+
+  .md-nav__link:focus-visible,
+  .md-typeset summary:focus-visible,
+  .figure-zoom:focus-visible {
+    outline: 2px solid var(--ebook-primary);
+    outline-offset: 3px;
+  }
+
+  .ebook-hero {
+    isolation: isolate;
+  }
+
+  .route-grid > a {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .route-grid > a::after {
+    content: "";
+    position: absolute;
+    inset: auto 1.2rem 0;
+    height: 3px;
+    border-radius: 999px 999px 0 0;
+    background: linear-gradient(90deg, var(--ebook-primary), #d6a927);
+    opacity: 0;
+    transform: scaleX(0.35);
+    transform-origin: left;
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
+  .route-grid > a:is(:hover, :focus-visible)::after {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  .md-typeset table {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@media (hover: none) {
+  .route-grid > a:hover,
+  .chapter-list a:hover {
+    transform: none;
+  }
+}
+
 @media print {
   .figure-zoom-hint {
     display: none !important;
@@ -243,7 +321,7 @@
   }
 
   .route-grid > a {
-    min-height: 0;
+    min-height: 5.75rem;
   }
 
   .ebook-hero--split .hero-art {
