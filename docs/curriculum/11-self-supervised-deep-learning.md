@@ -207,9 +207,9 @@ Example milestone project: pretrain a ResNet encoder with SimCLR-style augmentat
 
 ## Clinical and Epidemiologic Notes: SSL on Medical Unlabeled Data
 
-Hospitals accumulate years of unlabeled CT/MRI, continuous EEG, and clinical text. SSL pretraining on in-domain unlabeled corpora often beats ImageNet initialization for downstream hemorrhage detection or phenotype classification—especially when labeled sets are small. Choose pretext tasks that respect clinical invariances: random heavy color jitter may be fine for natural photos but harmful for CT window-dependent signs; horizontal flips may break laterality. Masked autoencoding, contrastive multi-crop, and temporal order prediction for longitudinal scans are common patterns.
+Hospitals accumulate years of unlabeled CT/MRI, continuous EEG, and clinical text. In-domain SSL can improve some downstream tasks, especially with limited labels, but the gain is empirical and must be measured against fair baselines. Pretext tasks and augmentations must preserve task-relevant information rather than assuming generic image invariances transfer to medical data.
 
-Evaluation discipline matters more than architecture fashion. Pretrain only on training-site unlabeled studies; never peek at test patients during pretraining or augmentation search. Report downstream metrics with and without SSL, with confidence intervals, and with external hospitals. Synthetic data from GANs/diffusion must not be treated as evidence of disease mechanisms; use synthesis for augmentation only after proving downstream benefit and checking for spurious shortcuts (generated images that encode label text). For text-to-image systems, prevent generation of identifiable patient imagery and follow institutional governance.
+Evaluation discipline matters more than architecture fashion. Keep assessment patients out of pretraining and augmentation search. Synthetic data do not establish disease mechanisms; evaluate augmentation on untouched real data and audit shortcuts, memorization, and privacy. No procedure can promise to prevent identifiable output in all cases, so do not release models or samples without appropriate governance and privacy review.
 
 Unsupervised anomaly detection with autoencoder residual maps can highlight unusual regions on NCCT, but reconstruction-based scores confuse rare normal variants with pathology and depend on reconstruction of high-frequency bone detail. Combine with reader-in-the-loop protocols. Contrastive models pretrained on reports and images enable zero-shot retrieval (‘find studies similar to this MCA infarct description’) that accelerates cohort building for epidemiology—if privacy and access controls hold.
 
@@ -268,7 +268,7 @@ Self-supervised and generative deep learning extract structure from unlabeled da
 (14) Design a nearest-neighbor memorization audit for a diffusion model trained on multi-site CT: which embedding space, what distance threshold and how to calibrate it, and how to prevent scanner site from confounding the audit.
 
 
-## Fine-tune legality checklist (teaching)
+## Fine-tune validity checklist (teaching)
 
 | Step | Question | Failure mode |
 |------|----------|--------------|

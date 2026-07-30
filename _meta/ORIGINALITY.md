@@ -1,32 +1,46 @@
-# ORIGINALITY manifest — ML Web Edition
+# Originality and provenance record — ML Web Edition
 
-Built from Desktop DOCX curriculum (`ML-AI text.docx`) with hard filters: abstract-like blocks removed, permission/copyright/journal boilerplate skipped, DOCX-embedded images **not** published, oversized/suspect tables skipped.
+Reviewed: **30 July 2026**
 
-- Chapters exported: **21**
-- Paragraphs skipped (filters): **0**
-- Abstract-like skips: **0**
-- Forbidden-line skips: **0**
-- DOCX images skipped (need code-redraw): **129**
-- Tables kept / skipped: **16** / **0**
-- Residual scanner flags during scrub: **0**
+## Current release evidence
 
-## Figure redraw backlog
+- The public book consists of 20 curriculum Markdown files, including the
+  preface and glossary, plus site-support pages.
+- The current figure set contains 66 PNG/SVG assets. Every current asset is
+  represented by an exact hash and a recorded path commit whose bytes match the
+  current file in `_meta/asset-rights-register.json`; the generated public
+  manifest mirrors the bounded release basis. A history refresh selects the
+  newest matching path-changing commit at refresh time; routine checks directly
+  verify the recorded commit and do not independently prove that no later
+  same-path change restored identical bytes.
+- Rights-register evidence counts: **58** generator-candidate records, **8**
+  embedded-tool-metadata-only records, and **0**
+  repository-content-history-only records. A candidate source is not proof
+  that the script generated the bytes. The matching commits list Rizwan Kalani
+  or `rkalani1` as author metadata; Git author metadata is not identity or
+  rights verification.
+- The repository-wide current-tree originality scanner rejects known residue
+  patterns, publisher boilerplate, and abstract pastes across tracked and
+  unignored text files; the publication-safety gate separately rejects
+  unsupported or unreviewed file types. Passing means those patterns were not
+  found in the scanned current files.
+- Source DOCX images were excluded during the original web conversion rather
+  than treated as cleared assets.
 
-All figures that existed as embedded DOCX images were omitted from the Web Edition because chain-of-title as curriculum-original code-drawn assets could not be verified at export time. Future updates should add original SVG/PNG under `docs/assets/figures/` with `source: original` notes here.
+## AI assistance
 
-## Residual flags
+AI tools assisted drafting, editing, figure/code production, testing, and
+review. Asset-level model contribution and the legal sufficiency of human
+authorship are not fully documented for every file. The maintainer selected,
+revised, and made the publication decision. AI output is not used as an
+authority for factual claims.
 
-- None recorded at export.
-- Deep originality scan (2026-07-13 swarm): **0 flags**.
+## Limits
 
-## Human residual
-
-Automated gates cannot prove absence of all third-party expressive content. Prefer skipping risky blocks over publishing them. Spot-check random chapters before treating the site as final. Educational disclaimer applies site-wide. **Absolute legal zero-risk cannot be certified.**
-
-## Swarm originality audit (2026-07-13)
-
-- Dense read: `docs/_swarm_audit/originality_full.md`
-- Short verdict: `docs/ORIGINALITY_SWARM_VERDICT.md`
-- Full counsel opinion: OneDrive `AI-Work-Sync/textbook-originality-swarm-VERDICT.md`
-- No HIGH paste; figure omission intentional (safer than unverified DOCX art).
-- **Practical copyright risk: LOW. Public Pages: GO.**
+No automated or internal review can prove independent creation,
+non-infringement, copyrightability, or ownership. Repository provenance is not
+an independent chain-of-title opinion and does not establish the effect of any
+employment agreement, institutional intellectual-property policy, prior
+publication agreement, or contributor assignment. The scoped license grants
+only rights the publisher actually controls. Substantiated concerns should
+result in attribution, replacement, or removal.

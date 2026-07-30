@@ -3,24 +3,78 @@
 from __future__ import annotations
 
 import argparse
+import math
 import re
 import struct
 from collections import Counter
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
+from xml.etree import ElementTree
+
+from book_identity import load_book_identity
+from release_marker import release_revision_errors
+
+ROOT = Path(__file__).resolve().parents[1]
 
 LEGACY_CAPTION_RE = re.compile(
     r"<p>\s*<img\b[^>]*>\s*</p>\s*<p>\s*<em>(?:(?!</?p\b).)*?</em>\s*</p>",
     re.IGNORECASE | re.DOTALL,
 )
 FIGCAPTION_RE = re.compile(r"<figcaption\b[^>]*>(.*?)</figcaption>", re.IGNORECASE | re.DOTALL)
+REVIEWED_IMAGE_SUFFIXES = {".png", ".svg"}
+
+
+def parse_srcset(value: str) -> tuple[list[str], list[str]]:
+    urls: list[str] = []
+    errors: list[str] = []
+    descriptor_kind: str | None = None
+    descriptors: set[tuple[str, float | int]] = set()
+    for raw_candidate in value.split(","):
+        candidate = raw_candidate.strip()
+        if not candidate:
+            errors.append("contains an empty candidate")
+            continue
+        parts = candidate.split()
+        urls.append(parts[0])
+        if len(parts) > 2:
+            errors.append(f"candidate has extra tokens: {candidate}")
+            continue
+        if len(parts) == 1:
+            kind = "x"
+            descriptor: tuple[str, float | int] = ("x", 1.0)
+        elif re.fullmatch(r"[1-9]\d*w", parts[1]):
+            kind = "w"
+            descriptor = ("w", int(parts[1][:-1]))
+        elif re.fullmatch(r"(?:\d+(?:\.\d*)?|\.\d+)x", parts[1]):
+            density = float(parts[1][:-1])
+            if not math.isfinite(density) or density <= 0:
+                errors.append(f"candidate has a nonpositive density: {candidate}")
+                continue
+            kind = "x"
+            descriptor = ("x", density)
+        else:
+            errors.append(f"candidate has an invalid descriptor: {candidate}")
+            continue
+        if descriptor_kind is None:
+            descriptor_kind = kind
+        elif descriptor_kind != kind:
+            errors.append("mixes width and density descriptors")
+        if descriptor in descriptors:
+            errors.append(f"contains a duplicate descriptor: {candidate}")
+        descriptors.add(descriptor)
+    if not urls:
+        errors.append("contains no candidates")
+    return urls, errors
 
 
 class Document(HTMLParser):
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
         self.references: list[tuple[str, str]] = []
+        self.image_references: list[tuple[str, str]] = []
+        self.duplicate_attributes: list[tuple[str, str]] = []
+        self.srcset_errors: list[tuple[str, str]] = []
         self.images: list[dict[str, str]] = []
         self.gallery_images: list[dict[str, str]] = []
         self.teaching_figure_images: list[dict[str, str]] = []
@@ -45,6 +99,12 @@ class Document(HTMLParser):
         self._teaching_figure_depth = 0
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        normalized_names = [key.casefold() for key, _ in attrs]
+        self.duplicate_attributes.extend(
+            (tag.casefold(), name)
+            for name, count in Counter(normalized_names).items()
+            if count > 1
+        )
         values = {key.lower(): value or "" for key, value in attrs}
         tag = tag.lower()
         if tag == "html":
@@ -72,14 +132,20 @@ class Document(HTMLParser):
             self.references.append(("href", values["href"]))
             if "md-skip" in values.get("class", "").split():
                 self.skip_targets.append(values["href"])
-        if tag in {"img", "script", "source"} and values.get("src"):
+        if tag == "script" and values.get("src"):
             self.references.append(("src", values["src"]))
-        if tag == "source" and values.get("srcset"):
-            self.sources.append(values)
-            for candidate in values["srcset"].split(","):
-                url = candidate.strip().split()[0]
-                if url:
+        if tag in {"img", "source"}:
+            if values.get("src"):
+                self.references.append(("src", values["src"]))
+                self.image_references.append((f"{tag} src", values["src"]))
+            if values.get("srcset"):
+                urls, errors = parse_srcset(values["srcset"])
+                self.srcset_errors.extend((tag, error) for error in errors)
+                for url in urls:
                     self.references.append(("srcset", url))
+                    self.image_references.append((f"{tag} srcset", url))
+        if tag == "source" and (values.get("src") or values.get("srcset")):
+            self.sources.append(values)
         if tag == "link" and values.get("href"):
             self.references.append(("href", values["href"]))
         if tag == "img":
@@ -142,13 +208,72 @@ def resolve(site: Path, page: Path, url: str, base_path: str) -> tuple[Path | No
     return target.resolve(), unquote(parsed.fragment)
 
 
+def reviewed_image_target(
+    site: Path,
+    page: Path,
+    url: str,
+    base_path: str,
+) -> tuple[Path | None, str | None]:
+    target, _ = resolve(site, page, url, base_path)
+    if target is None:
+        return None, "must reference a local image file"
+    try:
+        target.relative_to(site)
+    except ValueError:
+        return None, "escapes the rendered site"
+    if not target.is_file():
+        return None, "does not resolve to a file"
+    if target.suffix.casefold() not in REVIEWED_IMAGE_SUFFIXES:
+        return None, "does not use a reviewed image-file suffix"
+    return target, None
+
+
+def positive_dimension(value: str) -> bool:
+    return bool(re.fullmatch(r"\d+", value) and int(value) > 0)
+
+
 def png_dimensions(path: Path) -> tuple[int, int] | None:
-    if path.suffix.lower() != ".png" or not path.is_file():
+    if not path.is_file():
         return None
-    data = path.read_bytes()[:24]
-    if len(data) < 24 or data[:8] != b"\x89PNG\r\n\x1a\n":
+    if path.suffix.lower() == ".png":
+        data = path.read_bytes()[:24]
+        if len(data) < 24 or data[:8] != b"\x89PNG\r\n\x1a\n":
+            return None
+        width, height = struct.unpack(">II", data[16:24])
+    elif path.suffix.lower() == ".svg":
+        try:
+            root = ElementTree.parse(path).getroot()
+            values = root.attrib.get("viewBox", "").replace(",", " ").split()
+            if len(values) != 4:
+                return None
+            width_value, height_value = float(values[2]), float(values[3])
+            if not math.isfinite(width_value) or not math.isfinite(height_value):
+                return None
+            width, height = round(width_value), round(height_value)
+        except (OSError, ValueError, ElementTree.ParseError):
+            return None
+    else:
         return None
-    return struct.unpack(">II", data[16:24])
+    if (
+        not 1 <= width <= 8192
+        or not 1 <= height <= 8192
+        or width * height > 32_000_000
+    ):
+        return None
+    return width, height
+
+
+def rendered_html_files(site: Path) -> list[Path]:
+    return sorted(
+        path
+        for path in site.rglob("*")
+        if path.is_file() and path.suffix.casefold() == ".html"
+    )
+
+
+def curriculum_html_files(site: Path, html_files: list[Path]) -> list[Path]:
+    curriculum = site / "curriculum"
+    return [path for path in html_files if path.is_relative_to(curriculum)]
 
 
 def main() -> int:
@@ -158,18 +283,27 @@ def main() -> int:
     parser.add_argument("--max-html-kb", type=float)
     parser.add_argument("--max-page-images", type=int, default=24)
     parser.add_argument("--max-page-image-mb", type=float, default=4.0)
-    parser.add_argument("--base-path", default=Path.cwd().name)
+    parser.add_argument("--base-path")
+    parser.add_argument("--expected-release-sha", default="")
     args = parser.parse_args()
     site = args.site_dir.resolve()
-    policy = "crit" if Path.cwd().name.upper() == "CRIT-APP" else "ml"
-    expected_curriculum = 28 if policy == "crit" else 20
+    try:
+        identity = load_book_identity(ROOT)
+    except ValueError as error:
+        parser.error(str(error))
+    args.base_path = args.base_path or identity.slug
+    policy = identity.policy
+    expected_curriculum = identity.expected_curriculum
     max_files = 500 if policy == "crit" else 400
     max_assets = 250 if policy == "crit" else 150
     max_curriculum_images = 250 if policy == "crit" else 200
     args.max_site_mb = args.max_site_mb or (40.0 if policy == "crit" else 30.0)
     args.max_html_kb = args.max_html_kb or (200.0 if policy == "crit" else 440.0)
     failures: list[str] = []
-    html_files = sorted(site.rglob("*.html"))
+    expected_release_sha = args.expected_release_sha.strip()
+    if expected_release_sha and not re.fullmatch(r"[0-9a-f]{40}", expected_release_sha):
+        failures.append("--expected-release-sha must be a lowercase 40-character Git SHA")
+    html_files = rendered_html_files(site)
     documents: dict[Path, Document] = {}
     total_bytes = sum(path.stat().st_size for path in site.rglob("*") if path.is_file())
     all_files = [path for path in site.rglob("*") if path.is_file()]
@@ -201,6 +335,9 @@ def main() -> int:
     for page in html_files:
         data = page.read_text(encoding="utf-8")
         relative = page.relative_to(site)
+        if expected_release_sha:
+            for error in release_revision_errors(data, expected_release_sha):
+                failures.append(f"{relative} release marker: {error}")
         if relative.parts and relative.parts[0] == "curriculum" and re.search(r"<em\b", data, re.IGNORECASE):
             failures.append(
                 f"{relative} contains raw emphasis markup; formulas may have been parsed as Markdown emphasis"
@@ -224,6 +361,14 @@ def main() -> int:
         document = Document()
         document.feed(data)
         documents[page.resolve()] = document
+        for tag, attribute in document.duplicate_attributes:
+            failures.append(
+                f"{page.relative_to(site)} duplicate {tag} attribute: {attribute}"
+            )
+        for tag, error in document.srcset_errors:
+            failures.append(
+                f"{page.relative_to(site)} invalid {tag} srcset: {error}"
+            )
         duplicates = [item for item, count in Counter(document.ids).items() if count > 1]
         if duplicates:
             failures.append(f"{page.relative_to(site)} duplicate ids: {duplicates[:5]}")
@@ -281,6 +426,8 @@ def main() -> int:
         if len(document.images) > args.max_page_images:
             failures.append(f"{page.relative_to(site)} has {len(document.images)} images (limit {args.max_page_images})")
         for image in document.images:
+            if not image.get("src") and not image.get("srcset"):
+                failures.append(f"{page.relative_to(site)} image has no source")
             alt = image.get("alt", "").strip()
             if not alt:
                 failures.append(f"{page.relative_to(site)} image lacks descriptive alt: {image.get('src', '')}")
@@ -290,7 +437,7 @@ def main() -> int:
                 failures.append(f"{page.relative_to(site)} image lacks loading policy: {image.get('src', '')}")
             if image.get("decoding") not in {"async", "sync", "auto"}:
                 failures.append(f"{page.relative_to(site)} image lacks decoding policy: {image.get('src', '')}")
-            if not re.fullmatch(r"\d+", image.get("width", "")) or not re.fullmatch(r"\d+", image.get("height", "")):
+            if not positive_dimension(image.get("width", "")) or not positive_dimension(image.get("height", "")):
                 failures.append(f"{page.relative_to(site)} image lacks numeric dimensions: {image.get('src', '')}")
         for image in document.gallery_images:
             if image.get("loading") != "eager":
@@ -303,7 +450,7 @@ def main() -> int:
                     f"{page.relative_to(site)} print-visible teaching figure image is not eager: {image.get('src', '')}"
                 )
         for source in document.sources:
-            if not re.fullmatch(r"\d+", source.get("width", "")) or not re.fullmatch(r"\d+", source.get("height", "")):
+            if not positive_dimension(source.get("width", "")) or not positive_dimension(source.get("height", "")):
                 failures.append(f"{page.relative_to(site)} picture source lacks numeric dimensions: {source.get('srcset', '')}")
         for element, url in [
             *((image, image.get("src", "")) for image in document.images),
@@ -319,7 +466,7 @@ def main() -> int:
                     f"declared {element.get('width')}x{element.get('height')}, actual {size[0]}x{size[1]}"
                 )
 
-    curriculum_pages = sorted((site / "curriculum").glob("*.html"))
+    curriculum_pages = curriculum_html_files(site, html_files)
     if len(curriculum_pages) != expected_curriculum:
         failures.append(f"curriculum has {len(curriculum_pages)} pages (expected {expected_curriculum})")
     image_assets = [
@@ -340,6 +487,19 @@ def main() -> int:
 
     for page, document in documents.items():
         image_targets: set[Path] = set()
+        for kind, url in document.image_references:
+            target, error = reviewed_image_target(
+                site,
+                page,
+                url,
+                args.base_path,
+            )
+            if error:
+                failures.append(
+                    f"{page.relative_to(site)} invalid {kind}: {url} ({error})"
+                )
+            elif target is not None:
+                image_targets.add(target)
         for kind, url in document.references:
             if kind == "href" and urlsplit(url).path.lower().endswith(".md"):
                 failures.append(f"{page.relative_to(site)} exposes source route: {url}")
@@ -354,8 +514,6 @@ def main() -> int:
             if not target.exists():
                 failures.append(f"{page.relative_to(site)} unresolved {kind}: {url}")
                 continue
-            if kind in {"src", "srcset"} and target.suffix.lower() in {".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif"}:
-                image_targets.add(target)
             if fragment and target.suffix.lower() in {".html", ".htm"}:
                 target_doc = documents.get(target)
                 if target_doc and fragment not in target_doc.ids:

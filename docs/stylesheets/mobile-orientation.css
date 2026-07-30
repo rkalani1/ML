@@ -100,12 +100,6 @@
     outline-offset: -2px;
   }
 
-  .md-typeset .model-path-disclosure {
-    margin: 0.15rem 0 0;
-    border: 0 !important;
-    box-shadow: none !important;
-  }
-
   .md-typeset ol.model-path-steps {
     display: grid;
     grid-template-columns: 1fr 1fr;

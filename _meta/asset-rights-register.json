@@ -1,0 +1,1116 @@
+{
+  "schema_version": 3,
+  "review_date": "2026-07-30",
+  "scope": "Current PNG and SVG teaching assets under docs/assets/figures",
+  "method": "Exact current hashes verified against the recorded path commit with identical bytes, plus directly linked same-commit generator candidates and embedded tool metadata. --refresh-from-history selects the newest matching path-changing commit at refresh time.",
+  "limitations": "Repository provenance and tool metadata are not chain-of-title proof. Similarity, third-party training inputs, degree of human authorship, copyrightability, trademark, privacy, and publicity rights require fact-specific review.",
+  "asset_count": 66,
+  "assets": [
+    {
+      "path": "docs/assets/figures/ml_fig_accuracy_trap.png",
+      "sha256": "ca3f8394b6bfb846cc8a564d6626e71b9d4c79c6104f61e0088ddc823d9857b2",
+      "current_content_commit": "d6f058a9555495581bdad2eb981e1a5aa07507cd",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-1 densify: 6 original matplotlib figures for thin chapters",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_activations.png",
+      "sha256": "b8858f1584783c80dee6bd64b944e45de0423d794a326c7d1a21665d4c991018",
+      "current_content_commit": "8192ad39f472e89a6188e9b7b8338bb7c662dfb6",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Cycle-2: clear figure residuals — 6 PNGs, concept callouts, ch11/ch13 ≥2 figs",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_appraisal_checklist.png",
+      "sha256": "dac93e85887a5e6eb76ef8534ec0ddb86ea429d69bbe6fd2f66b2fe11b92888a",
+      "current_content_commit": "b95019f93db0423c645157f86acbe82f8bfa5005",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-2 densify: 5 scientific matplotlib figures (PCA, vanishing/residual, capacity-n, appraisal flow, reliability ECE)",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_appraisal_scorecard.png",
+      "sha256": "ef186ababc917c5c03e29a71370002403d1ce8263e7906ad6f06a6a7172106ce",
+      "current_content_commit": "36e990c9a9d1829445ca3e9ba4fdc950bc037b45",
+      "current_content_author": "rkalani1",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Hour loop: original ML figure suite, embed across chapters, glossary metric table",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_association_rules.png",
+      "sha256": "e84bed522ee2513187e34a989c538f7f1564e3911f293e78ffd9b26d112aec94",
+      "current_content_commit": "0d1096fd45231fd722707fa87184cfd58826cffa",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Cycle-1: chapter-specific original figures, tables, coverage gates",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_attention.png",
+      "sha256": "9395788f92df6c9d218b9845aa830c637a7aca0ba36055cf2525203afb34b579",
+      "current_content_commit": "0d1096fd45231fd722707fa87184cfd58826cffa",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Cycle-1: chapter-specific original figures, tables, coverage gates",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_bandit_explore.png",
+      "sha256": "45c1e8c6684f12188d10ca011b904182b64928f5828ebb827b29858e2b1d93a3",
+      "current_content_commit": "d6f058a9555495581bdad2eb981e1a5aa07507cd",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-1 densify: 6 original matplotlib figures for thin chapters",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_bias_capacity.png",
+      "sha256": "fd45c7ba023926911828856a0197f76bb991cd54b21496822da1f8fad427368e",
+      "current_content_commit": "8192ad39f472e89a6188e9b7b8338bb7c662dfb6",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Cycle-2: clear figure residuals — 6 PNGs, concept callouts, ch11/ch13 ≥2 figs",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_bias_variance_decomp.png",
+      "sha256": "905c96341e4dcbb53e048160235fcf5d8815c1222e9d497cda9756f76ce24c0d",
+      "current_content_commit": "6eeb0be32b64af0dd5c4943dab5d0f3e503b31a6",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-2 swarm: 5 original scientific matplotlib figures + early-stop table",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_boundaries.png",
+      "sha256": "c7979bfc9527ecca80987268dd731291d8829af4870af2372aa637cff871cffd",
+      "current_content_commit": "f79ada772c0a1cbe97b7ad7a330bd41665f100a6",
+      "current_content_author": "rkalani1",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Hour-loop: feature legality and ebook boundary figures",
+      "current_content_source_candidates": [],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "embedded-tool-metadata-only",
+      "release_basis": "The exact current asset bytes match repository history and the current file contains tool metadata. No directly linked generator source was verified; this is not independent rights clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_calibration.png",
+      "sha256": "dd837371ef4523a94d3ac8e6e2711e0a7bed5f8fd6d2ab4239bdfa35fa16aa7b",
+      "current_content_commit": "36e990c9a9d1829445ca3e9ba4fdc950bc037b45",
+      "current_content_author": "rkalani1",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Hour loop: original ML figure suite, embed across chapters, glossary metric table",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_capacity_vs_n.png",
+      "sha256": "e1d8f962baa82a5031694ac0d7df16ee0d76343a53ba22748d4c4e35beec7678",
+      "current_content_commit": "b95019f93db0423c645157f86acbe82f8bfa5005",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-2 densify: 5 scientific matplotlib figures (PCA, vanishing/residual, capacity-n, appraisal flow, reliability ECE)",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_causal_mask.png",
+      "sha256": "b614fe041c3dfc8e506b58d919af80fb838ce87a84343df84b9ba52111519c9c",
+      "current_content_commit": "d6f058a9555495581bdad2eb981e1a5aa07507cd",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-1 densify: 6 original matplotlib figures for thin chapters",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_claim_types.png",
+      "sha256": "a6ab714aeb00d4676cdff088d5d21abfceed7e140ef94f549c7552bb6f2e6637",
+      "current_content_commit": "d6f058a9555495581bdad2eb981e1a5aa07507cd",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-1 densify: 6 original matplotlib figures for thin chapters",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_clt_sampling.png",
+      "sha256": "d9c93d9ff3a7a20059193ffd5b6f72689198fea8f95c5789087b994e2c09cce3",
+      "current_content_commit": "979e03344250ca53b73f14b89142123c2bf1ab3f",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-1 swarm: 7+ original scientific/teaching figures, tables, densify ch03",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_clustering.png",
+      "sha256": "8df68693b17039718cfba780283a6f11158642aa00ae1584e58e60ab62ea75e2",
+      "current_content_commit": "36e990c9a9d1829445ca3e9ba4fdc950bc037b45",
+      "current_content_author": "rkalani1",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Hour loop: original ML figure suite, embed across chapters, glossary metric table",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_confusion_annotated.png",
+      "sha256": "1e38a4e61a65a83c3dc8ca96dc6c8a91a06174803c1e9878a39af45e6c6000b6",
+      "current_content_commit": "979e03344250ca53b73f14b89142123c2bf1ab3f",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-1 swarm: 7+ original scientific/teaching figures, tables, densify ch03",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_confusion_roc.png",
+      "sha256": "f80a1d796eecd519eb673004f5d82b0f1139861c11fbb8c2184e96ad28930c53",
+      "current_content_commit": "36e990c9a9d1829445ca3e9ba4fdc950bc037b45",
+      "current_content_author": "rkalani1",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Hour loop: original ML figure suite, embed across chapters, glossary metric table",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_core_functions.png",
+      "sha256": "6dceebd9fc31580ec091365ab34c5399ea88f531b583aab0294fd25ed238b4d7",
+      "current_content_commit": "8192ad39f472e89a6188e9b7b8338bb7c662dfb6",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Cycle-2: clear figure residuals — 6 PNGs, concept callouts, ch11/ch13 ≥2 figs",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_curriculum_map.png",
+      "sha256": "5fe37825a611ed5f0a3ba87d08e41afdc98123ba95c6b8f6ab2399428181e3a4",
+      "current_content_commit": "979e03344250ca53b73f14b89142123c2bf1ab3f",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-1 swarm: 7+ original scientific/teaching figures, tables, densify ch03",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_decision_curve.png",
+      "sha256": "b9d7895fc3c88517f63bdfdb33f4e733284928aa3181fd94759b64f5e106c42a",
+      "current_content_commit": "979e03344250ca53b73f14b89142123c2bf1ab3f",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-1 swarm: 7+ original scientific/teaching figures, tables, densify ch03",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_dice_iou.png",
+      "sha256": "2d394c31c1e8921765bcf143564898eb5a07c80a95500bf4ea0ba952b81c5045",
+      "current_content_commit": "d6f058a9555495581bdad2eb981e1a5aa07507cd",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-1 densify: 6 original matplotlib figures for thin chapters",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_discount_gamma.png",
+      "sha256": "6db7bde69693f709f0ddbfe01416a9aa7ee006a633b5d29a2839fabe448a53dc",
+      "current_content_commit": "d6f058a9555495581bdad2eb981e1a5aa07507cd",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-1 densify: 6 original matplotlib figures for thin chapters",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_distill_prune.png",
+      "sha256": "387271b196fd738eacd3115478634d3e4efb317f1aa3615ce009996cac2ad48e",
+      "current_content_commit": "0d1096fd45231fd722707fa87184cfd58826cffa",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Cycle-1: chapter-specific original figures, tables, coverage gates",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_drift_monitor.png",
+      "sha256": "29590c6633639a9d5ae5a1a8b6af197dda0324520d63bc5bf4d38edb6456b84b",
+      "current_content_commit": "f8029299d6e77ac62753aaeb0136f2723dcd3e6a",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-16",
+      "current_content_subject": "Restore curated field guide and harden Pages QA",
+      "current_content_source_candidates": [],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "embedded-tool-metadata-only",
+      "release_basis": "The exact current asset bytes match repository history and the current file contains tool metadata. No directly linked generator source was verified; this is not independent rights clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_early_stopping.png",
+      "sha256": "053203c96ac51b95e5c038e3c3249fe477f7ab987dc574a2ed54515365c35568",
+      "current_content_commit": "6eeb0be32b64af0dd5c4943dab5d0f3e503b31a6",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-2 swarm: 5 original scientific matplotlib figures + early-stop table",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_elbow_wss.png",
+      "sha256": "014d8cd72790e98a9a4a4048a3e9591fe15f6bafed11c8814065ca4ac211f6e9",
+      "current_content_commit": "8192ad39f472e89a6188e9b7b8338bb7c662dfb6",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Cycle-2: clear figure residuals — 6 PNGs, concept callouts, ch11/ch13 ≥2 figs",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_eval_triangle.png",
+      "sha256": "e3badca2286db617501e6d91909dcf6d16c1ac1443cf974439df46d2eae0914e",
+      "current_content_commit": "5abcf3bd6445a3e644c42e26ff4f21181f05f234",
+      "current_content_author": "rkalani1",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Hour-loop: densify preface/glossary/closing with original journey and eval figures",
+      "current_content_source_candidates": [],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "embedded-tool-metadata-only",
+      "release_basis": "The exact current asset bytes match repository history and the current file contains tool metadata. No directly linked generator source was verified; this is not independent rights clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_feature_legality.png",
+      "sha256": "0573ae350d9593682996288fbdb155696966f46b9bbc2d0b3c78ecc2f7db6802",
+      "current_content_commit": "f79ada772c0a1cbe97b7ad7a330bd41665f100a6",
+      "current_content_author": "rkalani1",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Hour-loop: feature legality and ebook boundary figures",
+      "current_content_source_candidates": [],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "embedded-tool-metadata-only",
+      "release_basis": "The exact current asset bytes match repository history and the current file contains tool metadata. No directly linked generator source was verified; this is not independent rights clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_feature_pipeline.png",
+      "sha256": "b8ca8acbc6ca2067df745abe320b27c0cc221336e690490c3d371eadf697e659",
+      "current_content_commit": "0d1096fd45231fd722707fa87184cfd58826cffa",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Cycle-1: chapter-specific original figures, tables, coverage gates",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_glossary_families.png",
+      "sha256": "c189f818c33d5ef479469c32d5dc7f6be5d6076594e8a575a5c4debab4f16956",
+      "current_content_commit": "979e03344250ca53b73f14b89142123c2bf1ab3f",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-1 swarm: 7+ original scientific/teaching figures, tables, densify ch03",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_gradient_descent.png",
+      "sha256": "b21e10a9cc1ef25e4587aba901f4535fa362c10227e050f1221e8ca50f621c37",
+      "current_content_commit": "36e990c9a9d1829445ca3e9ba4fdc950bc037b45",
+      "current_content_author": "rkalani1",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Hour loop: original ML figure suite, embed across chapters, glossary metric table",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_gradient_noise.png",
+      "sha256": "3d945b16deaa0d40ef3e79b2a9fb7ed9c00d7b8b8bbf1e1a9cc664c0e36de718",
+      "current_content_commit": "6eeb0be32b64af0dd5c4943dab5d0f3e503b31a6",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-2 swarm: 5 original scientific matplotlib figures + early-stop table",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_graph_toy.png",
+      "sha256": "e6939844d99e701f019a8c0b1de7aa3ef3e58300a5aefd0c264a19cc478cb021",
+      "current_content_commit": "0d1096fd45231fd722707fa87184cfd58826cffa",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Cycle-1: chapter-specific original figures, tables, coverage gates",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_how_to_read.png",
+      "sha256": "99deb63765821fc23d0e5b667e37966719f018dc2d80162735327ae1256b0247",
+      "current_content_commit": "0d1096fd45231fd722707fa87184cfd58826cffa",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Cycle-1: chapter-specific original figures, tables, coverage gates",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_leakage_timeline.png",
+      "sha256": "2c26b1ed42ee85a801971e395abba1c3e5c2c939bd5a370bfd7a5189e94b4024",
+      "current_content_commit": "36e990c9a9d1829445ca3e9ba4fdc950bc037b45",
+      "current_content_author": "rkalani1",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Hour loop: original ML figure suite, embed across chapters, glossary metric table",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_learning_curves.png",
+      "sha256": "8053cf46c3eb70e402c168ca4f7f8495ee078fc6523fa0da44d680750ebcc965",
+      "current_content_commit": "979e03344250ca53b73f14b89142123c2bf1ab3f",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-1 swarm: 7+ original scientific/teaching figures, tables, densify ch03",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_lifecycle_deploy.png",
+      "sha256": "5d4fa0c067d89f43bf689af977344821a82ebb2f6e9daa184edb9a7c3cf1a5b6",
+      "current_content_commit": "979e03344250ca53b73f14b89142123c2bf1ab3f",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-1 swarm: 7+ original scientific/teaching figures, tables, densify ch03",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_metric_map.png",
+      "sha256": "6a2a545673cbaf3186d4cfacf74a93d7e884b46368f1fe38c467bc75a5151371",
+      "current_content_commit": "0d1096fd45231fd722707fa87184cfd58826cffa",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Cycle-1: chapter-specific original figures, tables, coverage gates",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_mle_bernoulli.png",
+      "sha256": "2eb1da60c414879c518699f2980af983aa220e35d53c3abc6d7ec6370e3c06b3",
+      "current_content_commit": "979e03344250ca53b73f14b89142123c2bf1ab3f",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-1 swarm: 7+ original scientific/teaching figures, tables, densify ch03",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_mlp.png",
+      "sha256": "8f8d2473adad410ff82ac3c99e408ed59d01a8cce950ac759b0d24bfbbd7a0aa",
+      "current_content_commit": "36e990c9a9d1829445ca3e9ba4fdc950bc037b45",
+      "current_content_author": "rkalani1",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Hour loop: original ML figure suite, embed across chapters, glossary metric table",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_ols_fit.png",
+      "sha256": "83b92ba610a7d9e15a82461566792cd6474fa14fcc0090c4853ce5da2050fdde",
+      "current_content_commit": "0d1096fd45231fd722707fa87184cfd58826cffa",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Cycle-1: chapter-specific original figures, tables, coverage gates",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_one_paragraph.png",
+      "sha256": "e92111434243ee4d8cff93505bf70b5891b3eac94ed1caec0b7e55dba1a76335",
+      "current_content_commit": "d08a4c824c2c562579f554791298c47d3d2f4e00",
+      "current_content_author": "rkalani1",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Hour-loop: one-paragraph synthesis figure for closing chapter",
+      "current_content_source_candidates": [],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "embedded-tool-metadata-only",
+      "release_basis": "The exact current asset bytes match repository history and the current file contains tool metadata. No directly linked generator source was verified; this is not independent rights clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_pca.png",
+      "sha256": "c2feca6be9204a88dd2973ce8e79e0f0d2402b984df8b7654058a5eba1d2ade2",
+      "current_content_commit": "36e990c9a9d1829445ca3e9ba4fdc950bc037b45",
+      "current_content_author": "rkalani1",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Hour loop: original ML figure suite, embed across chapters, glossary metric table",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_pca_variance_recon.png",
+      "sha256": "cdb210a2a2c44088274a0addec2a515ff95497d73bdfb18fb7aee16e0f6f2fac",
+      "current_content_commit": "b95019f93db0423c645157f86acbe82f8bfa5005",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-2 densify: 5 scientific matplotlib figures (PCA, vanishing/residual, capacity-n, appraisal flow, reliability ECE)",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_ppv_prevalence.svg",
+      "sha256": "2a2b37293573389b1ad71fbc226fb9af4a2f0a39c39f2180ac71a5bf16ac8586",
+      "current_content_commit": "8e36f4b934211d045381a1057a32fa777e95317b",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-16",
+      "current_content_subject": "Remove learning objectives and harden ebook delivery (#1)",
+      "current_content_source_candidates": [
+        "scripts/regenerate_accuracy_figures.py"
+      ],
+      "embedded_tool_evidence": "embedded deterministic-generator statement",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_ppv_prevalence_mobile.svg",
+      "sha256": "782060e340af877a76ee2ec38e3bf89b89f02b9232e1173f2eaca4cf868883b8",
+      "current_content_commit": "8e36f4b934211d045381a1057a32fa777e95317b",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-16",
+      "current_content_subject": "Remove learning objectives and harden ebook delivery (#1)",
+      "current_content_source_candidates": [
+        "scripts/regenerate_accuracy_figures.py"
+      ],
+      "embedded_tool_evidence": "embedded deterministic-generator statement",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_precision_recall.png",
+      "sha256": "ce37ee76ff8a70c7374d8b38cde5bb34d0b495467ded85bf0e3b00f1d75034e0",
+      "current_content_commit": "6eeb0be32b64af0dd5c4943dab5d0f3e503b31a6",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-2 swarm: 5 original scientific matplotlib figures + early-stop table",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_preprocess_fit_split.png",
+      "sha256": "f711f3e3166a4a2db1e3bf223c2a90ce3da73960e213fcc949f1624f76258482",
+      "current_content_commit": "434791976a857c0c0a96deed46c9076ba6097c00",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-3 densify: 5 scientific matplotlib figures (preprocess, threshold, silhouette, tokens, drift)",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_pretrain_finetune.png",
+      "sha256": "d7ad9d37e2076d8b8f9ce60cd60332c3a9e54f9786d52b0063c1f470f2ec25c9",
+      "current_content_commit": "36e990c9a9d1829445ca3e9ba4fdc950bc037b45",
+      "current_content_author": "rkalani1",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Hour loop: original ML figure suite, embed across chapters, glossary metric table",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_reader_journey.png",
+      "sha256": "b83cad9317a5a13a0f530c91c5502aa58ab205e3b53f6cb36d4275f259edc3c5",
+      "current_content_commit": "5abcf3bd6445a3e644c42e26ff4f21181f05f234",
+      "current_content_author": "rkalani1",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Hour-loop: densify preface/glossary/closing with original journey and eval figures",
+      "current_content_source_candidates": [],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "embedded-tool-metadata-only",
+      "release_basis": "The exact current asset bytes match repository history and the current file contains tool metadata. No directly linked generator source was verified; this is not independent rights clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_regularization_path.png",
+      "sha256": "efacf65ac77b712f0b1ea2e317cb668bd6d1f79993b26902b17a4043ebf02e23",
+      "current_content_commit": "6eeb0be32b64af0dd5c4943dab5d0f3e503b31a6",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-2 swarm: 5 original scientific matplotlib figures + early-stop table",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_reliability_ece.png",
+      "sha256": "bbc8f877fecd1b67ff54fea9d0d11db312108b16fb941d743cfccc6fa4886ff1",
+      "current_content_commit": "b95019f93db0423c645157f86acbe82f8bfa5005",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-2 densify: 5 scientific matplotlib figures (PCA, vanishing/residual, capacity-n, appraisal flow, reliability ECE)",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_rl_loop.png",
+      "sha256": "c49d376ab3595f9950b5fc5fd6406af4c500b0e8199f3d54ed0baad6f24bba51",
+      "current_content_commit": "36e990c9a9d1829445ca3e9ba4fdc950bc037b45",
+      "current_content_author": "rkalani1",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Hour loop: original ML figure suite, embed across chapters, glossary metric table",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_silhouette_k.png",
+      "sha256": "9c1a96874e88cfd1bb9e2bf0e6aaa246b270ef0820d309b60dabe8481765a5f1",
+      "current_content_commit": "434791976a857c0c0a96deed46c9076ba6097c00",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-3 densify: 5 scientific matplotlib figures (preprocess, threshold, silhouette, tokens, drift)",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_site_shift.png",
+      "sha256": "95c7482bd248ac50900ceae0f77a949f6c76e43789201dc3534cc83b76e08138",
+      "current_content_commit": "36e990c9a9d1829445ca3e9ba4fdc950bc037b45",
+      "current_content_author": "rkalani1",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Hour loop: original ML figure suite, embed across chapters, glossary metric table",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_skill_stack.png",
+      "sha256": "d68d558fde51d5f343e8f3179f83f5f8c501c4d1426269ff8c3fedda041efa6a",
+      "current_content_commit": "eb71bb0b0caf989f57f94be5a50450a1d6e6f11c",
+      "current_content_author": "rkalani1",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Hour-loop: skill-stack figure for preface",
+      "current_content_source_candidates": [],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "embedded-tool-metadata-only",
+      "release_basis": "The exact current asset bytes match repository history and the current file contains tool metadata. No directly linked generator source was verified; this is not independent rights clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_split_vocab.png",
+      "sha256": "0b82c64c6f96fad5354775fdcf4797dc5baaed2444143779e4ee94923c0a26fd",
+      "current_content_commit": "104b8b9c9ac7d515bc477ce5967a5bb246b54e32",
+      "current_content_author": "rkalani1",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Hour-loop: glossary split vocabulary figure and leakage definition",
+      "current_content_source_candidates": [],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "embedded-tool-metadata-only",
+      "release_basis": "The exact current asset bytes match repository history and the current file contains tool metadata. No directly linked generator source was verified; this is not independent rights clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_supervised_unsupervised_map.png",
+      "sha256": "1bd8eec1feeb66b3a1363971d9103c2adda7d343ba6dd19cbc51cd6501b34f9b",
+      "current_content_commit": "36e990c9a9d1829445ca3e9ba4fdc950bc037b45",
+      "current_content_author": "rkalani1",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Hour loop: original ML figure suite, embed across chapters, glossary metric table",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_threshold_sens_spec.png",
+      "sha256": "c79110234978b4a6a272a6b571413eb9ca1fc0a428c53a9c34a2a6bf58ad02e4",
+      "current_content_commit": "434791976a857c0c0a96deed46c9076ba6097c00",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-3 densify: 5 scientific matplotlib figures (preprocess, threshold, silhouette, tokens, drift)",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_token_neighbors.png",
+      "sha256": "44ffe1b3e0937f63e0e1c0a521ed4a04fb7746ab018e810dd47286f6b003eec3",
+      "current_content_commit": "434791976a857c0c0a96deed46c9076ba6097c00",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-3 densify: 5 scientific matplotlib figures (preprocess, threshold, silhouette, tokens, drift)",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_train_val_test.png",
+      "sha256": "c5cd410111a1dc09fb6f5f2589fcd83c65ab1d62a746f7b8d05388d993dae235",
+      "current_content_commit": "36e990c9a9d1829445ca3e9ba4fdc950bc037b45",
+      "current_content_author": "rkalani1",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Hour loop: original ML figure suite, embed across chapters, glossary metric table",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_triplet_ssl.png",
+      "sha256": "11bd8b11b593602bfc0cbcbfb10a10e6620af17189ee1f6d77df9366ee8afde1",
+      "current_content_commit": "8192ad39f472e89a6188e9b7b8338bb7c662dfb6",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Cycle-2: clear figure residuals — 6 PNGs, concept callouts, ch11/ch13 ≥2 figs",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_value_iteration.png",
+      "sha256": "f1d31ab73c75558e2c009e35000be99ae2a578e89a49d1986a1b81289cf2ea53",
+      "current_content_commit": "8192ad39f472e89a6188e9b7b8338bb7c662dfb6",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Cycle-2: clear figure residuals — 6 PNGs, concept callouts, ch11/ch13 ≥2 figs",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_vanishing_residual.png",
+      "sha256": "7cfc6d6c55989f0bdc0c3fd5de5758c331f8b7f5d05a122ccb76ecc273f3422e",
+      "current_content_commit": "b95019f93db0423c645157f86acbe82f8bfa5005",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-15",
+      "current_content_subject": "Cycle-2 densify: 5 scientific matplotlib figures (PCA, vanishing/residual, capacity-n, appraisal flow, reliability ECE)",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    },
+    {
+      "path": "docs/assets/figures/ml_fig_viz_hygiene.png",
+      "sha256": "b20811d702aafada7382b6f4fbc8a916e4ae66c7d2a6fa15a1ed338f464a8035",
+      "current_content_commit": "0d1096fd45231fd722707fa87184cfd58826cffa",
+      "current_content_author": "Rizwan Kalani",
+      "current_content_date": "2026-07-14",
+      "current_content_subject": "Cycle-1: chapter-specific original figures, tables, coverage gates",
+      "current_content_source_candidates": [
+        "scripts/generate_ebook_figures.py"
+      ],
+      "embedded_tool_evidence": "Matplotlib metadata",
+      "rights_status": "repository-candidate-generator-link",
+      "release_basis": "The exact current asset bytes match a repository commit that also contains a generator-named script that directly names the asset and contains a file-rendering operation. It is a candidate generator link, not proof that the script produced those bytes, independent ownership, or non-infringement clearance.",
+      "ai_assistance": "Repository-wide AI assistance is disclosed; asset-level model contribution and human-authorship sufficiency are not fully documented.",
+      "review_record": "AI-assisted repository audit dated 2026-07-30; no asset-specific human-authorship or chain-of-title attestation is recorded.",
+      "release_decision": "Distributed as part of the book. Any CC BY 4.0 grant applies only to rights the publisher controls; this record is not legal clearance."
+    }
+  ]
+}

@@ -51,9 +51,9 @@ If C = V Λ Vᵀ with eigenvalues λ₁ ≥ λ₂ ≥ ⋯ ≥ λ_d ≥ 0 and ort
 |---|---|---|---|
 | Cumulative variance (e.g. 80–95%) | Reconstruction energy of X | Good for denoising / visualization budgets | Treats large-variance noise as “signal” |
 | Reconstruction error vs k (elbow) | Frobenius residual of rank-k map | Useful when the goal is compression | Elbow is subjective; not a p-value |
-| Cross-validated downstream loss | Task error (AUC, RMSE, net benefit) | Correct when PCA is a **pipeline step** | Tuning k on the test set = leakage |
+| Cross-validated downstream loss | Task error (AUC, RMSE, net benefit) | Task-aligned when the entire pipeline is fit within each training split | Tuning k on the test set = leakage |
 | Fixed k from prior study | Reproducibility of a published pipeline | OK only if features and units match | Silent shift when labs or scanners change |
-| Supervised alternative (LDA / PLS) | Label separation, not variance | Prefer when phenotype labels exist and n/class is adequate | Unstable with rare subtypes |
+| Supervised alternative (LDA / PLS) | Label separation, not variance | Consider when labels and sample size support the target task | Unstable with rare subtypes; selection stays inside validation |
 
 Rule of thumb: pick k for the **claim you will make**. If the claim is “compressed representation for a predictor,” validate the full pipeline—including the choice of k—inside patient-grouped cross-validation, never on the locked test set.
 
@@ -164,7 +164,7 @@ SVD X = U Σ Vᵀ is the Swiss army knife of matrix analysis: PCA, low-rank deno
 
 Latent Semantic Indexing (LSI), also called Latent Semantic Analysis (LSA), applies truncated SVD to a term–document matrix (often TF–IDF weighted). Documents and terms map into a latent semantic space where synonymy and polysemy are partially mitigated: documents that share themes but few exact terms can still be near. Query retrieval becomes cosine similarity in the reduced space. LSI is linear algebra, not a generative probabilistic model.
 
-Latent Dirichlet Allocation (LDA—not to be confused with Linear Discriminant Analysis) is a generative Bayesian model: each document is a mixture of topics; each topic is a distribution over words; Dirichlet priors encourage sparse mixtures. Inference (variational EM or collapsed Gibbs sampling) estimates topic–word and document–topic distributions. LDA topics are often more interpretable than LSI components for literature corpora and note collections, but require choosing the number of topics and careful preprocessing (stopwords, domain terms). In clinical epi, topics can surface documentation themes; they are not automatic diagnosis codes and can reflect hospital templates rather than disease biology.
+Latent Dirichlet Allocation (LDA—not to be confused with Linear Discriminant Analysis) is a generative Bayesian model: each document is a mixture of topics; each topic is a distribution over words. Dirichlet priors with concentration parameters below 1 can favor sparse mixtures; other settings need not. Inference (variational EM or collapsed Gibbs sampling) estimates topic–word and document–topic distributions. LDA topics can be interpretable in some corpora but require choosing the number of topics and careful preprocessing. In clinical epidemiology, topics can surface documentation themes; they are not diagnosis codes and can reflect hospital templates rather than disease biology.
 
 ## Tensor Decompositions
 
@@ -212,7 +212,7 @@ Computational notes: randomized SVD and truncated iterative methods scale to tal
 
 Fourier features on a 256-sample EEG window might yield band powers that reduce 256 samples to five numbers (delta through gamma). Wavelet packet energies might yield twenty numbers with better transient sensitivity. Neither automatically beats the other on seizure detection—compare with nested validation and patient-wise splits. LSI on 10,000 notes with vocabulary 20,000 may keep 100 semantic dimensions for retrieval; LDA with K=50 topics yields document mixtures used as features for phenotype classifiers. In each case, the decomposition is a feature engineer’s tool (Chapter 6), not an end in itself.
 
-Cholesky appears when sampling synthetic multivariate lab panels for stress tests: if a training covariance Σ is SPD, factor Σ=LLᵀ and map standard normals through L to match correlations. If Σ is singular because p>n, use a reduced-rank or diagonal-loaded covariance first. This closes the loop from decomposition numerics back to practical simulation for pipeline testing without moving real PHI off-site.
+Cholesky appears when sampling synthetic multivariate lab panels for stress tests: if a training covariance Σ is SPD, factor Σ=LLᵀ and map standard normals through L to match correlations. If Σ is singular because p>n, a justified reduced-rank or regularized covariance may be used. Covariances and synthetic draws derived from small or sparse cohorts can still leak membership or rare combinations; “synthetic” is not synonymous with de-identified. Do not release derived samples without privacy and governance review.
 
 Finally, keep a written decision log: why PCA versus NMF, why k or rank r, which modes a tensor used, whether embeddings were supervised. Future you—and multi-site collaborators—will need that log more than a colorful UMAP. Record random seeds for t-SNE/UMAP and the training window used for any incremental PCA update.
 
@@ -220,7 +220,7 @@ Finally, keep a written decision log: why PCA versus NMF, why k or rank r, which
 
 Use PCA and SVD to denoise and compress when variance aligns with signal—bulk lesion burden, correlated lab panels—but verify that rare critical features (a single pathogenic mutation, a sparse ASPECTS region) are not discarded. Standardize mixed units before PCA. Prefer SVD implementations over forming huge covariances explicitly.
 
-Supervised LDA projections can improve class separation for visualization of stroke subtypes but need enough events per class and external validation. Nonlinear embeddings (t-SNE, UMAP) are excellent for talks and hypothesis generation; they are poor as sole evidence of “natural clusters” in manuscripts without confirmatory statistics. Always re-cluster or re-label in original space, and report stability across seeds and sites.
+Supervised LDA projections can improve apparent class separation but need adequate events and untouched assessment data. Nonlinear embeddings (t-SNE, UMAP) are useful for visualization and hypothesis generation, not sole evidence of “natural clusters.” Confirm claimed structure with prespecified checks in an appropriate original or held-out representation, and report sensitivity to seeds, preprocessing, sites, and cohorts.
 
 For signals, match Fourier versus wavelet features to stationarity and transient structure of the clinical phenomenon. For notes, LSI/LDA topics help explore corpora and build retrieval indices; they do not replace chart review for phenotype gold standards. Multi-way tensors fit multi-modal longitudinal designs conceptually; start simple (matrix methods) unless multi-way structure is clearly needed and n supports it.
 

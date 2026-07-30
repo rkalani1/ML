@@ -3,11 +3,15 @@
 from __future__ import annotations
 
 import argparse
+import math
+import os
 import re
 import struct
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 from xml.etree import ElementTree
+
+from release_marker import release_revision_errors, stamp_release_revision
 
 IMG_RE = re.compile(r"<img\b[^>]*>", re.IGNORECASE)
 INPUT_RE = re.compile(r"<input\b[^>]*>", re.IGNORECASE)
@@ -39,17 +43,45 @@ def dimensions(path: Path) -> tuple[int, int] | None:
         suffix = path.suffix.lower()
         if suffix == ".png":
             data = path.read_bytes()[:24]
-            if data[:8] == b"\x89PNG\r\n\x1a\n":
-                return struct.unpack(">II", data[16:24])
+            if len(data) >= 24 and data[:8] == b"\x89PNG\r\n\x1a\n":
+                width, height = struct.unpack(">II", data[16:24])
+                if (
+                    1 <= width <= 8192
+                    and 1 <= height <= 8192
+                    and width * height <= 32_000_000
+                ):
+                    return width, height
         if suffix == ".svg":
             root = ElementTree.parse(path).getroot()
             viewbox = root.attrib.get("viewBox", "").replace(",", " ").split()
             if len(viewbox) == 4:
-                return round(float(viewbox[2])), round(float(viewbox[3]))
+                width_value, height_value = float(viewbox[2]), float(viewbox[3])
+                width, height = round(width_value), round(height_value)
+                if (
+                    math.isfinite(width_value)
+                    and math.isfinite(height_value)
+                    and width_value > 0
+                    and height_value > 0
+                    and 1 <= width <= 8192
+                    and 1 <= height <= 8192
+                    and width * height <= 32_000_000
+                ):
+                    return width, height
             width = re.match(r"[0-9.]+", root.attrib.get("width", ""))
             height = re.match(r"[0-9.]+", root.attrib.get("height", ""))
             if width and height:
-                return round(float(width.group())), round(float(height.group()))
+                width_value, height_value = float(width.group()), float(height.group())
+                rounded = round(width_value), round(height_value)
+                if (
+                    math.isfinite(width_value)
+                    and math.isfinite(height_value)
+                    and width_value > 0
+                    and height_value > 0
+                    and 1 <= rounded[0] <= 8192
+                    and 1 <= rounded[1] <= 8192
+                    and rounded[0] * rounded[1] <= 32_000_000
+                ):
+                    return rounded
     except (OSError, ValueError, ElementTree.ParseError, struct.error):
         return None
     return None
@@ -118,6 +150,14 @@ def label_code_button(tag: str) -> tuple[str, int]:
     return re.sub(r"\s*>$", lambda match: insertion + match.group(0), tag), 1
 
 
+def rendered_html_files(site: Path) -> list[Path]:
+    return sorted(
+        path
+        for path in site.rglob("*")
+        if path.is_file() and path.suffix.casefold() == ".html"
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--site-dir", type=Path, default=Path("site"))
@@ -130,7 +170,9 @@ def main() -> int:
     labeled_toggles = 0
     accessible_toggle_buttons = 0
     labeled_code_buttons = 0
-    html_files = sorted(site.rglob("*.html"))
+    stamped_release_pages = 0
+    release_sha = os.environ.get("GITHUB_SHA", "").strip()
+    html_files = rendered_html_files(site)
     for html in html_files:
         source = html.read_text(encoding="utf-8")
 
@@ -165,6 +207,8 @@ def main() -> int:
             return result
 
         rendered = BUTTON_RE.sub(accessible_code_button, rendered)
+        rendered, stamp_count = stamp_release_revision(rendered, release_sha)
+        stamped_release_pages += stamp_count
         def figure(match: re.Match[str]) -> str:
             nonlocal semantic_figures
             semantic_figures += 1
@@ -227,6 +271,7 @@ def main() -> int:
         f"opening_galleries={opening_galleries} "
         f"labeled_toggles={labeled_toggles} accessible_toggle_buttons={accessible_toggle_buttons} "
         f"labeled_code_buttons={labeled_code_buttons}"
+        f" stamped_release_pages={stamped_release_pages}"
     )
     return 0
 

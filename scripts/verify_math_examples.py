@@ -256,7 +256,10 @@ def main() -> int:
         "ch12": ("12-deep-learning-models-and-applications-for-text-vision-and-audio.md", ("[0.434, 0.214, 0.351]", "[0.680, 0.460]")),
         "ch13": ("13-reinforcement-learning.md", ("V^*(s_2)=2/(1-0.9)=20", "V^*(s_1)=0+0.9\\times20=18")),
         "ch14": ("14-making-lighter-neural-network-and-machine-learning-models.md", ("2.2008", "P=5634")),
-        "ch15": ("15-graph-mining-algorithms.md", ("r* = (0.3725, 0.1958, 0.3941, 0.0375)", "60 minutes via A-P-Z")),
+        "ch15": (
+            "15-graph-mining-algorithms.md",
+            ("r* = (0.3725, 0.1958, 0.3941, 0.0375)", "A->P->Z at 60 minutes"),
+        ),
         "ch16": ("16-concepts-and-challenges-of-working-with-data.md", ("0.18/0.34 ≈ 0.529", "0.35/0.50 = 0.70")),
         "ch18": ("18-selected-glossary.md", ("| 0.60 | ≈0.63 | ≈0.81 |",)),
     }

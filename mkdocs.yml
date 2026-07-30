@@ -2,7 +2,7 @@ site_name: Machine Learning & AI for Neurologists
 site_description: Open-source ebook on ML and AI literacy for neurology and stroke.
 site_url: https://rkalani1.github.io/ML/
 copyright: >
-  Open-source ebook · CC BY 4.0 content · ISC site code · Educational only — not medical advice.
+  Open-source ebook · Scoped CC BY 4.0 book content · ISC site code · Educational only — not medical advice.
 
 theme:
   name: material
@@ -66,6 +66,7 @@ extra:
 
 nav:
   - Introduction: index.md
+  - Publication standards: publication-standards.md
   - Evidence register: evidence-register.md
   - Book:
     - Foundations:
