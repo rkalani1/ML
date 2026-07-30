@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
+import math
 import struct
 from pathlib import Path
 from xml.etree import ElementTree
+
+from asset_inventory import canonical_bytes, figure_assets, sha256
 
 
 def dimensions(path: Path) -> tuple[int | None, int | None]:
@@ -23,47 +25,75 @@ def dimensions(path: Path) -> tuple[int | None, int | None]:
         root = ElementTree.parse(path).getroot()
         viewbox = root.attrib.get("viewBox", "").replace(",", " ").split()
         if len(viewbox) == 4:
-            return round(float(viewbox[2])), round(float(viewbox[3]))
+            width_value, height_value = float(viewbox[2]), float(viewbox[3])
+            width, height = round(width_value), round(height_value)
+            if (
+                not math.isfinite(width_value)
+                or not math.isfinite(height_value)
+                or width_value <= 0
+                or height_value <= 0
+                or width <= 0
+                or height <= 0
+                or width > 8192
+                or height > 8192
+                or width * height > 32_000_000
+            ):
+                raise ValueError(
+                    f"{path}: invalid SVG dimensions {width_value}x{height_value}"
+                )
+            return width, height
+        raise ValueError(f"{path}: SVG requires a four-value viewBox")
     return None, None
 
 
 def build(root: Path) -> dict[str, object]:
-    figure_dir = root / "docs" / "assets" / "figures"
+    rights_path = root / "_meta" / "asset-rights-register.json"
+    release = json.loads(
+        (root / "_meta" / "release.json").read_text(encoding="utf-8")
+    )
+    rights_register = json.loads(rights_path.read_text(encoding="utf-8"))
+    rights_by_path = {
+        record["path"]: record for record in rights_register["assets"]
+    }
     assets = []
-    for path in sorted(figure_dir.iterdir(), key=lambda item: item.name.casefold()):
-        if not path.is_file() or path.suffix.lower() not in {".png", ".svg"}:
-            continue
-        data = path.read_bytes()
-        # Git may materialize text SVGs with CRLF on Windows while Pages deploys
-        # LF bytes from the repository. Hash the canonical text representation
-        # so the provenance gate is stable across developer platforms.
-        if path.suffix.lower() == ".svg":
-            data = data.replace(b"\r\n", b"\n")
+    for path in figure_assets(root):
+        data = canonical_bytes(path)
         width, height = dimensions(path)
         if b"Matplotlib" in data:
             software = "Matplotlib"
         elif b"Generated deterministically by scripts/regenerate_accuracy_figures.py" in data:
             software = "Python SVG generator (scripts/regenerate_accuracy_figures.py)"
         elif path.suffix.lower() == ".svg":
-            software = "hand-authored SVG"
+            software = "SVG; generator not identified in embedded metadata"
         else:
             software = "not detected"
+        relative = path.relative_to(root).as_posix()
+        rights = rights_by_path.get(relative)
+        if rights is None:
+            raise ValueError(f"{relative}: missing asset-rights-register entry")
         assets.append(
             {
-                "path": path.relative_to(root).as_posix(),
-                "sha256": hashlib.sha256(data).hexdigest(),
+                "path": relative,
+                "sha256": sha256(path),
                 "bytes": len(data),
                 "width": width,
                 "height": height,
                 "software_metadata": software,
-                "provenance_assertion": "Teaching asset present in this repository; authorship and rights have not been independently verified.",
+                "rights_status": rights["rights_status"],
+                "current_content_commit": rights["current_content_commit"],
+                "provenance_assertion": rights["release_basis"],
             }
         )
     return {
-        "schema_version": 1,
-        "audit_date": "2026-07-16",
+        "schema_version": 3,
+        "audit_date": str(release["review_date"]),
         "scope": "docs/assets/figures PNG and SVG assets",
-        "caveat": "Hashes and software metadata support traceability but do not prove authorship or eliminate copyright risk.",
+        "rights_register": "_meta/asset-rights-register.json",
+        "caveat": (
+            "Hashes, repository history, and software metadata support "
+            "traceability but do not independently prove chain of title, "
+            "human authorship, copyrightability, or non-infringement."
+        ),
         "asset_count": len(assets),
         "assets": assets,
     }

@@ -12,24 +12,15 @@ Follow the full path from cohort definition to monitored clinical use—without 
 <a class="secondary" href="#choose-a-route">Choose by goal</a>
 </div>
 
+<p class="meta">Scoped CC BY 4.0 · Educational only — not medical advice · <a href="publication-standards.html">Publication standards</a> · <a href="https://github.com/rkalani1/ML">Source on GitHub</a></p>
+</div>
+
 <ol class="model-path-steps" aria-label="Four-step clinical model overview">
   <li><span>1</span><strong>Define</strong><small>Cohort + outcome</small></li>
   <li><span>2</span><strong>Split</strong><small>Prevent leakage</small></li>
   <li><span>3</span><strong>Validate</strong><small>Calibrate + travel</small></li>
   <li><span>4</span><strong>Operate</strong><small>Monitor decisions</small></li>
 </ol>
-
-<p class="meta">CC BY 4.0 · Educational only — not medical advice · <a href="https://github.com/rkalani1/ML">Source on GitHub</a></p>
-</div>
-<details class="model-path-disclosure">
-<summary>Expand model path</summary>
-<div class="hero-art">
-<picture>
-  <source media="(max-width: 600px)" srcset="assets/figures/ml_clinical_model_path_mobile.png" width="600" height="950">
-  <img src="assets/figures/ml_clinical_model_path.png" alt="Clinical model path from cohort definition through validation and decision" width="960" height="280" fetchpriority="high" decoding="async">
-</picture>
-</div>
-</details>
 </div>
 
 ## Choose a route
@@ -43,10 +34,8 @@ Follow the full path from cohort definition to monitored clinical use—without 
 
 ## Build trust in layers
 
-<figure class="feature-figure">
-<img src="assets/figures/ml_validation_layers.png" alt="Four validation layers: data validity, internal validity, external validity, and clinical utility" width="959" height="430" loading="lazy" decoding="async">
-<figcaption>Validation is cumulative. Later-stage performance cannot repair a biased cohort, contaminated split, or unstable label.</figcaption>
-</figure>
+Validation is cumulative. Later-stage performance cannot repair a biased
+cohort, contaminated split, or unstable label.
 
 | Layer | Core question | Evidence to inspect |
 | --- | --- | --- |

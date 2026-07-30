@@ -43,7 +43,7 @@ Limitations are real. Univariate filters miss synergistic pairs (two weak featur
 
 Wrappers treat the learning algorithm as a black box and search subsets to optimize a validation score (AUC, RMSE, log loss). Sequential Forward Selection (SFS) starts from the empty set and greedily adds the feature that most improves the score. Sequential Backward Selection (SBS) starts from all features and greedily removes the least harmful. Floating variants (SFFS/SBFS) allow limited backtracking. Wrappers capture model-specific interactions but are computationally expensive: each candidate subset requires training and evaluation.
 
-Genetic algorithms (GAs) represent subsets as binary chromosomes and evolve populations with selection, crossover, and mutation under a fitness function equal to (or regularized by) validation performance and subset size. GAs explore more broadly than pure greedy SFS/SBS but introduce stochasticity and many hyperparameters (population size, mutation rate). In clinical n-small settings, aggressive wrappers overfit the validation fold; nested cross-validation or a fixed temporal outer holdout is mandatory.
+Genetic algorithms (GAs) represent subsets as binary chromosomes and evolve populations with selection, crossover, and mutation under a fitness function equal to (or regularized by) validation performance and subset size. GAs explore more broadly than pure greedy SFS/SBS but introduce stochasticity and many hyperparameters (population size, mutation rate). In clinical n-small settings, aggressive wrappers can overfit the validation fold. Estimate the full selection procedure on an untouched outer assessment set—for example, nested cross-validation or a justified temporal holdout—and report the resulting uncertainty.
 
 ### Embedded Methods
 
@@ -119,7 +119,7 @@ Site A: n_A = 5 patients, 2 events, so ȳ_A = 0.40. Then e_A = (5·0.40 + 10·0.
 
 Rare site B: n_B = 1 patient, 1 event, so the naive rate ȳ_B = 1.00, a single patient screaming “100% risk.” Smoothing tames it: e_B = (1·1.00 + 10·0.20)/(1 + 10) = 3/11 ≈ 0.273.
 
-Smoothing alone does not stop leakage, because e_A was computed from the very rows it will encode. The out-of-fold (or leave-one-out) fix encodes each row from data that exclude that row. Leave-one-out for a site-A patient whose own y_i = 1 gives e = (5·0.40 − 1 + 10·0.20)/((5 − 1) + 10) = (2 − 1 + 2)/14 = 3/14 ≈ 0.214; for a site-A patient with y_i = 0 it gives e = (2 − 0 + 2)/14 = 4/14 ≈ 0.286. The encoding now moves with the patient’s own label—exactly the dependence leave-one-out removes so the label cannot leak into its own feature. For singleton site B, leave-one-out leaves no other B rows and the estimate collapses to the prior: e = (1·1.00 − 1 + 10·0.20)/((1 − 1) + 10) = 2/10 = 0.20. Without this discipline, site B would enter training as a perfect but fictitious predictor equal to its lone patient’s outcome—the classic small-subgroup leakage that inflates validation AUC and evaporates prospectively.
+Smoothing alone does not stop leakage. Leave-one-out excludes the encoded row from the aggregate: the two site-A values differ because excluding a positive versus negative row leaves different aggregates. This removes direct use of that row’s outcome but does not make encoded rows independent or the pipeline leakage-proof. Produce target encodings entirely within each outer training split, preserve temporal or patient grouping, smooth rare levels, and evaluate the whole procedure on untouched assessment data.
 
 ## Feature Engineering for Textual Data
 
@@ -265,7 +265,7 @@ Nest selection, encoding, and scaling inside validation.
 
 Audit text and imaging features for post-outcome documentation and reads.
 
-Generate missingness indicators when blanks are informative clinical signals.
+Consider missingness indicators only when their state is knowable at index time, their meaning is plausibly stable, and the full pipeline is validated on appropriate assessment data.
 
 Match video/signal splits to patients, not frames, to avoid leakage.
 
@@ -275,7 +275,7 @@ Feature engineering is the hinge between raw data and every later method. Select
 
 ## Chapter Summary
 
-Feature engineering designs the matrix models actually learn from. Selection methods include filters (fast statistical scores), wrappers (SFS, SBS, genetic search optimizing a model’s validation metric), and embedded approaches (L1, tree importance). Numerical pipelines use min–max scaling, z-score standardization, L1/L2 norms, and log/Box–Cox transforms—always fit on train. Categorical encodings include one-hot, dummy, effect coding, feature hashing, bin counting, and target encoding; each invents geometry and some leak labels if misused. Text features span bags-of-words, subwords, n-grams, POS tags, Word2Vec/GloVe/FastText embeddings, and keyword methods (TF–IDF, TextRank, RAKE, YAKE). Image descriptors include Harris corners, MSER, HOG, SIFT, and watershed segments; video adds motion vectors, optical flow, 3D CNNs, and graph-based pose/region models. Time series and signals contribute stationarity checks, seasonal and trend components, motifs, lags, change points, and carefully chosen smoothers. Missingness is itself a feature decision: whether a blank is MCAR, MAR, or MNAR dictates whether to impute, impute-and-flag, or model the absence, and an informative-missingness indicator is lawful only when it is knowable at t₀. In clinical data, leakage is the cardinal sin: features must be knowable at decision time, and pipelines must enforce fit-on-train discipline end to end.
+Feature engineering designs the matrix models learn from. Numerical transformations and learned encodings belong inside the training pipeline. MCAR, MAR, and MNAR are assumptions about the data-generating process that inform—not mechanically dictate—imputation, indicators, models, and sensitivity analyses. A missingness indicator is eligible only when knowable at t₀. Features must respect the intended decision time, and pipelines must enforce fit-on-train discipline end to end.
 
 ## Practice and Reflection
 

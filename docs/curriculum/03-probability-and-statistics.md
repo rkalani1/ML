@@ -97,7 +97,7 @@ Continuous Uniform(a,b) has support [a,b], parameters endpoints a < b, constant 
 
 ### Beta and Dirichlet
 
-Beta(α, β) has support (0,1), parameters shape α, β > 0, with E[X] = α/(α+β) and Var(X) = αβ/((α+β)²(α+β+1)). It is conjugate to Bernoulli/Binomial likelihoods—ideal for modeling an unknown proportion with prior pseudo-counts α−1 successes and β−1 failures. Clinically, a Beta(2, 8) prior encodes a plausible ~20% complication rate that observed events then update to a Beta posterior. Dirichlet is the multivariate generalization with support on the K-simplex (nonnegative vectors summing to 1), parameter vector α = (α_1, …, α_K), and mean component E[X_k] = α_k / Σ_j α_j; it is conjugate to categorical/multinomial models and central to topic models and mixed-membership clustering—for example, expressing a patient’s fractional membership across stroke etiologies. When α = β = 1, Beta is Uniform(0,1).
+Beta(α, β) has support (0,1), parameters α, β > 0, with E[X] = α/(α+β) and Var(X) = αβ/((α+β)²(α+β+1)). It is conjugate to Bernoulli/Binomial likelihoods: after k successes in n trials, a Beta(α, β) prior yields Beta(α+k, β+n−k). The parameters have a pseudo-count interpretation, but whether one calls α and β or α−1 and β−1 the prior counts depends on the convention and quantity being matched. A Beta(2, 8) prior has mean 0.20; describing it as clinically plausible requires substantive justification.
 
 ### Bernoulli, Binomial, Geometric
 
@@ -117,7 +117,7 @@ Chi-square χ²(k) has support (0,∞), a single parameter—the degrees of free
 
 ### PP plots and QQ plots
 
-Probability–probability (PP) plots graph empirical CDF values against theoretical CDF values; points near the diagonal support the theoretical model. Quantile–quantile (QQ) plots graph empirical quantiles against theoretical quantiles—more sensitive in the tails, hence preferred for checking Gaussian residuals or heavy tails. Systematic curvature diagnoses skewness; S-shapes diagnose tail weight.
+Probability–probability (PP) plots graph empirical CDF values against theoretical CDF values; points near the diagonal are consistent with the theoretical model. Quantile–quantile (QQ) plots graph empirical quantiles against theoretical quantiles and are often revealing in the tails. Curvature can suggest skewness and S-shaped departures can suggest tail mismatch, but neither pattern uniquely identifies a cause.
 
 ## Expectation, Normalization, and How Much Data Is Enough
 
@@ -190,9 +190,9 @@ Choosing a distribution is choosing a set of assumptions about support, tail wei
 
 Heavy-tailed behavior changes estimators as much as it changes plots. If length of stay or cost has a Pareto-like tail, the sample mean’s variance may be huge, and a few patients dominate totals—exactly when hospital contribution margins and outlier payment policies matter. Zipf-like ranks appear in token frequencies in clinical text: a handful of tokens carry most mass, which is why sublinear scaling and rare-token handling dominate NLP preprocessing. Weibull and other survival distributions remind us that censoring is part of the likelihood, not a nuisance to delete.
 
-Mixture distributions—finite Gaussian mixtures, zero-inflated counts, spike-and-slab priors—formalize the clinical intuition that one density cannot describe everyone. A NIHSS distribution with a spike at zero and a long right tail is not a failed Gaussian; it is a mixture of mild and severe regimes. EM and related algorithms estimate such mixtures; visualization (histograms, QQ plots) tells you when to try them. Boltzmann and softmax forms reappear when you turn energies or decision scores into probabilities: multiclass logistic regression is a Gibbs distribution over labels.
+Mixture distributions—finite Gaussian mixtures, zero-inflated counts, spike-and-slab priors—formalize one way a simple density can fail. A NIHSS distribution with a spike at zero and a long right tail could reflect a floor effect, selection, coding, or multiple latent regimes; the histogram alone cannot distinguish them. EM estimates specified mixtures, but model choice requires substantive assumptions and validation.
 
-PP and QQ plots deserve routine use before parametric tests. A t-test on heavily skewed mRS differences may still be approximately valid for large n by the CLT applied to means, but effect-size interpretation and interval coverage can suffer; rank-based tests or ordinal models may match the estimand better. QQ plots of residuals after regression diagnose whether Gaussian-based intervals are decorative or trusted.
+PP and QQ plots are useful model checks before or alongside parametric analyses. A t-test on heavily skewed mRS differences may still have approximately valid large-sample behavior for a mean contrast under appropriate sampling assumptions, but rank-based tests or ordinal models target different quantities. A residual QQ plot checks one assumption; valid intervals also depend on the mean and variance model, dependence, sampling design, and estimation procedure.
 
 ## Worked Example Extensions: Likelihood Ratios and Information
 
@@ -240,7 +240,7 @@ Effect sizes keep significance tests from becoming idols. A tiny p-value for a 0
 
 ## Clinical and Epidemiologic Notes
 
-Diagnostic reasoning in neurology is Bayesian whether or not the formula is written down. Pre-test probability of LVO after a severe hemispheric syndrome differs from that after a transient monocular symptom; the same test language does not yield the same post-test beliefs. Screening tools with moderate specificity destroy PPV when prevalence falls—as the numerical example showed. Seizure-detection algorithms face extreme imbalance: hours of non-seizure for minutes of seizure. Reporting accuracy alone is malpractice-level evaluation design; precision at fixed recall, false alarms per hour, and time-to-detection dominate operational utility.
+Diagnostic reasoning in neurology often has a Bayesian structure whether or not the formula is written down. Pre-test probability differs across presentations, so the same test result does not yield the same post-test probability. Screening tools with moderate specificity can have low PPV when prevalence falls. For seizure detection, accuracy alone is inadequate for safety-sensitive evaluation; precision at specified recall, false alarms per hour, time-to-detection, and clinically relevant error consequences should be reported with uncertainty.
 
 Study design constrains what probabilities mean. Incidence versus prevalence, competing risks for mRS and death, interval censoring of last-known-well, and informative missingness of 90-day outcomes change estimands. Models trained on complete cases silently condition on selection; the learned P(Y | X, observed) may not equal the population P(Y | X). Directed acyclic graphs and missing-data assumptions (MCAR, MAR, MNAR) determine whether your likelihood is even the right likelihood. Unsupervised clusters of ‘stroke phenotype’ are not etiology labels; association of a cluster with outcome is not proof of a causal subtype.
 
@@ -276,7 +276,7 @@ A/B tests in digital health products and classical two-group trials share sequen
 
 Pitfalls to avoid: (1) Confusing P(D | +) with P(+ | D). (2) Applying sensitivity and specificity estimated in a severe cohort to a mild population without checking spectrum bias. (3) Interpreting a 95% CI as a 95% posterior probability without a Bayesian model. (4) Reporting only AUC for screening tasks with 1% prevalence. (5) Assuming independence across patients clustered in hospitals or across EEG windows from the same ICU stay. (6) Maximizing likelihood on leaked labels or on the test set. (7) Equating predictive feature importance with causal effect. (8) Multiple silent hypothesis tests across subgroups until a ‘significant’ stroke subtype appears. (9) Using arithmetic means alone for heavily skewed costs or lengths of stay. (10) Treating EM’s soft labels as ground-truth subtypes.
 
-Senior practice is boring in the best way: define the sample space and estimand, write the likelihood you claim to be optimizing, report uncertainty, check calibration at deployment prevalence, and refuse to let software defaults substitute for probabilistic reasoning. Probability and statistics are not prerequisites you outgrow when deep learning arrives; they are the only language in which deep learning’s claims can be stated without self-deception.
+Senior practice is boring in the best way: define the sample space and estimand, write the likelihood you claim to be optimizing, report uncertainty, check calibration in data relevant to the intended setting, and refuse to let software defaults substitute for probabilistic reasoning. Probability and statistics remain essential languages for stating and testing deep-learning claims.
 
 ## Chapter Summary
 

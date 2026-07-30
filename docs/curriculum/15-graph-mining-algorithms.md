@@ -229,7 +229,7 @@ Spectral clustering. Form Laplacian L (or normalized variant), compute the k eig
 
 Louvain algorithm. Greedy modularity maximization: modularity Q compares within-community edges to a null model with the same degrees. Louvain repeatedly (1) moves individual nodes to neighbor communities to raise Q, then (2) aggregates communities into super-nodes, iterating until Q stalls. It is fast on large networks and widely used, but can find arbitrarily poorly connected communities in some cases and is resolution-limit sensitive (may miss small communities).
 
-Leiden algorithm. Improves Louvain by adding a refinement phase that splits weakly connected communities, guaranteeing well-connected communities under common settings. Leiden is generally preferred over Louvain for modern practice when available. Always validate communities qualitatively: modularity optima need not equal clinically meaningful modules, and edge definitions (who co-occurs with whom in billing) inject administrative artifacts.
+Leiden algorithm. Adds a refinement phase intended to avoid Louvain’s disconnected or badly connected communities. Its formal connectivity guarantees depend on the quality function, algorithm variant, and convergence conditions; they do not make the resulting partition clinically meaningful. Leiden is an important comparator when Louvain is used, but runtime and partition quality remain graph- and implementation-dependent. Validate stability and substantive meaning: an optimized graph objective can still reflect billing or referral artifacts rather than biology or care quality.
 
 ## 15.9 Graph Neural Networks: Challenges, Message Passing, Pooling, Spectral vs Spatial
 
@@ -245,7 +245,7 @@ AGGREGATE may be sum, mean, max, or attention-weighted sum. Stacking L layers mi
 
 Graph pooling coarsens graphs for graph-level prediction: cluster-based pooling (learn assignments), top-k node selection, or hierarchical coarsening. DiffPool and SAGPool are examples; naive global mean/sum pooling is often a strong baseline.
 
-Spectral versus spatial. Spectral methods define convolution via graph Fourier transforms using Laplacian eigenvectors—theoretically neat but expensive and brittle across graphs of different sizes. Spatial methods define convolution as neighborhood aggregation in the vertex domain and dominate practice (GCN, GAT, GraphSAGE).
+Spectral versus spatial. Spectral methods define convolution via graph Fourier transforms using Laplacian eigenvectors; exact eigendecompositions can be expensive, and some formulations do not transfer directly across graphs of different sizes. Spatial methods define convolution as neighborhood aggregation in the vertex domain and are common in current GNN practice (GCN, GAT, GraphSAGE).
 
 ## 15.10 GCN, GAT, and GraphSAGE
 
@@ -255,9 +255,9 @@ H^{(l+1)} = sigma( D_hat^{-1/2} A_hat D_hat^{-1/2} H^{(l)} W^{(l)} )
 
 where A_hat = A + I (self-loops) and D_hat is the corresponding degree matrix. Each layer averages neighbor features (including self) then applies a linear map and nonlinearity. GCNs are strong baselines for node classification on citation-like graphs and for some biomedical graphs when labels are at nodes.
 
-Graph Attention Network (GAT). GAT replaces uniform neighbor averaging with learned attention coefficients alpha_{ij}, computing weighted sums of neighbor transformations. Multi-head attention stabilizes training. Attention can highlight influential neighbors (important referring physicians, critical anatomical links) but adds parameters and can overfit small clinical graphs.
+Graph Attention Network (GAT). GAT replaces uniform neighbor averaging with learned attention coefficients alpha_{ij}, computing weighted sums of neighbor transformations. Multiple heads can improve optimization or representation diversity in some settings. Attention weights identify neighbors emphasized by the fitted model, not causal or clinically authoritative relationships, and the added parameters can overfit small graphs.
 
-GraphSAGE. GraphSAGE samples a fixed-size neighborhood and aggregates with mean, LSTM, or pooling functions, enabling inductive learning on previously unseen nodes by using features. Sampling makes large graphs tractable. For multi-site hospital networks where new facilities appear, inductive models are preferable to purely transductive embeddings tied to a fixed node set.
+GraphSAGE. GraphSAGE samples neighborhoods and aggregates with mean, LSTM, or pooling functions, enabling inductive inference for previously unseen nodes when the required features and neighborhood construction are available. Sampling can make large graphs tractable but introduces variance and may miss rare neighbors. For networks where new facilities appear, compare inductive methods with transductive and features-only baselines rather than assuming one family is preferable.
 
 Training tips: use early stopping against over-smoothing; try 2-3 layers before going deep; regularize; evaluate on held-out nodes or temporal splits; beware label leakage through edges constructed with future information.
 
@@ -277,7 +277,7 @@ def gcn_layer(adjacency, features, weights):
 
 Approximate nearest neighbor (ANN) search finds vectors close to a query in high dimension—central to embedding retrieval, RAG (Chapter 16), and image search. Hierarchical Navigable Small World (HNSW) graphs build multi-layer proximity graphs: upper layers are sparse for long-range greedy routing; the bottom layer is dense for refined search. Insertion connects each new point to M neighbors using a heuristic that maintains small-world navigability; search greedily walks toward the query starting from an entry point at the top layer, descending layers as it goes.
 
-HNSW offers excellent recall-latency trade-offs in practice for embedding dimensions common in NLP and vision (hundreds to a few thousand). Parameters M and efConstruction/efSearch trade memory and recall for speed. Clinical embedding search (similar prior cases, guideline chunks, radiology report neighbors) often uses HNSW or related graph/quantization indexes (IVF-PQ, DiskANN). Always measure recall@k on a labeled neighbor set from your domain; generic benchmark numbers may not transfer to clinical embedding geometries.
+HNSW is a widely used approximate-nearest-neighbor method whose recall, latency, build time, and memory depend on data geometry, implementation, and parameters such as M and efConstruction/efSearch. Clinical embedding-search studies may compare HNSW with graph or quantization indexes such as DiskANN or IVF-PQ. Measure recall@k and latency on a domain-labeled neighbor set and the target hardware; generic benchmark rankings do not establish a local winner.
 
 ## 15.12 Clinical and Epidemiologic Applications
 
@@ -287,7 +287,7 @@ Comorbidity graphs. Nodes are diagnoses or medications; edges are co-occurrence 
 
 Connectomics. Nodes are brain regions; edges are structural or functional connectivity. Graph metrics and GNNs explore disease-related reorganization (stroke disconnection syndromes, epilepsy networks). Reproducibility across scanners and parcellations is a major methodologic challenge; treat single-study “biomarker graphs” skeptically until external validation.
 
-Epidemiologic contact and transmission networks. Matching and path algorithms support outbreak investigation, but missing edges (unreported contacts) dominate error. Prefer methods robust to incomplete observation and integrate with traditional epi models rather than replacing them.
+Epidemiologic contact and transmission networks. Matching and path algorithms can support outbreak investigation, but missing edges such as unreported contacts can be a major source of error. Evaluate sensitivity to incomplete observation and integrate graph analyses with the relevant epidemiologic models rather than treating the observed graph as complete.
 
 Knowledge graphs for literature and guidelines link entities (diseases, drugs, trials). PageRank/HITS-like scores can surface authoritative nodes; GNN link prediction can suggest missing relations for curation—not for automatic clinical action without review.
 
@@ -305,9 +305,9 @@ Relational data resists the de-identification playbook that works for tabular re
 
 Definition and why it is hard. In a table you can suppress or generalize identifiers until each record is indistinguishable from k - 1 others (k-anonymity). A graph leaks through its structure: even after stripping names, a node’s degree, its triangle count, or the shape of its 2-hop neighborhood can be near-unique. An adversary who knows a few edges around a target — a patient’s handful of known contacts, a physician’s known referral partners — can locate that target in a “de-identified” graph and then read off the edges they did not know. This is a structural re-identification attack. Two disclosure targets matter: node disclosure (learning which real entity a node is) and edge disclosure (learning that a specific relationship exists, e.g., that patient X was seen by a named HIV or psychiatric clinician).
 
-Mechanisms for protection. (1) Aggregation and suppression: release community-level counts, degree distributions, or centrality summaries rather than the raw edge list, and suppress small cells. (2) Graph differential privacy: add calibrated noise so the output is nearly unchanged whether or not a given edge (edge-DP) or a given node with all of its edges (node-DP) is present. Edge-DP protects single relationships and is achievable for many statistics (degree sequences, subgraph counts, spectra); node-DP is much stronger but much harder, because one node can touch many edges, so the required noise is large. (3) Synthetic graphs: fit a generative model (a degree-corrected stochastic block model, or a DP graph generator) and release samples, never the real graph. (4) Compute without pooling: federated learning or secure multiparty computation lets sites jointly fit a GNN or compute centrality without any site exporting its patient-level edges.
+Mechanisms for protection. (1) Aggregation and suppression can release community-level counts or summaries rather than a raw edge list, but small-cell and differencing risks still need assessment. (2) Graph differential privacy adds calibrated randomness so an output distribution changes only within a defined privacy bound when an edge (edge-DP) or a node and its incident edges (node-DP) changes. Node-DP usually has higher sensitivity and utility cost; the privacy unit, adjacency definition, epsilon/delta, composition, and released queries must be stated. (3) Synthetic graphs can reduce direct exposure, but non-DP generators may memorize or reproduce sensitive structure and still require disclosure testing. (4) Secure multiparty computation, secure aggregation, or federated protocols can reduce raw-edge exchange under explicit trust and threat models; updates or outputs may still leak information. None of these mechanisms is a blanket authorization to release or share relational health data.
 
-When to use / when not. Use aggregation or edge-DP when the scientific claim is about population structure (module counts, connectivity gradients, ranking of specialties) rather than named individuals — you rarely need real edges to report that cardioembolic codes cluster apart from small-vessel codes. Reach for node-DP or secure computation when the nodes are people and the graph will leave a trusted enclave. Do not release a “de-identified” clinician referral graph or a patient contact graph as a raw edge list: degree and neighborhood signatures make re-identification straightforward, and the smallest subpopulations (rare diseases, small rural networks) are the most exposed. Pair any release with a re-identification risk audit on the actual data, not a generic assurance.
+When to use / when not. Population-level claims may be answerable with aggregation, carefully specified privacy mechanisms, or enclave-based analysis rather than named nodes or raw edges. When nodes are people or a graph may leave a trusted environment, involve the responsible privacy, security, legal, and data-governance authorities in selecting the unit of protection and release mechanism. Stripping names from a clinician-referral or patient-contact edge list is not sufficient de-identification: degree and neighborhood signatures can enable linkage, especially in small subpopulations. Any proposed release requires a data-specific re-identification and utility assessment; node-DP or secure computation is not automatically sufficient.
 
 ## 15.13 Synthesis
 
@@ -315,27 +315,27 @@ Classical graph algorithms answer precise structural questions: MSTs for cheap c
 
 ## 15.14 Worked Dijkstra and A\* on a Transfer Graph
 
-Five hospitals: Community A, B, C; Primary Stroke Center P; Comprehensive Center Z. Undirected road-time weights (minutes): A-P 25, B-P 30, C-P 40, P-Z 35, A-Z 70, B-Z 80, C-Z 50, A-B 20, B-C 25. Patient at A needs Z. Dijkstra from A: initialize d(A)=0. Expand A: d(P)=25, d(Z)=70, d(B)=20. Expand B: d(P)=min(25,20+30)=25, d(C)=45, d(Z)=min(70,20+80)=70. Expand P: d(Z)=min(70,25+35)=60. Expand C: d(Z)=min(60,45+50)=60. Shortest A->Z is 60 minutes via A-P-Z (or ties). Routing through C instead costs d(C) + (C-Z) = 45 + 50 = 95, clearly worse — and note there is no direct A-C edge, so A reaches C only via B at cost 20 + 25 = 45.
+Five hospitals: Community A, B, C; Primary Stroke Center P; Comprehensive Center Z. Undirected road-time weights (minutes): A-P 25, B-P 30, C-P 40, P-Z 35, A-Z 70, B-Z 80, C-Z 50, A-B 20, B-C 25. A synthetic routing query asks for the shortest travel-time path from A to Z. Dijkstra from A: initialize d(A)=0. Expand A: d(P)=25, d(Z)=70, d(B)=20. Expand B: d(P)=min(25,20+30)=25, d(C)=45, d(Z)=min(70,20+80)=70. Expand P: d(Z)=min(70,25+35)=60. Expand C: d(Z)=min(60,45+50)=60. The unique shortest path under these fixed weights is A->P->Z at 60 minutes. Routing through C instead costs 45 + 50 = 95 minutes; there is no direct A-C edge, so A reaches C through B at cost 20 + 25 = 45.
 
 A\* with heuristic h = straight-line lower bound: suppose h(Z)=0, h(P)=30, h(C)=45, h(B)=55, h(A)=50, all admissible if never above true remaining time. f=g+h prioritizes expanding P earlier than exploring long detours toward B, reducing expansions on larger maps. If h overestimates (inadmissible), A\* may return suboptimal routes—dangerous when used for clinical logistics recommendations. Always separate routing suggestion tools from clinical eligibility rules (time last known well, severity).
 
 ## 15.15 Worked Centrality and Community on a Small Referral Network
 
-Directed referrals among six physicians {1..6}: edges 1->3, 2->3, 3->4, 3->5, 4->6, 5->6, 2->5, 1->4. Node 3 has high in-degree (hub of intermediate consults); node 6 is a sink authority for endovascular care. Betweenness peaks at 3 and possibly 4/5 as bridges. PageRank with damping will lift 6 and 4/5 relative to pure in-degree because importance flows through paths. Louvain on the undirected projection may find community {1,2,3} vs {4,5,6} if edges denser within those sets—interpretable as “front-line assessors” vs “intervention cluster,” but only if edge definitions are clean.
+Consider a synthetic directed referral graph on six unlabeled nodes {1..6}: edges 1->3, 2->3, 3->4, 3->5, 4->6, 5->6, 2->5, 1->4. Nodes 3 and 6 each have in-degree 2, while node 6 has out-degree 0 under the stated edges. Those facts do not establish that either node is an authority, bottleneck, or appropriate clinical destination. Compute betweenness and PageRank only after specifying direction, weights, damping, personalization, and dangling-node handling. Louvain on the undirected projection may return different partitions as resolution, random initialization, or implementation changes; any substantive label such as “front-line” or “intervention” requires external evidence.
 
 Add a comorbidity undirected graph on ICD nodes with weights as partial correlations after age/sex adjustment. Leiden communities might group cardioembolic-related codes separately from small-vessel codes. Validate against clinical taxonomy; administrative graphs can invent communities of coding convenience (same order set) rather than biology.
 
 ## 15.16 GNN Training Recipe and Pitfalls
 
-Practical GNN recipe for node classification on a hospital graph: (1) define nodes/edges without future leakage; (2) split nodes by time or by site, not by random edges only; (3) start with 2-layer GraphSAGE mean aggregator and logistic head; (4) tune learning rate and dropout; (5) early-stop on validation macro-F1; (6) ablate graph vs features-only MLP—if MLP wins, the edges are not helping; (7) check over-smoothing by plotting neighbor embedding cosine vs depth; (8) external site validation.
+Example research evaluation plan for node classification on a hospital graph: (1) define nodes, edges, index time, and labels without future leakage; (2) choose splits that respect the dependence and transportability claim, such as temporal or site-held-out evaluation; (3) compare a features-only baseline with prespecified GCN, GAT, GraphSAGE, or other justified candidates under a common tuning budget; (4) select stopping and tuning metrics appropriate to the task without exposing the final test set; (5) ablate edges and features separately; (6) assess over-smoothing and sensitivity to graph construction; and (7) test transportability in data independent of development. An MLP outperforming one GNN does not prove that all edge information is useless; the graph definition, architecture, optimization, and uncertainty also require examination.
 
 Pitfalls: edges built from the label (connecting patients who share an outcome) leak; degree features can proxy hospital size and socioeconomic patterns; message passing can amplify majority site styles; explainability is harder than tabular SHAP. For connectomes, site effects and motion artifacts can dominate disease signal—graph metrics need the same harmonization discipline as any imaging biomarker.
 
-HNSW ops note: when using embeddings of clinical text for nearest-neighbor case retrieval, rebuild indexes when the embedding model changes; mismatched spaces silently return nonsense neighbors. Track recall@10 on a hand-labeled similar-case set quarterly.
+HNSW ops note: when the embedding model or preprocessing changes, rebuild or otherwise migrate indexes under version control; querying vectors against an incompatible space can return invalid neighbors without an obvious runtime error. Track recall@k and critical retrieval failures on a domain-labeled set at a prespecified cadence tied to risk, data volume, and change events rather than assuming quarterly review is adequate.
 
 Ablate features-only baselines before claiming GNN value.
 
-Prefer inductive GraphSAGE when nodes appear over time.
+Consider inductive models such as GraphSAGE when new nodes appear, and compare them with features-only and other inductive baselines.
 
 Guard against leakage in edge construction.
 
@@ -343,13 +343,13 @@ Re-evaluate communities and ranks after any edge definition change.
 
 ## 15.17 Matching in Operational Neurology
 
-Hungarian assignment can schedule a limited number of same-day EEG slots against ordered studies with priority costs (status epilepticus rule-out gets low cost / high priority). Hopcroft-Karp can maximize the number of paired tele-stroke consult slots to waiting EDs under bipartite capacity constraints when weights are equal. These optimizations are operations research, not disease prediction—they still require fairness constraints (rural EDs not permanently deprioritized) and human override.
+Assignment algorithms can be studied for scheduling scarce EEG or tele-stroke capacity, but the cost matrix must not silently encode a clinical priority rule. Eligibility, urgency, protected-class impacts, access goals, and override authority require institutionally governed criteria and prospective workflow evaluation; an optimizer should not infer them from convenience variables. Hungarian methods minimize a specified total assignment cost, while Hopcroft-Karp maximizes cardinality in an unweighted bipartite formulation. Neither objective alone establishes a safe or equitable allocation.
 
 Record linkage matching between registry and claims is a different “matching” problem (probabilistic record linkage) sometimes confused with graph matching; use dedicated linkage methods and privacy-preserving join designs. Clarify vocabulary in multi-disciplinary teams.
 
 ## 15.18 Prim vs Kruskal Complexity and Implementation Notes
 
-Prim and Kruskal compute the same MST weight on connected undirected graphs with unique edge weights; ties can yield different trees of equal cost. Kruskal shines when edges are easily sorted and the graph is sparse; union-find with path compression and union-by-rank makes cycle checks nearly O(1) amortized. Prim shines when you already have adjacency lists and a binary heap, especially if you stop early for a partial tree covering a subset of critical facilities.
+Prim and Kruskal return a minimum total weight on connected undirected graphs; when all edge weights are distinct, the MST itself is unique, while ties can yield different trees with the same optimum weight. Kruskal is convenient when edges are easily sorted; union-find with path compression and union by rank makes each operation nearly constant amortized time. Prim is convenient with adjacency representations and priority queues and can be attractive on dense graphs with an appropriate implementation. Stopping Prim early does not in general solve a minimum connector for a prespecified subset of facilities; subset-connection or Steiner variants require their own formulation.
 
 Directed graphs do not have MSTs in the undirected sense; the related optimum branching problems (Edmonds’ algorithm) are beyond our scope but matter for directed transfer networks with one-way constraints. Multigraphs with parallel edges keep only the lightest edge between a pair before MST. Negative weights are allowed for MST (unlike Dijkstra) because there are no path-sum interpretations—only sum of selected edges.
 
@@ -373,7 +373,7 @@ Clinical connectomes often use partial correlation or streamline counts as weigh
 
 ## 15.21 Message Passing Expressive Power and Limitations
 
-1-WL (Weisfeiler-Lehman) tests relate to the discriminative power of standard message-passing GNNs: if two nodes share the same computational tree of neighborhoods, basic MPNNs cannot separate them. Higher-order networks, graph transformers, or feature engineering (cycle counts, encoding identifiers carefully without leakage) may be needed for hard structural tasks. Most clinical node classification tasks are feature-rich (labs, demographics) where 2-3 layer MPNNs suffice if edges help.
+1-WL (Weisfeiler-Lehman) tests relate to the discriminative power of standard message-passing GNNs: graph structures that 1-WL cannot distinguish also cannot generally be distinguished by standard MPNNs with permutation-invariant aggregation under the corresponding assumptions. Higher-order networks, graph transformers, or carefully justified structural features may help on harder tasks. In feature-rich clinical node classification, shallow MPNNs are a useful comparator, but no fixed depth is known to suffice across graphs or labels.
 
 Over-squashing: information from distant nodes compressed through narrow bottlenecks fails to arrive. Residual connections, jumping knowledge (concat multi-layer states), and graph rewiring are active research mitigations. For epidemiology contact networks with long chains, shallow models plus classical path analysis may beat deep GNNs.
 
@@ -393,7 +393,7 @@ PageRank is a random walk with teleportation. With the convention used in Sectio
 
 ### Optimization
 
-MST (Prim, Kruskal) is a greedy algorithm justified by matroid theory; the assignment problem (Hungarian) is a linear program whose constraint matrix is totally unimodular, so its optimum is automatically integral; matching and max-flow are duals. Community detection by modularity is a combinatorial objective, and spectral clustering is its continuous relaxation. Graph problems are a compact gallery of the optimization patterns — greedy, LP, relaxation — used throughout applied ML.
+MST algorithms such as Prim and Kruskal are greedy methods whose correctness connects to graphic matroids. The linear-assignment formulation has a totally unimodular constraint matrix, so an optimum exists at an integral extreme point. Bipartite maximum matching can be reduced to a maximum-flow problem, while its LP dual connects to minimum vertex cover (Kőnig’s theorem); matching and max-flow are not simply each other’s duals. Modularity optimization and spectral graph partitioning illustrate combinatorial objectives and relaxations, though spectral clustering is not one universal relaxation of every modularity objective.
 
 ### Deep learning and embeddings
 

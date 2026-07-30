@@ -15,10 +15,10 @@
   --ebook-glow-strong: rgba(13, 148, 136, 0.28);
   --ebook-surface: rgba(255, 255, 255, 0.78);
   --ebook-rule: rgba(15, 118, 110, 0.14);
-  --ebook-serif: "Source Serif 4", "Palatino Linotype", Palatino, Georgia, serif;
-  --ebook-sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --ebook-serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --ebook-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --md-text-font: var(--ebook-sans);
-  --md-code-font: "IBM Plex Mono", Consolas, monospace;
+  --md-code-font: ui-monospace, "SFMono-Regular", Consolas, monospace;
   --ebook-measure: 42rem;
   --ebook-radius: 1.15rem;
   --ebook-shadow: 0 8px 28px rgba(15, 23, 42, 0.06);
@@ -168,7 +168,7 @@
     display: block !important;
   }
   .md-content__inner::after {
-    content: "Machine Learning & AI for Neurologists · CC BY 4.0 · Educational only — not medical advice.";
+    content: "Machine Learning & AI for Neurologists · Scoped CC BY 4.0 for publisher-controlled material · Educational only — not medical advice.";
     display: block;
     margin-top: 1.2rem;
     padding-top: 0.5rem;
@@ -182,49 +182,6 @@
    Post-launch model-path composition (OBS-007, OBS-008)
    ========================================================================== */
 @media screen {
-  .model-path-disclosure {
-    min-width: 0;
-    margin: 0;
-  }
-
-  .md-typeset .model-path-disclosure > summary {
-    min-height: 44px;
-    align-items: center;
-    padding: 0.68rem 0.85rem;
-    border: 1px solid rgba(255, 255, 255, 0.34);
-    border-radius: 0.7rem;
-    background: #134e4a;
-    color: #fff;
-    cursor: pointer;
-    font-family: var(--ebook-sans);
-    font-weight: 650;
-    list-style: none;
-  }
-
-  .md-typeset .model-path-disclosure > summary:hover {
-    background: #042f2e;
-  }
-
-  .model-path-disclosure > summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .model-path-disclosure > summary::after {
-    content: "+";
-    float: right;
-    font-size: 1.1rem;
-    line-height: 1;
-  }
-
-  .model-path-disclosure[open] > summary::after {
-    content: "−";
-  }
-
-  .model-path-disclosure > summary:focus-visible {
-    outline: 3px solid #fff;
-    outline-offset: 3px;
-  }
-
   .ebook-hero .ebook-start {
     position: relative;
     z-index: 2;
@@ -253,7 +210,8 @@
   .md-typeset ol.model-path-steps {
     position: relative;
     z-index: 2;
-    display: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     margin: 0.25rem 0 0.65rem;
     padding: 0;
     list-style: none;
@@ -315,17 +273,6 @@
     grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.95fr);
   }
 
-  .model-path-disclosure > summary {
-    display: none;
-  }
-
-  .model-path-disclosure:not([open]) > .hero-art {
-    display: block;
-  }
-
-  .model-path-disclosure .hero-art img {
-    width: 100%;
-  }
 }
 
 @media screen and (max-width: 900px) {
@@ -340,14 +287,6 @@
   .model-path-steps {
     display: grid;
     grid-template-columns: 1fr 1fr;
-  }
-
-  .model-path-disclosure {
-    margin-top: 0.15rem;
-  }
-
-  .model-path-disclosure[open] > .hero-art {
-    margin-top: 0.75rem;
   }
 
   .ebook-hero .meta {

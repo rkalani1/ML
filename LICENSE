@@ -1,6 +1,12 @@
-ISC License
+LICENSING AND REUSE
 
-Copyright (c) 2026 Rizwan Kalani and ML Web Edition contributors
+Copyright (c) 2026 Rizwan Kalani and contributors
+
+1. SITE SOFTWARE — ISC LICENSE
+
+Unless a file says otherwise, the repository's software and configuration
+(including scripts, templates, stylesheets, JavaScript, and workflow files) are
+licensed under the ISC License:
 
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
@@ -8,20 +14,56 @@ copyright notice and this permission notice appear in all copies.
 
 THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
 WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
-ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
 WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
 ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
----
+2. BOOK CONTENT — CC BY 4.0
 
-CONTENT LICENSE (prose, figures, tables under docs/)
+Except where otherwise noted, publisher-owned book material under docs/
+(including protectable selection, arrangement, revision, prose, tables, and
+teaching figures to the extent the publisher controls the relevant rights) is
+licensed under the Creative Commons
+Attribution 4.0 International Public License (CC BY 4.0), but only to the
+extent copyright or similar rights exist and are controlled by the publisher:
 
-Creative Commons Attribution 4.0 International (CC BY 4.0)
-https://creativecommons.org/licenses/by/4.0/
+https://creativecommons.org/licenses/by/4.0/legalcode.en
 
-Educational disclaimer: This material is for teaching and professional
-self-study only. It is not medical advice and is not institutional policy.
-Verify methods and clinical decisions against primary sources and local
-standards of care.
+A suggested attribution is:
+
+  Machine Learning & AI for Neurologists, Rizwan Kalani,
+  https://rkalani1.github.io/ML/, CC BY 4.0. Indicate changes.
+
+CC BY 4.0 permits commercial reuse and adaptation subject to its terms. The
+license is not a warranty that every element is copyrightable or that the
+publisher controls rights the law does not allow the publisher to license.
+
+3. MATERIAL NOT COVERED BY THE BOOK LICENSE
+
+The CC BY 4.0 grant does not apply to:
+
+- third-party fonts, icons, libraries, or other components, which retain their
+  own licenses and notices;
+- third-party trademarks, service marks, product names, or trade dress;
+- linked websites, cited publications, standards, facts, data, or material
+  quoted or referenced under another rights basis;
+- public-domain material; or
+- material for which the publisher does not control the relevant rights.
+
+See THIRD_PARTY_NOTICES.md and docs/publication-standards.md for component,
+provenance, attribution, AI-assistance, and reuse details. No endorsement,
+patent, privacy, publicity, or trademark rights are granted by implication.
+
+4. EDUCATIONAL AND WARRANTY NOTICE
+
+This publication is for education and professional self-study. It is not
+medical advice, patient-specific clinical decision support, emergency guidance,
+institutional policy, legal advice, or an endorsement by any employer,
+institution, standards body, publisher, or vendor. Verify consequential claims
+against current primary sources, applicable regulation, and local policy.
+
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE MATERIAL IS PROVIDED "AS IS"
+WITHOUT WARRANTIES OF ACCURACY, COMPLETENESS, NON-INFRINGEMENT,
+MERCHANTABILITY, OR FITNESS FOR A PARTICULAR PURPOSE.

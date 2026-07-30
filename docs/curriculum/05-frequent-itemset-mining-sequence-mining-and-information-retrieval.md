@@ -34,7 +34,7 @@ Support s(X): fraction of transactions containing every item in X.
 
 Frequent itemset: s(X) ≥ minsup; the primary output of frequent pattern mining.
 
-Association rules turn frequent itemsets into predictive statements. A rule is X → Y where X and Y are disjoint nonempty itemsets. Confidence of the rule is conf(X → Y) = s(X ∪ Y) / s(X), the empirical conditional probability that Y appears given X. Lift is lift(X → Y) = conf(X → Y) / s(Y) = s(X ∪ Y) / (s(X) s(Y)). Lift equals 1 under independence of X and Y; lift > 1 indicates positive association; lift < 1 indicates negative association. High confidence with lift near 1 can be misleading: if Y is almost always present, any antecedent may appear to “predict” Y.
+Association rules turn frequent itemsets into empirical conditional-association statements. Confidence is the conditional frequency of Y among analyzed transactions containing X; lift compares that frequency with the marginal frequency of Y. Neither confidence nor lift proves causation or prospective predictive performance.
 
 ### Worked Example: Support, Confidence, and Lift
 
@@ -97,7 +97,7 @@ Skipping and compression: enable sublinear average query time on huge corpora.
 
 A hash table maps keys to values using a hash function h that maps keys into a finite array of buckets. Ideal expected lookup, insert, and delete are O(1) when load factors are controlled and collisions are handled by chaining or open addressing. In IR and data mining, hash tables store the term dictionary, accumulate counts for itemsets, implement in-memory inverted indexes for moderate corpora, and back join maps for vertical mining algorithms.
 
-Perfect hashing is rare for dynamic sets; collisions are inevitable. Cryptographic hashes (SHA-family) are overkill for bucket placement but useful for content-addressable storage of documents. Universal hashing families guarantee low expected collision rates independent of adversarial key patterns. In clinical pipelines, patient identifiers and code strings are often hashed for de-identified joins—never use reversible encodings of medical record numbers as “features.”
+Perfect hashing is uncommon for dynamic sets, and ordinary finite hash tables must handle possible collisions. Plain unsalted hashing of patient identifiers is not de-identification: structured identifier spaces are vulnerable to dictionary attacks and linkage. Use only institutionally approved keyed tokenization or linkage services with access controls, purpose limitation, and privacy review; never expose raw or reversibly encoded identifiers as model features.
 
 ### Minwise Independent Permutations Hashing (MinHash)
 
@@ -153,7 +153,7 @@ MCTS: simulation-driven; needs a reward model; asymptotically improves with more
 
 A Bloom filter is a probabilistic set-membership structure: it can say “definitely not present” or “possibly present,” never “definitely present” without false positives. It uses a bit array of size m and k independent hash functions. To insert x, set bits h₁(x), …, h_k(x). To query x, check those bits; if any is zero, x is absent; if all are one, x may be present (or a false positive). There are no false negatives for standard Bloom filters. Each insert or query touches exactly k bits, so both run in O(k) time regardless of how many elements have been stored. For n inserted elements and a fixed target false-positive probability ε, the usual optimal design requires approximately m = −n ln(ε)/(ln 2)² bits and k = (m/n) ln 2 hashes; m therefore grows linearly with n at a constant bits-per-item rate. The advantage is compact probabilistic membership relative to storing exact keys, not sublinear asymptotic space in n.
 
-Applications include web caches (avoid looking up missing keys), distributed databases (skip empty partitions), and streaming analytics. Counting Bloom filters and scalable variants handle deletions and growth. Clinical systems can use Bloom filters to screen whether a hashed patient token might belong to a registry before a privacy-preserving join—still requiring careful privacy review because false positives and side channels matter.
+Applications include web caches, distributed databases, and streaming analytics. In a governed linkage design, a Bloom filter may screen whether an approved keyed token could belong to a registry, after which every possible match still requires exact authorized confirmation. A Bloom filter does not make identifiers anonymous or a join privacy-preserving by itself; false positives, frequency leakage, side channels, key management, and access controls all require review.
 
 ### Sliding Windows
 

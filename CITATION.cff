@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this teaching ebook, please cite it as below."
+title: "Machine Learning & AI for Neurologists"
+abstract: >-
+  Open-source teaching ebook on machine-learning and AI literacy for neurology
+  and stroke. It emphasizes honest data splits, calibration, external
+  validation, clinical utility, governance, and monitored use. Educational
+  only: not medical advice, patient-specific decision support, device
+  clearance, local policy, or institutional endorsement.
+type: software
+authors:
+  - family-names: Kalani
+    given-names: Rizwan
+version: "2026.07.30"
+date-released: "2026-07-30"
+url: "https://rkalani1.github.io/ML/"
+repository-code: "https://github.com/rkalani1/ML"
+keywords:
+  - machine learning
+  - artificial intelligence
+  - clinical AI
+  - neurology
+  - stroke
+  - medical education

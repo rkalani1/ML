@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-07-30",
+  "theme_package": "mkdocs-material==9.7.6",
+  "authored_javascript": [
+    {
+      "path": "docs/javascripts/header-controls.js",
+      "sha256": "530654253a2973fd9165b94b4e2c67465d7c9835f295259047677de56cced555",
+      "purpose": "Local-only accessible header controls"
+    },
+    {
+      "path": "docs/javascripts/lazy-images.js",
+      "sha256": "293b8ece9cbea2b7cd73321e18e264147ca42ff4c67d8f1e1f7dc4a8fb4a461b",
+      "purpose": "Local-only image loading enhancement"
+    },
+    {
+      "path": "docs/javascripts/mathjax.js",
+      "sha256": "04cd9ceed74f1acc38119b45ed1b65503b049fb3034ce754a35f61dada410b46",
+      "purpose": "Reviewed MathJax configuration, integrity-pinned loader, and failure notice"
+    }
+  ],
+  "theme_inline_script_sha256": [
+    "/8wPdzX9q0NNJXyA5lzsLojXFpkeaXVxhbfkUOQaWy8=",
+    "/K9p2JtEqCycL2fSbEonMakkteWpAHv57x2wndLqMNo=",
+    "DrEMJJ29sL7vIloQzly+VUGMxKcBTMII+OfW7Y8AkG4=",
+    "apoQPHefCNWjxbCm+HzVDOAW4CSVWhY7VylQjgOFyfk=",
+    "c7BRi6hR1MeGIZcBlBVGi8vPWbZcwNv7R3ir8hN9jP4="
+  ]
+}

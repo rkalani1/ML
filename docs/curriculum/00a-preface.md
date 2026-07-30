@@ -41,7 +41,7 @@ You are a neurologist and epidemiologist. Examples emphasize stroke systems, neu
 
 The intersection of neuroscience, clinical neurology, and computation is rapidly evolving. Historically, we relied on classical biostatistics to evaluate treatments and understand disease etiology. Today, machine learning models analyze continuous EEG streams, high-resolution MRIs, and vast troves of unstructured clinical text to predict outcomes, suggest diagnoses, and optimize resource allocation.
 
-Understanding these models is no longer a niche skill—it is a core clinical competency. When a black-box model suggests that a patient with acute ischemic stroke is not a candidate for thrombectomy, you must know what features the model considers, what biases it might harbor, and what its uncertainty estimates actually mean. You cannot delegate this judgment.
+Understanding these models is no longer a niche skill—it is an important part of clinical evidence literacy. A model must not independently determine that a patient with acute ischemic stroke is ineligible for thrombectomy. When such an output enters review, clinicians and accountable institutional teams need to understand its intended use, inputs, biases, uncertainty, validation limits, and relationship to current guidelines and local protocols; responsibility for the clinical decision cannot be transferred to the model.
 
 ## How to Read This Book
 
@@ -49,7 +49,7 @@ Every major algorithm family in the published TOC is taught with definitions and
 
 1. **Work numerical examples by hand:** Recompute intermediates. Nothing demystifies an algorithm faster than doing the matrix multiplication or gradient update yourself.
 2. **Map each method:** Continually map the computational method back to the clinical problem space. Is this for prediction, etiology, or decision support?
-3. **Be skeptical of performance metrics:** Always look past discrimination (AUROC) to calibration, utility, and external validation.
+3. **Interrogate performance metrics:** Look beyond discrimination (AUROC) to calibration, utility, uncertainty, and performance in data relevant to the intended setting.
 
 There is no separate further-reading chapter—the book is the curriculum. Read it iteratively, refer to the mathematical foundations when needed, and apply these concepts rigorously to the next paper you read or the next clinical tool your hospital considers.
 

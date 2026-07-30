@@ -1,11 +1,4 @@
 (() => {
-  const wideLayout = window.matchMedia("(min-width: 901px)");
-  const syncResponsiveDisclosures = () => {
-    document.querySelectorAll(".model-path-disclosure").forEach((details) => {
-      details.open = wideLayout.matches;
-    });
-  };
-
   const selector = [
     'label.md-header__button[for="__drawer"]',
     'label.md-header__button[for="__search"]',
@@ -86,6 +79,4 @@
   if (window.document$ && typeof window.document$.subscribe === "function") {
     window.document$.subscribe(enhance);
   }
-  wideLayout.addEventListener("change", syncResponsiveDisclosures);
-  syncResponsiveDisclosures();
 })();

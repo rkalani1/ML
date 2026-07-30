@@ -55,7 +55,7 @@ Piecewise (segmented) regression allows different linear (or polynomial) regimes
 
 Residual Standard Error (RSE) estimates the standard deviation of the error term in a linear model: RSE = √(RSS / (n − p − 1)) for a model with intercept and p slopes (degrees of freedom n − p − 1). It is roughly the typical size of residuals in the units of y. Root mean squared error (RMSE) = √((1/n) Σ(y_i−ŷ_i)²). On held-out data the denominator is n; an in-sample error-scale estimate instead uses residual degrees of freedom n−p−1 and is the RSE, not RMSE.
 
-R² = 1 − RSS/TSS measures the fraction of sample variance in y linearly associated with the fitted mean. It never decreases when adding predictors; adjusted R² penalizes dimension slightly. R² is not a validation metric by itself. Report RMSE or MAE on held-out data in clinical units (mL, days). Residual-versus-fitted plots diagnose nonlinearity and heteroscedasticity; QQ plots assess approximate normality for small-sample inference.
+R² = 1 − RSS/TSS measures the fraction of sample variance in y associated with the fitted mean. In-sample OLS R² on the same observations with an intercept cannot decrease when predictors are added; this is not a general claim about held-out performance or every R² definition. Adjusted R² penalizes dimension slightly. R² is not a validation metric by itself. Report RMSE or MAE on held-out data in clinical units (mL, days).
 
 ## ARIMA: Autoregressive Integrated Moving Average
 
@@ -99,7 +99,7 @@ The section above invoked L2 regularization to stabilize logistic coefficients u
 
 At λ = 0 (no penalty) the estimator is ordinary least squares: β̂ = 28/14 = 2.00, exactly the true slope. At λ = 10, β̂ = 28/(14 + 10) = 28/24 = 7/6 ≈ 1.17. Equivalently, ridge multiplies the OLS slope by the shrinkage factor Σ xᵢ²/(Σ xᵢ² + λ) = 14/24 ≈ 0.583, so 2.00 × 0.583 ≈ 1.17.
 
-The penalty pulled a perfectly-supported slope from 2.00 down to 1.17—a 42% reduction—trading a little bias for lower variance. As λ → 0 the estimate returns to OLS; as λ → ∞ the denominator dominates and β̂ → 0. A larger Σ xᵢ² (more spread, hence more signal, in the predictor) resists a fixed λ, which is precisely why predictors are standardized before a shared penalty is applied.
+The penalty pulled the toy slope from 2.00 down to 1.17—a 42% reduction—trading bias against variance. As λ → 0 the estimate returns to OLS; as λ → ∞ the denominator dominates and β̂ → 0. A larger Σ xᵢ² gives the predictor more scale against a fixed penalty, not necessarily more association with the outcome; this is why predictors are commonly standardized before a shared penalty is applied.
 
 ## Evaluating Regression and Classification Fitness
 
@@ -208,7 +208,7 @@ Survival and Cox models link to the same culture for time-to-event neurologic ou
 
 ## Regularization Paths and Choosing λ
 
-As λ goes from large to small along a Lasso path, coefficients enter the model at values where their correlation with residuals overcomes the L1 penalty—producing a sequence of nested sparse models. Cross-validated λ_min minimizes average validation loss; λ_1se (one-standard-error rule) picks a sparser model within one SE of the minimum, often more stable for clinical reporting. Plot coefficient paths against log λ and mark selected values for transparency.
+As λ goes from large to small along a Lasso path, coefficients can enter, leave, or change sign as correlations and the active set evolve; selected feature sets are not guaranteed to be nested. Cross-validated λ_min minimizes average validation loss; λ_1se (one-standard-error rule) picks a sparser model within one SE of the minimum. Plot coefficient paths against log λ and mark selected values for transparency.
 
 ![Lasso and Ridge regularization paths for five standardized predictors vs log₁₀λ.](../assets/figures/ml_fig_regularization_path.png)
 
@@ -226,9 +226,9 @@ Mini-batch gradient descent on a logistic stroke model with n=5000 might use bat
 
 Taylor intuition: near a minimum, J looks quadratic; gradient descent with small η crawls along the valley floor, while Newton jumps using curvature. Far from the minimum, the quadratic model is wrong—hence trust regions and line search in production optimizers. You need not implement BFGS to use it wisely: know that smooth convex logistic problems are well handled by second-order or quasi-Newton methods, while deep nonconvex nets (later chapters) live in the SGD world with early stopping as a first-class regularizer.
 
-Putting optimization and statistics together: the same logistic likelihood can be maximized by IRLS, L-BFGS, or mini-batch SGD; the estimator’s statistical properties depend on the model and data, not on which convergent solver you picked. Solver failure (non-convergence, overflow) is a different problem from statistical bias. Always check convergence flags before interpreting coefficients or shipping probabilities to a bedside display.
+IRLS, L-BFGS, and mini-batch SGD can target the same logistic objective. They agree only when they reach the same optimum to adequate tolerance; stopping, optimization error, and regularization implementation can otherwise change the fit. Check convergence and optimization diagnostics before interpreting coefficients or probabilities.
 
-A short ARIMA scenario: weekly ischemic stroke admissions y_t over two years. First differences (d=1) remove a slow level shift after a new thrombectomy service opens. ACF/PACF on differenced series suggest ARIMA(1,1,1). Fit on the first 18 months, forecast 8 weeks, and compare RMSE to a naive seasonal-naive baseline. If a pandemic shock hits, residuals explode—re-estimate or add exogenous regressors rather than trusting a frozen (p,d,q). Document the forecast origin and never shuffle weeks when scoring temporal models.
+A short ARIMA scenario: weekly ischemic stroke admissions y_t over two years. First differencing may address a stochastic trend, but a service-related level change is better modeled and tested with an intervention or exogenous term rather than assumed removed by differencing. ACF/PACF can help suggest ARMA terms. Fit on earlier data, forecast later weeks, and compare with a prespecified baseline; document the forecast origin and never shuffle weeks when scoring temporal models.
 
 ## Clinical and Epidemiologic Notes
 

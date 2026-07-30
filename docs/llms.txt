@@ -1,10 +1,11 @@
 # Machine Learning & AI for Neurologists
 
-> Open-source teaching ebook on ML and AI literacy for neurology and stroke. Content is CC BY 4.0; site code is ISC. Educational only — not medical advice, not device clearance, and not local deployment policy. Worked numerical examples are recomputed by scripts/verify_math_examples.py; a bounded set of consequential claims is checked in the evidence register.
+> Open-source teaching ebook on ML and AI literacy for neurology and stroke. Publisher-controlled book material is available under a scoped CC BY 4.0 grant; site code is ISC. See LICENSE and the publication standards for exclusions. Educational only — not medical advice, not device clearance, and not local deployment policy. Worked numerical examples are recomputed by scripts/verify_math_examples.py; a bounded set of consequential claims is checked in the evidence register.
 
 ## Start
 
 - [Introduction](https://rkalani1.github.io/ML/index.html): Landing page, reading routes, and the cumulative-validation framing (data validity → internal → external → clinical utility).
+- [Publication standards and disclosures](https://rkalani1.github.io/ML/publication-standards.html): Educational, AI-assistance, rights, evidence, privacy, accessibility, and correction boundaries.
 - [Evidence register](https://rkalani1.github.io/ML/evidence-register.html): Bounded log of consequential technical claims checked against primary or official sources. A checked row is narrow: it does not certify every sentence in a chapter or establish clinical utility. Unreviewed claims, benchmark currency, and deployment advice remain needs-confirmation.
 
 ## Book

@@ -1,0 +1,45 @@
+name: Factual, accessibility, or rights concern
+description: Report a specific public-page problem without sharing private data.
+title: "[Concern] "
+labels: []
+body:
+  - type: dropdown
+    id: category
+    attributes:
+      label: Concern type
+      options:
+        - Factual or quantitative correction
+        - Accessibility barrier
+        - Copyright, attribution, or licensing concern
+        - Broken link or rendering defect
+        - Other publication issue
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: Exact page or asset
+      description: Provide the public URL or repository path.
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: What should be reviewed?
+      description: Describe the issue and the narrow correction requested.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Supporting source or rights basis
+      description: Prefer a primary or official source and explain what it supports.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Public-report safeguards
+      options:
+        - label: I have not included patient information, credentials, confidential material, or unnecessary personal information.
+          required: true
+        - label: This is not an unpatched security vulnerability; those are reported privately through GitHub Security Advisories.
+          required: true

@@ -42,7 +42,7 @@ Reward: a scalar teaching signal designed by the engineer; not automatically the
 
 Episode: a finite trajectory ending in a terminal state; continuing tasks never terminate.
 
-Exploration schedule: often anneal randomness over training; freeze a safer policy at deployment.
+Exploration schedule: in simulation or an approved research setting, randomness is often annealed during training. Any fixed policy considered for operational use requires a separate evidence, governance, and monitoring decision; merely turning exploration off does not make it safe.
 
 ## 13.3 Markov Decision Processes and Gridworld
 
@@ -191,11 +191,11 @@ where N(a) is the pull count and t is the total number of pulls. The bonus shrin
 
 ### Thompson Sampling
 
-Maintain a posterior over each arm’s mean (e.g., Beta for Bernoulli rewards). Each round, sample a mean from each posterior and pull the arm with the best sample. This Bayesian approach explores arms that are plausible under the posterior and concentrates on the winner as posteriors shrink. For Bernoulli arms with Beta(alpha, beta) priors, observing reward 1 increments alpha; reward 0 increments beta. Thompson sampling often matches or beats UCB in practice and extends naturally to complex models when posterior sampling is feasible.
+Maintain a posterior over each arm’s mean (e.g., Beta for Bernoulli rewards). Each round, sample a mean from each posterior and pull the arm with the best sample. This Bayesian approach explores arms that are plausible under the posterior and concentrates on the winner as posteriors shrink. For Bernoulli arms with Beta(alpha, beta) priors, observing reward 1 increments alpha; reward 0 increments beta. Thompson sampling and UCB have different guarantees and empirical behavior under different reward models and horizons; neither has a universal performance advantage. Thompson-style methods can extend to complex models when a credible posterior or approximation can be sampled.
 
 ### Contextual Bandits and When Bandits Fit
 
-Contextual bandits observe a feature vector each round and learn a mapping from context to arm values—halfway between bandits and full RL. Real-world bandit-like problems include ad placement, ranking variants, A/B testing with adaptive allocation, and dose-finding under equipoise. In stroke systems research, choosing among a small set of triage messaging templates to maximize door-to-CT compliance is closer to a contextual bandit than to deep sequential control—provided exploration is ethically constrained and primary safety outcomes are monitored.
+Contextual bandits observe a feature vector each round and learn a mapping from context to arm values—halfway between bandits and full RL. Real-world bandit-like problems include ad placement, ranking variants, A/B testing with adaptive allocation, and dose-finding under equipoise. In stroke systems research, choosing among a small set of triage-message variants to study door-to-CT workflow is mathematically closer to a contextual bandit than to deep sequential control. It remains prospective experimentation and requires applicable scientific, ethical, regulatory, and institutional review, including a consent determination and monitoring of safety and workflow outcomes.
 
 Epsilon-greedy: simple; wastes fixed fraction on pure random pulls unless annealed.
 
@@ -330,11 +330,16 @@ Expected SARSA replaces Q(S’,A’) by the expectation under the current policy
 
 ### Dyna-Q
 
-Model-based RL can mix real experience with simulated experience. Dyna-Q stores transitions in a simple model (dictionary of observed (s,a) -> (r,s’)), performs the usual Q-learning update on real experience, then for N planning steps samples previously seen (s,a) pairs and updates Q using the model. Even small N often accelerates learning dramatically in deterministic tabular domains. In stochastic domains the model should average outcomes; in large domains learned deep models (as in Dreamer) replace the tabular dictionary.
+Model-based RL can mix real experience with simulated experience. Dyna-Q stores transitions in a simple model (for example, observed (s,a) -> (r,s’,terminal) outcomes), performs the usual Q-learning update on real experience, then for N planning steps samples previously seen (s,a) pairs and updates Q using the model. Terminal transitions must not bootstrap from a successor value. Planning updates can reduce required environment interactions in deterministic tabular examples, but the gain depends on model accuracy, coverage, and planning budget. In stochastic domains the model must represent an outcome distribution or expectation appropriately; in large domains learned function approximators or world models replace the tabular dictionary.
 
 ```python
-def q_learning_step(Q, s, a, reward, next_state, alpha=0.1, gamma=0.9, actions=range(4)):
-    td_target = reward + gamma * max(Q[next_state][next_action] for next_action in actions)
+def q_learning_step(
+    Q, s, a, reward, next_state,
+    alpha=0.1, gamma=0.9, actions=range(4), done=False,
+):
+    td_target = reward
+    if not done:
+        td_target += gamma * max(Q[next_state][next_action] for next_action in actions)
     Q[s][a] += alpha * (td_target - Q[s][a])
     return Q
 
@@ -343,8 +348,11 @@ def dyna_plan(Q, model, n_plan=10, alpha=0.1, gamma=0.9, actions=range(4)):
     keys = list(model)
     for _ in range(n_plan):
         s, a = random.choice(keys)
-        reward, next_state = model[(s, a)]
-        q_learning_step(Q, s, a, reward, next_state, alpha, gamma, actions)
+        reward, next_state, done = model[(s, a)]
+        q_learning_step(
+            Q, s, a, reward, next_state,
+            alpha=alpha, gamma=gamma, actions=actions, done=done,
+        )
     return Q
 ```
 
@@ -358,7 +366,7 @@ trading bias and variance as n varies. TD(lambda) unifies these via lambda-retur
 
 ### Eligibility Traces
 
-Each state (or state-action pair) maintains a trace \(e(s)\) that spikes when visited and decays by \(\gamma\lambda\) each step. The TD error δ updates all states in proportion to their traces: \(V(s) \leftarrow V(s) + \alpha\,\delta\,e(s)\). Accumulating traces add 1 on visits; replacing traces reset to 1. Traces implement multi-step credit assignment without waiting for episode end. Setting \(\lambda=0\) recovers one-step TD; \(\lambda=1\) approaches Monte Carlo (with appropriate implementations). Intermediate λ often works best.
+Each state (or state-action pair) maintains a trace \(e(s)\) that spikes when visited and decays by \(\gamma\lambda\) each step. The TD error δ updates all states in proportion to their traces: \(V(s) \leftarrow V(s) + \alpha\,\delta\,e(s)\). Accumulating traces add 1 on visits; replacing traces reset to 1. Traces implement multi-step credit assignment without waiting for episode end. Setting \(\lambda=0\) recovers one-step TD; \(\lambda=1\) approaches Monte Carlo in compatible episodic implementations. Intermediate values trade bias, variance, and credit horizon and should be selected under a fixed evaluation protocol rather than assumed superior.
 
 In deep RL, classical eligibility traces are less common in pure form, but n-step returns and generalized advantage estimation (GAE) play related roles in actor-critic algorithms such as A3C and PPO. GAE computes advantages as an exponentially weighted mixture of multi-step TD residuals, controlled by a lambda-like parameter that again trades bias and variance.
 
@@ -368,7 +376,7 @@ Tabular methods store a number per state or state-action pair. In large or conti
 
 Feature design for linear approximators includes tile coding, radial basis functions, and Fourier bases. Neural networks free the engineer from manual features but require stabilization tricks discussed next. In continuous action spaces, argmax_a Q(s,a) is no longer a finite enumeration; policy gradient and actor-critic methods become natural. Semi-gradient methods treat the bootstrap target as a constant with respect to w, which is biased but often practical; true residual gradients have their own pathologies.
 
-When deploying approximators, validate not only average return but failure modes: value overestimation, policy collapse, and poor coverage of rare but critical states (for example, hypotensive crises in a vital-sign MDP).
+When evaluating approximators—especially for high-consequence domains—assess not only average return but failure modes: value overestimation, policy collapse, and poor coverage of rare but critical states. A synthetic vital-sign MDP can be used to test such stress cases without implying readiness for patient care.
 
 ## 13.14 Deep Q-Networks: Replay, Target Networks, DDQN, Dueling, and PER
 
@@ -392,7 +400,7 @@ Separate streams estimate a state value V(s) and advantages A(s,a), recombined a
 
 ### Prioritized Experience Replay (PER)
 
-Instead of sampling transitions uniformly, sample with probability proportional to TD-error magnitude (plus a small epsilon), so surprising transitions are replayed more often. Importance-sampling weights correct the bias introduced by non-uniform sampling. PER often speeds learning on sparse-reward tasks but needs tuning of priority exponent and IS annealing.
+Instead of sampling transitions uniformly, sample with probability proportional to TD-error magnitude (plus a small epsilon), so surprising transitions are replayed more often. Appropriately specified importance-sampling weights can compensate for the changed sampling distribution; partial correction deliberately retains some bias. PER may improve sample efficiency on some tasks but introduces priority, correction, and annealing choices and has no universal advantage over uniform replay.
 
 Later improvements (distributional RL, noisy nets, Rainbow combinations) refine return distributions and exploration. DQN-style methods suit discrete action spaces; continuous control usually needs policy-gradient or actor-critic methods.
 
@@ -410,7 +418,7 @@ They optimize the quantity of interest directly; they can learn stochastic polic
 
 ### Trust Region Policy Optimization (TRPO)
 
-TRPO constrains policy updates so that the new policy does not move too far from the old one in KL divergence: maximize a surrogate advantage objective subject to E[KL(pi_old || pi_new)] <= delta. The theory uses minorization-maximization (MM) ideas and a surrogate loss that lower-bounds improvement when the trust region is respected. Practically, TRPO uses natural policy gradients with a Fisher-information matrix-vector product and conjugate gradient to solve the constrained problem, followed by a line search. Natural gradients precondition ordinary gradients by the Fisher metric so that steps are measured in distribution space rather than raw parameter space—important because two parameter vectors can induce very different or very similar policies depending on parameterization.
+TRPO seeks to limit policy change in KL divergence while maximizing a surrogate advantage objective, commonly using a constraint such as an average \(E[KL(\pi_{\mathrm{old}}\|\pi_{\mathrm{new}})] \leq \delta\). A theoretical monotonic-improvement bound motivates trust regions, but it involves conditions and a worst-case divergence term that the practical average-KL, local-quadratic, and sampled approximations do not exactly enforce. Practically, TRPO uses a Fisher-information matrix-vector product and conjugate gradient to approximate a natural-gradient step, followed by a line search. Natural gradients precondition ordinary gradients by the Fisher metric so that steps are measured in distribution space rather than raw parameter space—important because two parameter vectors can induce very different or very similar policies depending on parameterization.
 
 ### Proximal Policy Optimization (PPO)
 
@@ -418,7 +426,7 @@ PPO approximates the trust-region idea with a simpler clipped surrogate objectiv
 
 E[ min( r_t A_t , clip(r_t, 1-epsilon, 1+epsilon) A_t ) ],
 
-which removes incentives to push r_t far outside [1-epsilon, 1+epsilon]. An alternative PPO formulation uses an adaptive KL penalty coefficient. PPO is typically implemented as an actor-critic model: a value head estimates V for advantage computation (often via GAE), and multiple epochs of minibatch SGD reuse each batch of on-policy data carefully. PPO became a default strong baseline for continuous and discrete control due to stability and implementation simplicity relative to TRPO.
+which clips the contribution of probability-ratio changes in the direction that would otherwise keep improving the sampled surrogate outside the interval. It is not a hard constraint on every ratio or on KL divergence, and it does not guarantee monotonic policy improvement. An alternative PPO formulation uses an adaptive KL penalty coefficient. PPO is typically implemented as an actor-critic model: a value head estimates V for advantage computation (often via GAE), and multiple epochs of minibatch SGD reuse each batch of on-policy data. PPO is a common baseline because it is simpler to implement than TRPO, but stability and performance remain task- and implementation-dependent.
 
 ```python
 # logp is log pi(a_t|s_t); returns is return-to-go; baseline estimates V(s_t).
@@ -433,7 +441,7 @@ Actor-critic methods maintain both a policy (actor) pi_theta and a value functio
 
 ### Asynchronous Advantage Actor-Critic (A3C)
 
-Multiple workers each interact with their own environment copy, compute gradients of a shared actor-critic network asynchronously, and update shared parameters without a central replay buffer. Diversity of workers stabilizes learning; the advantage actor-critic (A2C) synchronous variant is often used in practice for simplicity. n-step returns are common in A3C implementations.
+Multiple workers each interact with their own environment copy, compute gradients of a shared actor-critic network asynchronously, and update shared parameters without a central replay buffer. Multiple workers can decorrelate experience, while asynchronous updates introduce their own staleness and reproducibility issues; the advantage actor-critic (A2C) synchronous variant removes asynchronous parameter writes. n-step returns are common in A3C implementations.
 
 ### Deep Deterministic Policy Gradient (DDPG)
 
@@ -441,25 +449,25 @@ For continuous actions, DDPG learns a deterministic actor mu_theta(s) and a crit
 
 ### Twin Delayed DDPG (TD3)
 
-TD3 repairs DDPG with three ideas: (1) twin critics—train two Q networks and take the minimum for targets to curb overestimation; (2) delayed policy updates—update the actor less frequently than the critics; (3) target policy smoothing—add clipped noise to the target action when forming Bellman targets. These changes substantially stabilize continuous control.
+TD3 addresses common DDPG failure modes with three ideas: (1) twin critics—train two Q networks and take the minimum for targets to curb overestimation; (2) delayed policy updates—update the actor less frequently than the critics; (3) target policy smoothing—add clipped noise to the target action when forming Bellman targets. These mechanisms can improve stability in benchmark settings but do not remove sensitivity to data, function approximation, and tuning.
 
 ### Soft Actor-Critic (SAC)
 
-SAC is an off-policy maximum-entropy actor-critic. The objective maximizes expected return plus expected policy entropy: E[sum (r + alpha H(pi(.|s))) ]. Entropy regularization encourages exploration and robustness. Soft Q-values satisfy a soft Bellman equation with an entropy-augmented backup. SAC typically uses twin critics and target critics, a stochastic actor (Gaussian with reparameterization trick for low-variance gradients), and often automatic tuning of the temperature alpha. Reparameterization writes a = tanh(mu_theta(s) + sigma_theta(s) * epsilon), epsilon ~ N(0,I), so gradients flow through sampled actions. SAC is a strong default for many continuous-control benchmarks.
+SAC is an off-policy maximum-entropy actor-critic. The objective maximizes expected return plus an entropy term: E[sum (r + alpha H(pi(.|s))) ]. Entropy regularization encourages exploration and can improve robustness in some settings. Soft Q-values satisfy a soft Bellman equation with an entropy-augmented backup. SAC typically uses twin critics and target critics, a stochastic actor (often a squashed Gaussian with a reparameterization estimator), and sometimes automatic tuning of the temperature alpha. Reparameterization can write a = tanh(mu_theta(s) + sigma_theta(s) * epsilon), epsilon ~ N(0,I), with the corresponding transformed-density correction in the policy loss. SAC is a common continuous-control comparator, not a universally strongest default.
 
 ## 13.17 Dreamer Models: Learning Behaviors in Latent Imagination
 
 Model-based RL learns a world model of transitions and rewards, then plans or optimizes a policy inside that model to reduce expensive real-environment interaction. Dreamer-style agents learn a latent dynamics model from pixels or sensory streams and train an actor-critic purely on imagined latent rollouts (“dreams”).
 
-Straight-through gradients allow discrete latent variables to backpropagate approximate gradients. Dreamer v1 established the pattern of latent imagination for continuous control from pixels. Dreamer v2 improved discrete latents and world-model training for broader domains including Atari. Dreamer v3 aimed at robustness across domains with normalized returns, symlog predictions, and carefully scaled losses so that one set of hyperparameters works on many tasks.
+Straight-through estimators provide approximate gradients through discrete latent variables. Dreamer v1 established the pattern of latent imagination for continuous control from pixels. Dreamer v2 used discrete latents and extended evaluation to domains including Atari. Dreamer v3 was designed for broader cross-domain robustness using normalized returns, symlog predictions, and scaled losses; reported reuse of a hyperparameter configuration across benchmarks is an empirical result, not a guarantee on a new domain.
 
-Conceptually, Dreamer sits near Dyna: both leverage a learned model for additional updates. The difference is scale and representation—modern world models use recurrent state-space models and rich latent sequences rather than tabular (s,a)->(r,s’) dictionaries. Clinical caution: a world model trained on observational EHR dynamics will reproduce historical practice and confounding; planning inside such a model is not the same as identifying causal treatment effects. World models are promising for high-fidelity simulators and digital twins when validated, not for unsupervised autonomy over patients.
+Conceptually, Dreamer sits near Dyna: both leverage a learned model for additional updates. The difference is scale and representation—modern world models use recurrent state-space models and rich latent sequences rather than tabular (s,a)->(r,s’) dictionaries. Clinical caution: a world model trained on observational EHR dynamics can encode historical practice, selection, measurement error, and confounding; planning inside such a model is not the same as identifying causal treatment effects. World models can be studied as simulators when their fidelity and intended scope are evaluated, not as a shortcut to unsupervised autonomy over patients.
 
 ## 13.18 Reward Design Pitfalls
 
 The reward function is a specification of desired behavior—and specifications go wrong. Reward hacking (specification gaming) occurs when the agent maximizes the literal reward in ways that violate the designer’s intent: a cleaning robot that hides dirt under a rug, a game agent that pauses forever to avoid dying if survival time is rewarded poorly, or a recommender that optimizes clicks by promoting outrage. Sparse rewards make learning hard; dense shaping rewards can speed learning but may change the optimal policy if not potential-based. Potential-based shaping restricts the added reward to the form \(F(s,s') = \gamma\Phi(s') - \Phi(s)\) for some potential function Φ over states. In the standard discounted-MDP construction, these bonus terms telescope and preserve optimal policies when terminal handling is compatible—for example, terminal states are modeled as absorbing or terminal potential is fixed to zero. In a finite episodic implementation with an unconstrained nonzero terminal potential, the remaining boundary term can change policy comparisons, so the invariance theorem should not be invoked without stating that convention. Shaping that is not potential-based—or uses incompatible terminal handling—can silently install a new optimal policy that harvests the bonus instead of solving the task; this is a common and easily missed source of reward hacking.
 
-Misaligned proxies: optimizing an easy metric (time-on-site) instead of true utility (user wellbeing). Scale and shaping: poorly scaled rewards cause vanishing or exploding advantages in deep RL. Non-stationarity: if rewards depend on other agents or changing users, the MDP assumption weakens. Safety constraints: hard constraints (do not exceed torque limits) are often better as constrained MDPs or shields than as mild penalties the agent can trade off. Evaluation: always inspect trajectories qualitatively; high return is not sufficient evidence of desired behavior.
+Misaligned proxies: optimizing an easy metric (time-on-site) instead of true utility (user wellbeing). Scale and shaping: poorly scaled rewards can cause vanishing or exploding advantages in deep RL. Non-stationarity: if rewards depend on other agents or changing users, the MDP assumption weakens. Safety constraints: where a constraint is genuinely enforceable, represent and test it explicitly—for example through a constrained MDP or a validated shield—rather than relying only on a mild penalty the agent can trade off. No formulation itself establishes safety. Evaluation: inspect trajectories qualitatively; high return is not sufficient evidence of desired behavior.
 
 Good practice includes starting from the simplest reward that encodes the true objective, using constraints for safety, logging diverse rollouts, and treating reward design as an iterative engineering process with human review—not a one-shot hyperparameter.
 
@@ -469,7 +477,7 @@ Proxy failure: optimizing LOS, clicks, or billing codes instead of patient-cente
 
 Shaping risk: dense rewards that alter the optimal policy.
 
-Constraint-first safety: hard shields beat soft penalties for irreversible harm.
+Constraint-first safety: for irreversible hazards, evaluate enforceable action constraints or shields rather than relying only on rewards that permit trading safety against return; constraint design and validation remain domain-specific.
 
 ## 13.19 Clinical and Epidemiologic Notes: Sequential Care Is High-Risk RL
 
@@ -481,21 +489,21 @@ In supervised learning, a wrong label is a local error; in RL, a wrong reward re
 
 ### Worked Thought-Example of Misspecification
 
-Suppose an intensive-care weaning policy is trained with reward +1 for each hour off mechanical ventilation and -10 for reintubation within 24 hours, with no term for delirium, aspiration, or long-term cognitive outcome. A greedy learner may learn aggressive early extubation that maximizes the +1 stream until the reintubation penalty is barely avoided on average in the training cohort. If reintubation is under-ascertained in the EHR (patients transferred, codes incomplete), the penalty is underestimated and the learned policy looks excellent offline while being unsafe. Reformulations include multi-objective returns, constrained MDPs with hard safety sets, potential-based shaping only when theory guarantees policy invariance, and human-in-the-loop vetoes.
+Suppose an intensive-care weaning policy is trained with reward +1 for each hour off mechanical ventilation and -10 for reintubation within 24 hours, with no term for delirium, aspiration, or long-term cognitive outcome. A greedy learner may learn aggressive early extubation that maximizes the +1 stream until the reintubation penalty is barely avoided on average in the training cohort. If reintubation is under-ascertained in the EHR (patients transferred, codes incomplete), the penalty is underestimated and the learned policy looks excellent offline while being unsafe. Research reformulations to evaluate include multi-objective returns, constrained MDPs with explicitly modeled safety sets, potential-based shaping only when the conditions for the policy-invariance theorem hold, and accountable human override; none cures confounding or establishes readiness for care.
 
 ### Offline RL Caution: Coverage and Confounding by Indication
 
-Nearly all clinical data for sequential decisions are off-policy: they were generated by existing guidelines, individual clinician habits, bed availability, and unrecorded preferences—not by the target policy under study. Off-policy algorithms can in principle learn about alternative actions, but theory requires adequate coverage: every relevant state-action pair must appear often enough under behavior. In stroke and critical-care logs, rare but critical actions have near-zero support. Importance-sampling estimators become extremely high variance; naive fitted Q evaluation can be optimistically biased when the function approximator extrapolates to unsupported actions. Epidemiologic parallel: confounding by indication is the cohort-study cousin of off-policy bias. Patients who receive more aggressive therapy differ systematically in severity and goals of care. An RL agent that treats “action taken” as freely choosable without a credible model of why it was taken will rediscover indication, not invent better care.
+Most routinely collected clinical data used for sequential-policy research are off-policy: they were generated by existing guidelines, individual clinician habits, bed availability, and unrecorded preferences—not by the target policy under study. Off-policy methods require adequate support for target-policy actions in the relevant states; exact requirements depend on the estimand, model, and state/action representation. In stroke and critical-care logs, some rare but critical actions may have little or no support. Importance-sampling estimators can become extremely high variance, and fitted Q evaluation can be optimistically biased when a function approximator extrapolates to unsupported actions. Epidemiologic parallel: confounding by indication is the cohort-study cousin of off-policy bias. Patients who receive more aggressive therapy can differ systematically in severity and goals of care. An RL analysis that treats “action taken” as freely choosable without a credible causal and measurement model may recover patterns of indication rather than effects of alternative care.
 
 ### Ethics, Consent, and Exploration at the Bedside
 
-Epsilon-greedy exploration is a textbook device; at the bedside it is an unconsented experiment unless embedded in an ethically approved learning health system, adaptive trial, or carefully monitored quality-improvement framework. Key ethical pressures include non-maleficence (unsafe random actions are unacceptable), justice (policies trained on tertiary-center data may under-serve community hospitals), autonomy (patient values differ), accountability (override authority and interpretability), and privacy (trajectories concatenate sensitive signals). Prefer supervised risk models, decision curves, and protocolized pathways when the decision is not truly sequential with long credit assignment. If sequential structure is essential, start with imitation of high-quality care or constrained contextual bandits under equipoise, not open-ended deep RL. Demand overlap diagnostics and conservative off-policy evaluation; plan prospective evaluation with safety monitoring before any automated action selection touches patients. Audit subgroup performance because policy regret is often concentrated in minorities of the state space.
+Epsilon-greedy exploration is a textbook device; at the bedside it is prospective experimentation and requires the applicable scientific, ethical, regulatory, and institutional review, including an explicit consent determination. Calling an activity a learning-health-system or quality-improvement project does not itself waive those requirements. Key ethical pressures include non-maleficence (unsafe random actions are unacceptable), justice (policies trained on tertiary-center data may under-serve community hospitals), autonomy (patient values differ), accountability (override authority and interpretability), and privacy (trajectories concatenate sensitive signals). Prefer non-RL comparators when the decision is not truly sequential with long credit assignment. If sequential structure is scientifically essential, imitation learning or constrained contextual bandits may be research comparators under genuine equipoise and appropriate oversight; neither is a shortcut to clinical use. Require overlap diagnostics and conservative off-policy evaluation, and complete risk-appropriate prospective evaluation before any automated action selection can influence care. Audit subgroup performance because aggregate return can hide concentrated policy failure.
 
 Treat reward design as a multidisciplinary specification problem—document it like a trial endpoint.
 
 Require coverage/overlap diagnostics before trusting offline value estimates.
 
-Constrain exploration to safe action sets designed with domain experts.
+In an approved experiment, restrict exploration to prespecified action sets and stop rules designed with domain experts and the responsible oversight bodies; this restriction does not by itself establish safety.
 
 Validate prospectively; retrospective return is not a license to automate care.
 
@@ -527,6 +535,6 @@ Reinforcement learning studies agents that interact with environments to maximiz
 
 (7) Design a reward for a recycling robot and then describe one plausible reward-hacking behavior. Propose a constraint that mitigates it.
 
-(8) Clinical critique: propose a reward for post-stroke blood-pressure management in the first 72 hours. Identify two misspecification risks and an off-policy evaluation diagnostic you would require before trusting a learned policy on EHR trajectories.
+(8) Clinical critique: examine a hypothetical reward for a simulated or offline post-stroke blood-pressure research model in the first 72 hours. Identify two misspecification risks, a coverage diagnostic, and why retrospective off-policy evaluation would not authorize treatment recommendations.
 
-(9) Ethics scenario: an offline RL system recommends a rarely used medication sequence supported by n = 12 historical patients. Argue for or against deployment using coverage, justice, and accountability criteria.
+(9) Ethics scenario: an offline RL system assigns high value to a rarely used medication sequence supported by n = 12 historical patients. Explain why that evidence is insufficient for deployment and specify the coverage, causal, justice, accountability, and prospective-study questions that remain.

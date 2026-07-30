@@ -6,7 +6,7 @@
 |--------|----------------|
 | Busy clinical fellow | Chapters on basic concepts → classification/regression → evaluation traps → deep learning overview → clinical data challenges |
 | Research-oriented trainee | Mathematical foundations → probability → feature engineering → supervised learning → neural nets → RL / graphs as needed |
-| Journal club / model appraisal lead | Pair with the sibling [CRIT-APP AI appraisal chapter](https://rkalani1.github.io/CRIT-APP/curriculum/14-appraising-artificial-intelligence-and-machine-learning-papers/); use this book for method literacy |
+| Journal club / model appraisal lead | Pair with the sibling [CRIT-APP AI appraisal chapter](https://rkalani1.github.io/CRIT-APP/curriculum/14-appraising-artificial-intelligence-and-machine-learning-papers.html); use this book for method literacy |
 | Implementation / QI lead | Data challenges → lighter models → monitoring, fairness, and deployment judgment sections |
 
 ## Chapter pattern

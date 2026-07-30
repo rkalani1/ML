@@ -14,7 +14,7 @@ A fellow freezes at a gradient step in a methods appendix for an ICH expansion m
 
 Machine learning looks intimidating from the outside mostly because of its notation. Strip away the symbols and the field rests on a compact stack of mathematics: the language of sets and functions; algebra and logarithms; the calculus of change (derivatives) and accumulation (integrals); the algebra of vectors and matrices; the logic of probability; and the discipline of optimization. The stack begins with elementary notation and connects each piece to its later applications in the book.
 
-The chapter assumes only that you once learned high-school algebra and are willing to work examples by hand — nothing more. It does not assume you remember any of it. Concepts are introduced in the same order they build on one another: first the notation for reading equations aloud (0.1), then numbers, algebra, and logarithms (0.2) and the catalog of functions machine learning actually uses (0.3); sums and counting (0.4) and the trigonometry behind Fourier features and attention (0.5); single-variable calculus (0.6–0.8) and its multivariable extension — gradients, Jacobians, Hessians — that powers every optimizer and neural network (0.9); the linear algebra of vectors, matrices, and their eigen- and singular-value decompositions (0.10–0.12); the foundations of probability (0.13); optimization and gradient descent (0.14); the discrete mathematics and complexity behind algorithms (0.15); and the numerical realities of computing with finite-precision arithmetic (0.16). Section 0.17 collects a notation glossary and a table mapping each topic to the chapters that depend on it.
+The chapter assumes only that you once learned high-school algebra and are willing to work examples by hand — nothing more. It does not assume you remember any of it. Concepts are introduced in the same order they build on one another: first the notation for reading equations aloud (0.1), then numbers, algebra, and logarithms (0.2) and the catalog of functions machine learning actually uses (0.3); sums and counting (0.4) and the trigonometry behind Fourier features and attention (0.5); single-variable calculus (0.6–0.8) and its multivariable extension — gradients, Jacobians, Hessians — used by many gradient-based optimizers and differentiable models (0.9); the linear algebra of vectors, matrices, and their eigen- and singular-value decompositions (0.10–0.12); the foundations of probability (0.13); optimization and gradient descent (0.14); the discrete mathematics and complexity behind algorithms (0.15); and the numerical realities of computing with finite-precision arithmetic (0.16). Section 0.17 collects a notation glossary and a table mapping each topic to the chapters that depend on it.
 
 Two habits make this chapter pay off. First, work every numeric example with pen and paper; the intermediate steps are printed precisely so you can check yourself. Second, treat the chapter as a reference, not a gate — each concept carries a “→ Used in Chapter N” pointer, so when a later chapter invokes a gradient, an eigenvector, or Bayes’ theorem, you can return here for a full, self-contained treatment. You do not need to master all of it before Chapter 1; you need to know it is here.
 
@@ -261,7 +261,7 @@ Exponentials model quantities that change by a proportion of their current size.
 
 ### Why logarithms pervade ML
 
-Logs are not decoration; they are structural. First, models multiply many probabilities together, and tiny numbers like 0.001 × 0.002 × … underflow a computer to zero; taking logs turns that fragile product into a stable sum (the log-likelihood), the quantity most models actually maximize. Second, the log-odds or logit, ln(p / (1 − p)), stretches a probability trapped in [0, 1] onto the whole real line, which is exactly what a linear model needs to predict. Third, quantities spanning many orders of magnitude (gene expression, word counts) are tamed by plotting on a log scale, where equal steps mean equal ratios.
+Logs are not decoration; they are structural. First, models multiply many probabilities together, and tiny numbers like 0.001 × 0.002 × … underflow a computer to zero; taking logs turns that fragile product into a stable sum (the log-likelihood), the quantity many likelihood-based models maximize. Second, the log-odds or logit, ln(p / (1 − p)), stretches a probability trapped in (0, 1) onto the whole real line, allowing a generalized linear model to use an unbounded linear predictor. Third, quantities spanning many orders of magnitude (gene expression, word counts) are tamed by plotting on a log scale, where equal steps mean equal ratios.
 
 → Used in Chapter 3 (log-likelihood), Chapter 9 (log-odds and logistic regression), and Chapter 14 (numerical stability).
 
@@ -307,7 +307,7 @@ Perhaps the single most important curve in this book:
 
 σ(z) = 1 / (1 + e^(−z)).
 
-It takes any real number and squashes it into the open interval (0, 1), making it perfect for turning an unbounded score into a probability. Its graph is a smooth S-curve: far left it hugs 0, far right it hugs 1, and it passes through the midpoint (0, 0.5). Compute a few values (using e^(−2) ≈ 0.1353, e² ≈ 7.389):
+It takes any real number and squashes it into the open interval (0, 1), making it useful as the inverse-logit link for a modeled probability. Its output is not automatically calibrated: that interpretation depends on the model, loss, data, and evaluation. Its graph is a smooth S-curve: far left it hugs 0, far right it hugs 1, and it passes through the midpoint (0, 0.5). Compute a few values (using e^(−2) ≈ 0.1353, e² ≈ 7.389):
 
 σ(0) = 1 / (1 + 1) = 0.5.
 
@@ -321,11 +321,11 @@ Notice the elegant symmetry σ(−2) = 1 − σ(2), since 0.119 + 0.881 = 1. And
 
 ### Softmax: a preview
 
-When there are several classes rather than two, the softmax generalizes the sigmoid: it takes a list of scores and returns positive numbers that sum to 1 — a probability distribution. Given raw scores (2, 1, 0), exponentiate each (e² ≈ 7.389, e¹ ≈ 2.718, e⁰ = 1), sum them (7.389 + 2.718 + 1 = 11.107), and divide:
+When there are several classes rather than two, softmax generalizes the sigmoid: it takes a list of scores and returns positive normalized weights that sum to 1. In a probabilistic classification model these weights are interpreted as class probabilities, but calibration still has to be assessed. Given raw scores (2, 1, 0), exponentiate each (e² ≈ 7.389, e¹ ≈ 2.718, e⁰ = 1), sum them (7.389 + 2.718 + 1 = 11.107), and divide:
 
 (7.389, 2.718, 1) / 11.107 ≈ (0.665, 0.245, 0.090), which sums to 1.000. ✓
 
-→ Used in Chapter 9 and Chapter 12: softmax produces class probabilities and attention weights.
+→ Used in Chapter 9 and Chapter 12: softmax normalizes class scores and attention scores; attention weights are not class probabilities.
 
 ### ReLU and piecewise functions
 
@@ -333,7 +333,7 @@ A piecewise function uses different rules on different stretches of input. The s
 
 ReLU(z) = max(0, z),
 
-which returns z when z is positive and 0 otherwise — a flat floor that suddenly kinks upward at the origin. So ReLU(3) = 3 and ReLU(−3) = 0. Its very simplicity (and cheapness to compute) made it the default nonlinearity in modern neural networks.
+which returns z when z is positive and 0 otherwise — a flat floor that suddenly kinks upward at the origin. So ReLU(3) = 3 and ReLU(−3) = 0. Its simplicity and low computational cost made it a common nonlinearity in modern neural networks.
 
 → Used in Chapter 10: ReLU is the workhorse activation between network layers.
 
@@ -958,7 +958,7 @@ Second-derivative test. Often faster. At a critical point c where f′(c) = 0: -
 
 ### Convexity
 
-A function is convex on an interval when f″(x) ≥ 0 throughout — it curves upward everywhere, like a bowl. Convexity is the property optimizers dream of: a convex function has no false valleys. Any critical point is automatically the global minimum, so gradient descent cannot get trapped in a lesser dip. Much of the design of loss functions is an effort to keep them convex, or nearly so.
+A twice-differentiable function is convex on an interval when f″(x) ≥ 0 throughout — it curves upward everywhere, like a bowl. A differentiable convex function has no suboptimal local minima: every interior stationary point is a global minimizer. This geometric fact does not guarantee that a particular gradient-descent schedule converges, nor that a minimizer is unique. Many classical loss functions retain convexity because it simplifies optimization.
 
 ### Worked minimization 1: the loss L(w) = (w − 3)² + 1
 
@@ -1225,7 +1225,7 @@ Magnitude. The length ‖∇f‖ is the rate of that fastest increase — how st
 
 And, connecting back to contours: at a regular point of a smooth level set, ∇f is perpendicular to that level set. That is why the steepest path uphill crosses regular contours at right angles.
 
-This single fact — walk opposite the gradient to go downhill fastest — is the entire idea behind gradient descent, the algorithm that trains essentially every model in this book:
+This single fact — walk opposite the gradient to go downhill fastest — is the entire idea behind gradient descent, which trains many differentiable models in this book:
 
 ```
 initialize 𝐱
@@ -2065,7 +2065,7 @@ Answers.
 
 In §0.11 a matrix became a transformation: feed it a vector and it can rotate, stretch, or shear space. Some square transformations have special directions that are not rotated: an eigenvector remains on the same line, scaled by its eigenvalue. Not every real matrix has a real eigenvector; a 90-degree planar rotation is a standard counterexample, while complex eigenvectors are beyond this introduction.
 
-Think of a sheet of rubber pinned at the origin and stretched. Some fibres get dragged sideways as the sheet deforms; but a few fibres just get longer or shorter while staying on their own line. Find those fibres and you understand the deformation completely — everything else is a blend of them. For a data scientist the payoff is enormous: eigenvectors are the “natural axes” of a matrix, the coordinate system in which a complicated transformation becomes simple scaling.
+Think of a sheet of rubber pinned at the origin and stretched. Some fibres get dragged sideways as the sheet deforms; but a few fibres just get longer or shorter while staying on their own line. For a diagonalizable matrix, an eigenvector basis lets every vector be written as a blend of those invariant directions; defective matrices need additional machinery. When a matrix admits a useful eigenbasis, a complicated transformation becomes simple scaling in that coordinate system.
 
 ### Definition and the characteristic equation
 
@@ -2109,7 +2109,7 @@ det(𝐀 − λ𝐈) = (2−λ)(2−λ) − (1)(1) = (2−λ)² − 1 = 0.
 
 So (2−λ)² = 1, giving 2−λ = ±1, hence λ₁ = 3 and λ₂ = 1.
 
-A handy sanity check: the eigenvalues must sum to the trace (the diagonal sum) and multiply to the determinant. Here 3 + 1 = 4 = 2 + 2 ✓ and 3 × 1 = 3 = (2)(2) − (1)(1) ✓. Equivalently, the characteristic equation is always λ² − (trace)λ + (det) = λ² − 4λ + 3 = (λ − 3)(λ − 1) = 0.
+A handy sanity check: the eigenvalues must sum to the trace (the diagonal sum) and multiply to the determinant. Here 3 + 1 = 4 = 2 + 2 ✓ and 3 × 1 = 3 = (2)(2) − (1)(1) ✓. For a 2 × 2 matrix, the characteristic equation is λ² − (trace)λ + (det) = λ² − 4λ + 3 = (λ − 3)(λ − 1) = 0.
 
 Step 3 — find each eigenvector by solving (𝐀 − λ𝐈)𝐯 = 0.
 
@@ -2229,7 +2229,7 @@ Write the SVD as a sum of rank-1 layers, ordered from most to least important:
 𝐀 = σ₁ 𝐮₁𝐯₁ᵀ + σ₂ 𝐮₂𝐯₂ᵀ + …
 ```
 
-Each term σᵢ𝐮ᵢ𝐯ᵢᵀ is a whole matrix (an outer product) weighted by its singular value. Because σ₁ ≥ σ₂ ≥ …, the first few terms carry most of the “energy.” Keeping only the top k gives the best possible rank-k approximation of 𝐀 — no other rank-k matrix comes closer (a fact called the Eckart–Young theorem). This is data compression with a guarantee.
+Each term σᵢ𝐮ᵢ𝐯ᵢᵀ is a whole matrix (an outer product) weighted by its singular value. The first few terms carry most of the squared Frobenius “energy” only when the singular spectrum decays sufficiently quickly. Keeping the top k nevertheless gives a best rank-k approximation of 𝐀 in the Frobenius and spectral norms (the Eckart–Young–Mirsky theorem); whether the resulting approximation is accurate depends on the discarded spectrum.
 
 Take our 𝐀 = [[2, 1], [1, 2]] and keep only the top term (k = 1). With 𝐮₁ = 𝐯₁ = [1, 1]/√2:
 
@@ -2239,7 +2239,7 @@ Take our 𝐀 = [[2, 1], [1, 2]] and keep only the top term (k = 1). With 𝐮�
  2
 ```
 
-The dropped part is 𝐀 − 𝐀₁ = [[0.5, −0.5], [−0.5, 0.5]], whose overall size (its Frobenius norm, √(0.5² + 0.5² + 0.5² + 0.5²) = 1) is exactly the discarded singular value σ₂ = 1. That is the general rule: throwing away small singular values costs you only as much error as those singular values are large. For a big matrix whose singular values decay quickly, a handful of terms reproduce it almost perfectly while storing a tiny fraction of the numbers.
+The dropped part is 𝐀 − 𝐀₁ = [[0.5, −0.5], [−0.5, 0.5]], whose overall size (its Frobenius norm, √(0.5² + 0.5² + 0.5² + 0.5²) = 1) is exactly the one discarded singular value σ₂ = 1. In general, the rank-k residual has spectral norm σ_{k+1} and Frobenius norm \(\sqrt{\sum_{i>k}\sigma_i^2}\). For a big matrix whose singular values decay quickly, a handful of terms can reproduce it accurately while storing a small fraction of the numbers.
 
 ### From SVD to PCA
 
@@ -2413,7 +2413,7 @@ read “the argument that minimizes f” — not the smallest value of f, but th
 
 From §0.9 you know the terrain. A global minimum is the lowest point of the whole surface — the answer we truly want. A local minimum is merely lower than its immediate neighbours: the bottom of a side valley from which every small step leads uphill, even though a deeper valley exists elsewhere. A saddle point is flat in every direction yet is a minimum along some axes and a maximum along others — like a mountain pass, low between two peaks but high across the ridge.
 
-All three share one feature: the ground is level, so the gradient is zero. Distinguishing them is exactly the Hessian (second-derivative) test from §0.9, now readable through §0.12: at a level point, a positive-definite Hessian (all eigenvalues > 0) means a local minimum, negative-definite means a maximum, and indefinite (mixed-sign eigenvalues) means a saddle. Saddles, not bad local minima, turn out to be the main obstacle in the vast parameter spaces of neural networks.
+At differentiable interior examples of all three, the gradient is zero. The Hessian (second-derivative) test from §0.9 helps classify a nondegenerate stationary point: a positive-definite Hessian means a strict local minimum, negative-definite means a strict local maximum, and an indefinite Hessian means a saddle. A semidefinite Hessian is inconclusive. In large neural networks, saddles, flat plateaus, ill-conditioning, stochastic noise, and suboptimal basins can all complicate optimization; no single obstacle is universal.
 
 ### Convex sets and convex functions
 
@@ -2439,7 +2439,7 @@ The multivariable version of “set the derivative to zero” is the stationarit
 ∇f(𝐱) = 0,
 ```
 
-meaning every partial derivative vanishes at once — the ground is level in all directions simultaneously (§0.9). This is a necessary condition for a minimum: any minimum is a stationary point. For a convex function it is also sufficient — a stationary point is guaranteed to be the global minimum. Sometimes we can solve ∇f = 0 by hand (that is how linear regression’s “normal equations” arise in Chapter 8). Usually the equations are too tangled for that, and we descend toward the solution instead.
+meaning every partial derivative vanishes at once — the ground is level in all directions simultaneously (§0.9). For a differentiable unconstrained objective, an interior local minimum must be stationary. Boundary optima, constrained problems, and nondifferentiable objectives require different conditions. For a differentiable convex function, stationarity is sufficient for global optimality. Sometimes we can solve ∇f = 0 by hand (that is how linear regression’s “normal equations” arise in Chapter 8). Usually the equations are too tangled for that, and we descend toward the solution instead.
 
 ### Gradient descent
 
@@ -2449,9 +2449,9 @@ Recall from §0.9 that the gradient ∇f points in the direction of steepest inc
 𝐱 ← 𝐱 − η ∇f(𝐱).
 ```
 
-Starting from a guess, repeatedly nudge 𝐱 a little way down the local slope; the moves shrink as the ground flattens near a minimum, where ∇f → 0 and the updates stop. The knob η (eta) is the learning rate — how big a step to take:
+Starting from a guess, repeatedly nudge 𝐱 down the local slope. Under suitable smoothness and step-size conditions, the gradient and updates may shrink near a stationary point; neither behavior is automatic for every objective or schedule. The knob η (eta) is the learning rate — how big a step to take:
 
-η too small: each step barely moves; convergence is correct but painfully slow.
+η too small: each step barely moves; progress can be painfully slow even when convergence conditions otherwise hold.
 
 η too large: you overshoot the valley floor, landing higher on the far wall; steps can oscillate and even diverge, flinging you outward forever.
 
@@ -2486,7 +2486,7 @@ repeat until ∇f is tiny:
 
 ### Stochastic vs. batch (a preview)
 
-In real training f is an average of the loss over many data points, so the exact gradient sums a contribution from every example — one batch (full) gradient step can mean touching millions of rows. Stochastic gradient descent (SGD) instead estimates the gradient from one example, or a small mini-batch, at a time. Each step is noisier but vastly cheaper, and the noise even helps jiggle the optimizer out of shallow traps. Almost all modern training is mini-batch SGD.
+In real training f is an average of the loss over many data points, so the exact gradient sums a contribution from every example — one batch (full) gradient step can mean touching millions of rows. Stochastic gradient descent (SGD) instead estimates the gradient from one example, or a small mini-batch, at a time. Each step is noisier but cheaper, and under some landscapes that noise can help move away from saddles or shallow basins. Mini-batch gradient methods are common in large-scale differentiable training.
 
 → Used in Chapter 8 and Chapter 10: SGD and its adaptive descendants (momentum, RMSProp, Adam) are how regression models and deep networks are actually trained at scale.
 
@@ -2519,7 +2519,7 @@ Sometimes we must minimize f subject to a constraint g(𝐱) = 0 — stay on a s
 ∇f = λ ∇g,
 ```
 
-where the scalar λ is the Lagrange multiplier. The intuition: ∇f is the downhill-blocking direction and ∇g is perpendicular to the constraint surface; when they align, every allowed move (along the surface, perpendicular to ∇g) is also perpendicular to ∇f, so no allowed step changes f to first order — you are stuck at the best feasible point.
+where the scalar λ is the Lagrange multiplier. The intuition: ∇f is the downhill-blocking direction and ∇g is perpendicular to the constraint surface; when they align, every allowed move (along the surface, perpendicular to ∇g) is also perpendicular to ∇f, so no allowed step changes f to first order. This is a necessary condition under the stated regularity assumptions, not proof that the candidate is the best feasible point; compare candidates and check second-order or problem-specific conditions.
 
 A quick example: minimize f = x² + y² (squared distance to the origin) subject to x + y = 1. Here ∇f = [2x, 2y] and ∇g = [1, 1], so 2x = λ and 2y = λ force x = y; the constraint x + y = 1 then gives x = y = ½, with f = ½. The closest point on the line to the origin is its foot of perpendicular — precisely what the geometry predicts.
 
@@ -2730,11 +2730,11 @@ Worked example. Let z = [1000, 1001, 1002]. Directly, exp(1000) overflows a doub
 
 = 1002 + log( exp(−2) + exp(−1) + exp(0) ) = 1002 + log( 0.1353 + 0.3679 + 1 ) = 1002 + log(1.5032) = 1002 + 0.4076 ≈ 1002.408.
 
-Clipping. Because log(0) = −∞, code that takes log(p) — cross-entropy loss, for instance — first clips p into [ε, 1 − ε] with a tiny ε ≈ 10⁻¹⁵, keeping the logarithm finite.
+Clipping. Because log(0) = −∞, code that must consume probabilities may clip p into [ε, 1 − ε], with ε chosen for the numeric precision and application. When logits are available, stable log-softmax or fused cross-entropy implementations are preferable because arbitrary clipping changes the objective.
 
 ### Numerical stability and conditioning
 
-An algorithm is numerically stable if small input perturbations cause only small output changes. Some problems, though, are inherently ill-conditioned — they amplify any error, however good the algorithm. Solving a linear system Ax = b when A is nearly singular is the canonical case: the condition number κ(A) = σ₁ / σₙ (largest over smallest singular value, from the SVD of §0.12) measures the amplification. A large κ means a tiny wobble in b can swing x wildly. When an optimizer crawls or diverges, ill-conditioning is a prime suspect. → See §0.14 for how conditioning shapes optimization landscapes.
+Conditioning describes sensitivity of the mathematical problem: a well-conditioned problem changes little under small input perturbations, whereas an ill-conditioned problem amplifies them even if the algorithm is excellent. Numerical stability describes the algorithm: roughly, a stable method controls rounding error and returns the exact answer to a nearby problem. Solving Ax = b when A is nearly singular is the canonical ill-conditioned case; the condition number κ(A) = σ₁ / σₙ (largest over smallest singular value, from the SVD of §0.12) quantifies worst-case relative sensitivity in the 2-norm when A is nonsingular. A large κ means a tiny wobble can swing the solution markedly. When an optimizer crawls or behaves erratically, ill-conditioning is one possible cause. → See §0.14 for how conditioning shapes optimization landscapes.
 
 ### Vectorization and the cost of matrix operations
 
