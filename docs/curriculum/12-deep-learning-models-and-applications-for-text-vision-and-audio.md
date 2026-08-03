@@ -1,21 +1,7 @@
 # Chapter 12. Deep Learning Models and Applications for Text, Vision, and Audio
 
-## Opening
+Multimodal deep learning integrates vision, natural language, and acoustic signals using specialized architectures—including convolutional networks, recurrent cells, transformers, and cross-modal attention layers.
 
-A multimodal model claims to fuse note text, DWI, and audio dysphagia screens. Cross-modal architectures are exciting; they also multiply failure modes. This chapter separates capability demos from clinically transportable systems.
-
-
-![Self-attention weights for the three-token worked example.](../assets/figures/ml_fig_attention.png)
-
-*Scaled dot-product self-attention α and context vector for q=t₁.*
-
-![Deep models compose layered representations.](../assets/figures/ml_fig_mlp.png)
-
-*Deep models compose layered representations.*
-
-![Site shift in embedding space.](../assets/figures/ml_fig_site_shift.png)
-
-*Site shift in embedding space.*
 ## 12.1 Sequence-to-Sequence and Attention
 
 Sequence-to-sequence (seq2seq) models map an input sequence (tokens, frames, time points) to an output sequence of possibly different length—machine translation, summarization, speech recognition, discharge-summary generation. The classic encoder–decoder RNN compresses the input into a single fixed vector passed to the decoder. That bottleneck discards positional detail for long inputs and motivates attention: at each decoder step, compute a weighted average of encoder states rather than a single summary. Clinical sequence pairs include: EMS narrative → structured last-known-well and anticoagulant flags; radiology impressions → ICD-style codes; serial NIHSS plus vitals → free-text deterioration alerts. Length mismatch and domain vocabulary make attention and subword tokenization essential rather than optional.

@@ -1,21 +1,7 @@
 # Chapter 2. Visualization
 
+Data and model visualization serves as a primary diagnostic for data quality, distribution shift, missingness, and calibration, transforming complex high-dimensional distributions and evaluation metrics into actionable visual checks.
 
-
-
-## Opening
-
-![Visualization hygiene.](../assets/figures/ml_fig_viz_hygiene.png)
-
-*Clear baseline versus truncated axis.*
-
-
-A quality dashboard shows a green line for door-to-needle. A density plot of NIHSS looks normal until you split by transfer status. Visualization is not decoration—it is the first place site shift and selection bias become visible.
-
-
-![Calibration view as a visual truth check.](../assets/figures/ml_fig_calibration.png)
-
-*Calibration view as a visual truth check.*
 ## Background and History
 
 Visualization is the mapping of data to visual channels so that human perception can detect structure, anomaly, and comparison more efficiently than by scanning tables alone. Long before machine learning, scientists used graphics to argue about evidence: Playfair’s commercial and political charts in the late eighteenth century popularized line, bar, and pie forms; Nightingale’s polar area diagrams made sanitary reform vivid; Snow’s cholera map linked cases to a water pump; Minard’s flow map of Napoleon’s march combined geography, time, and attrition. Twentieth-century statisticians—notably Tukey—reframed graphics as tools for exploratory data analysis (EDA): the goal is to see what you did not expect, not only to decorate what you already believe.

@@ -1,17 +1,7 @@
 # Chapter 15. Graph Mining Algorithms
 
-## Opening
-![Toy patient-similarity graph.](../assets/figures/ml_fig_graph_toy.png)
+Graph mining extracts structural signals from non-Euclidean relational data, using network topology, centrality metrics, spectral graph theory, and graph neural networks to model complex entity relationships.
 
-*Toy patient-similarity graph.*
-
-
-A network analysis links hospitals, transfer patterns, and outcome codes. Graph methods can reveal systems structure; they can also launder confounding through edges. Literacy here protects both science and equity claims.
-
-
-![Graph/embedding geometry can drift across sites.](../assets/figures/ml_fig_site_shift.png)
-
-*Graph/embedding geometry can drift across sites.*
 ## 15.1 What Is a Graph?
 
 A graph G = (V, E) consists of a set of nodes (vertices) V and a set of edges E connecting pairs of nodes. Edges may be undirected {i, j} or directed (i -> j). They may be unweighted or carry weights w_ij (travel time, correlation, number of shared patients, synaptic density proxies). Multigraphs allow multiple edges; simple graphs do not. A path is a sequence of distinct nodes joined by edges; a cycle returns to its start; a connected component is a maximal set of nodes mutually reachable when ignoring direction (weak connectivity) or respecting direction (strong connectivity).

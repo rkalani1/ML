@@ -1,13 +1,7 @@
 # Chapter 13. Reinforcement Learning
 
-## Opening
+Reinforcement learning formalizes sequential decision-making under uncertainty through Markov decision processes, optimizing policy functions to maximize long-term cumulative reward.
 
-A simulation lab proposes reinforcement learning for sequential BP targets after thrombolysis. RL requires a reward design that does not quietly optimize the wrong clinical trade-off. Stroke care is not Atari.
-
-
-![Agent–environment loop for sequential decisions.](../assets/figures/ml_fig_rl_loop.png)
-
-*Agent–environment loop for sequential decisions.*
 ## 13.1 From Supervised Labels to Sequential Decisions
 
 Most of the methods in earlier chapters assume a fixed dataset of independent examples: given an input x, predict a label y or a continuous target. Reinforcement learning (RL) addresses a different problem. An agent repeatedly chooses actions that affect a dynamic environment. After each action the environment transitions to a new situation and emits a scalar reward signal. The agent’s objective is not to mimic a teacher’s labels on isolated examples, but to accumulate as much reward as possible over time—often over a long horizon in which early mistakes close off later opportunities.

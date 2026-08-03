@@ -1,16 +1,7 @@
 # Chapter 4. Clustering
 
+Clustering algorithms partition unlabelled data points into groups based on similarity metrics, providing exploratory data analysis while requiring rigorous validation to distinguish genuine structure from artifactual noise.
 
-
-
-## Opening
-
-A research coordinator proposes clustering ‘phenotypes’ of cryptogenic stroke from EHR labs and imaging codes. Clustering can discover structure—or invent comforting noise. The central appraisal question is which one the analysis produced.
-
-
-![Clustering sketch with centroids.](../assets/figures/ml_fig_clustering.png)
-
-*Clustering sketch with centroids.*
 ## What Clustering Is and Is Not
 
 Clustering algorithms group unlabeled observations so that items in the same group are more similar to each other than to items in other groups, under a stated similarity geometry. Formally, given points x_1, …, x_n in a feature space, a hard clustering is an assignment c: {1,…,n} → {1,…,k} (or a partition into nonempty sets C_1, …, C_k). Soft clustering returns responsibilities r_{ij} = P(cluster j | x_i), typically with Σ_j r_{ij} = 1.

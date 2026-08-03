@@ -1,17 +1,7 @@
 # Chapter 14. Making Lighter Neural Network and Machine Learning Models
 
-## Opening
-![Distill/prune teaching sketch.](../assets/figures/ml_fig_distill_prune.png)
+Model compression reduces computational footprint and latency for edge deployment via quantization, knowledge distillation, structured pruning, and low-rank approximation.
 
-*Distill/prune teaching sketch.*
-
-
-Your hospital’s edge device cannot run a 7-billion-parameter model during a code stroke. Compression, distillation, and efficient architectures are deployment medicine—not just engineering fashion.
-
-
-![Smaller deployed nets still need appraisal discipline.](../assets/figures/ml_fig_mlp.png)
-
-*Smaller deployed nets still need appraisal discipline.*
 ## 14.1 Why Lighter Models Matter
 
 A model that is accurate in a data center can still fail as a clinical tool if it is too slow, too large, too power-hungry, or too dependent on continuous cloud connectivity. Lighter models address the practical constraints of deployment: milliseconds of latency in a stroke alert pathway, limited RAM on a tablet at the bedside, intermittent connectivity in a mobile stroke unit (MSU), battery life for wearable continuous monitoring, and institutional rules that prefer keeping identifiable data on-device rather than streaming raw waveforms or images off-site. Compression and efficient design are therefore not cosmetic optimizations; they are often the difference between a research prototype and a system that can operate under real clinical logistics.

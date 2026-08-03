@@ -1,16 +1,7 @@
 # Chapter 3. Probability and Statistics
 
+Probability theory provides the mathematical foundation for quantifying uncertainty, formulating likelihoods, applying Bayes' theorem under clinical prevalence, and evaluating model calibration.
 
-
-
-## Opening
-
-A hemorrhage-risk model quotes sensitivity 0.92 and specificity 0.88. Without prevalence, Bayes, and calibration language, those numbers are theater. This chapter rebuilds the probability spine for clinical ML consumers.
-
-
-![Predicted risk versus observed frequency.](../assets/figures/ml_fig_calibration.png)
-
-*Predicted risk versus observed frequency.*
 ## Why Probability Underwrites Clinical Machine Learning
 
 Every predictive model in neurology is a statement under uncertainty. Labels such as large-vessel occlusion on CTA, electrographic seizure on EEG, or 90-day modified Rankin Scale are noisy; future patients differ from historical registries; multiple models can fit the same finite sample. Probability supplies a coherent language for that uncertainty. Statistics supplies estimators, intervals, and tests that quantify how wrong finite-sample answers might be. Without this foundation, an AUC is a floating score, a calibrated probability is wishful labeling, and Bayesian updating—central to diagnosis and to many learning algorithms—cannot be stated precisely.

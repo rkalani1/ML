@@ -1,16 +1,7 @@
 # Chapter 7. Dimensionality Reduction and Data Decomposition
 
+High-dimensional datasets introduce sparsity and overfitting risks. Dimensionality reduction techniques project feature spaces onto lower-dimensional manifolds while preserving variance, geometry, or latent factor structure.
 
-
-
-## Opening
-
-A multiparametric MRI radiomics pipeline has 1,200 features and 180 patients. Dimensionality reduction is not optional aesthetics; it is survival against overfitting and irreproducible stroke biomarkers.
-
-
-![Dimensionality reduction intuition along a dominant axis.](../assets/figures/ml_fig_pca.png)
-
-*Dimensionality reduction intuition along a dominant axis.*
 ## High Dimensions Are Not Just More Numbers
 
 Modern neurologic datasets often describe each patient or sample with hundreds or millions of coordinates: CT perfusion maps vectorized into voxels, multiparametric MRI features, gene expression probes, proteomic peaks, continuous EEG channels, wearable accelerometry windows, or wide EHR panels joining every lab ordered during an admission. High dimensionality brings statistical and geometric pathologies collectively called the curse of dimensionality.

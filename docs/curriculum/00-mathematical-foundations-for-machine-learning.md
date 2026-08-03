@@ -1,22 +1,6 @@
 # Chapter 0. Mathematical Foundations for Machine Learning
 
-
-
-
-## Opening
-
-A fellow freezes at a gradient step in a methods appendix for an ICH expansion model. The clinical question is still bedside-valid, but the math barrier is blocking appraisal. Chapter 0 rebuilds the minimum calculus and linear algebra needed to read ML without surrendering clinical judgment.
-
-
-![Gradient descent on a synthetic loss surface.](../assets/figures/ml_fig_gradient_descent.png)
-
-*Gradient descent on a synthetic loss surface.*
-
-Machine learning looks intimidating from the outside mostly because of its notation. Strip away the symbols and the field rests on a compact stack of mathematics: the language of sets and functions; algebra and logarithms; the calculus of change (derivatives) and accumulation (integrals); the algebra of vectors and matrices; the logic of probability; and the discipline of optimization. The stack begins with elementary notation and connects each piece to its later applications in the book.
-
-The chapter assumes only that you once learned high-school algebra and are willing to work examples by hand — nothing more. It does not assume you remember any of it. Concepts are introduced in the same order they build on one another: first the notation for reading equations aloud (0.1), then numbers, algebra, and logarithms (0.2) and the catalog of functions machine learning actually uses (0.3); sums and counting (0.4) and the trigonometry behind Fourier features and attention (0.5); single-variable calculus (0.6–0.8) and its multivariable extension — gradients, Jacobians, Hessians — that powers every optimizer and neural network (0.9); the linear algebra of vectors, matrices, and their eigen- and singular-value decompositions (0.10–0.12); the foundations of probability (0.13); optimization and gradient descent (0.14); the discrete mathematics and complexity behind algorithms (0.15); and the numerical realities of computing with finite-precision arithmetic (0.16). Section 0.17 collects a notation glossary and a table mapping each topic to the chapters that depend on it.
-
-Two habits make this chapter pay off. First, work every numeric example with pen and paper; the intermediate steps are printed precisely so you can check yourself. Second, treat the chapter as a reference, not a gate — each concept carries a “→ Used in Chapter N” pointer, so when a later chapter invokes a gradient, an eigenvector, or Bayes’ theorem, you can return here for a full, self-contained treatment. You do not need to master all of it before Chapter 1; you need to know it is here.
+Machine learning models rest on linear algebra, multivariable calculus, probability, and numerical optimization. This chapter provides the mathematical foundations required to evaluate clinical algorithms and read formal specifications with precision.
 
 ## Mathematical Roadmap and Reference Structure
 

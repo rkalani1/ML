@@ -1,20 +1,7 @@
 # Chapter 16. Concepts and Challenges of Working with Data
 
+Real-world deployment success depends primarily on data quality, handling missingness, resolving label noise, mitigating selection bias, and addressing temporal and site distribution shifts.
 
-
-
-## Opening
-
-Missing NIHSS, duplicated MRNs, label drift after a documentation change—this is the real curriculum of clinical ML. Architecture papers rarely fail first; data pipelines do.
-
-
-![Data challenges often reduce to time and shift.](../assets/figures/ml_fig_leakage_timeline.png)
-
-*Data challenges often reduce to time and shift.*
-
-![Distribution shift between cohorts.](../assets/figures/ml_fig_site_shift.png)
-
-*Distribution shift between cohorts.*
 ## 16.1 Why Data—Not Algorithms—Usually Dominate Outcomes
 
 Across this textbook we have studied models: linear predictors, trees, neural networks, reinforcement learners, compressed edge models, and graph algorithms. In clinical and epidemiologic practice, the binding constraint is almost always the data. Labels are delayed, partial, and disputed; cohorts are selected by who arrives where with which insurance; scanners and coding systems change mid-study; the distribution at deployment is not the distribution in last year’s export. A modest model on carefully defined, well-labeled, prospectively monitored data routinely outperforms a fashionable architecture on a silent mess.

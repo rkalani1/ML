@@ -1,16 +1,7 @@
 # Chapter 8. Regression Analysis
 
+Regression analysis models continuous outcome targets as functions of input features, establishing baseline linear predictors, error metrics, residual diagnostics, and regularized estimation techniques.
 
-
-
-## Opening
-
-A lab wants to regress 90-day mRS from admission labs. Linear models still discipline thinking about targets, residuals, and collinearity before anyone reaches for a neural net.
-
-
-![Reliability of numeric predictions matters as much as fit.](../assets/figures/ml_fig_calibration.png)
-
-*Reliability of numeric predictions matters as much as fit.*
 ## Loss, Cost, and Objective Functions
 
 Supervised learning fits a parametric mapping f(x; θ) from features x to a target y by optimizing a numerical criterion. Terminology varies across communities, but a useful distinction is: a loss ℓ(y, f(x; θ)) measures error on a single example; a cost (or empirical risk) averages loss over a training set, J(θ) = (1/n) ∑_i ℓ(y_i, f(x_i; θ)); an objective may add regularization, constraints, or priors, e.g. J(θ) + λ R(θ). Training solves θ̂ = argmin_θ of that objective (or a stochastic approximation thereof).

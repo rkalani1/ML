@@ -1,16 +1,7 @@
 # Chapter 10. Neural Networks and Deep Learning
 
+Deep neural networks compose hierarchical nonlinear representations, optimizing multi-layer architectures via backpropagation while addressing capacity control and generalization bounds.
 
-
-
-## Opening
-
-A vendor demo animates a CNN highlighting an infarct core. Deep learning can extract hierarchical image features; it can also memorize scanner fingerprints. The relevant vocabulary distinguishes genuine hierarchical feature extraction from scanner-fingerprint memorization.
-
-
-![Simple multilayer network diagram.](../assets/figures/ml_fig_mlp.png)
-
-*Simple multilayer network diagram.*
 ## 10.1 Universal Approximation and the Path to Deep Learning
 
 Linear and generalized linear models map features through a single affine transformation before a link function. Neural networks deepen this idea: they compose many affine maps with elementwise nonlinearities, allowing hierarchical feature construction. Early layers often capture local or generic structure; later layers capture task-specific abstractions. Deep learning emphasizes learning these representations from data end-to-end with gradient-based optimization rather than handcrafting every feature. The price is data hunger, computational cost, and a larger surface area for overfitting, leakage, and brittle deployment.

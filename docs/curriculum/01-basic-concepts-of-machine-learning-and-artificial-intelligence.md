@@ -1,23 +1,7 @@
 # Chapter 1. Basic Concepts of Machine Learning and Artificial Intelligence
 
+Machine learning formalizes pattern recognition through statistical estimation, categorizing learning paradigms into supervised, unsupervised, and reinforcement methods while enforcing a strict boundary between predictive inference and causal inference.
 
-
-
-## Opening
-
-An overnight resident asks whether ‘AI’ can rule out stroke on non-contrast CT. Before architecture debates begin, this chapter forces the supervised vs unsupervised vs reinforcement taxonomy and the prediction-versus-causation boundary that stroke teams violate most often.
-
-![Learning curves: model error versus training-set size.](../assets/figures/ml_fig_learning_curves.png)
-
-*More labeled data lowers error with diminishing returns; where the curve flattens signals whether more data or a better model is the binding constraint.*
-
-![Supervised versus unsupervised learning paths.](../assets/figures/ml_fig_supervised_unsupervised_map.png)
-
-*Supervised learning fits labeled targets; unsupervised learning finds structure without labels—match the paradigm to the question, not to tool familiarity.*
-
-![Train, validation, and test split along a clinical timeline.](../assets/figures/ml_fig_train_val_test.png)
-
-*Split along the clinical timeline so training never sees the future: fit on the past, tune on a held-out slice, and report once on untouched later data.*
 ## Definitions and Scope
 
 Machine learning (ML) is the engineering practice of writing programs that improve task performance by processing data, rather than by hand-coding every decision rule. Artificial intelligence (AI) is the broader scientific and engineering project of building systems that perform tasks associated with intelligent behavior—perception, language, planning, and decision-making under uncertainty. Data science sits at the intersection of statistics, computing, and domain expertise, emphasizing measurement, data quality, analysis, and communication of uncertainty to decision-makers. Data mining historically names the discovery of patterns in large databases, often with an emphasis on scalable algorithms for association, clustering, and anomaly detection. These labels overlap heavily in practice, but confusing them produces bad project design: you may train a fashionable neural network when you needed a measurement plan, or you may build a dashboard when you needed a learning algorithm that generalizes.

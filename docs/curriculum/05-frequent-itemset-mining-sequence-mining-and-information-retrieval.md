@@ -1,17 +1,7 @@
 # Chapter 5. Frequent Itemset Mining, Sequence Mining, and Information Retrieval
 
-## Opening
+Frequent itemset mining, sequence analysis, and information retrieval extract combinatorial patterns, temporal event sequences, and relevant documents from discrete relational and textual datasets.
 
-A claims-analysis team wants frequent co-prescription patterns after TIA and a simple retrieval system for similar prior cases. Itemsets and sequences are powerful; they are also experts at encoding practice fashion as ‘knowledge.’
-
-
-![Support, confidence, and lift for the chapter’s five-transaction toy basket.](../assets/figures/ml_fig_association_rules.png)
-
-*Association-rule metrics from the worked example: confidence is not lift.*
-
-![Pattern mining sits on the unsupervised exploration path.](../assets/figures/ml_fig_supervised_unsupervised_map.png)
-
-*Pattern mining sits on the unsupervised exploration path.*
 ## From Co-occurrence to Knowledge
 
 Unsupervised learning is not only about partitioning continuous points. Many datasets are discrete collections: items purchased together, events ordered in time, or words appearing in documents. Frequent itemset mining, sequence mining, and information retrieval (IR) extract structure from such collections without requiring class labels. They answer: Which items tend to appear together? Which ordered patterns repeat? Which documents are relevant to a query?

@@ -1,12 +1,7 @@
 # Chapter 11. Self-Supervised Deep Learning
 
-## Opening
+Self-supervised learning leverages structural pretext tasks on unlabeled data to learn transferable representations for downstream fine-tuning under limited label availability.
 
-Labeled stroke images are scarce; unlabeled scans are abundant. Self-supervised pretraining looks attractive until domain shift between scanners and protocols is measured. Read this before believing ‘we barely needed labels.’
-
-![Self-supervised pretrain then supervised fine-tune pipeline.](../assets/figures/ml_fig_pretrain_finetune.png)
-
-*Pretrain on abundant unlabeled scans, then fine-tune on the scarce labeled endpoint—an advantage only if pretraining and evaluation patients stay disjoint and domain shift is measured.*
 ## 11.1 Representation Learning Concepts
 
 Labeled medical data are expensive; unlabeled scans, waveforms, and notes are abundant. Self-supervised learning (SSL) constructs pretext tasks from the structure of unlabeled inputs—predicting masked parts, contrasting augmented views, or modeling data density—so that learned representations transfer to downstream supervised tasks with fewer labels. The chapter surveys classical energy-based and autoencoding methods, adversarial generators, contrastive metric learning, and modern multimodal text-to-image systems that combine these ideas at scale. Throughout, keep a clinical ledger: what was unlabeled, what pretext was optimized, what downstream endpoint was pre-specified, and whether patients in pretraining could appear in evaluation.

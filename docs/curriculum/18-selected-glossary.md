@@ -1,47 +1,6 @@
 # Chapter 18. Selected Glossary
 
-## Opening
-![Train / validation / test vocabulary.](../assets/figures/ml_fig_split_vocab.png)
-
-*Train / validation / test vocabulary.*
-
-![Discrimination, calibration, and utility.](../assets/figures/ml_fig_eval_triangle.png)
-
-*Discrimination, calibration, and utility.*
-
-
-![Metric families: discrimination, calibration, utility.](../assets/figures/ml_fig_metric_map.png)
-
-*Teaching map: AUC ranks; calibration checks probability honesty; utility asks whether acting on a threshold helps.*
-
-![Appraisal orientation graphic.](../assets/figures/ml_fig_appraisal_scorecard.png)
-
-*Teaching orientation for metrics and appraisal terms.*
-
-![Glossary term families — teaching taxonomy.](../assets/figures/ml_fig_glossary_families.png)
-
-*Six term families: paradigms, mechanics, evaluation, data/time, causal caution, deploy/govern.*
-
-<figure class="teaching-figure ppv-responsive-figure">
-  <a class="figure-zoom" href="../assets/figures/ml_fig_ppv_prevalence.svg" title="Open full-resolution figure">
-    <picture>
-      <source media="(max-width: 600px)" srcset="../assets/figures/ml_fig_ppv_prevalence_mobile.svg" width="600" height="900">
-      <img src="../assets/figures/ml_fig_ppv_prevalence.svg" alt="PPV curve for a screen with sensitivity 0.85 and specificity 0.70: PPV is 13.0% at 5% prevalence and 41.5% at 20% prevalence." width="1000" height="650" loading="lazy" decoding="async">
-    </picture>
-  </a>
-  <figcaption>PPV of a fixed screen (sens 0.85, spec 0.70) collapses as prevalence falls — LR+ travels; PPV does not.<span class="figure-zoom-hint" aria-hidden="true">Open full resolution ↗</span></figcaption>
-</figure>
-
-![The accuracy trap under class imbalance.](../assets/figures/ml_fig_accuracy_trap.png)
-
-*Accuracy can look excellent while sensitivity collapses under low prevalence — report sens/spec/PPV at the decision threshold.*
-
-![Reliability diagram and ECE for calibrated vs miscalibrated scores.](../assets/figures/ml_fig_reliability_ece.png)
-
-*Figure — Reliability diagram on one synthetic low-prevalence risk cohort. Points on the diagonal are honest probabilities; overconfident models bow above/below the line and inflate expected calibration error (ECE = Σ (n_b/n)·|obs_b − conf_b|). Score histograms (right) show overconfidence piling mass at the extremes. Calibration is a distinct claim from AUC.*
-
-
-Journal club language collapses when people use ‘AI,’ ‘algorithm,’ and ‘model’ interchangeably. The glossary is a shared lexicon for stroke services that want precise disagreement rather than vague awe.
+This glossary provides standardized definitions for core machine learning, epidemiologic, and statistical terms, establishing a precise lexicon for methodology and appraisal.
 
 Activation function. A nonlinear transform applied to a neuron’s weighted input; without it a stack of layers would collapse into a single linear map.
 

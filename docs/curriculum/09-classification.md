@@ -1,20 +1,7 @@
 # Chapter 9. Classification
 
+Classification maps input features to discrete class labels or calibrated decision probabilities, evaluating performance through decision thresholds, confusion matrices, ROC/PR curves, and cost-sensitive trade-offs.
 
-
-
-## Opening
-![Confusion matrix with synthetic counts.](../assets/figures/ml_fig_confusion_annotated.png)
-
-*Confusion matrix with synthetic counts.*
-
-
-A binary classifier flags LVO on CTA with impressive accuracy in the training center. Classification literacy means thresholds, class imbalance, costs of false negatives on the stroke pathway, and external validation—not leaderboard ego.
-
-
-![Confusion matrix and ROC for a synthetic classifier.](../assets/figures/ml_fig_confusion_roc.png)
-
-*Confusion matrix and ROC for a synthetic classifier.*
 ## 9.1 The Classification Problem
 
 Classification is supervised learning with a discrete target. Given training pairs (x_i, y_i) where x_i lives in a feature space X and y_i belongs to a finite label set Y = {1, …, K}, the goal is to learn a function f: X → Y that assigns labels to new inputs. When K = 2 we speak of binary classification; when K > 2 we speak of multiclass classification. Multilabel problems allow several labels to be active simultaneously and are usually reduced to collections of binary problems or modeled with structured outputs. Throughout this chapter we emphasize mutually exclusive classes unless multilabel is stated.
