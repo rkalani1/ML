@@ -250,6 +250,16 @@ Viterbi algorithm. A dynamic-programming procedure that finds the single most pr
 
 Synthetic reminder: identical sensitivity/specificity can yield very different PPV in a rare-disease clinic versus a case-enriched research sample.
 
+<figure class="teaching-figure ppv-responsive-figure">
+  <a class="figure-zoom" href="../assets/figures/ml_fig_ppv_prevalence.svg" title="Open full-resolution figure">
+    <picture>
+      <source media="(max-width: 600px)" srcset="../assets/figures/ml_fig_ppv_prevalence_mobile.svg" width="600" height="900">
+      <img src="../assets/figures/ml_fig_ppv_prevalence.svg" alt="PPV curve for a screen with sensitivity 0.85 and specificity 0.70: PPV is 13.0% at 5% prevalence and 41.5% at 20% prevalence." width="1000" height="650" loading="lazy" decoding="async">
+    </picture>
+  </a>
+  <figcaption>Scientific recompute of the same claim: at π=0.20, PPV≈0.41; at π=0.05, PPV≈0.13.<span class="figure-zoom-hint" aria-hidden="true">Open full resolution ↗</span></figcaption>
+</figure>
+
 ## Prevalence → PPV quick reference (teaching table)
 
 Fixed screen: **sensitivity = 0.85**, **specificity = 0.70** (LR+ ≈ 2.83). Formula: \(\mathrm{PPV} = \frac{\mathrm{sens}\cdot\pi}{\mathrm{sens}\cdot\pi + (1-\mathrm{spec})(1-\pi)}\).
