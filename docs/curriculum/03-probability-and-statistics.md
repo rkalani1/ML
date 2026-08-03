@@ -1,5 +1,10 @@
 # Chapter 3. Probability and Statistics
 
+![Predicted risk versus observed frequency.](../assets/figures/ml_fig_calibration.png)
+
+*Predicted risk versus observed frequency.*
+
+
 Probability theory provides the mathematical foundation for quantifying uncertainty, formulating likelihoods, applying Bayes' theorem under clinical prevalence, and evaluating model calibration.
 
 ## Why Probability Underwrites Clinical Machine Learning

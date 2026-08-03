@@ -1,5 +1,40 @@
 # Chapter 17. Closing Synthesis: Senior Practice in Clinical Neurology and Epidemiology
 
+![One-paragraph senior synthesis habit.](../assets/figures/ml_fig_one_paragraph.png)
+
+*One-paragraph senior synthesis habit.*
+
+
+![Three poles of model evaluation.](../assets/figures/ml_fig_eval_triangle.png)
+
+*Three poles of model evaluation.*
+
+
+![Teaching scorecard for model appraisal.](../assets/figures/ml_fig_appraisal_scorecard.png)
+
+*Teaching scorecard for model appraisal.*
+
+
+![Discrimination vs calibration vs utility.](../assets/figures/ml_fig_metric_map.png)
+
+*Closing reminder: ranking, reliability, and decision value are distinct claims.*
+
+
+![Senior practice lifecycle — design to drift.](../assets/figures/ml_fig_lifecycle_deploy.png)
+
+*Lifecycle habit: design index time → fit → external validate → calibrate/utility → deploy with a model card → monitor drift.*
+
+
+![Decision curve: net benefit vs threshold.](../assets/figures/ml_fig_decision_curve.png)
+
+*Net benefit is threshold-specific. A model can dominate treat-all/none on a range and still fail outside it.*
+
+
+![Full senior ML appraisal checklist flowchart.](../assets/figures/ml_fig_appraisal_checklist.png)
+
+*Figure — Eleven-gate appraisal flow for clinical prediction systems: question fit → index/legality → leakage → cohort/label → fit/capacity → discrimination → calibration → utility → external test → deploy card → drift monitor. Skip a gate only with a written reason. Prediction success never licenses a causal claim or sole-trigger withdrawal of care.*
+
+
 Senior practice in clinical machine learning requires synthesizing model design, data generation, rigorous evaluation across discrimination, calibration, and utility, and ongoing monitoring for distribution shift.
 
 ## Disciplines that recur across every chapter

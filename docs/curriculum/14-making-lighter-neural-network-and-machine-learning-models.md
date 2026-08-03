@@ -1,5 +1,15 @@
 # Chapter 14. Making Lighter Neural Network and Machine Learning Models
 
+![Distill/prune teaching sketch.](../assets/figures/ml_fig_distill_prune.png)
+
+*Distill/prune teaching sketch.*
+
+
+![Smaller deployed nets still need appraisal discipline.](../assets/figures/ml_fig_mlp.png)
+
+*Smaller deployed nets still need appraisal discipline.*
+
+
 Model compression reduces computational footprint and latency for edge deployment via quantization, knowledge distillation, structured pruning, and low-rank approximation.
 
 ## 14.1 Why Lighter Models Matter

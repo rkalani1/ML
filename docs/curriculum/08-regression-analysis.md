@@ -1,5 +1,10 @@
 # Chapter 8. Regression Analysis
 
+![Reliability of numeric predictions matters as much as fit.](../assets/figures/ml_fig_calibration.png)
+
+*Reliability of numeric predictions matters as much as fit.*
+
+
 Regression analysis models continuous outcome targets as functions of input features, establishing baseline linear predictors, error metrics, residual diagnostics, and regularized estimation techniques.
 
 ## Loss, Cost, and Objective Functions

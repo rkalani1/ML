@@ -1,5 +1,10 @@
 # Chapter 7. Dimensionality Reduction and Data Decomposition
 
+![Dimensionality reduction intuition along a dominant axis.](../assets/figures/ml_fig_pca.png)
+
+*Dimensionality reduction intuition along a dominant axis.*
+
+
 High-dimensional datasets introduce sparsity and overfitting risks. Dimensionality reduction techniques project feature spaces onto lower-dimensional manifolds while preserving variance, geometry, or latent factor structure.
 
 ## High Dimensions Are Not Just More Numbers

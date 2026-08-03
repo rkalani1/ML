@@ -1,5 +1,10 @@
 # Chapter 0. Mathematical Foundations for Machine Learning
 
+![Gradient descent on a synthetic loss surface.](../assets/figures/ml_fig_gradient_descent.png)
+
+*Gradient descent on a synthetic loss surface.*
+
+
 Machine learning models rest on linear algebra, multivariable calculus, probability, and numerical optimization. This chapter provides the mathematical foundations required to evaluate clinical algorithms and read formal specifications with precision.
 
 ## Mathematical Roadmap and Reference Structure

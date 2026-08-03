@@ -1,5 +1,15 @@
 # Chapter 16. Concepts and Challenges of Working with Data
 
+![Data challenges often reduce to time and shift.](../assets/figures/ml_fig_leakage_timeline.png)
+
+*Data challenges often reduce to time and shift.*
+
+
+![Distribution shift between cohorts.](../assets/figures/ml_fig_site_shift.png)
+
+*Distribution shift between cohorts.*
+
+
 Real-world deployment success depends primarily on data quality, handling missingness, resolving label noise, mitigating selection bias, and addressing temporal and site distribution shifts.
 
 ## 16.1 Why Data—Not Algorithms—Usually Dominate Outcomes

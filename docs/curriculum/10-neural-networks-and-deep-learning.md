@@ -1,5 +1,10 @@
 # Chapter 10. Neural Networks and Deep Learning
 
+![Simple multilayer network diagram.](../assets/figures/ml_fig_mlp.png)
+
+*Simple multilayer network diagram.*
+
+
 Deep neural networks compose hierarchical nonlinear representations, optimizing multi-layer architectures via backpropagation while addressing capacity control and generalization bounds.
 
 ## 10.1 Universal Approximation and the Path to Deep Learning

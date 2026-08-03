@@ -1,5 +1,10 @@
 # Chapter 13. Reinforcement Learning
 
+![Agent–environment loop for sequential decisions.](../assets/figures/ml_fig_rl_loop.png)
+
+*Agent–environment loop for sequential decisions.*
+
+
 Reinforcement learning formalizes sequential decision-making under uncertainty through Markov decision processes, optimizing policy functions to maximize long-term cumulative reward.
 
 ## 13.1 From Supervised Labels to Sequential Decisions

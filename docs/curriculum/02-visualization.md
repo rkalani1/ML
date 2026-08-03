@@ -1,5 +1,15 @@
 # Chapter 2. Visualization
 
+![Visualization hygiene.](../assets/figures/ml_fig_viz_hygiene.png)
+
+*Clear baseline versus truncated axis.*
+
+
+![Calibration view as a visual truth check.](../assets/figures/ml_fig_calibration.png)
+
+*Calibration view as a visual truth check.*
+
+
 Data and model visualization serves as a primary diagnostic for data quality, distribution shift, missingness, and calibration, transforming complex high-dimensional distributions and evaluation metrics into actionable visual checks.
 
 ## Background and History

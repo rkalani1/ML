@@ -1,5 +1,10 @@
 # Chapter 4. Clustering
 
+![Clustering sketch with centroids.](../assets/figures/ml_fig_clustering.png)
+
+*Clustering sketch with centroids.*
+
+
 Clustering algorithms partition unlabelled data points into groups based on similarity metrics, providing exploratory data analysis while requiring rigorous validation to distinguish genuine structure from artifactual noise.
 
 ## What Clustering Is and Is Not

@@ -1,5 +1,20 @@
 # Chapter 12. Deep Learning Models and Applications for Text, Vision, and Audio
 
+![Self-attention weights for the three-token worked example.](../assets/figures/ml_fig_attention.png)
+
+*Scaled dot-product self-attention α and context vector for q=t₁.*
+
+
+![Deep models compose layered representations.](../assets/figures/ml_fig_mlp.png)
+
+*Deep models compose layered representations.*
+
+
+![Site shift in embedding space.](../assets/figures/ml_fig_site_shift.png)
+
+*Site shift in embedding space.*
+
+
 Multimodal deep learning integrates vision, natural language, and acoustic signals using specialized architectures—including convolutional networks, recurrent cells, transformers, and cross-modal attention layers.
 
 ## 12.1 Sequence-to-Sequence and Attention

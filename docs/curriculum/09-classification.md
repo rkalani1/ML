@@ -1,5 +1,15 @@
 # Chapter 9. Classification
 
+![Confusion matrix with synthetic counts.](../assets/figures/ml_fig_confusion_annotated.png)
+
+*Confusion matrix with synthetic counts.*
+
+
+![Confusion matrix and ROC for a synthetic classifier.](../assets/figures/ml_fig_confusion_roc.png)
+
+*Confusion matrix and ROC for a synthetic classifier.*
+
+
 Classification maps input features to discrete class labels or calibrated decision probabilities, evaluating performance through decision thresholds, confusion matrices, ROC/PR curves, and cost-sensitive trade-offs.
 
 ## 9.1 The Classification Problem

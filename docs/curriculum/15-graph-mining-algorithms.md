@@ -1,5 +1,15 @@
 # Chapter 15. Graph Mining Algorithms
 
+![Toy patient-similarity graph.](../assets/figures/ml_fig_graph_toy.png)
+
+*Toy patient-similarity graph.*
+
+
+![Graph/embedding geometry can drift across sites.](../assets/figures/ml_fig_site_shift.png)
+
+*Graph/embedding geometry can drift across sites.*
+
+
 Graph mining extracts structural signals from non-Euclidean relational data, using network topology, centrality metrics, spectral graph theory, and graph neural networks to model complex entity relationships.
 
 ## 15.1 What Is a Graph?

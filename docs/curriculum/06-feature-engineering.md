@@ -1,5 +1,25 @@
 # Chapter 6. Feature Engineering
 
+![Feature legality at index time.](../assets/figures/ml_fig_feature_legality.png)
+
+*Feature legality at index time.*
+
+
+![Feature pipeline: raw → impute → encode → scale → select → model.](../assets/figures/ml_fig_feature_pipeline.png)
+
+*Every transform is fit on the training fold only, then frozen for validation/test.*
+
+
+![Feature timing versus prediction time — leakage trap.](../assets/figures/ml_fig_leakage_timeline.png)
+
+*Feature timing versus prediction time — leakage trap.*
+
+
+![Preprocessing fit-on-train discipline vs full-cohort leakage.](../assets/figures/ml_fig_preprocess_fit_split.png)
+
+*Figure — Honest preprocessing. Wrong (top): imputer, scaler, vocabulary, and selector statistics are fit on the entire cohort, so validation and test rows leak into the fitted transforms. Right (bottom): fit μ, σ, imputer, and vocabulary on the training segment only, freeze those objects, and apply transform-only to validation and test. Nested cross-validation re-fits the same objects inside each training fold. Timing leakage (post-decision codes) and fit leakage (global statistics) are different failure modes—both invalidate reported performance.*
+
+
 Feature engineering transforms raw clinical signals into structured representations through imputation, encoding, scaling, and selection, enforcing strict temporal index-time legality to prevent data leakage.
 
 ## Basic Concepts of Feature Engineering

@@ -1,5 +1,10 @@
 # Chapter 11. Self-Supervised Deep Learning
 
+![Self-supervised pretrain then supervised fine-tune pipeline.](../assets/figures/ml_fig_pretrain_finetune.png)
+
+*Pretrain on abundant unlabeled scans, then fine-tune on the scarce labeled endpoint—an advantage only if pretraining and evaluation patients stay disjoint and domain shift is measured.*
+
+
 Self-supervised learning leverages structural pretext tasks on unlabeled data to learn transferable representations for downstream fine-tuning under limited label availability.
 
 ## 11.1 Representation Learning Concepts

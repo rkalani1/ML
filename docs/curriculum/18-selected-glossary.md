@@ -1,5 +1,40 @@
 # Chapter 18. Selected Glossary
 
+![Train / validation / test vocabulary.](../assets/figures/ml_fig_split_vocab.png)
+
+*Train / validation / test vocabulary.*
+
+
+![Discrimination, calibration, and utility.](../assets/figures/ml_fig_eval_triangle.png)
+
+*Discrimination, calibration, and utility.*
+
+
+![Metric families: discrimination, calibration, utility.](../assets/figures/ml_fig_metric_map.png)
+
+*Teaching map: AUC ranks; calibration checks probability honesty; utility asks whether acting on a threshold helps.*
+
+
+![Appraisal orientation graphic.](../assets/figures/ml_fig_appraisal_scorecard.png)
+
+*Teaching orientation for metrics and appraisal terms.*
+
+
+![Glossary term families — teaching taxonomy.](../assets/figures/ml_fig_glossary_families.png)
+
+*Six term families: paradigms, mechanics, evaluation, data/time, causal caution, deploy/govern.*
+
+
+![The accuracy trap under class imbalance.](../assets/figures/ml_fig_accuracy_trap.png)
+
+*Accuracy can look excellent while sensitivity collapses under low prevalence — report sens/spec/PPV at the decision threshold.*
+
+
+![Reliability diagram and ECE for calibrated vs miscalibrated scores.](../assets/figures/ml_fig_reliability_ece.png)
+
+*Figure — Reliability diagram on one synthetic low-prevalence risk cohort. Points on the diagonal are honest probabilities; overconfident models bow above/below the line and inflate expected calibration error (ECE = Σ (n_b/n)·|obs_b − conf_b|). Score histograms (right) show overconfidence piling mass at the extremes. Calibration is a distinct claim from AUC.*
+
+
 This glossary provides standardized definitions for core machine learning, epidemiologic, and statistical terms, establishing a precise lexicon for methodology and appraisal.
 
 Activation function. A nonlinear transform applied to a neuron’s weighted input; without it a stack of layers would collapse into a single linear map.

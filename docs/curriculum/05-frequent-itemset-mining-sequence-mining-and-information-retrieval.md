@@ -1,5 +1,15 @@
 # Chapter 5. Frequent Itemset Mining, Sequence Mining, and Information Retrieval
 
+![Support, confidence, and lift for the chapter’s five-transaction toy basket.](../assets/figures/ml_fig_association_rules.png)
+
+*Association-rule metrics from the worked example: confidence is not lift.*
+
+
+![Pattern mining sits on the unsupervised exploration path.](../assets/figures/ml_fig_supervised_unsupervised_map.png)
+
+*Pattern mining sits on the unsupervised exploration path.*
+
+
 Frequent itemset mining, sequence analysis, and information retrieval extract combinatorial patterns, temporal event sequences, and relevant documents from discrete relational and textual datasets.
 
 ## From Co-occurrence to Knowledge

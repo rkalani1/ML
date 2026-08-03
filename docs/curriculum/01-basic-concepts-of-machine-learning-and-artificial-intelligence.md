@@ -1,5 +1,20 @@
 # Chapter 1. Basic Concepts of Machine Learning and Artificial Intelligence
 
+![Learning curves: model error versus training-set size.](../assets/figures/ml_fig_learning_curves.png)
+
+*More labeled data lowers error with diminishing returns; where the curve flattens signals whether more data or a better model is the binding constraint.*
+
+
+![Supervised versus unsupervised learning paths.](../assets/figures/ml_fig_supervised_unsupervised_map.png)
+
+*Supervised learning fits labeled targets; unsupervised learning finds structure without labels—match the paradigm to the question, not to tool familiarity.*
+
+
+![Train, validation, and test split along a clinical timeline.](../assets/figures/ml_fig_train_val_test.png)
+
+*Split along the clinical timeline so training never sees the future: fit on the past, tune on a held-out slice, and report once on untouched later data.*
+
+
 Machine learning formalizes pattern recognition through statistical estimation, categorizing learning paradigms into supervised, unsupervised, and reinforcement methods while enforcing a strict boundary between predictive inference and causal inference.
 
 ## Definitions and Scope
